@@ -16,6 +16,7 @@
 
 ## Build, Test, and Development Commands
 
+- On Windows, run all commands from WSL (e.g., `wsl.exe` shell) so paths and tooling match CI. On Unix-like systems, use the default shell.
 - Use Maven wrappers in `service/tournamentmgmt/`
   - Full build, test, and package: `./mvnw clean verify`
   - Iterative test: `./mvnw test`
