@@ -14,12 +14,7 @@ import { RollingRibbon } from '../../shared/components/rolling-ribbon/rolling-ri
 export class Sidenav {
   sidebarExpanded = true
 
-  systemMessages: string[] = [
-    'Welcome to RallyOn',
-    'Organize tournaments with ease',
-    'Manage your events efficiently',
-    'Stay connected with your team'
-  ]
+  systemMessages: string[] = ['Keep Calm and RallyOn!']
 
   toggleSidebar(): void {
     this.sidebarExpanded = !this.sidebarExpanded
