@@ -1,1 +1,24 @@
 // Shared, styled components that live outside Angular feature modules belong here.
+
+a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--p-primary-color, var(--rallyon-primary));
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--p-primary-hover-color, var(--rallyon-primary-dark));
+}

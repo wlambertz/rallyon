@@ -1,4 +1,4 @@
-<p-panel [showHeader]="false" class="flex flex-col justify-between">
+<p-panel [showHeader]="false" class="flex flex-col justify-between max-w-[25vw]">
   <div id="head" class="grid grid-cols-4">
     <div class="col-span-1 text-center">
       <p-button [outlined]="true" size="large" class="my-4" [pt]="{ root: { class: 'square-button' } }">
@@ -6,15 +6,20 @@
       </p-button>
     </div>
     <div class="col-span-3 flex items-center justify-center overflow-hidden">
+      <h1 class="text-xl font-doto font-bold">Keep Calm and RallyOn!</h1>
       <!-- Rolling Ribbon Component -->
-      <ro-rolling-ribbon [items]="systemMessages" [backgroundColor]="'transparent'"
+      <!-- <ro-rolling-ribbon [items]="systemMessages" [backgroundColor]="'transparent'"
         [textColor]="'primary-950'" [separator]="'|'" [animationDuration]="15"
-        class="text-xl"></ro-rolling-ribbon>
+        class="text-xl"></ro-rolling-ribbon> -->
     </div>
   </div>
   <div id="routs">
     <ul>
-      <li>some</li>
+      @for (route of baseRoutes; track route.label) {
+        <li>
+          <a href="{{ route.url }}">{{ route.label }}</a>
+        </li>
+      }
     </ul>
   </div>
   <div id="apps">

@@ -14,6 +14,9 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  angularBuilderOptions: {
+    styles: ['src/styles.scss'],
+  },
   webpackFinal: async (baseConfig) => {
     const webpackModule = await import('webpack')
     const DefinePlugin =
