@@ -24,7 +24,7 @@ const BUTTON_SEVERITIES: ButtonSeverity[] = [
   'contrast',
 ]
 
-type ButtonStoryArgs = {
+interface ButtonStoryArgs {
   label: string
   severity: ButtonSeverity
   size?: 'small' | 'large'

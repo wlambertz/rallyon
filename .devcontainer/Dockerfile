@@ -1,10 +1,10 @@
-FROM golang:1.25-bookworm AS go-toolchain
+FROM golang:1.25.8-bookworm AS go-toolchain
 
-FROM eclipse-temurin:25-jdk-jammy AS java-toolchain
+FROM eclipse-temurin:25.0.2_10-jdk-jammy AS java-toolchain
 
-FROM node:20-bookworm AS node-toolchain
+FROM node:20.20.1-bookworm AS node-toolchain
 
-FROM docker:27-cli AS docker-tooling
+FROM docker:27.5.1-cli AS docker-tooling
 
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 

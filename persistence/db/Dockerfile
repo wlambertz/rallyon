@@ -1,4 +1,4 @@
-FROM postgres:17
+FROM postgres:17.9
 
 # Set default database credentials for local development
 ENV POSTGRES_DB=rallyon \
