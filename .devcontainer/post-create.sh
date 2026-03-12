@@ -8,8 +8,7 @@ cd "$repo_root"
 npm ci
 npm ci --prefix application/organizer
 
-chmod +x service/tournamentmgmt/mvnw
-./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install
+sh ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install
 
 mkdir -p bin
 (
