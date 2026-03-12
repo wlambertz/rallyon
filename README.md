@@ -46,6 +46,27 @@ Der Organizer-Client befindet sich in `application/organizer/` und wird mit Angu
 
 Die Skripte rufen intern die jeweiligen Kommandos im Unterprojekt auf, sodass nichts am Arbeitsverzeichnis gewechselt werden muss.
 
+## Dev Container
+
+Für eine konsistente lokale Umgebung gibt es eine Dev-Container-Konfiguration in `.devcontainer/`.
+Der Container enthält Java 25, Node.js 20, Go 1.25, Docker CLI mit Host-Docker-Zugriff, Google Chrome für
+`ChromeHeadless`/Playwright, den PostgreSQL-Client sowie `@openai/codex` als globales npm-Paket.
+
+- Voraussetzung auf dem Host: Docker bzw. Docker Desktop mit verfügbarem `/var/run/docker.sock`.
+- Beim ersten Erstellen des Containers werden Root- und Organizer-NPM-Abhängigkeiten installiert, die lokalen IAM-
+  Maven-Module gebaut und die Go-CLI `ro` nach `bin/ro` kompiliert.
+- Infrastruktur bleibt explizit manuell startbar, damit der Container schnell und reproduzierbar hochfährt.
+
+Typische Befehle im Container:
+
+```bash
+ro doctor
+ro app start organizer
+ro run service tournamentmgmt --env local --port 8080
+docker compose -f infrastructure/local/docker-compose.yml up -d keycloak tournamentmgmt-db
+npm run organizer:test:ci
+```
+
 ## API-Dokumentation
 
 - **Swagger UI**: [Swagger UI (localhost)](http://localhost:8080/swagger-ui/index.html)

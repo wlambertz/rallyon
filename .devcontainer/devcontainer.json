@@ -1,0 +1,71 @@
+{
+  "name": "rallyon",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspaces/rallyon",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "forwardPorts": [4200, 8080, 8081, 5432],
+  "portsAttributes": {
+    "4200": {
+      "label": "Organizer UI",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Tournamentmgmt API",
+      "onAutoForward": "notify"
+    },
+    "8081": {
+      "label": "Keycloak",
+      "onAutoForward": "silent"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+  "containerEnv": {
+    "CHROME_BIN": "/usr/bin/google-chrome",
+    "PLAYWRIGHT_CHROME_BIN": "/usr/bin/google-chrome",
+    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
+  },
+  "remoteEnv": {
+    "PATH": "/workspaces/rallyon/bin:${containerEnv:PATH}"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postAttachCommand": "bash .devcontainer/post-attach.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-25",
+            "path": "/opt/java/openjdk",
+            "default": true
+          }
+        ],
+        "java.jdt.ls.java.home": "/opt/java/openjdk",
+        "maven.executable.path": "/workspaces/rallyon/service/tournamentmgmt/mvnw",
+        "maven.terminal.useJavaHome": true,
+        "go.toolsManagement.autoUpdate": true,
+        "editor.formatOnSave": true,
+        "files.eol": "\n"
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "vscjava.vscode-maven",
+        "angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "golang.go",
+        "ms-playwright.playwright"
+      ]
+    }
+  }
+}
