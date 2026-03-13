@@ -1,3 +1,7 @@
+@org.springframework.modulith.ApplicationModule(
+    id = "setup.rules",
+    type = org.springframework.modulith.ApplicationModule.Type.CLOSED
+)
 package dev.wlambertz.rallyon.tournamentmgmt.setup.rules;
 
 /**
@@ -11,6 +15,4 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.rules;
  *
  * This submodule provides a flexible rule engine for different
  * tournament formats and ensures fair play enforcement.
- *
-
  */

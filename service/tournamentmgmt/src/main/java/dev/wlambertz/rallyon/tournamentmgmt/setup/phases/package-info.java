@@ -1,3 +1,7 @@
+@org.springframework.modulith.ApplicationModule(
+    id = "setup.phases",
+    type = org.springframework.modulith.ApplicationModule.Type.CLOSED
+)
 package dev.wlambertz.rallyon.tournamentmgmt.setup.phases;
 
 /**
@@ -11,6 +15,4 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.phases;
  *
  * This submodule handles the lifecycle management of tournament phases
  * and ensures proper sequencing of tournament events.
- *
-
  */
