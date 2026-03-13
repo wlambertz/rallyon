@@ -5,10 +5,11 @@ import dev.wlambertz.rallyon.iam.keycloak.core.KeycloakPrincipalFactory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration;
+import org.springframework.boot.security.autoconfigure.web.servlet.ServletWebSecurityAutoConfiguration;
+import org.springframework.boot.security.oauth2.server.resource.autoconfigure.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,6 +24,7 @@ class KeycloakSecurityAutoConfigurationTest {
             )
             .withConfiguration(AutoConfigurations.of(
                     SecurityAutoConfiguration.class,
+                    ServletWebSecurityAutoConfiguration.class,
                     UserDetailsServiceAutoConfiguration.class,
                     OAuth2ResourceServerAutoConfiguration.class,
                     KeycloakSecurityAutoConfiguration.class
