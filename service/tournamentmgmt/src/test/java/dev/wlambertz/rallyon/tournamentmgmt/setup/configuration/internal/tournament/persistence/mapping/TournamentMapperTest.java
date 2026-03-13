@@ -2,6 +2,7 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tourna
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.BracketId;
@@ -19,6 +20,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentFo
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.InvalidDraftUpdateException;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketParticipantEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.CourtEntity;
@@ -181,5 +183,165 @@ class TournamentMapperTest {
         ParticipantsRoster roster = bracketRosters.get(new BracketId("main"));
         assertNotNull(roster);
         assertTrue(roster.playerIds().contains(2001L));
+    }
+
+    @Test
+    void applyDraftReplacementUpdatesScalarsAndOwnedCollections() {
+        Instant now = Instant.parse("2026-03-13T12:00:00Z");
+
+        TournamentEntity entity = new TournamentEntity();
+        entity.setVisibility(Visibility.PRIVATE);
+        entity.setName("Legacy Cup");
+
+        CourtEntity existingCourt = new CourtEntity();
+        existingCourt.setId(201L);
+        existingCourt.setTournament(entity);
+        existingCourt.setLabel("Legacy Court");
+        existingCourt.setAvailability(Court.Availability.AVAILABLE);
+        existingCourt.setType(Court.Type.STANDARD);
+        existingCourt.setSortOrder((short) 0);
+        entity.getCourts().add(existingCourt);
+
+        DisciplineEntity existingDiscipline = new DisciplineEntity();
+        existingDiscipline.setTournament(entity);
+        existingDiscipline.setDisciplineId(11L);
+        existingDiscipline.setCategory(Category.SINGLES);
+        existingDiscipline.setDisplayName("Legacy Singles");
+        existingDiscipline.setTeamSize(TeamSize.SINGLES);
+
+        BracketEntity existingBracket = new BracketEntity();
+        existingBracket.setDiscipline(existingDiscipline);
+        existingBracket.setBracketId("main");
+        existingBracket.setDisplayName("Legacy Main");
+        existingBracket.setFormat(TournamentFormat.SWISS);
+        existingDiscipline.getBrackets().add(existingBracket);
+        entity.getDisciplines().add(existingDiscipline);
+
+        ParticipantEntity preservedCategoryParticipant = new ParticipantEntity();
+        preservedCategoryParticipant.setTournament(entity);
+        preservedCategoryParticipant.setCategory(Category.MIXED);
+        preservedCategoryParticipant.setPlayerId(55L);
+        preservedCategoryParticipant.setAddedAt(now.minusSeconds(60));
+        preservedCategoryParticipant.setAddedByUserId(1L);
+        entity.getParticipants().add(preservedCategoryParticipant);
+
+        ParticipantEntity oldGeneralParticipant = new ParticipantEntity();
+        oldGeneralParticipant.setTournament(entity);
+        oldGeneralParticipant.setPlayerId(99L);
+        oldGeneralParticipant.setAddedAt(now.minusSeconds(60));
+        oldGeneralParticipant.setAddedByUserId(1L);
+        entity.getParticipants().add(oldGeneralParticipant);
+
+        BracketParticipantEntity oldBracketParticipant = new BracketParticipantEntity();
+        oldBracketParticipant.setBracket(existingBracket);
+        oldBracketParticipant.setPlayerId(77L);
+        oldBracketParticipant.setAddedAt(now.minusSeconds(60));
+        oldBracketParticipant.setAddedByUserId(1L);
+        existingBracket.getParticipants().add(oldBracketParticipant);
+
+        Tournament draftChanges = Tournament.builder()
+                .name("Updated Cup")
+                .visibility(Visibility.PUBLIC)
+                .description("Fresh description")
+                .locale(Locale.GERMANY)
+                .schedule(new TimeWindow(now.plusSeconds(3600), now.plusSeconds(7200)))
+                .registrationWindows(List.of(new TimeWindow(now, now.plusSeconds(1800))))
+                .venue(new Venue(
+                        "Olympic Arena",
+                        new Venue.Address("Main Street 1", "12345", "Berlin"),
+                        new Capacity(5000, Capacity.Unit.PEOPLE)))
+                .courts(List.of(
+                        new Court(201L, "Court A", Court.Availability.UNAVAILABLE, Court.Type.STANDARD),
+                        new Court(0L, "Court B", Court.Availability.AVAILABLE, Court.Type.SINGLES_ONLY)))
+                .disciplines(List.of(new DisciplineConfig(
+                        11L,
+                        Category.SINGLES,
+                        "Singles",
+                        TeamSize.SINGLES,
+                        List.of(new dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.BracketConfig(
+                                new BracketId("main"),
+                                "Main Draw",
+                                TournamentFormat.KO_POULE,
+                                new Capacity(32, Capacity.Unit.PARTICIPANTS))))))
+                .capacity(new Capacity(64, Capacity.Unit.PARTICIPANTS))
+                .registrationPolicy(RegistrationPolicy.OPEN)
+                .schedulingPolicy(SchedulingPolicy.MAX_PARALLEL_MATCHES)
+                .courtAllocationPolicy(CourtAllocationPolicy.SEQUENTIAL)
+                .seedingPolicy(SeedingPolicy.MANUAL)
+                .scoringRules(ScoringRules.twoByTwentyOne())
+                .tieBreakRules(TieBreakRules.headToHead())
+                .matchDurationPolicy(MatchDurationPolicy.FIXED_TIMEBOX)
+                .participants(new ParticipantsRoster(List.of(1001L, 1002L), null))
+                .bracketRosters(Map.of(new BracketId("main"), new ParticipantsRoster(List.of(3001L), null)))
+                .build();
+
+        mapper.applyDraftReplacement(entity, draftChanges, 42L, now);
+
+        assertEquals("Updated Cup", entity.getName());
+        assertEquals(Visibility.PUBLIC, entity.getVisibility());
+        assertEquals("de-DE", entity.getLocale());
+        assertEquals(now.plusSeconds(3600), entity.getScheduleStart());
+        assertEquals(1, entity.getRegistrationWindows().size());
+        assertEquals(2, entity.getCourts().size());
+        assertEquals(201L, entity.getCourts().get(0).getId());
+        assertEquals("Court A", entity.getCourts().get(0).getLabel());
+        assertEquals(1, entity.getDisciplines().size());
+        assertEquals("Singles", entity.getDisciplines().get(0).getDisplayName());
+        assertEquals(3, entity.getParticipants().size());
+        assertEquals(2, entity.getParticipants().stream().filter(participant -> participant.getCategory() == null).count());
+        assertEquals(1, entity.getDisciplines().get(0).getBrackets().get(0).getParticipants().size());
+        assertEquals(3001L, entity.getDisciplines().get(0).getBrackets().get(0).getParticipants().get(0).getPlayerId());
+    }
+
+    @Test
+    void applyDraftReplacementRejectsUnknownCourtId() {
+        TournamentEntity entity = new TournamentEntity();
+
+        InvalidDraftUpdateException exception = assertThrows(
+                InvalidDraftUpdateException.class,
+                () -> mapper.applyDraftReplacement(
+                        entity,
+                        Tournament.builder()
+                                .name("Updated Cup")
+                                .visibility(Visibility.PUBLIC)
+                                .courts(List.of(new Court(999L, "Court X", Court.Availability.AVAILABLE, Court.Type.STANDARD)))
+                                .build(),
+                        42L,
+                        Instant.parse("2026-03-13T12:00:00Z"))
+        );
+
+        assertEquals("Unknown court id '999'", exception.getMessage());
+    }
+
+    @Test
+    void applyDraftReplacementRejectsRosterModeMismatch() {
+        TournamentEntity entity = new TournamentEntity();
+
+        InvalidDraftUpdateException exception = assertThrows(
+                InvalidDraftUpdateException.class,
+                () -> mapper.applyDraftReplacement(
+                        entity,
+                        Tournament.builder()
+                                .name("Updated Cup")
+                                .visibility(Visibility.PUBLIC)
+                                .disciplines(List.of(new DisciplineConfig(
+                                        11L,
+                                        Category.DOUBLES,
+                                        "Doubles",
+                                        TeamSize.DOUBLES,
+                                        List.of(new dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.BracketConfig(
+                                                new BracketId("main"),
+                                                "Main Draw",
+                                                TournamentFormat.SWISS,
+                                                null)))))
+                                .bracketRosters(Map.of(
+                                        new BracketId("main"),
+                                        new ParticipantsRoster(List.of(3001L), null)))
+                                .build(),
+                        42L,
+                        Instant.parse("2026-03-13T12:00:00Z"))
+        );
+
+        assertEquals("Bracket roster 'main' must use teamIds for doubles disciplines", exception.getMessage());
     }
 }

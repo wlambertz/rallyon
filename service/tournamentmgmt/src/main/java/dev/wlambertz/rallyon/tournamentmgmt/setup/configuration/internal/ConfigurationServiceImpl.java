@@ -21,6 +21,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.SeedingPolicy;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules;
 import org.springframework.stereotype.Service;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase;
 
 import java.time.Instant;
 import java.util.List;
@@ -32,9 +33,11 @@ import java.util.Set;
 public class ConfigurationServiceImpl implements ConfigurationService {
 
     private final CreateDraftUseCase createDraftUseCase;
+    private final UpdateDraftUseCase updateDraftUseCase;
 
-    public ConfigurationServiceImpl(CreateDraftUseCase createDraftUseCase) {
+    public ConfigurationServiceImpl(CreateDraftUseCase createDraftUseCase, UpdateDraftUseCase updateDraftUseCase) {
         this.createDraftUseCase = createDraftUseCase;
+        this.updateDraftUseCase = updateDraftUseCase;
     }
 
     @Override
@@ -46,7 +49,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     @Override
     public Tournament updateDraft(long tournamentId, Tournament draftChanges, long version, long actingUserId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Objects.requireNonNull(draftChanges, "Tournament draft changes must not be null");
+        return updateDraftUseCase.execute(tournamentId, draftChanges, version, actingUserId);
     }
 
     @Override
@@ -85,22 +89,26 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     @Override
-    public Tournament setBasics(long tournamentId, String name, String description, Locale locale, Visibility visibility, long version, long actingUserId) {
+    public Tournament setBasics(long tournamentId, String name, String description, Locale locale,
+            Visibility visibility, long version, long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setSchedule(long tournamentId, TimeWindow schedule, List<TimeWindow> registrationWindows, long version, long actingUserId) {
+    public Tournament setSchedule(long tournamentId, TimeWindow schedule, List<TimeWindow> registrationWindows,
+            long version, long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setVenueAndCourts(long tournamentId, Venue venue, List<Court> courts, long version, long actingUserId) {
+    public Tournament setVenueAndCourts(long tournamentId, Venue venue, List<Court> courts, long version,
+            long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setDisciplines(long tournamentId, List<DisciplineConfig> disciplines, long version, long actingUserId) {
+    public Tournament setDisciplines(long tournamentId, List<DisciplineConfig> disciplines, long version,
+            long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -110,32 +118,39 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     @Override
-    public Tournament setPolicies(long tournamentId, RegistrationPolicy registrationPolicy, SchedulingPolicy schedulingPolicy, CourtAllocationPolicy courtAllocationPolicy, long version, long actingUserId) {
+    public Tournament setPolicies(long tournamentId, RegistrationPolicy registrationPolicy,
+            SchedulingPolicy schedulingPolicy, CourtAllocationPolicy courtAllocationPolicy, long version,
+            long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setRules(long tournamentId, ScoringRules scoringRules, TieBreakRules tieBreakRules, MatchDurationPolicy matchDurationPolicy, SeedingPolicy seedingPolicy, long version, long actingUserId) {
+    public Tournament setRules(long tournamentId, ScoringRules scoringRules, TieBreakRules tieBreakRules,
+            MatchDurationPolicy matchDurationPolicy, SeedingPolicy seedingPolicy, long version, long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setParticipantsRoster(long tournamentId, ParticipantsRoster roster, long version, long actingUserId) {
+    public Tournament setParticipantsRoster(long tournamentId, ParticipantsRoster roster, long version,
+            long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament setBracketRoster(long tournamentId, BracketId bracketId, ParticipantsRoster roster, long version, long actingUserId) {
+    public Tournament setBracketRoster(long tournamentId, BracketId bracketId, ParticipantsRoster roster, long version,
+            long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament addParticipant(long tournamentId, Long playerId, Long teamId, long disciplineId, BracketId bracketId, long version, long actingUserId) {
+    public Tournament addParticipant(long tournamentId, Long playerId, Long teamId, long disciplineId,
+            BracketId bracketId, long version, long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
-    public Tournament removeParticipant(long tournamentId, Long playerId, Long teamId, long disciplineId, BracketId bracketId, long version, long actingUserId) {
+    public Tournament removeParticipant(long tournamentId, Long playerId, Long teamId, long disciplineId,
+            BracketId bracketId, long version, long actingUserId) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -155,7 +170,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     @Override
-    public List<Tournament> listByOrganizer(long organizerId, Set<TournamentStatus> statuses, Visibility visibilityFilter) {
+    public List<Tournament> listByOrganizer(long organizerId, Set<TournamentStatus> statuses,
+            Visibility visibilityFilter) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
