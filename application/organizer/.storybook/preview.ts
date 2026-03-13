@@ -1,7 +1,7 @@
-import { applicationConfig } from '@storybook/angular';
-import type { Preview } from '@storybook/angular';
+import { applicationConfig } from '@storybook/angular'
+import type { Preview } from '@storybook/angular'
 
-import { appConfig } from '../src/app/app.config';
+import { appConfig } from '../src/app/app.config'
 
 const preview: Preview = {
   decorators: [applicationConfig(appConfig)],
@@ -13,6 +13,6 @@ const preview: Preview = {
       },
     },
   },
-};
+}
 
-export default preview;
+export default preview

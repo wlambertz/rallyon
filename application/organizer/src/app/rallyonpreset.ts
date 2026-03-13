@@ -22,7 +22,7 @@ const colorScheme = {
       hoverColor: '{semantic.primary.800}',
       activeColor: '{semantic.primary.700}',
       contrast: { color: '#ffffff' },
-    }
+    },
   },
   dark: {
     surface: {
@@ -44,7 +44,7 @@ const colorScheme = {
       hoverColor: '{semantic.primary.100}',
       activeColor: '{semantic.primary.200}',
       contrast: { color: '#ffffff' },
-    }
+    },
   },
 }
 
@@ -61,7 +61,7 @@ const button = {
           activeBorderColor: '{semantic.contrast.700}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
+          activeColor: '#ffffff',
         },
         secondary: {
           background: '{semantic.primary.200}',
@@ -72,7 +72,7 @@ const button = {
           activeBorderColor: '{semantic.primary.400}',
           color: '{semantic.primary.950}',
           hoverColor: '{semantic.primary.950}',
-          activeColor: '{semantic.primary.950}'
+          activeColor: '{semantic.primary.950}',
         },
         warn: {
           background: '{semantic.warn.400}',
@@ -83,7 +83,7 @@ const button = {
           activeBorderColor: '{semantic.warn.600}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
+          activeColor: '#ffffff',
         },
         info: {
           background: '{semantic.info.500}',
@@ -94,7 +94,7 @@ const button = {
           activeBorderColor: '{semantic.info.700}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
+          activeColor: '#ffffff',
         },
         danger: {
           background: '{semantic.danger.600}',
@@ -105,7 +105,7 @@ const button = {
           activeBorderColor: '{semantic.danger.800}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
+          activeColor: '#ffffff',
         },
         success: {
           background: '{semantic.success.500}',
@@ -116,7 +116,7 @@ const button = {
           activeBorderColor: '{semantic.success.700}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
+          activeColor: '#ffffff',
         },
         help: {
           background: '{semantic.help.600}',
@@ -127,8 +127,8 @@ const button = {
           activeBorderColor: '{semantic.help.800}',
           color: '#ffffff',
           hoverColor: '#ffffff',
-          activeColor: '#ffffff'
-        }
+          activeColor: '#ffffff',
+        },
       },
     },
     dark: {
@@ -175,7 +175,7 @@ const SurfacePreset = definePreset(Aura, {
       700: '{slate.700}',
       800: '{slate.800}',
       900: '{slate.900}',
-      950: '{slate.950}'
+      950: '{slate.950}',
     },
     warn: {
       50: '{yellow.50}',
@@ -188,7 +188,7 @@ const SurfacePreset = definePreset(Aura, {
       700: '{yellow.700}',
       800: '{yellow.800}',
       900: '{yellow.900}',
-      950: '{yellow.950}'
+      950: '{yellow.950}',
     },
     danger: {
       50: '{rose.50}',
@@ -201,7 +201,7 @@ const SurfacePreset = definePreset(Aura, {
       700: '{rose.700}',
       800: '{rose.800}',
       900: '{rose.900}',
-      950: '{rose.950}'
+      950: '{rose.950}',
     },
     success: {
       50: '{emerald.50}',
@@ -214,7 +214,7 @@ const SurfacePreset = definePreset(Aura, {
       700: '{emerald.700}',
       800: '{emerald.800}',
       900: '{emerald.900}',
-      950: '{emerald.950}'
+      950: '{emerald.950}',
     },
     help: {
       50: '{violet.50}',
@@ -227,7 +227,7 @@ const SurfacePreset = definePreset(Aura, {
       700: '{violet.700}',
       800: '{violet.800}',
       900: '{violet.900}',
-      950: '{violet.950}'
+      950: '{violet.950}',
     },
     info: {
       50: '{sky.50}',
@@ -240,13 +240,13 @@ const SurfacePreset = definePreset(Aura, {
       700: '{sky.700}',
       800: '{sky.800}',
       900: '{sky.900}',
-      950: '{sky.950}'
+      950: '{sky.950}',
     },
     colorScheme,
   },
   components: {
-    button
-  }
+    button,
+  },
 })
 
 export { SurfacePreset }

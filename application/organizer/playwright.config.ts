@@ -1,7 +1,7 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig } from '@playwright/test'
 
 const executablePath =
-  process.env.PLAYWRIGHT_CHROME_BIN || (process.env.CI ? '/usr/bin/chromium-browser' : undefined);
+  process.env.PLAYWRIGHT_CHROME_BIN || (process.env.CI ? '/usr/bin/chromium-browser' : undefined)
 
 export default defineConfig({
   testDir: './tests',
@@ -22,4 +22,4 @@ export default defineConfig({
     stdout: 'pipe',
     stderr: 'pipe',
   },
-});
+})

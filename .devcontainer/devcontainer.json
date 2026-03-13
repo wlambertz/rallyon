@@ -6,9 +6,7 @@
   "workspaceFolder": "/workspaces/rallyon",
   "remoteUser": "vscode",
   "updateRemoteUserUID": true,
-  "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ],
+  "mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
   "forwardPorts": [4200, 8080, 8081, 5432],
   "portsAttributes": {
     "4200": {

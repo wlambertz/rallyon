@@ -18,5 +18,5 @@ else
   exit 0
 fi
 
-echo "Running npm run lint (Prettier check)..."
+echo "Running npm run lint (tracked-file Prettier check)..."
 "$NPM_BIN" run lint

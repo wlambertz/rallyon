@@ -4,8 +4,10 @@
   "description": "RallyOn developer tooling",
   "private": true,
   "scripts": {
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format": "node tools/scripts/prettier-files.mjs write changed",
+    "format:check": "node tools/scripts/prettier-files.mjs check tracked",
+    "format:check:changed": "node tools/scripts/prettier-files.mjs check changed",
+    "format:write:tracked": "node tools/scripts/prettier-files.mjs write tracked",
     "lint": "npm run format:check",
     "organizer:install": "npm install --prefix application/organizer",
     "organizer:dev": "npm start --prefix application/organizer",

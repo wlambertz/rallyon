@@ -13,5 +13,8 @@ docs/cli-reference.md
 wiki
 
 # other generated artifacts
+**/.angular/**
+**/coverage/**
+**/storybook-static/**
 tools/cli/ro/dist
 
