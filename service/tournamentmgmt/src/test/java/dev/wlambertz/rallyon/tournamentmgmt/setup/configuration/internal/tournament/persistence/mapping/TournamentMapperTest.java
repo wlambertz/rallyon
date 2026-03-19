@@ -38,10 +38,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 class TournamentMapperTest {
 
-    private final TournamentMapper mapper = new TournamentMapper();
+    private final TournamentMapper mapper = Mappers.getMapper(TournamentMapper.class);
+
+    @Test
+    void toEntityForCreateInitializesDraftDefaults() {
+        Instant now = Instant.parse("2026-03-19T10:00:00Z");
+
+        TournamentEntity entity = mapper.toEntityForCreate(77L, "RallyOn Masters", Visibility.PUBLIC, 5L, now);
+
+        assertEquals(77L, entity.getOrganizerId());
+        assertEquals(Visibility.PUBLIC, entity.getVisibility());
+        assertEquals("RallyOn Masters", entity.getName());
+        assertEquals(TournamentStatus.DRAFT, entity.getStatus());
+        assertEquals(0L, entity.getVersion());
+        assertEquals(now, entity.getCreatedAt());
+        assertEquals(5L, entity.getCreatedByUserId());
+        assertEquals(now, entity.getLastModifiedAt());
+        assertEquals(5L, entity.getLastModifiedByUserId());
+        assertNotNull(entity.getRegistrationWindows());
+        assertNotNull(entity.getCourts());
+        assertNotNull(entity.getDisciplines());
+        assertNotNull(entity.getParticipants());
+    }
 
     @Test
     void toApiProjectsExtendedConfiguration() {

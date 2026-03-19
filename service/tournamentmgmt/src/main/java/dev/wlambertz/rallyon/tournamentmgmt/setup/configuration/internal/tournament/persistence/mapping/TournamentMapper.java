@@ -8,7 +8,6 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.DisciplineCo
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.ParticipantsRoster;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TimeWindow;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament;
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentFormat;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TeamSize;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue;
@@ -21,6 +20,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournam
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.ParticipantEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.RegistrationWindowEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.TournamentEntity;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.phases.api.Phase;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.MatchDurationPolicy;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.ScoringRules;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules;
@@ -35,25 +35,84 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
-@Component
-public class TournamentMapper {
+@Mapper(config = TournamentMapperConfig.class)
+public abstract class TournamentMapper {
 
-    public TournamentEntity toEntityForCreate(
-            long organizerId, String name, Visibility visibility, long actingUserId, Instant now) {
-        TournamentEntity entity = new TournamentEntity();
-        entity.setOrganizerId(organizerId);
-        entity.setVisibility(visibility);
-        entity.setName(name);
-        entity.setStatus(TournamentStatus.DRAFT);
-        entity.setCreatedAt(now);
-        entity.setCreatedByUserId(actingUserId);
-        entity.setLastModifiedAt(now);
-        entity.setLastModifiedByUserId(actingUserId);
-        entity.setVersion(0L);
-        return entity;
-    }
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "organizerId", source = "organizerId")
+    @Mapping(target = "visibility", source = "visibility")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "status", expression = "java(defaultDraftStatus())")
+    @Mapping(target = "createdAt", source = "now")
+    @Mapping(target = "createdByUserId", source = "actingUserId")
+    @Mapping(target = "lastModifiedAt", source = "now")
+    @Mapping(target = "lastModifiedByUserId", source = "actingUserId")
+    @Mapping(target = "version", expression = "java(initialVersion())")
+    public abstract TournamentEntity toEntityForCreate(
+            long organizerId, String name, Visibility visibility, long actingUserId, Instant now);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "version", source = "version")
+    @Mapping(target = "organizerId", source = "organizerId")
+    @Mapping(target = "visibility", source = "visibility")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "locale", source = "locale", qualifiedByName = "localeValueToLocale")
+    @Mapping(target = "schedule", source = ".", qualifiedByName = "entityToSchedule")
+    @Mapping(target = "registrationWindows", source = "registrationWindows", qualifiedByName = "mapRegistrationWindows")
+    @Mapping(target = "venue", source = ".", qualifiedByName = "entityToVenue")
+    @Mapping(target = "courts", source = "courts", qualifiedByName = "mapCourts")
+    @Mapping(target = "disciplines", source = "disciplines")
+    @Mapping(target = "capacity", source = ".", qualifiedByName = "entityToTournamentCapacity")
+    @Mapping(target = "registrationPolicy", source = "registrationPolicy")
+    @Mapping(target = "seedingPolicy", source = "seedingPolicy")
+    @Mapping(target = "scoringRules", source = ".", qualifiedByName = "entityToScoringRules")
+    @Mapping(target = "tieBreakRules", source = ".", qualifiedByName = "entityToTieBreakRules")
+    @Mapping(target = "matchDurationPolicy", source = "matchDurationPolicy")
+    @Mapping(target = "phases", expression = "java(emptyPhases())")
+    @Mapping(target = "schedulingPolicy", source = "schedulingPolicy")
+    @Mapping(target = "courtAllocationPolicy", source = "courtAllocationPolicy")
+    @Mapping(target = "participants", source = "participants", qualifiedByName = "mapParticipantsRoster")
+    @Mapping(target = "bracketRosters", source = ".", qualifiedByName = "mapBracketRosters")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "createdByUserId", source = "createdByUserId")
+    @Mapping(target = "lastModifiedAt", source = "lastModifiedAt")
+    @Mapping(target = "lastModifiedByUserId", source = "lastModifiedByUserId")
+    public abstract Tournament toApi(TournamentEntity entity);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "start", source = "registrationStartsAt")
+    @Mapping(target = "end", source = "registrationEndsAt")
+    protected abstract TimeWindow toTimeWindow(RegistrationWindowEntity window);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "label", source = "label")
+    @Mapping(target = "availability", source = "availability")
+    @Mapping(target = "type", source = "type")
+    protected abstract Court toCourt(CourtEntity court);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "disciplineId")
+    @Mapping(target = "category", source = "category")
+    @Mapping(target = "displayName", source = "displayName")
+    @Mapping(target = "teamSize", source = "teamSize")
+    @Mapping(target = "brackets", source = "brackets")
+    protected abstract DisciplineConfig toDisciplineConfig(DisciplineEntity discipline);
+
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "bracketId")
+    @Mapping(target = "displayName", source = "displayName")
+    @Mapping(target = "format", source = "format")
+    @Mapping(target = "capacity", source = ".", qualifiedByName = "entityToBracketCapacity")
+    protected abstract BracketConfig toBracketConfig(BracketEntity bracket);
 
     public void applyDraftReplacement(TournamentEntity entity, Tournament draftChanges, long actingUserId, Instant now) {
         applyScalars(entity, draftChanges);
@@ -64,37 +123,220 @@ public class TournamentMapper {
         replaceBracketRosters(entity, normalizeMap(draftChanges.bracketRosters()), actingUserId, now);
     }
 
-    public Tournament toApi(TournamentEntity entity) {
-        return Tournament.builder()
-                .id(entity.getId())
-                .version(entity.getVersion())
-                .organizerId(entity.getOrganizerId())
-                .visibility(entity.getVisibility())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .locale(toLocale(entity.getLocale()))
-                .schedule(toSchedule(entity))
-                .registrationWindows(toRegistrationWindows(entity))
-                .venue(toVenue(entity))
-                .courts(toCourts(entity))
-                .disciplines(toDisciplines(entity))
-                .capacity(toTournamentCapacity(entity))
-                .registrationPolicy(entity.getRegistrationPolicy())
-                .seedingPolicy(entity.getSeedingPolicy())
-                .scoringRules(toScoringRules(entity))
-                .tieBreakRules(toTieBreakRules(entity))
-                .matchDurationPolicy(entity.getMatchDurationPolicy())
-                .phases(List.of())
-                .schedulingPolicy(entity.getSchedulingPolicy())
-                .courtAllocationPolicy(entity.getCourtAllocationPolicy())
-                .participants(toParticipantsRoster(entity.getParticipants()))
-                .bracketRosters(toBracketRosters(entity))
-                .status(entity.getStatus())
-                .createdAt(entity.getCreatedAt())
-                .createdByUserId(entity.getCreatedByUserId())
-                .lastModifiedAt(entity.getLastModifiedAt())
-                .lastModifiedByUserId(entity.getLastModifiedByUserId())
-                .build();
+    @Named("localeValueToLocale")
+    protected Locale toLocale(String localeValue) {
+        if (localeValue == null || localeValue.isBlank()) {
+            return null;
+        }
+        String normalized = localeValue.replace('_', '-');
+        return Locale.forLanguageTag(normalized);
+    }
+
+    protected String toLocaleValue(Locale locale) {
+        if (locale == null) {
+            return null;
+        }
+        String languageTag = locale.toLanguageTag();
+        return languageTag.isBlank() ? null : languageTag;
+    }
+
+    protected BracketId toBracketId(String bracketId) {
+        return bracketId == null ? null : new BracketId(bracketId);
+    }
+
+    @Named("entityToSchedule")
+    protected TimeWindow toSchedule(TournamentEntity entity) {
+        if (entity.getScheduleStart() == null || entity.getScheduleEnd() == null) {
+            return null;
+        }
+        return new TimeWindow(entity.getScheduleStart(), entity.getScheduleEnd());
+    }
+
+    @Named("mapRegistrationWindows")
+    protected List<TimeWindow> toRegistrationWindows(List<RegistrationWindowEntity> registrationWindows) {
+        if (registrationWindows == null || registrationWindows.isEmpty()) {
+            return List.of();
+        }
+        return registrationWindows.stream()
+                .sorted(Comparator.comparingInt(RegistrationWindowEntity::getWindowIndex))
+                .map(this::toTimeWindow)
+                .toList();
+    }
+
+    @Named("entityToVenue")
+    protected Venue toVenue(TournamentEntity entity) {
+        String name = entity.getVenueName();
+        String street = entity.getVenueStreet();
+        String postalCode = entity.getVenuePostalCode();
+        String city = entity.getVenueCity();
+        Capacity venueCapacity = toCapacity(entity.getVenueCapacityAmount(), entity.getVenueCapacityUnit());
+
+        Venue.Address address = null;
+        if (street != null || postalCode != null || city != null) {
+            address = new Venue.Address(street, postalCode, city);
+        }
+
+        if (name == null && address == null && venueCapacity == null) {
+            return null;
+        }
+
+        return new Venue(name, address, venueCapacity);
+    }
+
+    @Named("mapCourts")
+    protected List<Court> toCourts(List<CourtEntity> courts) {
+        if (courts == null || courts.isEmpty()) {
+            return List.of();
+        }
+        return courts.stream()
+                .sorted(Comparator.comparingInt(CourtEntity::getSortOrder))
+                .map(this::toCourt)
+                .toList();
+    }
+
+    @Named("entityToTournamentCapacity")
+    protected Capacity toTournamentCapacity(TournamentEntity entity) {
+        Integer amount = entity.getCapacityMaxParticipants();
+        if (amount == null) {
+            return null;
+        }
+        return new Capacity(amount, Capacity.Unit.PARTICIPANTS);
+    }
+
+    @Named("entityToBracketCapacity")
+    protected Capacity toBracketCapacity(BracketEntity bracket) {
+        return toCapacity(bracket.getCapacityAmount(), bracket.getCapacityUnit());
+    }
+
+    protected Capacity toCapacity(Integer amount, Capacity.Unit unit) {
+        if (amount == null && unit == null) {
+            return null;
+        }
+        Capacity.Unit resolvedUnit = unit;
+        if (resolvedUnit == null && amount != null) {
+            resolvedUnit = Capacity.Unit.PARTICIPANTS;
+        }
+        return new Capacity(amount, resolvedUnit);
+    }
+
+    @Named("entityToScoringRules")
+    protected ScoringRules toScoringRules(TournamentEntity entity) {
+        Integer points = entity.getScoringPointsPerGame();
+        Integer games = entity.getScoringGamesPerMatch();
+        Boolean winByTwo = entity.getScoringWinByTwo();
+        Integer cap = entity.getScoringCapPoints();
+        if (points == null || games == null || winByTwo == null) {
+            return null;
+        }
+        boolean win = Boolean.TRUE.equals(winByTwo);
+        ScoringRules candidate = ScoringRules.custom(points, games, win, cap);
+        if (matches(candidate, ScoringRules.twoByTwentyOne())) {
+            return ScoringRules.twoByTwentyOne();
+        }
+        if (matches(candidate, ScoringRules.threeByFifteen())) {
+            return ScoringRules.threeByFifteen();
+        }
+        return candidate;
+    }
+
+    @Named("entityToTieBreakRules")
+    protected TieBreakRules toTieBreakRules(TournamentEntity entity) {
+        Boolean setDifference = entity.getTieBreakUseSetDifference();
+        Boolean pointsRatio = entity.getTieBreakUsePointsRatio();
+        Boolean buchholz = entity.getTieBreakUseBuchholz();
+        if (setDifference == null || pointsRatio == null || buchholz == null) {
+            return null;
+        }
+        TieBreakRules candidate = TieBreakRules.custom(
+                Boolean.TRUE.equals(setDifference),
+                Boolean.TRUE.equals(pointsRatio),
+                Boolean.TRUE.equals(buchholz));
+        if (matches(candidate, TieBreakRules.headToHead())) {
+            return TieBreakRules.headToHead();
+        }
+        if (matches(candidate, TieBreakRules.pointsRatio())) {
+            return TieBreakRules.pointsRatio();
+        }
+        if (matches(candidate, TieBreakRules.swissStrength())) {
+            return TieBreakRules.swissStrength();
+        }
+        return candidate;
+    }
+
+    @Named("mapParticipantsRoster")
+    protected ParticipantsRoster toParticipantsRoster(List<ParticipantEntity> participantEntities) {
+        List<Long> playerIds = participantEntities.stream()
+                .filter(participant -> participant.getCategory() == null && participant.getPlayerId() != null)
+                .map(ParticipantEntity::getPlayerId)
+                .toList();
+
+        List<Long> teamIds = participantEntities.stream()
+                .filter(participant -> participant.getCategory() == null && participant.getTeamId() != null)
+                .map(ParticipantEntity::getTeamId)
+                .toList();
+
+        if (!playerIds.isEmpty()) {
+            return new ParticipantsRoster(playerIds, null);
+        }
+        return new ParticipantsRoster(null, teamIds);
+    }
+
+    @Named("mapBracketRosters")
+    protected Map<BracketId, ParticipantsRoster> toBracketRosters(TournamentEntity entity) {
+        return entity.getDisciplines().stream()
+                .flatMap(discipline -> discipline.getBrackets().stream())
+                .collect(Collectors.toMap(
+                        bracket -> new BracketId(bracket.getBracketId()),
+                        this::toBracketRoster,
+                        (existing, replacement) -> replacement,
+                        LinkedHashMap::new));
+    }
+
+    protected ParticipantsRoster toBracketRoster(BracketEntity bracket) {
+        List<Long> playerIds = bracket.getParticipants().stream()
+                .map(BracketParticipantEntity::getPlayerId)
+                .filter(Objects::nonNull)
+                .toList();
+        List<Long> teamIds = bracket.getParticipants().stream()
+                .map(BracketParticipantEntity::getTeamId)
+                .filter(Objects::nonNull)
+                .toList();
+
+        boolean hasPlayers = !playerIds.isEmpty();
+        boolean hasTeams = !teamIds.isEmpty();
+
+        if (hasPlayers && !hasTeams) {
+            return new ParticipantsRoster(playerIds, null);
+        }
+        if (hasTeams && !hasPlayers) {
+            return new ParticipantsRoster(null, teamIds);
+        }
+        if (!hasPlayers && !hasTeams) {
+            boolean teamBased = bracket.getDiscipline() != null
+                    && bracket.getDiscipline().getTeamSize() != null
+                    && bracket.getDiscipline().getTeamSize() != TeamSize.SINGLES;
+            return teamBased
+                    ? new ParticipantsRoster(null, List.of())
+                    : new ParticipantsRoster(List.of(), null);
+        }
+        boolean teamBased = bracket.getDiscipline() != null
+                && bracket.getDiscipline().getTeamSize() != null
+                && bracket.getDiscipline().getTeamSize() != TeamSize.SINGLES;
+        return teamBased
+                ? new ParticipantsRoster(null, teamIds)
+                : new ParticipantsRoster(playerIds, null);
+    }
+
+    protected TournamentStatus defaultDraftStatus() {
+        return TournamentStatus.DRAFT;
+    }
+
+    protected Long initialVersion() {
+        return 0L;
+    }
+
+    protected List<Phase> emptyPhases() {
+        return List.of();
     }
 
     private void applyScalars(TournamentEntity entity, Tournament draftChanges) {
@@ -580,161 +822,11 @@ public class TournamentMapper {
         }
     }
 
-    private <T> List<T> normalizeList(List<T> values) {
-        return values == null ? List.of() : values;
-    }
-
-    private <K, V> Map<K, V> normalizeMap(Map<K, V> values) {
-        return values == null ? Map.of() : values;
-    }
-
-    private String toLocaleValue(Locale locale) {
-        if (locale == null) {
-            return null;
-        }
-        String languageTag = locale.toLanguageTag();
-        return languageTag.isBlank() ? null : languageTag;
-    }
-
-    private Locale toLocale(String localeValue) {
-        if (localeValue == null || localeValue.isBlank()) {
-            return null;
-        }
-        String normalized = localeValue.replace('_', '-');
-        return Locale.forLanguageTag(normalized);
-    }
-
-    private TimeWindow toSchedule(TournamentEntity entity) {
-        if (entity.getScheduleStart() == null || entity.getScheduleEnd() == null) {
-            return null;
-        }
-        return new TimeWindow(entity.getScheduleStart(), entity.getScheduleEnd());
-    }
-
-    private List<TimeWindow> toRegistrationWindows(TournamentEntity entity) {
-        return entity.getRegistrationWindows().stream()
-                .sorted(Comparator.comparingInt(window -> window.getWindowIndex()))
-                .map(window -> new TimeWindow(window.getRegistrationStartsAt(), window.getRegistrationEndsAt()))
-                .toList();
-    }
-
-    private Venue toVenue(TournamentEntity entity) {
-        String name = entity.getVenueName();
-        String street = entity.getVenueStreet();
-        String postalCode = entity.getVenuePostalCode();
-        String city = entity.getVenueCity();
-        Capacity venueCapacity = toCapacity(entity.getVenueCapacityAmount(), entity.getVenueCapacityUnit());
-
-        Venue.Address address = null;
-        if (street != null || postalCode != null || city != null) {
-            address = new Venue.Address(street, postalCode, city);
-        }
-
-        if (name == null && address == null && venueCapacity == null) {
-            return null;
-        }
-
-        return new Venue(name, address, venueCapacity);
-    }
-
-    private List<Court> toCourts(TournamentEntity entity) {
-        return entity.getCourts().stream()
-                .sorted(Comparator.comparingInt(court -> court.getSortOrder()))
-                .map(court -> new Court(
-                        court.getId() == null ? 0L : court.getId(),
-                        court.getLabel(),
-                        court.getAvailability(),
-                        court.getType()))
-                .toList();
-    }
-
-    private List<DisciplineConfig> toDisciplines(TournamentEntity entity) {
-        return entity.getDisciplines().stream()
-                .map(discipline -> new DisciplineConfig(
-                        discipline.getDisciplineId(),
-                        discipline.getCategory(),
-                        discipline.getDisplayName(),
-                        discipline.getTeamSize(),
-                        discipline.getBrackets().stream()
-                                .map(this::toBracketConfig)
-                                .toList()))
-                .toList();
-    }
-
-    private BracketConfig toBracketConfig(BracketEntity bracket) {
-        return new BracketConfig(
-                new BracketId(bracket.getBracketId()),
-                bracket.getDisplayName(),
-                bracket.getFormat(),
-                toCapacity(bracket.getCapacityAmount(), bracket.getCapacityUnit()));
-    }
-
-    private Capacity toTournamentCapacity(TournamentEntity entity) {
-        Integer amount = entity.getCapacityMaxParticipants();
-        if (amount == null) {
-            return null;
-        }
-        return new Capacity(amount, Capacity.Unit.PARTICIPANTS);
-    }
-
-    private Capacity toCapacity(Integer amount, Capacity.Unit unit) {
-        if (amount == null && unit == null) {
-            return null;
-        }
-        Capacity.Unit resolvedUnit = unit;
-        if (resolvedUnit == null && amount != null) {
-            resolvedUnit = Capacity.Unit.PARTICIPANTS;
-        }
-        return new Capacity(amount, resolvedUnit);
-    }
-
-    private ScoringRules toScoringRules(TournamentEntity entity) {
-        Integer points = entity.getScoringPointsPerGame();
-        Integer games = entity.getScoringGamesPerMatch();
-        Boolean winByTwo = entity.getScoringWinByTwo();
-        Integer cap = entity.getScoringCapPoints();
-        if (points == null || games == null || winByTwo == null) {
-            return null;
-        }
-        boolean win = Boolean.TRUE.equals(winByTwo);
-        ScoringRules candidate = ScoringRules.custom(points, games, win, cap);
-        if (matches(candidate, ScoringRules.twoByTwentyOne())) {
-            return ScoringRules.twoByTwentyOne();
-        }
-        if (matches(candidate, ScoringRules.threeByFifteen())) {
-            return ScoringRules.threeByFifteen();
-        }
-        return candidate;
-    }
-
     private boolean matches(ScoringRules candidate, ScoringRules preset) {
         return candidate.pointsPerGame() == preset.pointsPerGame()
                 && candidate.gamesPerMatch() == preset.gamesPerMatch()
                 && candidate.winByTwo() == preset.winByTwo()
                 && Objects.equals(candidate.capPoints(), preset.capPoints());
-    }
-
-    private TieBreakRules toTieBreakRules(TournamentEntity entity) {
-        Boolean setDifference = entity.getTieBreakUseSetDifference();
-        Boolean pointsRatio = entity.getTieBreakUsePointsRatio();
-        Boolean buchholz = entity.getTieBreakUseBuchholz();
-        if (setDifference == null || pointsRatio == null || buchholz == null) {
-            return null;
-        }
-        TieBreakRules candidate = TieBreakRules.custom(
-                Boolean.TRUE.equals(setDifference),
-                Boolean.TRUE.equals(pointsRatio),
-                Boolean.TRUE.equals(buchholz));
-        if (matches(candidate, TieBreakRules.headToHead())) {
-            return TieBreakRules.headToHead();
-        }
-        if (matches(candidate, TieBreakRules.pointsRatio())) {
-            return TieBreakRules.pointsRatio();
-        }
-        if (matches(candidate, TieBreakRules.swissStrength())) {
-            return TieBreakRules.swissStrength();
-        }
-        return candidate;
     }
 
     private boolean matches(TieBreakRules candidate, TieBreakRules preset) {
@@ -743,66 +835,12 @@ public class TournamentMapper {
                 && candidate.useBuchholz() == preset.useBuchholz();
     }
 
-    private ParticipantsRoster toParticipantsRoster(List<ParticipantEntity> participantEntities) {
-        List<Long> playerIds = participantEntities.stream()
-                .filter(participant -> participant.getCategory() == null && participant.getPlayerId() != null)
-                .map(ParticipantEntity::getPlayerId)
-                .toList();
-
-        List<Long> teamIds = participantEntities.stream()
-                .filter(participant -> participant.getCategory() == null && participant.getTeamId() != null)
-                .map(ParticipantEntity::getTeamId)
-                .toList();
-
-        if (!playerIds.isEmpty()) {
-            return new ParticipantsRoster(playerIds, null);
-        }
-        return new ParticipantsRoster(null, teamIds);
+    private <T> List<T> normalizeList(List<T> values) {
+        return values == null ? List.of() : values;
     }
 
-    private Map<BracketId, ParticipantsRoster> toBracketRosters(TournamentEntity entity) {
-        return entity.getDisciplines().stream()
-                .flatMap(discipline -> discipline.getBrackets().stream())
-                .collect(Collectors.toMap(
-                        bracket -> new BracketId(bracket.getBracketId()),
-                        this::toBracketRoster,
-                        (existing, replacement) -> replacement,
-                        LinkedHashMap::new));
-    }
-
-    private ParticipantsRoster toBracketRoster(BracketEntity bracket) {
-        List<Long> playerIds = bracket.getParticipants().stream()
-                .map(BracketParticipantEntity::getPlayerId)
-                .filter(Objects::nonNull)
-                .toList();
-        List<Long> teamIds = bracket.getParticipants().stream()
-                .map(BracketParticipantEntity::getTeamId)
-                .filter(Objects::nonNull)
-                .toList();
-
-        boolean hasPlayers = !playerIds.isEmpty();
-        boolean hasTeams = !teamIds.isEmpty();
-
-        if (hasPlayers && !hasTeams) {
-            return new ParticipantsRoster(playerIds, null);
-        }
-        if (hasTeams && !hasPlayers) {
-            return new ParticipantsRoster(null, teamIds);
-        }
-        if (!hasPlayers && !hasTeams) {
-            boolean teamBased = bracket.getDiscipline() != null
-                    && bracket.getDiscipline().getTeamSize() != null
-                    && bracket.getDiscipline().getTeamSize() != TeamSize.SINGLES;
-            return teamBased
-                    ? new ParticipantsRoster(null, List.of())
-                    : new ParticipantsRoster(List.of(), null);
-        }
-        boolean teamBased = bracket.getDiscipline() != null
-                && bracket.getDiscipline().getTeamSize() != null
-                && bracket.getDiscipline().getTeamSize() != TeamSize.SINGLES;
-        return teamBased
-                ? new ParticipantsRoster(null, teamIds)
-                : new ParticipantsRoster(playerIds, null);
+    private <K, V> Map<K, V> normalizeMap(Map<K, V> values) {
+        return values == null ? Map.of() : values;
     }
 
     private enum RosterKind {
