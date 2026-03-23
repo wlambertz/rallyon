@@ -1,0 +1,27 @@
+== TournamentmgmtApplication
+plantuml::components.puml[,,format=svg]
+
+== Administration
+plantuml::module-administration.puml[,,format=svg]
+include::module-administration.adoc[]
+
+== Planning
+plantuml::module-planning.puml[,,format=svg]
+include::module-planning.adoc[]
+
+== Setup
+plantuml::module-setup.puml[,,format=svg]
+include::module-setup.adoc[]
+
+== Phases
+plantuml::module-setup.phases.puml[,,format=svg]
+include::module-setup.phases.adoc[]
+
+== Rules
+plantuml::module-setup.rules.puml[,,format=svg]
+include::module-setup.rules.adoc[]
+
+== Configuration
+plantuml::module-setup.configuration.puml[,,format=svg]
+include::module-setup.configuration.adoc[]
+

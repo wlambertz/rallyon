@@ -11,13 +11,13 @@ import org.springframework.modulith.docs.Documenter.DiagramOptions.ElementsWitho
 
 class TournamentmgmtDocumentationTests {
 
-  private static final String OUTPUT_FOLDER = Path.of("..", "..", "wiki", "Architecture", "generated", "tournamentmgmt")
+  private static final String OUTPUT_FOLDER = Path.of("docs", "modulith", "generated")
       .normalize()
       .toString();
 
   @Test
   @EnabledIfSystemProperty(named = "modulith.docs", matches = "true")
-  void writesModulithDocumentationToWiki() {
+  void writesModulithDocumentationToMainRepo() {
     ApplicationModules modules = ApplicationModules.of(TournamentmgmtApplication.class);
     DiagramOptions diagramOptions = DiagramOptions.defaults()
         .withElementsWithoutRelationships(ElementsWithoutRelationships.VISIBLE);

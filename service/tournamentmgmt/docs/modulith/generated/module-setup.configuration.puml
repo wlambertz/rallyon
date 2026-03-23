@@ -1,0 +1,32 @@
+@startuml
+title <size:24>Configuration</size>
+
+set separator none
+top to bottom direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+System_Boundary("TournamentmgmtApplication_boundary", "TournamentmgmtApplication", $tags="") {
+  Container_Boundary("TournamentmgmtApplication.TournamentmgmtApplication_boundary", "TournamentmgmtApplication", $tags="") {
+    Component(TournamentmgmtApplication.TournamentmgmtApplication.Phases, "Phases", $techn="Module", $descr="", $tags="", $link="")
+    Component(TournamentmgmtApplication.TournamentmgmtApplication.Rules, "Rules", $techn="Module", $descr="", $tags="", $link="")
+    Component(TournamentmgmtApplication.TournamentmgmtApplication.Configuration, "Configuration", $techn="Module", $descr="", $tags="", $link="")
+  }
+
+}
+
+Rel(TournamentmgmtApplication.TournamentmgmtApplication.Configuration, TournamentmgmtApplication.TournamentmgmtApplication.Phases, "depends on", $techn="", $tags="", $link="")
+Rel(TournamentmgmtApplication.TournamentmgmtApplication.Configuration, TournamentmgmtApplication.TournamentmgmtApplication.Rules, "depends on", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

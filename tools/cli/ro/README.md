@@ -85,6 +85,15 @@ ro --help
 ro config show --json
 ```
 
+- Local auth token for Swagger UI
+
+```sh
+RALLYON_CLIENT_SECRET=super-secret ro auth token --format bearer
+RALLYON_CLIENT_SECRET=super-secret ro auth token
+```
+
+If Keycloak is not reachable at `http://localhost:8081` from your shell environment, pass `--server` or set `KEYCLOAK_SERVER`.
+
 - Build / Test / Run
 
 ```sh
@@ -155,6 +164,8 @@ ro telemetry status
 RO_TELEMETRY_ENABLED=true ro deploy --env dev  # one-off opt-in
 ro doctor   # checks Go/Java/Docker/Git state
 ```
+
+- The `ro auth token` helper is intended for local development only. It wraps the existing Keycloak dev realm/client/user flow and prints a bearer token for Swagger UI or manual API testing without storing credentials.
 
 - Packaging / Release
 

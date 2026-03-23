@@ -1,0 +1,13 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`dev.wlambertz.rallyon.tournamentmgmt.setup.configuration`
+|Spring components
+|_Services_
+
+* `d.w.r.t.s.c.api.ConfigurationService` (via `d.w.r.t.s.c.internal.ConfigurationServiceImpl`)
+
+_Others_
+
+* `d.w.r.t.s.c.api.TimeWindowRangeValidator`
+|===
