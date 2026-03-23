@@ -24,12 +24,14 @@ The PlantUML files are committed directly so the architecture sources stay versi
 
 ## Wiki Rendering
 
-The committed `.puml` files in this directory are the canonical source. The wiki embeds rendered SVG copies as derived artifacts for readability.
+The committed `.puml` files in this directory are the canonical source. The wiki embeds rendered PNG copies as derived artifacts for readability because GitHub wikis do not display SVG images inline.
 
 To refresh the wiki diagrams after regenerating the `.puml` files:
 
 ```bash
-./service/tournamentmgmt/docs/modulith/render-wiki-svg.sh
+./service/tournamentmgmt/docs/modulith/render-wiki-diagrams.sh
 ```
 
-That command writes SVG files to `wiki/Architecture/generated/tournamentmgmt-svg/`.
+That command writes PNG files to `wiki/Architecture/generated/tournamentmgmt-png/`.
+
+`render-wiki-svg.sh` remains as a compatibility wrapper around the new command.
