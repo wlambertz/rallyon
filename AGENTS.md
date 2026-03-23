@@ -1,65 +1,62 @@
-﻿# Repository Guidelines
+# RallyOn AGENT Instructions
 
-## Project Structure & Module Organization
+This file is the canonical instruction source for coding agents working in this repository.
 
-- The repository is organized by the RallyOn domain.
-- Application shell is in `application/`:
-  - `organizer/`: staff flows
-  - `audience/`: read-only screens
-- Core service logic is in `service/tournamentmgmt/`:
-  - Spring Boot Modulith service
-  - Contains API controllers, configuration domain objects, and integration boundaries
-- Shared adapters (e.g., authentication, event bus, search) are in `3rd_party/`
-- Operations scripts and infrastructure templates are in `admin/`
-- Generated artifacts and local build outputs are in `build/`
-- The GitHub wiki is vendored as the `wiki/` submodule (keep architectural notes there)
+## Purpose And Precedence
 
-## Build, Test, and Development Commands
+- Apply these rules to the whole repository unless a nearer `AGENTS.md` file overrides them for a subtree.
+- Keep child files focused on workflow differences. Do not duplicate large sections of this file into child files.
+- Treat `.github/copilot-instructions.md` as a compatibility pointer, not as a second source of truth.
 
-- Use Maven wrappers in `service/tournamentmgmt/`
-  - Full build, test, and package: `./mvnw clean verify`
-  - Iterative test: `./mvnw test`
-  - Run service: `./mvnw spring-boot:run` (exposes REST endpoints and Modulith actuators)
-- From repo root, `./gradlew tasks` is available for legacy modules (optional)
-- Update the wiki: `git submodule update --remote --merge`
-- Organizer shell (Angular 20) lives in `application/organizer/`
-  - Install/update deps: `npm run organizer:install`
-  - Local dev server: `npm run organizer:dev`
-  - Lint + unit tests: `npm run organizer:lint` and `npm run organizer:test`
-  - Headless CI suite: `npm run organizer:test:ci` (ChromeHeadless)
-  - Playwright smoke: `npm run organizer:test:e2e` (requires `npx playwright install --with-deps chromium`)
-  - Equivalent shortcuts via CLI: `ro app install|start|lint|test|test-ci|test-e2e organizer`
+## Repo Map
 
-## Coding Style & Naming Conventions
+- `service/tournamentmgmt/`: Spring Boot Modulith service, Maven wrapper, generated Modulith docs.
+- `application/organizer/`: Angular organizer UI, npm-based workflow.
+- `tools/cli/ro/`: Go-based RallyOn developer CLI.
+- `wiki/`: GitHub wiki as a git submodule. Treat it as a separate repository with its own history and push flow.
+- `admin/`: operational helpers and environment bootstrap scripts.
+- `docs/` and `service/**/docs/`: committed documentation and generated artifacts that may need refresh after changes.
 
-- Follow `.editorconfig`:
-  - UTF-8, LF endings, final newline
-  - Max line length: 120
-  - Two-space indentation for Java, Kotlin, Gradle, YAML, JSON
-- Naming:
-  - Classes: Descriptive CamelCase (e.g., `ConfigurationServiceImpl`)
-  - Members: lowerCamelCase
-  - Resource paths: hyphenated
-- Group packages by bounded context (e.g., `setup.configuration.api`)
-- Use Lombok sparingly
-- Annotate public APIs with Spring Modulith stereotypes for module slicing
+## Working Rules
 
-## Testing Guidelines
+- Inspect the existing code and docs before editing. Prefer adapting to established patterns over inventing new ones.
+- Preserve user changes. Never revert, overwrite, or clean unrelated edits unless explicitly asked.
+- Avoid destructive git commands such as hard resets, forced checkouts, or broad cleanup against tracked files.
+- Treat the wiki submodule carefully:
+  - commits inside `wiki/` are separate from commits in the main repo
+  - do not assume wiki changes are pushed just because the parent repo is clean
+  - if the wiki content changes, the parent repo may also need a submodule pointer update
+- Prefer stable, repository-local commands and scripts over ad hoc shell pipelines when both exist.
+- Keep instructions, docs, and generated artifacts aligned with the behavior you change.
 
-- Use JUnit 5 with `spring-boot-starter-test` and `spring-modulith-starter-test`
-- Place tests in `src/test/java`, mirroring main package structure
-- Integration suites: `*Tests` (reserve `*IT` for heavier scenarios)
-- Cover new endpoints and configuration flows with Modulith slice and controller MVC tests
-- Use `src/test/resources` for test property overrides
-- Ensure all tests pass with `./mvnw test` before PR
+## Validation Expectations
 
-## Commit & Pull Request Guidelines
+- Run the smallest relevant validation for the area you touched before finishing.
+- Report exactly what you validated and what you did not validate.
+- Use these defaults unless a child `AGENTS.md` says otherwise:
+  - Java service changes: relevant `./mvnw test` scope from `service/tournamentmgmt/`
+  - Angular organizer changes: relevant npm lint/test commands from `application/organizer/`
+  - Go CLI changes: `go test ./...` from `tools/cli/ro/`
+  - Docs-only changes: check links, commands, and referenced paths for correctness
+- If a change affects generated documentation or assets, regenerate the derived outputs that are expected to stay committed.
 
-- Commits use Conventional Commit prefixes: `feat`, `chore`, `fix` (scope optional)
-- Start commit messages in imperative, keep under 72 characters if possible
-- Pull requests should:
-  - Summarize changes
-  - Link tracking issues
-  - Outline test evidence
-  - Attach UI/API artifacts (screenshots, curl samples) for behavior changes
-  - Note wiki updates or migration steps for release managers
+## Change Expectations
+
+- Add or update tests when behavior changes.
+- Update nearby documentation when developer workflows, architecture docs, auth flows, CLI commands, or generated docs change.
+- Keep commits scoped and use gitmoji-prefixed conventional commit messages such as `✨ feat: ...`, `🐛 fix: ...`, and `🧹 chore: ...`.
+- Prefer concise, decision-complete edits over speculative refactors.
+- Keep repository instructions in English and portable across coding agents.
+
+## Escalate Before Proceeding
+
+- Ask before making hidden migrations, broad renames, or architecture-level reorganizations.
+- Ask before resolving ambiguous product behavior, security-sensitive choices, or irreversible data changes.
+- Ask before deleting non-generated content when ownership or intent is unclear.
+- Ask before introducing new top-level tooling or instruction files that could conflict with the existing hierarchy.
+
+## Source Of Truth Notes
+
+- Human-oriented overview and onboarding live primarily in `README.md` and the wiki.
+- Agent-oriented execution guidance lives in `AGENTS.md`.
+- Keep `AGENTS.md` focused on actionable rules, validation, safety, and workflow facts that help an agent work correctly.
