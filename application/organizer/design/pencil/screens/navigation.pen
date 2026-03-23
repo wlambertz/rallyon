@@ -1,0 +1,74 @@
+{
+  "children": [
+    {
+      "id": "navigation-screen",
+      "type": "frame",
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 960,
+      "fill": "#f5f7fb",
+      "layout": "horizontal",
+      "padding": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "gap": 24,
+      "children": [
+        {
+          "id": "navigation-drawer",
+          "type": "frame",
+          "width": 320,
+          "height": 800,
+          "layout": "vertical",
+          "padding": [
+            24,
+            24,
+            24,
+            24
+          ],
+          "gap": 16,
+          "fill": "#ffffff",
+          "cornerRadius": 16,
+          "stroke": {
+            "thickness": 1,
+            "fill": "#e2e8f0"
+          },
+          "children": [
+            {
+              "id": "navigation-drawer-title",
+              "type": "text",
+              "content": "Organizer preview",
+              "fill": "#0f172a",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 24
+            },
+            {
+              "id": "navigation-drawer-note",
+              "type": "text",
+              "content": "Import organizer-ui.lib.pen before replacing these placeholders with navigation-item assets.",
+              "fill": "#0f172a",
+              "fontFamily": "IBM Plex Sans",
+              "fontSize": 16,
+              "width": 240
+            }
+          ]
+        },
+        {
+          "id": "navigation-content-placeholder",
+          "type": "frame",
+          "width": 1000,
+          "height": 800,
+          "fill": "#ffffff",
+          "cornerRadius": 16,
+          "stroke": {
+            "thickness": 1,
+            "fill": "#e2e8f0"
+          }
+        }
+      ]
+    }
+  ]
+}

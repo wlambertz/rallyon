@@ -1,0 +1,269 @@
+{
+  "variables": {
+    "color.primary": {
+      "type": "color",
+      "value": "#4b39ef"
+    },
+    "color.primary.dark": {
+      "type": "color",
+      "value": "#3a2bb2"
+    },
+    "color.surface": {
+      "type": "color",
+      "value": "#f5f7fb"
+    },
+    "color.panel": {
+      "type": "color",
+      "value": "#ffffff"
+    },
+    "color.text": {
+      "type": "color",
+      "value": "#0f172a"
+    },
+    "color.border": {
+      "type": "color",
+      "value": "#e2e8f0"
+    },
+    "color.info": {
+      "type": "color",
+      "value": "#0ea5e9"
+    },
+    "color.success": {
+      "type": "color",
+      "value": "#10b981"
+    },
+    "color.warn": {
+      "type": "color",
+      "value": "#f59e0b"
+    },
+    "color.danger": {
+      "type": "color",
+      "value": "#e11d48"
+    },
+    "space.page": {
+      "type": "number",
+      "value": 32
+    },
+    "space.module": {
+      "type": "number",
+      "value": 24
+    },
+    "space.inline": {
+      "type": "number",
+      "value": 12
+    },
+    "radius.panel": {
+      "type": "number",
+      "value": 16
+    },
+    "radius.control": {
+      "type": "number",
+      "value": 12
+    },
+    "type.display": {
+      "type": "number",
+      "value": 40
+    },
+    "type.heading": {
+      "type": "number",
+      "value": 28
+    },
+    "type.body": {
+      "type": "number",
+      "value": 16
+    },
+    "type.label": {
+      "type": "number",
+      "value": 12
+    },
+    "motion.fast": {
+      "type": "number",
+      "value": 160
+    }
+  },
+  "children": [
+    {
+      "id": "library-canvas",
+      "type": "frame",
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 1200,
+      "fill": "$color.surface",
+      "layout": "vertical",
+      "padding": [
+        "$space.page",
+        "$space.page",
+        "$space.page",
+        "$space.page"
+      ],
+      "gap": "$space.module",
+      "children": [
+        {
+          "id": "library-title",
+          "type": "text",
+          "content": "RallyOn Organizer Pencil Library",
+          "fill": "$color.text",
+          "fontFamily": "Space Grotesk",
+          "fontSize": "$type.display"
+        },
+        {
+          "id": "library-note",
+          "type": "text",
+          "content": "Import this .lib.pen file into screen-level designs. Keep token names aligned with _tokens.scss, rallyonpreset.ts, and Storybook.",
+          "fill": "$color.text",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.body",
+          "width": 840
+        }
+      ]
+    },
+    {
+      "id": "button-primary",
+      "type": "frame",
+      "reusable": true,
+      "x": 0,
+      "y": 1320,
+      "layout": "horizontal",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "padding": [
+        12,
+        18
+      ],
+      "gap": "$space.inline",
+      "cornerRadius": "$radius.control",
+      "fill": "$color.primary",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$color.primary.dark"
+      },
+      "children": [
+        {
+          "id": "button-primary-label",
+          "type": "text",
+          "content": "Create event",
+          "fill": "$color.panel",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.body"
+        }
+      ]
+    },
+    {
+      "id": "status-tag-live",
+      "type": "frame",
+      "reusable": true,
+      "x": 240,
+      "y": 1320,
+      "layout": "horizontal",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "padding": [
+        8,
+        12
+      ],
+      "cornerRadius": "$radius.control",
+      "fill": "$color.info",
+      "children": [
+        {
+          "id": "status-tag-live-label",
+          "type": "text",
+          "content": "LIVE",
+          "fill": "$color.panel",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.label"
+        }
+      ]
+    },
+    {
+      "id": "dashboard-action-card",
+      "type": "frame",
+      "reusable": true,
+      "x": 0,
+      "y": 1480,
+      "width": 420,
+      "layout": "vertical",
+      "padding": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "gap": 10,
+      "cornerRadius": "$radius.panel",
+      "fill": "$color.panel",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$color.border"
+      },
+      "children": [
+        {
+          "id": "dashboard-action-card-eyebrow",
+          "type": "text",
+          "content": "QUICK ACTION",
+          "fill": "$color.primary",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.label"
+        },
+        {
+          "id": "dashboard-action-card-title",
+          "type": "text",
+          "content": "Create event",
+          "fill": "$color.text",
+          "fontFamily": "Space Grotesk",
+          "fontSize": "$type.heading"
+        },
+        {
+          "id": "dashboard-action-card-copy",
+          "type": "text",
+          "content": "Spin up a fresh bracket to test onboarding copy and flows.",
+          "fill": "$color.text",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.body",
+          "width": 360
+        }
+      ]
+    },
+    {
+      "id": "navigation-item",
+      "type": "frame",
+      "reusable": true,
+      "x": 480,
+      "y": 1480,
+      "width": 240,
+      "layout": "horizontal",
+      "alignItems": "center",
+      "padding": [
+        12,
+        16,
+        12,
+        16
+      ],
+      "gap": 12,
+      "cornerRadius": "$radius.control",
+      "fill": "$color.panel",
+      "stroke": {
+        "thickness": 1,
+        "fill": "$color.border"
+      },
+      "children": [
+        {
+          "id": "navigation-item-icon",
+          "type": "text",
+          "content": "•",
+          "fill": "$color.primary",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.body"
+        },
+        {
+          "id": "navigation-item-label",
+          "type": "text",
+          "content": "Dashboard",
+          "fill": "$color.text",
+          "fontFamily": "IBM Plex Sans",
+          "fontSize": "$type.body"
+        }
+      ]
+    }
+  ]
+}

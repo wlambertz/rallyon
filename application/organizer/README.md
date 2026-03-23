@@ -28,8 +28,23 @@ npm install
 ## PrimeNG/branding bootstrap
 
 - Global theme imports live in `src/styles.scss` (PrimeFlex utilities + PrimeIcons; theming is handled via `providePrimeNG`).
-- Base typography (Inter) is registered in `src/index.html`.
+- Base typography (`IBM Plex Sans`, `Space Grotesk`, `Doto`) is registered in `src/index.html`.
 - Login, dashboard, and stub routes showcase the brand palette plus PrimeNG components (Card, Button, Drawer, Tag, etc.).
+
+## Pencil.dev workflow
+
+- Pencil design sources live under `design/pencil/` and are committed to Git alongside Angular code.
+- Use `design/pencil/organizer-ui.lib.pen` for reusable organizer variables and components.
+- Use `design/pencil/screens/*.pen` for screen-level organizer flows such as login, dashboard, events, settings, and navigation.
+- Keep Pencil variables aligned with `src/styles/settings/_tokens.scss`, `src/app/rallyonpreset.ts`, and `src/styles/elements/_typography.scss`.
+- Storybook is the code-side catalog. Local Pencil references are centralized in `src/stories/pencil-registry.ts`.
+- Recommended contributor loop:
+  1. Open or create the relevant `.pen` file in VS Code.
+  2. Import the organizer library file in Pencil when you need shared assets.
+  3. Update the Storybook story and Angular implementation in the same workstream.
+  4. Run a drift review before merge.
+- Pencil installs as a VS Code extension; the workspace recommends it through `.vscode/extensions.json`.
+- When Pencil is running, verify MCP integration from Codex with `/mcp`.
 
 ## Playwright smoke tests
 

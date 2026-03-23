@@ -3,6 +3,7 @@ import { applicationConfig, type Meta, type StoryObj } from '@storybook/angular'
 
 import { LayoutService } from '../app/core/services/layout.service'
 import { NavigationComponent } from '../app/layout/navigation/navigation.component'
+import { pencilArtifactNote } from './pencil-registry'
 
 class MockLayoutService {
   private readonly sidebarState = signal(true)
@@ -23,7 +24,7 @@ class MockLayoutService {
 }
 
 const meta: Meta<NavigationComponent> = {
-  title: 'Layout/SideNavigation',
+  title: 'Layout/Navigation',
   component: NavigationComponent,
   tags: ['autodocs'],
   decorators: [
@@ -33,6 +34,14 @@ const meta: Meta<NavigationComponent> = {
   ],
   parameters: {
     layout: 'fullscreen',
+    docs: {
+      description: {
+        component: [
+          'Navigation is the base layout surface for the organizer shell. Use the local Pencil screen file as the design reference instead of a remote design link.',
+          pencilArtifactNote('layout/navigation'),
+        ].join('\n\n'),
+      },
+    },
   },
 }
 
