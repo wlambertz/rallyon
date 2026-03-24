@@ -55,6 +55,7 @@ npm install
 ## Organizer walkthrough
 
 1. Hit `http://localhost:4200/login` and sign in with **organizer / rallyon**.
+   This is a local UX-spike stub implemented entirely in the browser and is not a production authentication flow.
 2. The PrimeNG drawer sidebar (Home, Events, Settings) can be toggled from the dashboard header or by calling the layout service.
 3. The dashboard renders mock quick actions and the next upcoming event via `DashboardService`.
 4. Events/Settings routes intentionally contain placeholders so UX testers can trace the end-to-end flow today.

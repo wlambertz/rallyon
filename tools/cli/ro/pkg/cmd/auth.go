@@ -74,8 +74,9 @@ var authTokenCmd = &cobra.Command{
 		"This command is intended for local Swagger UI and manual API testing only.",
 	}, " "),
 	Example: strings.Join([]string{
-		"RALLYON_CLIENT_SECRET=super-secret ro auth token --format bearer",
-		"RALLYON_CLIENT_SECRET=super-secret ro auth token | tr -d '\\n'",
+		`read -rsp "Keycloak client secret: " RALLYON_CLIENT_SECRET && export RALLYON_CLIENT_SECRET && echo`,
+		`read -rsp "Developer password: " RALLYON_DEV_PASSWORD && export RALLYON_DEV_PASSWORD && echo`,
+		"ro auth token --format bearer",
 	}, "\n"),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		request, err := resolveAuthTokenRequest()
@@ -96,9 +97,9 @@ func init() {
 	authTokenCmd.Flags().StringVar(&flagAuthServer, "server", "", "Keycloak server base URL (default: KEYCLOAK_SERVER or http://localhost:8081)")
 	authTokenCmd.Flags().StringVar(&flagAuthRealm, "realm", "", "realm name (default: RALLYON_REALM or rallyon)")
 	authTokenCmd.Flags().StringVar(&flagAuthClientID, "client-id", "", "client ID (default: RALLYON_CLIENT_ID or rallyon-api)")
-	authTokenCmd.Flags().StringVar(&flagAuthClientSecret, "client-secret", "", "client secret (default: RALLYON_CLIENT_SECRET)")
+	authTokenCmd.Flags().StringVar(&flagAuthClientSecret, "client-secret", "", "client secret (default: RALLYON_CLIENT_SECRET; env var preferred to avoid shell history)")
 	authTokenCmd.Flags().StringVar(&flagAuthUsername, "username", "", "username (default: RALLYON_DEV_USERNAME or dev.organizer)")
-	authTokenCmd.Flags().StringVar(&flagAuthPassword, "password", "", "password (default: RALLYON_DEV_PASSWORD)")
+	authTokenCmd.Flags().StringVar(&flagAuthPassword, "password", "", "password (default: RALLYON_DEV_PASSWORD; env var preferred to avoid shell history)")
 	authTokenCmd.Flags().StringVar(&flagAuthFormat, "format", authDefaultFormat, "output format: raw, bearer, or json")
 
 	authCmd.AddCommand(authTokenCmd)
@@ -247,7 +248,8 @@ func authSetupHint() string {
 	return strings.Join([]string{
 		"To prepare local auth, run:",
 		"  docker compose -f infrastructure/local/docker-compose.yml up -d",
-		"  export RALLYON_CLIENT_SECRET=...",
+		`  read -rsp "Keycloak client secret: " RALLYON_CLIENT_SECRET && export RALLYON_CLIENT_SECRET && echo`,
+		`  read -rsp "Developer password: " RALLYON_DEV_PASSWORD && export RALLYON_DEV_PASSWORD && echo`,
 		"  bash admin/keycloak/provision_keycloak.sh",
 	}, "\n")
 }

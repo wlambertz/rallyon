@@ -88,11 +88,13 @@ ro config show --json
 - Local auth token for Swagger UI
 
 ```sh
-RALLYON_CLIENT_SECRET=super-secret ro auth token --format bearer
-RALLYON_CLIENT_SECRET=super-secret ro auth token
+read -rsp "Keycloak client secret: " RALLYON_CLIENT_SECRET && export RALLYON_CLIENT_SECRET && echo
+read -rsp "Developer password: " RALLYON_DEV_PASSWORD && export RALLYON_DEV_PASSWORD && echo
+ro auth token --format bearer
 ```
 
 If Keycloak is not reachable at `http://localhost:8081` from your shell environment, pass `--server` or set `KEYCLOAK_SERVER`.
+Prefer environment variables over `--client-secret` or `--password` so secrets do not end up in shell history.
 
 - Build / Test / Run
 
@@ -166,6 +168,7 @@ ro doctor   # checks Go/Java/Docker/Git state
 ```
 
 - The `ro auth token` helper is intended for local development only. It wraps the existing Keycloak dev realm/client/user flow and prints a bearer token for Swagger UI or manual API testing without storing credentials.
+- Treat the generated token like a secret: avoid pasting it into shared terminals, logs, or recorded shell sessions.
 
 - Packaging / Release
 
