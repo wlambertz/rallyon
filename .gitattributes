@@ -10,6 +10,9 @@
 # Ensure Unix shell scripts remain LF
 *.sh text eol=lf
 
+# Keep repo-local Codex skill files on LF for reliable discovery/parsing
+skills/** text eol=lf
+
 # Gradle wrapper scripts: keep Unix script LF
 gradlew text eol=lf
 service/tournamentmgmt/gradlew text eol=lf
