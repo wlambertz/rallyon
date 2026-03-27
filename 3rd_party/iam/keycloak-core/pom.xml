@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.14.3</junit.version>
         <assertj.version>3.27.7</assertj.version>
-        <nimbus.version>9.48</nimbus.version>
+        <nimbus.version>10.8</nimbus.version>
     </properties>
 
     <dependencies>
