@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/wlambertz/rallyon#readme",
   "devDependencies": {
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.2"
   }
 }
