@@ -9,14 +9,14 @@ Use this skill when the user wants a GitHub-style pull request summary for the c
 
 ## Read before drafting
 
-1. [SYSTEM.md](../../SYSTEM.md)
-2. [AGENTS.md](../../AGENTS.md)
+1. [SYSTEM.md](../../../SYSTEM.md)
+2. [AGENTS.md](../../../AGENTS.md)
 3. Relevant area skill when the diff clearly targets one active subsystem:
-   - [skills/organizer-ui/SKILL.md](../../skills/organizer-ui/SKILL.md)
-   - [skills/tournamentmgmt-service/SKILL.md](../../skills/tournamentmgmt-service/SKILL.md)
-   - [skills/keycloak-auth/SKILL.md](../../skills/keycloak-auth/SKILL.md)
-   - [skills/ro-cli/SKILL.md](../../skills/ro-cli/SKILL.md)
-   - [skills/rallyon-repo-guide/SKILL.md](../../skills/rallyon-repo-guide/SKILL.md) for cross-cutting or repo-wide work
+   - [organizer-ui/SKILL.md](../organizer-ui/SKILL.md)
+   - [tournamentmgmt-service/SKILL.md](../tournamentmgmt-service/SKILL.md)
+   - [keycloak-auth/SKILL.md](../keycloak-auth/SKILL.md)
+   - [ro-cli/SKILL.md](../ro-cli/SKILL.md)
+   - [rallyon-repo-guide/SKILL.md](../rallyon-repo-guide/SKILL.md) for cross-cutting or repo-wide work
 
 ## Workflow
 
@@ -74,7 +74,7 @@ Optional section when warranted:
 
 ## RallyOn conventions
 
-- Align the testing section with RallyOn expectations from [SYSTEM.md](../../SYSTEM.md) and [AGENTS.md](../../AGENTS.md).
+- Align the testing section with RallyOn expectations from [SYSTEM.md](../../../SYSTEM.md) and [AGENTS.md](../../../AGENTS.md).
 - For docs-only or skills-only changes, it is usually enough to report `npm run format:check` when it was run.
 - When the diff spans multiple active runtimes, reflect that in the summary and list the validation performed for each touched area.
 - If the branch changes command surfaces, workflows, env vars, or setup expectations, mention the nearby docs updated to keep instructions aligned.

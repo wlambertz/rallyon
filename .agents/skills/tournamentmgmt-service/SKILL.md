@@ -9,10 +9,10 @@ Use this skill for work in `service/tournamentmgmt/`.
 
 ## Read before editing
 
-1. [service/tournamentmgmt/AGENTS.md](../../service/tournamentmgmt/AGENTS.md)
-2. [wiki/Architecture/Modules.md](../../wiki/Architecture/Modules.md)
-3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../wiki/Architecture/Tournamentmgmt-Modulith.md)
-4. [service/tournamentmgmt/docs/modulith/README.md](../../service/tournamentmgmt/docs/modulith/README.md) when the task affects architecture docs or module boundaries
+1. [service/tournamentmgmt/AGENTS.md](../../../service/tournamentmgmt/AGENTS.md)
+2. [wiki/Architecture/Modules.md](../../../wiki/Architecture/Modules.md)
+3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../../wiki/Architecture/Tournamentmgmt-Modulith.md)
+4. [service/tournamentmgmt/docs/modulith/README.md](../../../service/tournamentmgmt/docs/modulith/README.md) when the task affects architecture docs or module boundaries
 
 ## Architecture rules
 
@@ -27,7 +27,7 @@ Use this skill for work in `service/tournamentmgmt/`.
 
 ## Database and migration rules
 
-- Migrations live in [service/tournamentmgmt/src/main/resources/db/migration](../../service/tournamentmgmt/src/main/resources/db/migration).
+- Migrations live in [service/tournamentmgmt/src/main/resources/db/migration](../../../service/tournamentmgmt/src/main/resources/db/migration).
 - Add a new `V{n}__...sql` file for schema changes.
 - Do not rewrite shipped migrations unless the task explicitly says to repair an unreleased migration.
 - Favor backward-compatible schema changes.
@@ -36,7 +36,7 @@ Use this skill for work in `service/tournamentmgmt/`.
 
 - The service is an OAuth2 resource server backed by shared Keycloak code in `3rd_party/iam`.
 - Do not weaken issuer, audience, role mapping, or `rallyon_user_id` claim handling.
-- Security-sensitive endpoint changes should keep or extend test coverage similar to [service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java](../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java).
+- Security-sensitive endpoint changes should keep or extend test coverage similar to [service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java](../../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java).
 
 ## Validation
 

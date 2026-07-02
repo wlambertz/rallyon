@@ -1,38 +1,5 @@
-rules:
-  git_commit:
-    description: >-
-      Generate Git commit messages that follow best practices and use Gitmoji.
-    when:
-      action: generate_commit_message
-    then:
-      prompt: |
-        You are a Git commit message generator. Use the **Gitmoji convention** (see https://gitmoji.dev) and follow these rules:
+Canonical repository instructions live in `AGENTS.md`.
 
-        – Select a fitting **emoji** from the official Gitmoji list (e.g. 🎨, ✨, 🐛, 🔥, 📝, 🚀, 🔧, etc.). :contentReference[oaicite:0]{index=0}
-        – Place the selected emoji **at the very start** of the commit message (as a prefix).
-        – Optionally include a **scope/context** (in parentheses) after the emoji, then the subject.
-        – Example formats:
-          `✨ (auth) Add login via OAuth`
-          `🐛 Fix null pointer in UserService`
-        – The **Subject line** (≤ 50 characters) should be in the imperative mood, clear & concise, **no trailing period**.
-        – Insert a blank line, then optionally a **body** explaining the *why*, context, and details.
-        – If there's an issue/ticket, include `Fixes #123` or `Closes #123` (in the body or as a separate line).
-        – Use bullet points (`- …`) in the body if listing multiple points.
-        – Keep the commit’s purpose focused: one logical change per commit.
-        – Avoid redundancy in the subject (e.g. “added”, “changed”) — that should be obvious from the diff/type.
-
-        **Sample Gitmojis & meanings (selected):**
-        - 🎨 (`:art:`) → Improve structure / formatting :contentReference[oaicite:1]{index=1}
-        - ✨ (`:sparkles:`) → Introduce new feature :contentReference[oaicite:2]{index=2}
-        - 🐛 (`:bug:`) → Fix a bug :contentReference[oaicite:3]{index=3}
-        - 🔥 (`:fire:`) → Remove code or files :contentReference[oaicite:4]{index=4}
-        - 📝 (`:memo:`) → Add or update documentation :contentReference[oaicite:5]{index=5}
-        - 🚀 (`:rocket:`) → Deploy / release :contentReference[oaicite:6]{index=6}
-        - 🔧 (`:wrench:`) → Configuration changes, scripts :contentReference[oaicite:7]{index=7}
-        - ♻️ (`:recycle:`) → Refactor code (no functional change) :contentReference[oaicite:8]{index=8}
-
-        If unsure which emoji fits best, pick the one matching the **category** of change (feature, bug, docs, refactor, config, etc.).
-
-      postprocess:
-        trim_subject: true
-        wrap_body: 72
+- Follow the nearest applicable `AGENTS.md` file for the path being edited.
+- Use this file only as a Cursor compatibility pointer; do not treat it as a second source of truth.
+- Add `.cursor/rules/*.mdc` only when Cursor-specific metadata or path-scoped behavior is required.

@@ -9,7 +9,7 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 
 ## Start here
 
-1. Read [AGENTS.md](../../AGENTS.md).
+1. Read [AGENTS.md](../../../AGENTS.md).
 2. Identify the owning area:
    - `application/organizer`
    - `service/tournamentmgmt`
@@ -26,10 +26,10 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 
 ## Active areas
 
-- Organizer UI: [application/organizer/AGENTS.md](../../application/organizer/AGENTS.md)
-- Tournament service: [service/tournamentmgmt/AGENTS.md](../../service/tournamentmgmt/AGENTS.md)
-- Shared auth: [3rd_party/iam/AGENTS.md](../../3rd_party/iam/AGENTS.md)
-- Developer CLI: [tools/cli/ro/AGENTS.md](../../tools/cli/ro/AGENTS.md)
+- Organizer UI: [application/organizer/AGENTS.md](../../../application/organizer/AGENTS.md)
+- Tournament service: [service/tournamentmgmt/AGENTS.md](../../../service/tournamentmgmt/AGENTS.md)
+- Shared auth: [3rd_party/iam/AGENTS.md](../../../3rd_party/iam/AGENTS.md)
+- Developer CLI: [tools/cli/ro/AGENTS.md](../../../tools/cli/ro/AGENTS.md)
 
 Ignore placeholder domains unless the user explicitly wants to create them:
 
