@@ -68,7 +68,7 @@ Before editing, identify the owning area and read the closest applicable guidanc
 1. this `SYSTEM.md`
 2. root `AGENTS.md`
 3. the nearest subtree `AGENTS.md`
-4. a relevant repo-local `skills/*/SKILL.md` when the task matches a specialized workflow
+4. a relevant repo-local `.agents/skills/*/SKILL.md` when the task matches a specialized workflow
 
 ### Source of truth
 

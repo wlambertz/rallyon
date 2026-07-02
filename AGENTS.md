@@ -3,12 +3,20 @@
 ## Scope
 
 - `rallyon` is a mixed-language monorepo for badminton tournament tooling.
+- RallyOn is also an educational project for learning modern technologies, architecture practices, tooling, and agent-assisted delivery methods.
 - Active implementation areas today:
   - `application/organizer`: Angular organizer portal
   - `service/tournamentmgmt`: Spring Boot tournament management service
   - `3rd_party/iam`: shared Keycloak security libraries used by backend services
   - `tools/cli/ro`: Go developer CLI
 - Placeholder areas exist (`application/audience`, `service/playermgmt`, `service/scoring`) but currently contain no runnable app/service code.
+
+## Educational Project Principle
+
+- Prefer explainable, incremental changes that preserve learning value for the maintainer.
+- When introducing a new technology, architecture pattern, workflow, or agent-facing convention, document the reason and tradeoffs close to the change.
+- Do not hide important decisions behind unexplained automation; make the method and validation path visible.
+- Keep experiments scoped and reversible unless the task explicitly promotes them to the project baseline.
 
 ## Read This First
 
@@ -62,6 +70,7 @@
 - `infrastructure/local/`: local Docker Compose for Keycloak, Postgres, and tournament management service
 - `persistence/db/`: Postgres image used by local compose
 - `tools/cli/ro/`: Go Cobra CLI for build/test/run/deploy/docs/scaffolding workflows
+- `.agents/skills/`: repo-scoped Codex skills for repeatable RallyOn workflows
 - `wiki/`: git submodule and expected agent research source for architecture, CLI workflows, personas, and design context
 
 ## Architecture Boundaries
@@ -95,6 +104,7 @@
   - `ro` CLI commands and flags
 - Do not rename directories, packages, or modules just for consistency.
 - Update nearby docs when command surfaces, env vars, workflows, or developer setup materially change.
+- When an agent creates a Git commit, it must add itself as a `Co-authored-by` trailer in the commit message using its agent name and configured noreply/contact address.
 
 ## Done Criteria
 

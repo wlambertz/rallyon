@@ -9,16 +9,16 @@ Use this skill for work on `tools/cli/ro`, `ro.yaml`, and CLI-adjacent docs.
 
 ## Read before editing
 
-1. [tools/cli/ro/AGENTS.md](../../tools/cli/ro/AGENTS.md)
-2. [wiki/CLI-Manual.md](../../wiki/CLI-Manual.md)
-3. [tools/cli/ro/README.md](../../tools/cli/ro/README.md)
-4. [ro.yaml](../../ro.yaml)
+1. [tools/cli/ro/AGENTS.md](../../../tools/cli/ro/AGENTS.md)
+2. [wiki/CLI-Manual.md](../../../wiki/CLI-Manual.md)
+3. [tools/cli/ro/README.md](../../../tools/cli/ro/README.md)
+4. [ro.yaml](../../../ro.yaml)
 
-Use [docs/cli-reference.md](../../docs/cli-reference.md) as generated output, not as the design source.
+Use [docs/cli-reference.md](../../../docs/cli-reference.md) as generated output, not as the design source.
 
 ## Working rules
 
-- Keep command implementations under [tools/cli/ro/pkg/cmd](../../tools/cli/ro/pkg/cmd).
+- Keep command implementations under [tools/cli/ro/pkg/cmd](../../../tools/cli/ro/pkg/cmd).
 - Shared helpers belong in support packages like `pkg/config`, `pkg/execx`, `pkg/fsx`, `pkg/logx`, `pkg/prompt`, `pkg/telemetry`, and `pkg/version`.
 - Preserve command-line compatibility unless the task explicitly allows a breaking change.
 - If docs and implementation diverge, preserve implemented behavior and update docs intentionally instead of changing behavior to match stale prose.
@@ -36,10 +36,10 @@ Use [docs/cli-reference.md](../../docs/cli-reference.md) as generated output, no
 
 When command semantics or config behavior change, check whether these also need updates:
 
-- [wiki/CLI-Manual.md](../../wiki/CLI-Manual.md)
-- [tools/cli/ro/README.md](../../tools/cli/ro/README.md)
+- [wiki/CLI-Manual.md](../../../wiki/CLI-Manual.md)
+- [tools/cli/ro/README.md](../../../tools/cli/ro/README.md)
 - generated CLI reference via `ro docs generate`
-- related workflow files under [.github/workflows](../../.github/workflows)
+- related workflow files under [.github/workflows](../../../.github/workflows)
 
 ## Validation
 
@@ -47,4 +47,4 @@ When command semantics or config behavior change, check whether these also need 
 - Rebuild `bin/ro` only when a local smoke check is useful:
   - `cd tools/cli/ro && go build -o ../../bin/ro .`
 
-Use [tools/cli/ro/.goreleaser.yml](../../tools/cli/ro/.goreleaser.yml) and [ro-release.yml](../../.github/workflows/ro-release.yml) when packaging or release behavior is part of the task.
+Use [tools/cli/ro/.goreleaser.yml](../../../tools/cli/ro/.goreleaser.yml) and [ro-release.yml](../../../.github/workflows/ro-release.yml) when packaging or release behavior is part of the task.
