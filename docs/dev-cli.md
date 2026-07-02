@@ -119,6 +119,7 @@ Use `--verbose` for more logging, `--json` for machine-friendly output. `--dry-r
 - Pass `--wiki` (or set `docs.publishToWiki: true`) to mirror the output into `wiki/CLI.md`; remember to commit the wiki submodule separately.
 - Add `--output <path>` or `--wiki-output <path>` to override the targets when needed.
 - `--commit-wiki` stages and commits the wiki update automatically (use `--commit-message` or `docs.wikiCommitMessage` for the commit text). Combine with `--dry-run` to preview.
+- `ro completion install` writes shell completion scripts under the current user's home directory. Those files are generated local environment artifacts, not project documentation, and should not be committed under the repository root.
 
 ## Packaging & Releases
 

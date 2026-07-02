@@ -14,6 +14,9 @@ out/
 .DS_Store
 Thumbs.db
 
+# User-home artifacts accidentally generated from repo-root shells
+/Documents/
+
 # Maven build outputs
 target/
 .mvn/wrapper/maven-wrapper.jar
