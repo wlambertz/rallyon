@@ -72,45 +72,18 @@ class UpdateDraftServiceTest {
 
     @Test
     fun updatesDraftAndReplacesOwnedFields() {
-        val entity = existingDraftEntity()
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
+        val entity = givenExistingDraft()
         Mockito.`when`(tournamentRepository.save(ArgumentMatchers.any(TournamentEntity::class.java)))
             .thenAnswer { invocation -> invocation.getArgument(0, TournamentEntity::class.java) }
 
-        val draftChanges = Tournament.builder()
-            .name("Updated Cup")
-            .visibility(Visibility.PUBLIC)
+        val draftChanges = baseDraftBuilder()
             .description("Fresh description")
             .locale(Locale.GERMANY)
-            .schedule(TimeWindow(
-                Instant.parse("2026-03-20T10:00:00Z"),
-                Instant.parse("2026-03-20T18:00:00Z")
-            ))
-            .registrationWindows(listOf(TimeWindow(
-                Instant.parse("2026-03-01T10:00:00Z"),
-                Instant.parse("2026-03-10T10:00:00Z")
-            )))
-            .venue(Venue(
-                "Olympic Arena",
-                Venue.Address("Main Street 1", "12345", "Berlin"),
-                Capacity(5000, Capacity.Unit.PEOPLE)
-            ))
-            .courts(listOf(
-                Court(200L, "Court A", Court.Availability.AVAILABLE, Court.Type.STANDARD),
-                Court(0L, "Court B", Court.Availability.UNAVAILABLE, Court.Type.SINGLES_ONLY)
-            ))
-            .disciplines(listOf(DisciplineConfig(
-                11L,
-                Category.SINGLES,
-                "Singles",
-                TeamSize.SINGLES,
-                listOf(BracketConfig(
-                    BracketId("main"),
-                    "Main Draw",
-                    TournamentFormat.KO_POULE,
-                    Capacity(32, Capacity.Unit.PARTICIPANTS)
-                ))
-            )))
+            .schedule(timeWindow("2026-03-20T10:00:00Z", "2026-03-20T18:00:00Z"))
+            .registrationWindows(listOf(timeWindow("2026-03-01T10:00:00Z", "2026-03-10T10:00:00Z")))
+            .venue(olympicArena())
+            .courts(replacementCourts())
+            .disciplines(listOf(singlesDiscipline(TournamentFormat.KO_POULE, Capacity(32, Capacity.Unit.PARTICIPANTS))))
             .capacity(Capacity(64, Capacity.Unit.PARTICIPANTS))
             .registrationPolicy(RegistrationPolicy.OPEN)
             .schedulingPolicy(SchedulingPolicy.MAX_PARALLEL_MATCHES)
@@ -124,7 +97,7 @@ class UpdateDraftServiceTest {
             .phases(listOf())
             .build()
 
-        val updated = updateDraftService.execute(10L, draftChanges, 3L, 55L)
+        val updated = executeUpdate(draftChanges)
 
         assertEquals("Updated Cup", updated.name())
         assertEquals(Visibility.PUBLIC, updated.visibility())
@@ -134,7 +107,7 @@ class UpdateDraftServiceTest {
         assertEquals(1, updated.disciplines().size)
         assertEquals(listOf(1001L, 1002L), updated.participants().playerIds())
         assertEquals(listOf(3001L), updated.bracketRosters()[BracketId("main")]!!.playerIds())
-        assertEquals(55L, updated.lastModifiedByUserId())
+        assertEquals(ACTING_USER_ID, updated.lastModifiedByUserId())
         assertNotNull(updated.lastModifiedAt())
 
         assertEquals("Updated Cup", entity.name)
@@ -147,65 +120,55 @@ class UpdateDraftServiceTest {
         assertEquals(2, entity.participants.stream().filter { participant -> participant.category == null }.count())
         assertEquals(1, entity.disciplines.first().brackets.first().participants.size)
 
-        verify(tournamentRepository).findById(10L)
+        verify(tournamentRepository).findById(TOURNAMENT_ID)
         verify(tournamentRepository).save(entity)
     }
 
     @Test
     fun rejectsMissingTournament() {
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.empty())
+        Mockito.`when`(tournamentRepository.findById(TOURNAMENT_ID)).thenReturn(Optional.empty())
 
         val exception = assertThrows(TournamentNotFoundException::class.java) {
-            updateDraftService.execute(10L, minimalDraft(), 3L, 55L)
+            executeUpdate(minimalDraft())
         }
 
         assertEquals("Tournament 10 was not found", exception.message)
-        verify(tournamentRepository).findById(10L)
-        verifyNoMoreInteractions(tournamentRepository)
+        verifyOnlyDraftLookup()
     }
 
     @Test
     fun rejectsStaleVersion() {
-        val entity = existingDraftEntity()
+        val entity = givenExistingDraft()
         entity.version = 4L
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
 
         val exception = assertThrows(DraftUpdateConflictException::class.java) {
-            updateDraftService.execute(10L, minimalDraft(), 3L, 55L)
+            executeUpdate(minimalDraft())
         }
 
         assertEquals("Draft version mismatch: expected 4 but got 3", exception.message)
-        verify(tournamentRepository).findById(10L)
-        verifyNoMoreInteractions(tournamentRepository)
+        verifyOnlyDraftLookup()
     }
 
     @Test
     fun rejectsNonDraftTournament() {
-        val entity = existingDraftEntity()
+        val entity = givenExistingDraft()
         entity.status = TournamentStatus.PUBLISHED
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
 
         val exception = assertThrows(DraftUpdateConflictException::class.java) {
-            updateDraftService.execute(10L, minimalDraft(), 3L, 55L)
+            executeUpdate(minimalDraft())
         }
 
         assertEquals("Only tournaments in DRAFT status can be updated", exception.message)
-        verify(tournamentRepository).findById(10L)
-        verifyNoMoreInteractions(tournamentRepository)
+        verifyOnlyDraftLookup()
     }
 
     @Test
     fun rejectsNonEmptyPhases() {
         val exception = assertThrows(InvalidDraftUpdateException::class.java) {
-            updateDraftService.execute(
-                10L,
-                Tournament.builder()
-                    .name("Updated Cup")
-                    .visibility(Visibility.PUBLIC)
+            executeUpdate(
+                baseDraftBuilder()
                     .phases(listOf(object : Phase {}))
-                    .build(),
-                3L,
-                55L
+                    .build()
             )
         }
 
@@ -215,19 +178,13 @@ class UpdateDraftServiceTest {
 
     @Test
     fun rejectsUnknownCourtIds() {
-        val entity = existingDraftEntity()
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
+        givenExistingDraft()
 
         val exception = assertThrows(InvalidDraftUpdateException::class.java) {
-            updateDraftService.execute(
-                10L,
-                Tournament.builder()
-                    .name("Updated Cup")
-                    .visibility(Visibility.PUBLIC)
+            executeUpdate(
+                baseDraftBuilder()
                     .courts(listOf(Court(999L, "Court X", Court.Availability.AVAILABLE, Court.Type.STANDARD)))
-                    .build(),
-                3L,
-                55L
+                    .build()
             )
         }
 
@@ -236,34 +193,10 @@ class UpdateDraftServiceTest {
 
     @Test
     fun rejectsUnknownBracketRosterKeys() {
-        val entity = existingDraftEntity()
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
+        givenExistingDraft()
 
         val exception = assertThrows(InvalidDraftUpdateException::class.java) {
-            updateDraftService.execute(
-                10L,
-                Tournament.builder()
-                    .name("Updated Cup")
-                    .visibility(Visibility.PUBLIC)
-                    .disciplines(listOf(DisciplineConfig(
-                        11L,
-                        Category.SINGLES,
-                        "Singles",
-                        TeamSize.SINGLES,
-                        listOf(BracketConfig(
-                            BracketId("main"),
-                            "Main Draw",
-                            TournamentFormat.SWISS,
-                            null
-                        ))
-                    )))
-                    .bracketRosters(mapOf(
-                        BracketId("unknown") to ParticipantsRoster(listOf(3001L), null)
-                    ))
-                    .build(),
-                3L,
-                55L
-            )
+            executeUpdate(draftWithBracketRoster(BracketId("unknown"), ParticipantsRoster(listOf(3001L), null)))
         }
 
         assertEquals("Unknown bracket roster key 'unknown'", exception.message)
@@ -271,34 +204,10 @@ class UpdateDraftServiceTest {
 
     @Test
     fun rejectsRosterModeMismatchAgainstSinglesBracket() {
-        val entity = existingDraftEntity()
-        Mockito.`when`(tournamentRepository.findById(10L)).thenReturn(Optional.of(entity))
+        givenExistingDraft()
 
         val exception = assertThrows(InvalidDraftUpdateException::class.java) {
-            updateDraftService.execute(
-                10L,
-                Tournament.builder()
-                    .name("Updated Cup")
-                    .visibility(Visibility.PUBLIC)
-                    .disciplines(listOf(DisciplineConfig(
-                        11L,
-                        Category.SINGLES,
-                        "Singles",
-                        TeamSize.SINGLES,
-                        listOf(BracketConfig(
-                            BracketId("main"),
-                            "Main Draw",
-                            TournamentFormat.SWISS,
-                            null
-                        ))
-                    )))
-                    .bracketRosters(mapOf(
-                        BracketId("main") to ParticipantsRoster(null, listOf(4001L))
-                    ))
-                    .build(),
-                3L,
-                55L
-            )
+            executeUpdate(draftWithBracketRoster(BracketId("main"), ParticipantsRoster(null, listOf(4001L))))
         }
 
         assertEquals(
@@ -307,10 +216,49 @@ class UpdateDraftServiceTest {
         )
     }
 
-    private fun minimalDraft(): Tournament = Tournament.builder()
+    private fun executeUpdate(draftChanges: Tournament): Tournament =
+        updateDraftService.execute(TOURNAMENT_ID, draftChanges, EXPECTED_VERSION, ACTING_USER_ID)
+
+    private fun givenExistingDraft(): TournamentEntity = existingDraftEntity().also { entity ->
+        Mockito.`when`(tournamentRepository.findById(TOURNAMENT_ID)).thenReturn(Optional.of(entity))
+    }
+
+    private fun verifyOnlyDraftLookup() {
+        verify(tournamentRepository).findById(TOURNAMENT_ID)
+        verifyNoMoreInteractions(tournamentRepository)
+    }
+
+    private fun minimalDraft(): Tournament = baseDraftBuilder().build()
+
+    private fun baseDraftBuilder() = Tournament.builder()
         .name("Updated Cup")
         .visibility(Visibility.PUBLIC)
+
+    private fun draftWithBracketRoster(bracketId: BracketId, roster: ParticipantsRoster): Tournament = baseDraftBuilder()
+        .disciplines(listOf(singlesDiscipline(TournamentFormat.SWISS, null)))
+        .bracketRosters(mapOf(bracketId to roster))
         .build()
+
+    private fun timeWindow(start: String, end: String): TimeWindow = TimeWindow(Instant.parse(start), Instant.parse(end))
+
+    private fun olympicArena(): Venue = Venue(
+        "Olympic Arena",
+        Venue.Address("Main Street 1", "12345", "Berlin"),
+        Capacity(5000, Capacity.Unit.PEOPLE)
+    )
+
+    private fun replacementCourts(): List<Court> = listOf(
+        Court(200L, "Court A", Court.Availability.AVAILABLE, Court.Type.STANDARD),
+        Court(0L, "Court B", Court.Availability.UNAVAILABLE, Court.Type.SINGLES_ONLY)
+    )
+
+    private fun singlesDiscipline(format: TournamentFormat, capacity: Capacity?): DisciplineConfig = DisciplineConfig(
+        11L,
+        Category.SINGLES,
+        "Singles",
+        TeamSize.SINGLES,
+        listOf(BracketConfig(BracketId("main"), "Main Draw", format, capacity))
+    )
 
     private fun existingDraftEntity(): TournamentEntity {
         val createdAt = Instant.parse("2026-01-01T10:00:00Z")
@@ -366,5 +314,11 @@ class UpdateDraftServiceTest {
         bracket.participants.add(bracketParticipant)
 
         return entity
+    }
+
+    private companion object {
+        const val TOURNAMENT_ID = 10L
+        const val EXPECTED_VERSION = 3L
+        const val ACTING_USER_ID = 55L
     }
 }
