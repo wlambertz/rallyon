@@ -28,7 +28,7 @@
 	</scm>
 	<properties>
 		<sonar.organization>wlambertz-dev</sonar.organization>
-		<java.version>25</java.version>
+		<java.version>21</java.version>
 		<spring-modulith.version>2.1.0</spring-modulith.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
@@ -50,6 +50,18 @@
 		<dependency>
 			<groupId>org.springframework.modulith</groupId>
 			<artifactId>spring-modulith-starter-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-reflect</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>dev.wlambertz.rallyon.iam</groupId>
@@ -88,7 +100,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.modulith</groupId>
-			<artifactId>spring-modulith-observability</artifactId>
+			<artifactId>spring-modulith-observability-core</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -147,8 +159,86 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-maven-plugin</artifactId>
+				<configuration>
+					<jvmTarget>${java.version}</jvmTarget>
+					<args>
+						<arg>-Xannotation-default-target=param-property</arg>
+					</args>
+					<compilerPlugins>
+						<plugin>spring</plugin>
+						<plugin>jpa</plugin>
+					</compilerPlugins>
+				</configuration>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+								<sourceDir>${project.basedir}/src/main/java</sourceDir>
+							</sourceDirs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+								<sourceDir>${project.basedir}/src/test/java</sourceDir>
+							</sourceDirs>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.jetbrains.kotlin</groupId>
+						<artifactId>kotlin-maven-allopen</artifactId>
+						<version>${kotlin.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jetbrains.kotlin</groupId>
+						<artifactId>kotlin-maven-noarg</artifactId>
+						<version>${kotlin.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>java-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>java-test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<annotationProcessorPaths>
 						<path>
