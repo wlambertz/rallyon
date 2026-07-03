@@ -99,7 +99,7 @@ class UpdateDraftServiceTest {
 
         val updated = executeUpdate(draftChanges)
 
-        assertEquals("Updated Cup", updated.name())
+        assertEquals(UPDATED_CUP_NAME, updated.name())
         assertEquals(Visibility.PUBLIC, updated.visibility())
         assertEquals(Locale.GERMANY.language, updated.locale().language)
         assertEquals(2, updated.courts().size)
@@ -110,7 +110,7 @@ class UpdateDraftServiceTest {
         assertEquals(ACTING_USER_ID, updated.lastModifiedByUserId())
         assertNotNull(updated.lastModifiedAt())
 
-        assertEquals("Updated Cup", entity.name)
+        assertEquals(UPDATED_CUP_NAME, entity.name)
         assertEquals(2, entity.courts.size)
         assertEquals(1, entity.disciplines.size)
         assertSame(entity.courts.first(), entity.courts.stream()
@@ -231,7 +231,7 @@ class UpdateDraftServiceTest {
     private fun minimalDraft(): Tournament = baseDraftBuilder().build()
 
     private fun baseDraftBuilder() = Tournament.builder()
-        .name("Updated Cup")
+        .name(UPDATED_CUP_NAME)
         .visibility(Visibility.PUBLIC)
 
     private fun draftWithBracketRoster(bracketId: BracketId, roster: ParticipantsRoster): Tournament = baseDraftBuilder()
@@ -320,5 +320,6 @@ class UpdateDraftServiceTest {
         const val TOURNAMENT_ID = 10L
         const val EXPECTED_VERSION = 3L
         const val ACTING_USER_ID = 55L
+        const val UPDATED_CUP_NAME = "Updated Cup"
     }
 }
