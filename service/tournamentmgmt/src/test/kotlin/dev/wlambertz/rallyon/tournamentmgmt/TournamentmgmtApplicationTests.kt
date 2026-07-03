@@ -11,5 +11,6 @@ class TournamentmgmtApplicationTests {
 
     @Test
     fun contextLoads() {
+        // Spring Boot fails this test if the application context cannot start.
     }
 }
