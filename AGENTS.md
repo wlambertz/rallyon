@@ -18,6 +18,12 @@
 - Do not hide important decisions behind unexplained automation; make the method and validation path visible.
 - Keep experiments scoped and reversible unless the task explicitly promotes them to the project baseline.
 
+## Issue Implementation Planning
+
+- When asked to create an implementation plan for a GitHub issue, write the plan under `docs/issue-implementation-plans/` and add the same plan as a comment on the issue.
+- Planning work may inspect code, docs, tests, wiki pages, and issue comments, but must not modify production code, tests, migrations, runtime config, dependency files, or generated app artifacts.
+- Codex should use `.agents/skills/issue-implementation-planner/`; Cursor and Claude should follow this shared rule through their `AGENTS.md` adapters.
+
 ## Read This First
 
 - Check for a closer `AGENTS.md` before changing files in:
@@ -71,6 +77,7 @@
 - `persistence/db/`: Postgres image used by local compose
 - `tools/cli/ro/`: Go Cobra CLI for build/test/run/deploy/docs/scaffolding workflows
 - `.agents/skills/`: repo-scoped Codex skills for repeatable RallyOn workflows
+- `docs/issue-implementation-plans/`: durable implementation plans created from GitHub issues before coding
 - `wiki/`: git submodule and expected agent research source for architecture, CLI workflows, personas, and design context
 
 ## Architecture Boundaries
