@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:25.0.2_10-jre-jammy
+FROM eclipse-temurin:26.0.1_8-jre-jammy
 WORKDIR /app
 
 # Use a dedicated user instead of root for runtime hardening
