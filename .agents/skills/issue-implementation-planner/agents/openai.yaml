@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue Implementation Planner"
+  short_description: "Plan GitHub issue implementation and publish the plan."
+  default_prompt: "Create an implementation plan for a GitHub issue, save it under docs/issue-implementation-plans, and comment it on the issue."
