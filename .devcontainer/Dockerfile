@@ -1,6 +1,6 @@
 FROM golang:1.25.8-bookworm AS go-toolchain
 
-FROM eclipse-temurin:25.0.2_10-jdk-jammy AS java-toolchain
+FROM eclipse-temurin:21-jdk-jammy AS java-toolchain
 
 FROM node:20.20.1-bookworm AS node-toolchain
 

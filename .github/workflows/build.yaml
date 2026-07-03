@@ -35,10 +35,10 @@ jobs:
       - name: Organizer unit tests (headless)
         run: npm run test:ci
         working-directory: application/organizer
-      - name: Set up JDK 25
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
-          java-version: 25
+          java-version: 21
           distribution: "zulu" # Alternative distribution options are available.
       - name: Cache SonarQube packages
         uses: actions/cache@v5

@@ -11,7 +11,7 @@
     <description>Framework-agnostic Keycloak IAM helpers for RallyOn services.</description>
 
     <properties>
-        <maven.compiler.release>25</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>6.1.0</junit.version>
         <assertj.version>3.27.7</assertj.version>
