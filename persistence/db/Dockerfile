@@ -1,4 +1,4 @@
-FROM postgres:18.3
+FROM postgres:18.4
 
 # Set default database credentials for local development
 ENV POSTGRES_DB=rallyon \
