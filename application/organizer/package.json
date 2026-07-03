@@ -58,7 +58,7 @@
     "@types/jasmine": "~6.0.0",
     "angular-eslint": "21.3.0",
     "autoprefixer": "^10.4.27",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-plugin-storybook": "10.3.3",
     "jasmine-core": "~6.1.0",
     "karma": "~6.4.0",
