@@ -64,6 +64,12 @@
 			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
 		<dependency>
+			<!-- Jackson 3 Kotlin module: auto-registered by Boot (find-and-add-modules),
+			     lets Spring MVC (Jackson 3) handle idiomatic Kotlin data classes. -->
+			<groupId>tools.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>dev.wlambertz.rallyon.iam</groupId>
 			<artifactId>keycloak-spring-starter</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
