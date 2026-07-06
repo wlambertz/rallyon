@@ -119,6 +119,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<!-- Locks Bean Validation constraint placement on the Kotlin API records
+			     (see ApiConstraintPlacementTest); no runtime path validates them yet. -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
