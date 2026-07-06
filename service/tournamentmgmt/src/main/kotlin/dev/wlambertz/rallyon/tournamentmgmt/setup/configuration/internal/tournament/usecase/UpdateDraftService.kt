@@ -29,17 +29,17 @@ internal class UpdateDraftService(
         val entity = tournamentRepository.findById(tournamentId)
             .orElseThrow { TournamentNotFoundException(tournamentId) }
 
-        if (entity.getStatus() != TournamentStatus.DRAFT) {
+        if (entity.status != TournamentStatus.DRAFT) {
             throw DraftUpdateConflictException("Only tournaments in DRAFT status can be updated")
         }
-        val currentVersion = entity.getVersion()
+        val currentVersion = entity.version
         if (currentVersion == null || currentVersion != version) {
             throw DraftUpdateConflictException("Draft version mismatch: expected $currentVersion but got $version")
         }
 
         val now = Instant.now()
-        entity.setLastModifiedAt(now)
-        entity.setLastModifiedByUserId(actingUserId)
+        entity.lastModifiedAt = now
+        entity.lastModifiedByUserId = actingUserId
         tournamentMapper.applyDraftReplacement(entity, requiredDraftChanges, actingUserId, now)
 
         return tournamentMapper.toApi(tournamentRepository.save(entity))
