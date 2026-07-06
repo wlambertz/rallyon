@@ -165,4 +165,20 @@ public class TournamentEntity {
 
     @OneToMany(mappedBy = "tournament", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ParticipantEntity> participants = new ArrayList<>();
+
+    public TournamentStatus getStatus() {
+        return status;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setLastModifiedAt(Instant lastModifiedAt) {
+        this.lastModifiedAt = lastModifiedAt;
+    }
+
+    public void setLastModifiedByUserId(long lastModifiedByUserId) {
+        this.lastModifiedByUserId = lastModifiedByUserId;
+    }
 }
