@@ -106,7 +106,7 @@ class UpdateDraftServiceTest {
         assertEquals(1, updated.registrationWindows!!.size)
         assertEquals(1, updated.disciplines!!.size)
         assertEquals(listOf(1001L, 1002L), updated.participants!!.playerIds)
-        assertEquals(listOf(3001L), updated.bracketRosters!![BracketId("main")]!!.playerIds)
+        assertEquals(listOf(3001L), updated.bracketRosters?.get(BracketId("main"))?.playerIds)
         assertEquals(ACTING_USER_ID, updated.lastModifiedByUserId)
         assertNotNull(updated.lastModifiedAt)
 
