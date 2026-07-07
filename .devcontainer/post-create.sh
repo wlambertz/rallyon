@@ -6,7 +6,6 @@ repo_root="/workspaces/rallyon"
 cd "$repo_root"
 
 npm ci
-npm ci --prefix application/organizer
 
 sh ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install
 

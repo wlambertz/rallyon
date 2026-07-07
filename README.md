@@ -7,7 +7,7 @@ BadTourn – Das smarte System für Badmintonturniere
 ```text
 badtourn/
   application/                 App-Bootstrap, Zusammensetzung der Module (Composition Root)
-    organizer/                 Oberfläche/Workflows für Organisator:innen
+    organizer/                 Platzhalter: Oberfläche/Workflows für Organisator:innen (Frontend-Stack noch offen)
     audience/                  Öffentliche Ansichten für Zuschauer:innen ("Turnier-TV")
   service/
     player_mgmt/               Spielerverwaltung (PlayerManagement)
@@ -32,36 +32,24 @@ badtourn/
   - Ergebnisdienst: Erfassung/Berechnung von Ergebnissen und Ranglisten.
 - Öffentliche Informationen: Lesemodelle/Ansichten für Spieler/Zuschauer.
 
-## Organizer-Portal (Angular 20)
+## Organizer-Portal (Platzhalter)
 
-Der Organizer-Client befindet sich in `application/organizer/` und wird mit Angular 20 sowie PrimeNG aufgebaut. Für einen schnellen Einstieg gibt es Root-NPM-Skripte:
-
-- Abhängigkeiten installieren/aktualisieren: `npm run organizer:install`
-- Dev-Server (http://localhost:4200): `npm run organizer:dev`
-- Linting: `npm run organizer:lint`
-- Unit-Tests lokal (öffnet Chrome): `npm run organizer:test`
-- Headless-Testlauf für CI/PRs: `npm run organizer:test:ci`
-- Playwright-Smoke: `npm run organizer:test:e2e` (oder `ro app test-e2e organizer`)
-- Alternativ über die RallyOn-CLI: `ro app install|start|lint|test|test-ci|test-e2e organizer`
-
-Die Skripte rufen intern die jeweiligen Kommandos im Unterprojekt auf, sodass nichts am Arbeitsverzeichnis gewechselt werden muss.
+`application/organizer/` ist aktuell ein leerer Platzhalter. Die vorherige Angular-Implementierung wurde entfernt, während der Frontend-Stack neu bewertet wird. Es gibt derzeit keine Root-NPM-Skripte oder `ro`-CLI-Wrapper für diesen Bereich. Details stehen in `application/organizer/AGENTS.md`.
 
 ## Dev Container
 
 Für eine konsistente lokale Umgebung gibt es eine Dev-Container-Konfiguration in `.devcontainer/`. Der Container enthält Java 25, Node.js 20, Go 1.25, Docker CLI mit Host-Docker-Zugriff, GitHub CLI (`gh`), Google Chrome für `ChromeHeadless`/Playwright, den PostgreSQL-Client sowie `@openai/codex` als globales npm-Paket.
 
 - Voraussetzung auf dem Host: Docker bzw. Docker Desktop mit verfügbarem `/var/run/docker.sock`.
-- Beim ersten Erstellen des Containers werden Root- und Organizer-NPM-Abhängigkeiten installiert, die lokalen IAM- Maven-Module gebaut und die Go-CLI `ro` nach `bin/ro` kompiliert.
+- Beim ersten Erstellen des Containers werden Root-NPM-Abhängigkeiten installiert, die lokalen IAM- Maven-Module gebaut und die Go-CLI `ro` nach `bin/ro` kompiliert.
 - Infrastruktur bleibt explizit manuell startbar, damit der Container schnell und reproduzierbar hochfährt.
 
 Typische Befehle im Container:
 
 ```bash
 ro doctor
-ro app start organizer
 ro run service tournamentmgmt --env local --port 8080
 docker compose -f infrastructure/local/docker-compose.yml up -d keycloak tournamentmgmt-db
-npm run organizer:test:ci
 ```
 
 ## API-Dokumentation

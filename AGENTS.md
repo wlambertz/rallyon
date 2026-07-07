@@ -5,7 +5,7 @@
 - `rallyon` is a mixed-language monorepo for badminton tournament tooling.
 - RallyOn is also an educational project for learning modern technologies, architecture practices, tooling, and agent-assisted delivery methods.
 - Active implementation areas today:
-  - `application/organizer`: Angular organizer portal
+  - `application/organizer`: placeholder; the Angular frontend was removed while the frontend stack is reconsidered, see `application/organizer/AGENTS.md`
   - `service/tournamentmgmt`: Spring Boot tournament management service
   - `3rd_party/iam`: shared Keycloak security libraries used by backend services
   - `tools/cli/ro`: Go developer CLI
@@ -46,12 +46,6 @@
 - Check tracked-file formatting: `npm run format:check`
 - Check changed-file formatting: `npm run format:check:changed`
 - Format changed files: `npm run format`
-- Organizer install: `npm run organizer:install`
-- Organizer dev server: `npm run organizer:dev`
-- Organizer lint: `npm run organizer:lint`
-- Organizer unit tests: `npm run organizer:test`
-- Organizer CI unit tests: `npm run organizer:test:ci`
-- Organizer e2e smoke: `npm run organizer:test:e2e`
 - Build shared IAM modules first when backend code depends on them:
   - `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install`
 - Backend verify: `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`
@@ -63,14 +57,13 @@
 - If you touch multiple runtimes, validate each touched runtime.
 - Minimum expectations:
   - Docs/scripts-only changes: `npm run format:check`
-  - Organizer UI changes: `npm run organizer:lint` and `npm run organizer:test:ci`
   - Spring backend or IAM changes: install IAM if needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`
   - Go CLI changes: `cd tools/cli/ro && go test ./...`
 - If a heavier check is skipped, say so explicitly in your handoff.
 
 ## File Map
 
-- `application/organizer/`: Angular 21 standalone app, Tailwind v4, PrimeNG, Storybook, Playwright
+- `application/organizer/`: placeholder; no frontend stack is currently in place
 - `service/tournamentmgmt/`: Spring Boot 4 service, Spring Modulith, JPA, Flyway, PostgreSQL, OpenAPI
 - `3rd_party/iam/`: shared Keycloak core and Spring security auto-configuration
 - `admin/keycloak/`: local Keycloak provisioning script and operator notes
@@ -83,7 +76,7 @@
 
 ## Architecture Boundaries
 
-- Keep organizer UI concerns in `application/organizer`; do not add backend or auth-server behavior there.
+- Keep organizer UI concerns in `application/organizer`; do not add backend or auth-server behavior there. Do not introduce a frontend stack there without an explicit decision.
 - Keep service module boundaries intact in `service/tournamentmgmt`; `setup.configuration.api` is exposed, `internal` packages are not.
 - Treat `3rd_party/iam` as shared platform code. Changes there affect backend authentication behavior across services.
 - Do not add assumptions about `application/audience`, `service/playermgmt`, or `service/scoring`; they are placeholders today.

@@ -8,47 +8,6 @@ paths:
   thirdPartyRoot: 3rd_party
   adminRoot: admin
 
-apps:
-  organizer:
-    path: application/organizer
-    scripts:
-      install:
-        - npm
-        - install
-      start:
-        - npm
-        - run
-        - start
-      lint:
-        - npm
-        - run
-        - lint
-      test:
-        - npm
-        - run
-        - test
-      "test:ci":
-        - npm
-        - run
-        - test:ci
-      "test:e2e":
-        - npm
-        - run
-        - test:e2e
-      storybook:
-        - env
-        - CHOKIDAR_USEPOLLING=1
-        - STORYBOOK_DISABLE_PERSISTENT_CACHE=1
-        - STORYBOOK_CACHE_DIR=/tmp/storybook-cache
-        - NODE_OPTIONS=--trace-warnings
-        - npm
-        - run
-        - storybook
-      "build-storybook":
-        - npm
-        - run
-        - build-storybook
-
 build:
   mavenWrapper: ./mvnw
   defaultGoals: ["clean", "verify"]

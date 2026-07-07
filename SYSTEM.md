@@ -17,7 +17,7 @@ This policy applies repo-wide.
 
 Active implementation areas today:
 
-- `application/organizer`: Angular organizer portal
+- `application/organizer`: placeholder; frontend stack removed and not yet decided
 - `service/tournamentmgmt`: Spring Boot tournament management service
 - `3rd_party/iam`: shared Keycloak auth libraries
 - `tools/cli/ro`: Go developer CLI
@@ -80,7 +80,6 @@ Before editing, identify the owning area and read the closest applicable guidanc
 
 - Use repo-defined commands and wrappers instead of inventing new ones.
 - Root formatting: `npm run format`, `npm run format:check`, `npm run format:check:changed`
-- Organizer: root `npm run organizer:*` wrappers or local `npm` scripts in `application/organizer`
 - Backend/IAM: `./service/tournamentmgmt/mvnw -B -f ...`
 - CLI: `cd tools/cli/ro && go test ./...`
 - Use `ro` for RallyOn-specific CLI workflows when the task concerns deploy, docker, docs generation, auth token helpers, or scaffold flows.
@@ -99,8 +98,6 @@ Before editing, identify the owning area and read the closest applicable guidanc
 - If multiple runtimes are touched, validate each touched runtime.
 - Minimum expectations:
   - docs/scripts-only: `npm run format:check`
-  - organizer UI: `npm run organizer:lint` and `npm run organizer:test:ci`
-  - organizer login/routing/shell changes: also `npm run organizer:test:e2e`
   - IAM changes: `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml test`
   - backend changes: install IAM first when needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`
   - CLI changes: `cd tools/cli/ro && go test ./...`
@@ -143,7 +140,6 @@ Within repo content:
 
 Keep `SYSTEM.md` stable and global. Put specialized, fast-changing workflows in Skills instead, especially:
 
-- organizer UI implementation and Pencil/Storybook sync
 - tournament service changes, Modulith conventions, and migration workflows
 - shared Keycloak/auth changes and local Keycloak bootstrap
 - `ro` CLI command development, release packaging, and deploy flows

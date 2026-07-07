@@ -1,47 +1,24 @@
 ---
 name: organizer-ui
-description: work on the Angular organizer portal in application/organizer. Use for components, routes, auth-stub flows, shell or navigation changes, styling, PrimeNG theme work, Storybook stories, Playwright smoke coverage, or Pencil-backed design sync. Follow organizer subtree rules, preserve the current stub-auth reality, and keep Angular, Storybook, and Pencil assets aligned.
+description: work on the organizer frontend in application/organizer. Use for requests to build, extend, or theme the organizer portal UI. application/organizer is currently an intentionally empty placeholder (the prior Angular/PrimeNG/Storybook/Playwright implementation was removed), so this skill's job is to stop new frontend work from silently reintroducing that stack before a decision is made.
 ---
 
-# Organizer UI
+# Organizer UI (Placeholder)
 
-Use this skill for work in `application/organizer/`.
+`application/organizer` is intentionally empty. The prior Angular standalone implementation (login/dashboard/navigation stub, PrimeNG theme, Storybook stories, Playwright smoke tests, committed Pencil `.pen` sources) was removed while the frontend stack is reconsidered. See [application/organizer/AGENTS.md](../../../application/organizer/AGENTS.md).
 
-## Read before editing
+## Read before doing any organizer UI work
 
 1. [application/organizer/AGENTS.md](../../../application/organizer/AGENTS.md)
-2. [wiki/design/frontend-spaceport-theme.md](../../../wiki/design/frontend-spaceport-theme.md) for visual direction
-3. [application/organizer/src/styles/README.md](../../../application/organizer/src/styles/README.md) for style-layer conventions
-4. [application/organizer/design/pencil/README.md](../../../application/organizer/design/pencil/README.md) when the task changes reusable UI, layout, or tokens
-5. [pencil-design/SKILL.md](../pencil-design/SKILL.md) when the task asks for Pencil, `.pen` design generation, visual mockups, or AI-assisted design iteration
-
-Treat code as authoritative if docs and implementation diverge.
+2. This file
 
 ## Working rules
 
-- Keep feature code under `src/app/features`, shell/navigation under `src/app/layout`, and cross-cutting logic under `src/app/core`.
-- Use standalone Angular patterns and existing routes from [application/organizer/src/app/app.routes.ts](../../../application/organizer/src/app/app.routes.ts).
-- Keep feature styling next to the component. Only promote reusable styling into `src/styles/**`.
-- Respect ESLint selector rules with the `app` prefix.
-- Do not present the current browser-only auth stub as production auth.
-
-## Design sync
-
-When changing shared UI primitives, tokens, or screen layouts, keep these aligned when applicable:
-
-- [application/organizer/design/pencil/screens](../../../application/organizer/design/pencil/screens)
-- [application/organizer/src/stories](../../../application/organizer/src/stories)
-- [application/organizer/src/styles/settings/\_tokens.scss](../../../application/organizer/src/styles/settings/_tokens.scss)
-- [application/organizer/src/app/rallyonpreset.ts](../../../application/organizer/src/app/rallyonpreset.ts)
-- [application/organizer/src/styles/elements/\_typography.scss](../../../application/organizer/src/styles/elements/_typography.scss)
-
-Use the `pencil-design` skill for Pencil CLI generation and iteration. Do not install or run Pencil unless the user asks for design generation or a task requires a live `.pen` workflow.
+- Do not scaffold Angular, PrimeNG, Storybook, Playwright, Pencil, or any other frontend framework/tooling here without an explicit decision from the maintainer made outside routine feature work.
+- If asked to implement an organizer UI feature, first surface that no frontend stack is currently selected and ask how to proceed, rather than assuming the prior Angular stack.
+- If a new frontend stack is chosen and adopted, rewrite this skill (including the `description`), `application/organizer/AGENTS.md`, and the root docs/CI/devcontainer wiring that reference this app in the same change.
+- The [pencil-design](../pencil-design/SKILL.md) skill is paused for the same reason; do not invoke it for organizer work until a stack exists.
 
 ## Validation
 
-- `npm run organizer:lint`
-- `npm run organizer:test:ci`
-
-Also run `npm run organizer:test:e2e` when the task changes login flow, route guards, shell navigation, or dashboard text that Playwright depends on.
-
-Update or add the matching Storybook story when practical for reusable UI changes.
+Not applicable while this directory is a placeholder. Root `npm run format:check` is the relevant check for edits to this skill or to `application/organizer/AGENTS.md`/`README.md`.

@@ -8,13 +8,7 @@
     "format:check": "node tools/scripts/prettier-files.mjs check tracked",
     "format:check:changed": "node tools/scripts/prettier-files.mjs check changed",
     "format:write:tracked": "node tools/scripts/prettier-files.mjs write tracked",
-    "lint": "npm run format:check",
-    "organizer:install": "npm install --prefix application/organizer",
-    "organizer:dev": "npm start --prefix application/organizer",
-    "organizer:lint": "npm run lint --prefix application/organizer",
-    "organizer:test": "npm run test --prefix application/organizer",
-    "organizer:test:ci": "npm run test:ci --prefix application/organizer",
-    "organizer:test:e2e": "npm run test:e2e --prefix application/organizer"
+    "lint": "npm run format:check"
   },
   "repository": {
     "type": "git",

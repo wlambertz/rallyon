@@ -7,12 +7,8 @@
   "remoteUser": "vscode",
   "updateRemoteUserUID": true,
   "mounts": ["source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"],
-  "forwardPorts": [4200, 8080, 8081, 5432],
+  "forwardPorts": [8080, 8081, 5432],
   "portsAttributes": {
-    "4200": {
-      "label": "Organizer UI",
-      "onAutoForward": "notify"
-    },
     "8080": {
       "label": "Tournamentmgmt API",
       "onAutoForward": "notify"
@@ -25,11 +21,6 @@
       "label": "PostgreSQL",
       "onAutoForward": "silent"
     }
-  },
-  "containerEnv": {
-    "CHROME_BIN": "/usr/bin/google-chrome",
-    "PLAYWRIGHT_CHROME_BIN": "/usr/bin/google-chrome",
-    "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1"
   },
   "remoteEnv": {
     "PATH": "/workspaces/rallyon/bin:${containerEnv:PATH}"
@@ -57,12 +48,10 @@
         "vscjava.vscode-java-pack",
         "vmware.vscode-boot-dev-pack",
         "vscjava.vscode-maven",
-        "angular.ng-template",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "ms-azuretools.vscode-docker",
-        "golang.go",
-        "ms-playwright.playwright"
+        "golang.go"
       ]
     }
   }

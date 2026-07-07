@@ -26,7 +26,7 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 
 ## Active areas
 
-- Organizer UI: [application/organizer/AGENTS.md](../../../application/organizer/AGENTS.md)
+- Organizer UI (placeholder, no frontend stack selected): [application/organizer/AGENTS.md](../../../application/organizer/AGENTS.md)
 - Tournament service: [service/tournamentmgmt/AGENTS.md](../../../service/tournamentmgmt/AGENTS.md)
 - Shared auth: [3rd_party/iam/AGENTS.md](../../../3rd_party/iam/AGENTS.md)
 - Developer CLI: [tools/cli/ro/AGENTS.md](../../../tools/cli/ro/AGENTS.md)
@@ -40,7 +40,6 @@ Ignore placeholder domains unless the user explicitly wants to create them:
 ## Validation contract
 
 - Docs or scripts only: `npm run format:check`
-- Organizer UI: `npm run organizer:lint` and `npm run organizer:test:ci`
 - Backend or IAM: `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` when needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`
 - Go CLI: `cd tools/cli/ro && go test ./...`
 
