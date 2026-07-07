@@ -627,6 +627,13 @@ abstract class TournamentMapper {
         val incomingByBracketId = LinkedHashMap<String, ParticipantsRoster>()
 
         for ((bracketId, roster) in bracketRosters) {
+            // Jackson can deserialize a JSON null into this map's value slot even though the
+            // declared Kotlin type is non-null; the static type does not hold at runtime here.
+            @Suppress("SENSELESS_COMPARISON")
+            if (roster == null) {
+                throw InvalidDraftUpdateException("Bracket roster for '${bracketId.value}' must not be null")
+            }
+
             val target = bracketTargets[bracketId.value]
                 ?: throw InvalidDraftUpdateException("Unknown bracket roster key '${bracketId.value}'")
 
@@ -711,10 +718,12 @@ abstract class TournamentMapper {
         return RosterKind.TEAM
     }
 
-    private fun validateIds(ids: List<Long>, fieldName: String) {
+    // Element type is nullable because Jackson can place a JSON null into a list position
+    // even though callers pass a Kotlin List<Long>; List<out T> covariance permits that here.
+    private fun validateIds(ids: List<Long?>, fieldName: String) {
         val seenIds = LinkedHashSet<Long>()
         for (id in ids) {
-            if (id <= 0) {
+            if (id == null || id <= 0) {
                 throw InvalidDraftUpdateException("$fieldName must only contain positive ids")
             }
             if (!seenIds.add(id)) {
