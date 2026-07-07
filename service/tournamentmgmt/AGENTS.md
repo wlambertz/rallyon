@@ -4,6 +4,9 @@
 
 - Spring Boot 4 service for tournament configuration and lifecycle management.
 - Uses Spring Modulith, Spring Web, JPA, Flyway, PostgreSQL, Actuator, OpenAPI, and shared Keycloak auth from `3rd_party/iam`.
+- Production code is Kotlin-first: `src/main/java` contains only `package-info.java` files (Spring Modulith `@NamedInterface`/`@ApplicationModule` annotation carriers). Write new production code in `src/main/kotlin` unless a change is specifically about those package-info files.
+- `TournamentMapper` (MapStruct) is compiled via the `kotlin-maven-plugin` `kapt` goal, not javac annotation processing. Lombok is not a dependency of this service.
+- Some tests intentionally stay Java (e.g. `TournamentMapperTest`, `ConfigurationServiceImplTest`) as cross-language interop gates alongside Kotlin tests under `src/test/kotlin`. Do not convert a Java test to Kotlin unless the task asks for it.
 
 ## Canonical Commands
 

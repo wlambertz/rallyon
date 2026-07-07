@@ -34,6 +34,8 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.ScoringRules;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.SeedingPolicy;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules;
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Locale;
@@ -365,5 +367,60 @@ class TournamentMapperTest {
         );
 
         assertEquals("Bracket roster 'main' must use teamIds for doubles disciplines", exception.getMessage());
+    }
+
+    @Test
+    void applyDraftReplacementRejectsNullParticipantId() {
+        TournamentEntity entity = new TournamentEntity();
+        // Arrays.asList permits a null element; List.of() would throw on construction instead
+        // of exercising the mapper's own validation.
+        List<Long> playerIdsWithNull = Arrays.asList(1001L, null);
+
+        InvalidDraftUpdateException exception = assertThrows(
+                InvalidDraftUpdateException.class,
+                () -> mapper.applyDraftReplacement(
+                        entity,
+                        Tournament.builder()
+                                .name("Updated Cup")
+                                .visibility(Visibility.PUBLIC)
+                                .participants(new ParticipantsRoster(playerIdsWithNull, null))
+                                .build(),
+                        42L,
+                        Instant.parse("2026-03-13T12:00:00Z"))
+        );
+
+        assertEquals("Tournament participants playerIds must only contain positive ids", exception.getMessage());
+    }
+
+    @Test
+    void applyDraftReplacementRejectsNullBracketRoster() {
+        TournamentEntity entity = new TournamentEntity();
+
+        InvalidDraftUpdateException exception = assertThrows(
+                InvalidDraftUpdateException.class,
+                () -> mapper.applyDraftReplacement(
+                        entity,
+                        Tournament.builder()
+                                .name("Updated Cup")
+                                .visibility(Visibility.PUBLIC)
+                                .disciplines(List.of(new DisciplineConfig(
+                                        11L,
+                                        Category.DOUBLES,
+                                        "Doubles",
+                                        TeamSize.DOUBLES,
+                                        List.of(new dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.BracketConfig(
+                                                new BracketId("main"),
+                                                "Main Draw",
+                                                TournamentFormat.SWISS,
+                                                null)))))
+                                // Collections.singletonMap permits a null value; Map.of() would
+                                // throw on construction instead of exercising the mapper.
+                                .bracketRosters(Collections.singletonMap(new BracketId("main"), null))
+                                .build(),
+                        42L,
+                        Instant.parse("2026-03-13T12:00:00Z"))
+        );
+
+        assertEquals("Bracket roster for 'main' must not be null", exception.getMessage());
     }
 }

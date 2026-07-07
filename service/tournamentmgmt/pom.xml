@@ -31,7 +31,6 @@
 		<java.version>21</java.version>
 		<spring-modulith.version>2.1.0</spring-modulith.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
-		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,7 +59,9 @@
 			<artifactId>kotlin-reflect</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.module</groupId>
+			<!-- Jackson 3 Kotlin module: auto-registered by Boot (find-and-add-modules),
+			     lets Spring MVC (Jackson 3) handle idiomatic Kotlin data classes. -->
+			<groupId>tools.jackson.module</groupId>
 			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
 		<dependency>
@@ -102,11 +103,6 @@
 			<groupId>org.springframework.modulith</groupId>
 			<artifactId>spring-modulith-observability-core</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -177,6 +173,11 @@
 						<plugin>spring</plugin>
 						<plugin>jpa</plugin>
 					</compilerPlugins>
+					<pluginOptions>
+						<option>all-open:annotation=jakarta.persistence.Entity</option>
+						<option>all-open:annotation=jakarta.persistence.MappedSuperclass</option>
+						<option>all-open:annotation=jakarta.persistence.Embeddable</option>
+					</pluginOptions>
 				</configuration>
 				<executions>
 					<execution>
@@ -190,6 +191,28 @@
 								<sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
 								<sourceDir>${project.basedir}/src/main/java</sourceDir>
 							</sourceDirs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>kapt</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>kapt</goal>
+						</goals>
+						<configuration>
+							<!-- KAPT stubs for Kotlin @JvmRecord types are not valid Java records.
+							     Compile Kotlin first, then process only the mapper sources against compiled classes. -->
+							<sourceDirs>
+								<sourceDir>${project.basedir}/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/persistence/mapping</sourceDir>
+							</sourceDirs>
+							<output>${project.build.directory}/kapt-classes</output>
+							<annotationProcessorPaths>
+								<annotationProcessorPath>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${mapstruct.version}</version>
+								</annotationProcessorPath>
+							</annotationProcessorPaths>
 						</configuration>
 					</execution>
 					<execution>
@@ -246,36 +269,10 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</path>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok-mapstruct-binding</artifactId>
-							<version>${lombok-mapstruct-binding.version}</version>
-						</path>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${mapstruct.version}</version>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
