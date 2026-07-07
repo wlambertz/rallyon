@@ -26,6 +26,10 @@ Revisit Gradle only after the Maven-based Kotlin migration is stable, or if Mave
 
 Any Gradle proposal must compare build, test, package, Sonar, Docker, `ro`, IAM install, CI, and onboarding impact before replacing Maven.
 
+## Outcome
+
+The full production Kotlin migration (issues #102–#107) completed on Maven without a build-tool change. `TournamentMapper` (MapStruct) moved to kapt via `kotlin-maven-plugin`'s `kapt` goal, JPA entities use the `jpa`/`all-open` compiler-plugin presets for no-arg constructors and lazy-proxy support, and Lombok was removed once no code depended on it. No Gradle spike was needed; none of the deferred-evaluation criteria above have been triggered.
+
 ## Validation
 
 This decision note does not change build behavior. Validate it with:
