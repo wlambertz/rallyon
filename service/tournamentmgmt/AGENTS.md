@@ -25,6 +25,8 @@
 - Exposed contracts live in `...setup.configuration.api`, `...setup.rules.api`, and `...setup.phases.api`.
 - Treat `...internal...` packages as non-public implementation details.
 - Keep web adapters in `...web`, use cases/services in `...internal...usecase`, and persistence in `...internal...persistence`.
+- Dependency Rule: `internal` packages may depend on their module's `api` package; `api` and web-layer code must never import types from another module's `internal` package. Verified by `TournamentmgmtModuleStructureTest`.
+- Keep persistence-only concerns (entities, repositories, mappers) out of `...usecase` and `...web`; a use case should orchestrate, not map JPA rows. See `../../docs/clean-architecture-and-clean-code.md` for the full rationale and the one documented exception (JPA entities reusing `api` enums via `@Enumerated`).
 - The controller surface under `/api/tournamentmgmt/config` is compatibility-sensitive.
 - If wiki architecture intent conflicts with the actual module/test structure, follow the code and tests, then update docs deliberately if needed.
 
