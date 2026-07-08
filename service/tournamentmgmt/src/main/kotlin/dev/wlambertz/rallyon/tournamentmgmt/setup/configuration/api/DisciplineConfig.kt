@@ -25,7 +25,8 @@ data class DisciplineConfig(
             teamSize: TeamSize,
             brackets: List<BracketConfig>
         ): DisciplineConfig =
-            // Defensive copy lives in the factory to keep the primary constructor simple.
+            // brackets is a constructor val: it can't be reassigned or intercepted anywhere in the
+            // class body, so the defensive copy has to happen here, before the primary constructor runs.
             DisciplineConfig(id, category, displayName, teamSize, java.util.List.copyOf(brackets))
     }
 }
