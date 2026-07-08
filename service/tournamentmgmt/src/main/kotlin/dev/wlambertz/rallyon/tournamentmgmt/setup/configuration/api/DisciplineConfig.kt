@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
 
-@JvmRecord
 data class DisciplineConfig(
     @field:Positive val id: Long,
     @field:NotNull val category: Category,
@@ -26,8 +25,7 @@ data class DisciplineConfig(
             teamSize: TeamSize,
             brackets: List<BracketConfig>
         ): DisciplineConfig =
-            // Defensive copy lives here because a @JvmRecord primary constructor
-            // cannot reassign its parameters like the former compact constructor.
+            // Defensive copy lives in the factory to keep the primary constructor simple.
             DisciplineConfig(id, category, displayName, teamSize, java.util.List.copyOf(brackets))
     }
 }

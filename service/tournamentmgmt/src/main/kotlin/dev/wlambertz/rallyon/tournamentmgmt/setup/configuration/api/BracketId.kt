@@ -3,7 +3,6 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api
 /**
  * Identifier for a tournament bracket (Teilnehmerfeld).
  */
-@JvmRecord
 data class BracketId(val value: String) {
 
     init {

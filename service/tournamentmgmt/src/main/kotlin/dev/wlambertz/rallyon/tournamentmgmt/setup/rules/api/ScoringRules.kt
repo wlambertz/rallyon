@@ -4,7 +4,6 @@ import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
 
-@JvmRecord
 data class ScoringRules(
     @field:NotNull val type: Type,
     @field:Positive val pointsPerGame: Int,

@@ -155,58 +155,58 @@ class TournamentMapperTest {
 
         Tournament tournament = mapper.toApi(entity);
 
-        assertEquals(99L, tournament.id());
-        assertEquals(3L, tournament.version());
-        assertEquals("RallyOn Masters", tournament.name());
-        assertEquals("Season highlight", tournament.description());
-        assertEquals(Locale.GERMANY.getLanguage(), tournament.locale().getLanguage());
+        assertEquals(99L, tournament.getId());
+        assertEquals(3L, tournament.getVersion());
+        assertEquals("RallyOn Masters", tournament.getName());
+        assertEquals("Season highlight", tournament.getDescription());
+        assertEquals(Locale.GERMANY.getLanguage(), tournament.getLocale().getLanguage());
 
-        TimeWindow schedule = tournament.schedule();
+        TimeWindow schedule = tournament.getSchedule();
         assertNotNull(schedule);
-        assertEquals(now, schedule.start());
-        assertEquals(now.plusSeconds(7200), schedule.end());
+        assertEquals(now, schedule.getStart());
+        assertEquals(now.plusSeconds(7200), schedule.getEnd());
 
-        Venue venue = tournament.venue();
+        Venue venue = tournament.getVenue();
         assertNotNull(venue);
-        assertEquals("Olympic Arena", venue.name());
-        assertNotNull(venue.address());
-        assertEquals("Berlin", venue.address().city());
-        assertEquals(5000, venue.peopleCapacity().amount());
+        assertEquals("Olympic Arena", venue.getName());
+        assertNotNull(venue.getAddress());
+        assertEquals("Berlin", venue.getAddress().getCity());
+        assertEquals(5000, venue.getPeopleCapacity().getAmount());
 
-        assertEquals(1, tournament.registrationWindows().size());
-        assertEquals(1, tournament.courts().size());
-        Court mappedCourt = tournament.courts().get(0);
-        assertEquals("Court A", mappedCourt.label());
-        assertEquals(Court.Type.STANDARD, mappedCourt.type());
+        assertEquals(1, tournament.getRegistrationWindows().size());
+        assertEquals(1, tournament.getCourts().size());
+        Court mappedCourt = tournament.getCourts().get(0);
+        assertEquals("Court A", mappedCourt.getLabel());
+        assertEquals(Court.Type.STANDARD, mappedCourt.getType());
 
-        List<DisciplineConfig> mappedDisciplines = tournament.disciplines();
+        List<DisciplineConfig> mappedDisciplines = tournament.getDisciplines();
         assertEquals(1, mappedDisciplines.size());
         DisciplineConfig mappedDiscipline = mappedDisciplines.get(0);
-        assertEquals(11L, mappedDiscipline.id());
-        assertEquals(1, mappedDiscipline.brackets().size());
-        assertEquals("Main Draw", mappedDiscipline.brackets().get(0).displayName());
+        assertEquals(11L, mappedDiscipline.getId());
+        assertEquals(1, mappedDiscipline.getBrackets().size());
+        assertEquals("Main Draw", mappedDiscipline.getBrackets().get(0).getDisplayName());
 
-        assertEquals(256, tournament.capacity().amount());
-        assertEquals(RegistrationPolicy.OPEN, tournament.registrationPolicy());
-        assertEquals(SeedingPolicy.MANUAL, tournament.seedingPolicy());
-        assertEquals(MatchDurationPolicy.FIXED_TIMEBOX, tournament.matchDurationPolicy());
+        assertEquals(256, tournament.getCapacity().getAmount());
+        assertEquals(RegistrationPolicy.OPEN, tournament.getRegistrationPolicy());
+        assertEquals(SeedingPolicy.MANUAL, tournament.getSeedingPolicy());
+        assertEquals(MatchDurationPolicy.FIXED_TIMEBOX, tournament.getMatchDurationPolicy());
 
-        ScoringRules scoringRules = tournament.scoringRules();
+        ScoringRules scoringRules = tournament.getScoringRules();
         assertNotNull(scoringRules);
-        assertEquals(21, scoringRules.pointsPerGame());
-        assertEquals(ScoringRules.Type.TWO_BY_TWENTY_ONE, scoringRules.type());
+        assertEquals(21, scoringRules.getPointsPerGame());
+        assertEquals(ScoringRules.Type.TWO_BY_TWENTY_ONE, scoringRules.getType());
 
-        TieBreakRules tieBreakRules = tournament.tieBreakRules();
+        TieBreakRules tieBreakRules = tournament.getTieBreakRules();
         assertNotNull(tieBreakRules);
-        assertEquals(TieBreakRules.Type.HEAD_TO_HEAD, tieBreakRules.type());
+        assertEquals(TieBreakRules.Type.HEAD_TO_HEAD, tieBreakRules.getType());
 
-        assertTrue(tournament.participants().playerIds().contains(1001L));
+        assertTrue(tournament.getParticipants().getPlayerIds().contains(1001L));
 
-        Map<BracketId, ParticipantsRoster> bracketRosters = tournament.bracketRosters();
+        Map<BracketId, ParticipantsRoster> bracketRosters = tournament.getBracketRosters();
         assertEquals(1, bracketRosters.size());
         ParticipantsRoster roster = bracketRosters.get(new BracketId("main"));
         assertNotNull(roster);
-        assertTrue(roster.playerIds().contains(2001L));
+        assertTrue(roster.getPlayerIds().contains(2001L));
     }
 
     @Test

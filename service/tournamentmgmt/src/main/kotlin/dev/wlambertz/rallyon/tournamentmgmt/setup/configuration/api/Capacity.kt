@@ -3,7 +3,6 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api
 import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.Positive
 
-@JvmRecord
 data class Capacity(
     @field:Positive(message = "Capacity amount must be positive") val amount: Int?,
     val unit: Unit?
