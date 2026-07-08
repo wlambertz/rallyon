@@ -7,11 +7,12 @@ import org.junit.jupiter.api.Test
 import java.time.Instant
 
 /**
- * Locks in that Bean Validation constraints on the Kotlin-migrated API records
- * stay visible to Hibernate Validator. Kotlin does not replicate javac's
- * record-component annotation propagation, so a missing or mis-targeted
- * use-site target (@field:) would silently disable a constraint — no runtime
- * path validates these types today.
+ * Locks in that Bean Validation constraints on the Kotlin-migrated API data
+ * classes stay visible to Hibernate Validator. Kotlin does not replicate
+ * javac's record-component annotation propagation (the mechanism real Java
+ * records rely on), so a missing or mis-targeted use-site target (@field:)
+ * would silently disable a constraint — no runtime path validates these
+ * types today.
  */
 class ApiConstraintPlacementTest {
 
@@ -21,7 +22,7 @@ class ApiConstraintPlacementTest {
         validator.validate(bean).map { it.propertyPath.toString() }.toSet()
 
     @Test
-    fun `field constraint on record component is enforced`() {
+    fun `field constraint on data class property is enforced`() {
         val paths = violatedPaths(Court(1L, " ", Court.Availability.AVAILABLE, Court.Type.STANDARD))
 
         assertTrue("label" in paths) { "expected @NotBlank violation on Court.label, got $paths" }
@@ -43,7 +44,7 @@ class ApiConstraintPlacementTest {
     }
 
     @Test
-    fun `size constraint on nested address record is enforced`() {
+    fun `size constraint on nested address data class is enforced`() {
         val paths = violatedPaths(Venue.Address("Hauptstr. 1", "123", "Bonn"))
 
         assertTrue("postalCode" in paths) { "expected @Size violation on Address.postalCode, got $paths" }
