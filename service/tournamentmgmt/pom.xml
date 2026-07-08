@@ -168,6 +168,9 @@
 					<jvmTarget>${java.version}</jvmTarget>
 					<args>
 						<arg>-Xannotation-default-target=param-property</arg>
+						<!-- Kotlin data classes are no longer @JvmRecord, so MapStruct's kapt-based
+						     TournamentMapper has no record-component metadata to resolve constructor
+						     parameter names from; -java-parameters keeps that name resolution working. -->
 						<arg>-java-parameters</arg>
 					</args>
 					<compilerPlugins>
