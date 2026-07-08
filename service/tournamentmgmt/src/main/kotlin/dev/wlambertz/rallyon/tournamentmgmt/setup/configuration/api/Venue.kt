@@ -1,5 +1,6 @@
 package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.validation.Valid
 import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.NotBlank
@@ -10,6 +11,7 @@ data class Venue(
     @field:Valid val address: Address?,
     @field:Valid val peopleCapacity: Capacity?
 ) {
+    @JsonIgnore
     @AssertTrue(message = "Venue capacity must use PEOPLE unit when amount is set")
     fun isPeopleCapacityConsistent(): Boolean =
         peopleCapacity == null || peopleCapacity.amount == null || peopleCapacity.unit == Capacity.Unit.PEOPLE

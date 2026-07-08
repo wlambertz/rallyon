@@ -1,5 +1,6 @@
 package dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
@@ -18,6 +19,7 @@ data class ScoringRules(
         }
     }
 
+    @JsonIgnore
     @AssertTrue(message = "Cap points must exceed points per game when defined")
     fun isCapPointsConsistent(): Boolean = capPoints == null || capPoints > pointsPerGame
 
