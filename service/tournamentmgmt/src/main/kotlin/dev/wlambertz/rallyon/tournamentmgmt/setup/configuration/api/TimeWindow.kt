@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull
 import java.time.Instant
 
 @TimeWindowRange
-@JvmRecord
 data class TimeWindow(
     @field:NotNull val start: Instant?,
     @field:NotNull val end: Instant?

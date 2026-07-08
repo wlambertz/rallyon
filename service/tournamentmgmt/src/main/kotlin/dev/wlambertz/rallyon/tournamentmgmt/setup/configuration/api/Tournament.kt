@@ -9,7 +9,6 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules
 import java.time.Instant
 import java.util.Locale
 
-@JvmRecord
 data class Tournament(
     val id: Long = 0,
     val version: Long? = null,
@@ -56,7 +55,7 @@ data class Tournament(
     }
 
     // Hand-written replacement for the former Lombok @Builder so Java call
-    // sites and MapStruct's builder detection keep working on the Kotlin record.
+    // sites and MapStruct's builder detection keep working on the Kotlin data class.
     class Builder internal constructor() {
         private var id: Long = 0
         private var version: Long? = null

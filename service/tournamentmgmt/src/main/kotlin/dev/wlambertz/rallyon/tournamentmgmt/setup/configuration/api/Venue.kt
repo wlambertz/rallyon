@@ -5,7 +5,6 @@ import jakarta.validation.constraints.AssertTrue
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-@JvmRecord
 data class Venue(
     @field:NotBlank val name: String?,
     @field:Valid val address: Address?,
@@ -15,7 +14,6 @@ data class Venue(
     fun isPeopleCapacityConsistent(): Boolean =
         peopleCapacity == null || peopleCapacity.amount == null || peopleCapacity.unit == Capacity.Unit.PEOPLE
 
-    @JvmRecord
     data class Address(
         @field:NotBlank val streetWithNumber: String?,
         @field:NotBlank

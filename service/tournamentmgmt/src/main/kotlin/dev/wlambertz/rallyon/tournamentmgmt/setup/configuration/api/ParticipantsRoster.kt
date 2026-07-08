@@ -2,7 +2,6 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api
 
 import jakarta.validation.constraints.AssertTrue
 
-@JvmRecord
 data class ParticipantsRoster(
     val playerIds: List<Long>?,
     val teamIds: List<Long>?

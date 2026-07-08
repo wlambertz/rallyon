@@ -2,7 +2,6 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api
 
 import jakarta.validation.constraints.NotNull
 
-@JvmRecord
 data class TieBreakRules(
     @field:NotNull val type: Type,
     val useSetDifference: Boolean,
