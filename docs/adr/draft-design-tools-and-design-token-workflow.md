@@ -59,7 +59,7 @@ design-tokens/
 ## Workflow
 
 1. Create a Penpot project and define the first token set using the current RallyOn design brief as the seed for colors, spacing, typography, shape, and semantic states.
-2. Export tokens in W3C DTCG-compatible JSON and commit them under `design-tokens/tokens.json`.
+2. Export tokens in W3C DTCG-compatible JSON and commit them under `design-tokens/tokens.json`. This is a manual, push-based step: Penpot has no built-in sync to Git (unlike Tokens Studio's GitHub sync for Figma) — someone exports via the Tokens panel's Export option and commits the result. Automatic pulls are possible only by building a separate job (e.g. a GitHub Action calling Penpot's official `penpot-export` CLI against the Penpot API with an access token), which is optional follow-up work, not part of this first implementation.
 3. Configure Style Dictionary with the smallest useful set of target platforms.
 4. Add custom transforms only for target runtimes that are actually being implemented.
 5. Add local and CI validation once generated outputs become part of the delivery workflow.
@@ -91,6 +91,7 @@ Tools such as Banani or MagicPath may be useful for focused UI generation experi
 - Custom transforms are required for targets that Style Dictionary does not support out of the box.
 - The first token implementation must define naming rules, semantic token levels, and validation expectations.
 - The design-tool choice was rechecked and confirmed via issue #139 (2026-07-09); remaining tool claims (Style Dictionary transform behavior, CI validation approach) should still be rechecked as those follow-up items are implemented.
+- Keeping `design-tokens/tokens.json` in sync with the Penpot file is a manual, push-based step (export, then commit) since Penpot has no native Git sync for tokens; an automated pull via `penpot-export` + CI is possible but is separate, optional follow-up work, not assumed by this ADR.
 
 ## Open Follow-Up Work
 
@@ -112,6 +113,8 @@ Tools such as Banani or MagicPath may be useful for focused UI generation experi
 - Penpot Design Tokens help center: <https://help.penpot.app/user-guide/design-tokens/>
 - Penpot pricing (hosted): <https://penpot.app/pricing>
 - Penpot pricing (self-host): <https://penpot.app/pricing/self-host>
+- Penpot no built-in Git export for tokens (open request): <https://github.com/penpot/penpot/issues/7091>
+- Penpot official token export CLI: <https://github.com/penpot/penpot-export>
 - Tokens Studio token format: <https://docs.tokens.studio/manage-settings/token-format>
 - Tokens Studio GitHub sync: <https://docs.tokens.studio/token-storage/remote/sync-git-github>
 - Tokens Studio Figma plugin (MIT license): <https://github.com/tokens-studio/figma-plugin>
