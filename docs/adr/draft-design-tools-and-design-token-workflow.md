@@ -28,6 +28,7 @@ Penpot is confirmed as the design-tool choice, re-verified against current sourc
 
 - **W3C DTCG conformance**: the Design Tokens Format Module reached its first stable version (2025.10) in October 2025. Penpot is the first fully open-source design tool to natively implement the stable spec — tokens export/import as DTCG JSON directly, "without conversion." It natively supports 13 token types (color, dimension, sizing, spacing, opacity, rotation, stroke width, typography properties, shadow, etc.) plus token sets and token themes (including multi-dimensional theme groups, e.g. mode + brand + platform).
 - **Licensing / self-hosting**: Penpot is MPL-2.0, fully open source, and free to self-host indefinitely; paid hosting is optional, not required. No design-token feature is gated behind a paid tier.
+- **Hosted vs. self-hosted, compared**: self-hosted `Professional` is free forever with community-only support, but requires running/maintaining your own Linux server with Docker. Penpot's own hosted cloud (design.penpot.app) offers the same free `Professional` tier, capped at 8 team members / 10GB storage / 7-day version history, with paid `Unlimited` ($7/user/month) and `Enterprise` ($25/user/month, min $950/month) tiers raising those caps and adding SSO/audit/compliance features. Design tokens are unrestricted on every tier, hosted or self-hosted. For RallyOn's current scale, either free tier works — the trade-off is ops burden (self-hosting) vs. an 8-seat/10GB ceiling (hosted-free) that's unlikely to bind yet; hosted `Professional` is the lower-friction starting point, with self-hosting available later if data-control or scale needs grow.
 - **Figma + Tokens Studio, re-checked**: the Tokens Studio Figma plugin core is MIT-licensed and free, with free single-file GitHub sync. However, multi-file sync, advanced theme management, and branch switching are Pro-gated, and Tokens Studio has since grown a separate tiered "Studio Platform" product (Starter Plus / Essential / Organization, from €17–499/month) beyond the base plugin. Figma itself is also a paid, closed-source, non-self-hostable product for real team usage. This combination carries real recurring cost and vendor lock-in that Penpot avoids.
 - **Known Penpot limitations** (acceptable for RallyOn's first token set): font-size tokens currently require px units (rem support planned), tokens can't be applied to groups, and only one typography/shadow composite token per layer.
 
@@ -108,6 +109,8 @@ Tools such as Banani or MagicPath may be useful for focused UI generation experi
 - Design Tokens specification reaches first stable version (2025.10): <https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/>
 - Penpot Design Tokens: <https://penpot.app/collaboration/design-tokens>
 - Penpot Design Tokens help center: <https://help.penpot.app/user-guide/design-tokens/>
+- Penpot pricing (hosted): <https://penpot.app/pricing>
+- Penpot pricing (self-host): <https://penpot.app/pricing/self-host>
 - Tokens Studio token format: <https://docs.tokens.studio/manage-settings/token-format>
 - Tokens Studio GitHub sync: <https://docs.tokens.studio/token-storage/remote/sync-git-github>
 - Tokens Studio Figma plugin (MIT license): <https://github.com/tokens-studio/figma-plugin>
