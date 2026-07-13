@@ -4,6 +4,8 @@
 
 Draft. This document records a proposed direction based on a July 2026 research snapshot. It is not yet an accepted project baseline and does not add dependencies, CI workflows, generated artifacts, or a frontend stack.
 
+**Superseded 2026-07-13**: the design-tool decision below (Penpot, confirmed 2026-07-09 via issue #139) was reversed by maintainer choice in favor of Claude Design. See `docs/adr/draft-claude-design-system-workflow.md` for the current decision and rationale. The sections below are kept as-is for historical record, not updated in place, per this ADR's own stated preference for tracing decision changes rather than silently overwriting them.
+
 The design-tool choice specifically (Penpot vs. Figma + Tokens Studio) was researched and confirmed on 2026-07-09 via issue #139 — see "Design Tool Decision" below. The rest of this ADR remains open for review before overall acceptance.
 
 ## Context
