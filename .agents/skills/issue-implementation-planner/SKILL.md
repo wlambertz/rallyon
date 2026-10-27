@@ -34,7 +34,7 @@ Use this skill to plan GitHub issue work before implementation.
    - Stage the single plan file with `git add -- <plan-file>`.
    - Use `docs: add implementation plan for issue #<number>` for a new plan file.
    - Use `docs: update implementation plan for issue #<number>` when updating an existing plan file.
-   - Add a `Co-authored-by: <agent name> <agent contact>` trailer. For Codex, use `Co-authored-by: Codex <codex@openai.com>`.
+   - Add a `Co-authored-by: <agent name> <agent contact>` trailer. For Codex, use `Co-authored-by: Codex <codex@openai.com>`; for Claude Code, use the model name and address from the session's commit attribution (for example `Co-Authored-By: Claude <noreply@anthropic.com>`).
    - If the commit cannot be created, leave the plan file uncommitted and report the blocker.
 8. Report the plan path, issue comment target, commit hash, and any assumptions.
 

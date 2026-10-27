@@ -7,7 +7,7 @@ RallyOn keeps agent guidance small, shared, and inspectable. The canonical proje
 | Tool | Primary file | Notes |
 | --- | --- | --- |
 | Codex | `AGENTS.md` and nested `AGENTS.md` | Repo skills live in `.agents/skills/`. Use skills for repeatable workflows. |
-| Claude Code | `CLAUDE.md` adapter plus `AGENTS.md` | Follow shared issue-planning rules in `AGENTS.md`; keep Claude-specific notes minimal. |
+| Claude Code | `CLAUDE.md` adapter plus `AGENTS.md` | Loads repo skills through the `.claude/skills` symlink to `.agents/skills/`. Keep Claude-specific notes minimal. |
 | GitHub Copilot | `.github/copilot-instructions.md` pointer plus `AGENTS.md` | Do not duplicate repository guidance in the Copilot file. |
 
 ## Where Guidance Belongs
@@ -30,9 +30,19 @@ Learning notes belong close to the decision:
 
 ## Skills
 
-Repo-scoped Codex skills live under `.agents/skills/`. Keep each skill focused on one workflow, with a concise description that clearly states when it should trigger. Prefer instructions over scripts unless deterministic behavior or external tooling is needed.
+Repo-scoped skills live under `.agents/skills/` and are shared by Codex and Claude Code. Keep each skill focused on one workflow, with a concise description that clearly states when it should trigger. Prefer instructions over scripts unless deterministic behavior or external tooling is needed.
 
-Use `.agents/skills/issue-implementation-planner/` when Codex is asked to create an implementation plan for a GitHub issue. Claude does not load Codex skills directly, so the shared requirement lives in `AGENTS.md`: save the plan under `docs/issue-implementation-plans/`, comment it on the GitHub issue, and do not change implementation code while planning.
+Use `.agents/skills/issue-implementation-planner/` when an agent is asked to create an implementation plan for a GitHub issue. The core requirement also stays in `AGENTS.md` so that agents that do not load skills still follow it: save the plan under `docs/issue-implementation-plans/`, comment it on the GitHub issue, and do not change implementation code while planning.
+
+### Why `.claude/skills` is a symlink
+
+Claude Code discovers project skills only under `.claude/skills/`, while Codex reads `.agents/skills/`. The tracked symlink `.claude/skills -> ../.agents/skills` lets both tools load one copy of every skill instead of maintaining duplicates.
+
+Tradeoffs:
+
+- Git checkouts with `core.symlinks=false` (the default on Windows without Developer Mode) write the symlink as a small text file, and Claude Code then silently finds no skills. Windows contributors should enable symlink support (`git config core.symlinks true` and re-checkout) or copy the directory locally without committing it.
+- Skills are now read by more than one agent, so keep them agent-neutral and give per-agent values (such as `Co-authored-by` trailers) for each supported agent.
+- `tools/scripts/prettier-files.mjs` skips tracked symlinks because Prettier rejects them as explicit paths; the skill files themselves are still checked through `.agents/skills/`.
 
 `.agents/skills/pencil-design/` (Pencil.dev CLI design generation for organizer UI) is currently paused: `application/organizer` is an empty placeholder while the frontend stack is reconsidered, so there is no Angular/Storybook surface to keep Pencil designs aligned with.
 
