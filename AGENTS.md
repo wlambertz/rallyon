@@ -23,7 +23,7 @@
 - When asked to create an implementation plan for a GitHub issue, write the plan under `docs/issue-implementation-plans/`, add the same plan as a comment on the issue, and commit the plan file.
 - Planning work may inspect code, docs, tests, wiki pages, and issue comments, but must not modify production code, tests, migrations, runtime config, dependency files, or generated app artifacts.
 - Plan commits must contain only the relevant plan file and include the agent `Co-authored-by` trailer required by this guide.
-- Codex should use `.agents/skills/issue-implementation-planner/`; Cursor and Claude should follow this shared rule through their `AGENTS.md` adapters.
+- Codex should use `.agents/skills/issue-implementation-planner/`; Claude should follow this shared rule through its `AGENTS.md` adapter.
 
 ## Read This First
 

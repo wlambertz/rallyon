@@ -7,7 +7,6 @@ RallyOn keeps agent guidance small, shared, and inspectable. The canonical proje
 | Tool | Primary file | Notes |
 | --- | --- | --- |
 | Codex | `AGENTS.md` and nested `AGENTS.md` | Repo skills live in `.agents/skills/`. Use skills for repeatable workflows. |
-| Cursor | `AGENTS.md`; `.cursorrules` as a pointer | Follow shared issue-planning rules in `AGENTS.md`; add `.cursor/rules/*.mdc` only when Cursor-specific metadata or path scoping is needed. |
 | Claude Code | `CLAUDE.md` adapter plus `AGENTS.md` | Follow shared issue-planning rules in `AGENTS.md`; keep Claude-specific notes minimal. |
 | GitHub Copilot | `.github/copilot-instructions.md` pointer plus `AGENTS.md` | Do not duplicate repository guidance in the Copilot file. |
 
@@ -33,7 +32,7 @@ Learning notes belong close to the decision:
 
 Repo-scoped Codex skills live under `.agents/skills/`. Keep each skill focused on one workflow, with a concise description that clearly states when it should trigger. Prefer instructions over scripts unless deterministic behavior or external tooling is needed.
 
-Use `.agents/skills/issue-implementation-planner/` when Codex is asked to create an implementation plan for a GitHub issue. Cursor and Claude do not load Codex skills directly, so the shared requirement lives in `AGENTS.md`: save the plan under `docs/issue-implementation-plans/`, comment it on the GitHub issue, and do not change implementation code while planning.
+Use `.agents/skills/issue-implementation-planner/` when Codex is asked to create an implementation plan for a GitHub issue. Claude does not load Codex skills directly, so the shared requirement lives in `AGENTS.md`: save the plan under `docs/issue-implementation-plans/`, comment it on the GitHub issue, and do not change implementation code while planning.
 
 `.agents/skills/pencil-design/` (Pencil.dev CLI design generation for organizer UI) is currently paused: `application/organizer` is an empty placeholder while the frontend stack is reconsidered, so there is no Angular/Storybook surface to keep Pencil designs aligned with.
 

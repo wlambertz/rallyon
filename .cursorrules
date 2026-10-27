@@ -1,5 +1,0 @@
-Canonical repository instructions live in `AGENTS.md`.
-
-- Follow the nearest applicable `AGENTS.md` file for the path being edited.
-- Use this file only as a Cursor compatibility pointer; do not treat it as a second source of truth.
-- Add `.cursor/rules/*.mdc` only when Cursor-specific metadata or path-scoped behavior is required.
