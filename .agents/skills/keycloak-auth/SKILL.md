@@ -21,10 +21,7 @@ Inspect these implementation points as needed:
 
 ## Safety rules
 
-- Do not relax token validation, issuer checks, audience checks, role mapping, or `rallyon_user_id` claim requirements without explicit approval.
-- Preserve property names under `rallyon.security.keycloak.*`.
-- Do not silently change failures for missing roles or missing user-id claims.
-- Keep shared IAM code reusable; do not bake service-specific assumptions into `3rd_party/iam` unless the repo already does.
+Follow root `AGENTS.md` Safety Boundaries and `3rd_party/iam/AGENTS.md` Safety Boundaries: do not relax token validation, issuer checks, audience checks, role mapping, or `rallyon_user_id` claim handling; preserve `rallyon.security.keycloak.*` property names; do not silently change failures for missing roles or claims; keep shared IAM code reusable.
 
 ## Local bootstrap flow
 

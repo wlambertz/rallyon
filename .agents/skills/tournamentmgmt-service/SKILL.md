@@ -34,9 +34,7 @@ Use this skill for work in `service/tournamentmgmt/`.
 
 ## Security rules
 
-- The service is an OAuth2 resource server backed by shared Keycloak code in `3rd_party/iam`.
-- Do not weaken issuer, audience, role mapping, or `rallyon_user_id` claim handling.
-- Security-sensitive endpoint changes should keep or extend test coverage similar to [service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java](../../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java).
+The service is an OAuth2 resource server backed by shared Keycloak code in `3rd_party/iam`. Follow root `AGENTS.md` Safety Boundaries and `3rd_party/iam/AGENTS.md`: do not weaken issuer, audience, role mapping, or `rallyon_user_id` claim handling. Security-sensitive endpoint changes should keep or extend test coverage similar to `ConfigurationControllerSecurityTest`.
 
 ## Validation
 

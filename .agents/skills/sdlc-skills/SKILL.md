@@ -111,7 +111,7 @@ Focus: run it in production, observe health, evolve continuously.
 3. **Define gates**: Write a shared Definition of Done and a two-gate CI strategy (fast PR gate + nightly regression gate).
 4. **Measure**: Instrument DORA metrics and test-coverage dashboards from day one.
 
-## Related repo artifacts (already in place)
+## Related repo artifacts
 
 - `.github/workflows/ci.yaml` — Java CI: Gate 1 tests + Gate 2 Modulith verification
 - `.github/workflows/security-scan.yaml` — OWASP Dependency-Check + CycloneDX SBOM
@@ -121,10 +121,3 @@ Focus: run it in production, observe health, evolve continuously.
 - `docs/TESTING.md` — test pyramid, gates, flaky-test handling
 - `docs/adr/` — Architecture Decision Records (template + `0001-use-spring-modulith.md`)
 - `AGENTS.md` — nearest agent guide for each area (root + per-area)
-
-## Sources
-
-- Splunk SDLC overview — phases, playbooks, DORA metrics, security/coding standards
-- QAPractices Test Automation Guide — strategy, Playwright/Selenium/Cypress, POM, CI/CD gating, flaky tests
-- Public skills repositories (`philipz/skills`, `viktorbezdek/skillstack`) — requirements engineering, CI/CD pipeline skills
-- ISTQB / DORA / OWASP — testing principles, delivery metrics, application security
