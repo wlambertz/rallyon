@@ -71,6 +71,7 @@
 - `persistence/db/`: Postgres image used by local compose
 - `tools/cli/ro/`: Go Cobra CLI for build/test/run/deploy/docs/scaffolding workflows
 - `.agents/skills/`: repo-scoped Codex skills for repeatable RallyOn workflows
+- `.agents/skills/sdlc-skills/`: SDLC skills catalog (personas → requirements → QA → CI/CD) usable by Codex, Claude, and Cline
 - `docs/issue-implementation-plans/`: durable implementation plans created from GitHub issues before coding
 - `docs/clean-architecture-and-clean-code.md`: Dependency Rule and Clean Code conventions behind the Architecture Boundaries rules below
 - `wiki/`: git submodule and expected agent research source for architecture, CLI workflows, personas, and design context
