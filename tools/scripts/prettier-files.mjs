@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process"
+import { lstatSync } from "node:fs"
 import { createRequire } from "node:module"
 
 const require = createRequire(import.meta.url)
@@ -67,7 +68,9 @@ function parseOptions(args) {
 }
 
 function trackedFiles() {
-  return gitFileList(["ls-files", "-z"])
+  const files = new Set()
+  addFileList(files, gitFileList(["ls-files", "-z"]))
+  return [...files]
 }
 
 function changedFiles({ base, head }) {
@@ -114,7 +117,20 @@ function addFileList(files, candidates) {
     if (!candidate || candidate === "wiki" || candidate.startsWith("wiki/")) {
       continue
     }
+    // Prettier exits with an error on explicitly passed symlinks (e.g. `.claude/skills`),
+    // and their targets are already checked as regular tracked files.
+    if (isSymlink(candidate)) {
+      continue
+    }
     files.add(candidate)
+  }
+}
+
+function isSymlink(file) {
+  try {
+    return lstatSync(file).isSymbolicLink()
+  } catch {
+    return false
   }
 }
 
