@@ -142,7 +142,7 @@ func Load(repoRoot string) (*Config, error) {
 	v.SetDefault("output.verbose", false)
 	v.SetDefault("output.quiet", false)
 	v.SetDefault("docs.output", "docs/cli-reference.md")
-	v.SetDefault("docs.wikiOutput", "wiki/CLI.md")
+	v.SetDefault("docs.wikiOutput", "docs/wiki/CLI.md")
 	v.SetDefault("docs.publishToWiki", false)
 	v.SetDefault("docs.autoStageWiki", false)
 	v.SetDefault("docs.wikiCommitMessage", "docs: update CLI reference")

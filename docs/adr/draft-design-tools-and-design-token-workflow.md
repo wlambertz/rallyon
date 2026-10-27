@@ -12,7 +12,7 @@ The design-tool choice specifically (Penpot vs. Figma + Tokens Studio) was resea
 
 RallyOn is expected to grow beyond one user interface runtime. The organizer application is currently a placeholder while the frontend stack is reconsidered, and future interfaces may target different technologies such as web, game engines, or other client runtimes. A reusable visual system therefore needs a source of truth that is independent of any one design tool or implementation stack.
 
-The current RallyOn design brief in `wiki/design/frontend-spaceport-theme.md` already defines initial visual language and token seed values for an operations-oriented organizer UI. What is missing is a durable workflow for managing those design decisions as design tokens and transforming them into platform-specific implementation artifacts.
+The current RallyOn design brief in `docs/wiki/design/frontend-spaceport-theme.md` already defines initial visual language and token seed values for an operations-oriented organizer UI. What is missing is a durable workflow for managing those design decisions as design tokens and transforming them into platform-specific implementation artifacts.
 
 ## Proposed Decision
 
@@ -107,7 +107,7 @@ Tools such as Banani or MagicPath may be useful for focused UI generation experi
 
 ## References
 
-- RallyOn organizer design brief: `wiki/design/frontend-spaceport-theme.md`
+- RallyOn organizer design brief: `docs/wiki/design/frontend-spaceport-theme.md`
 - W3C Design Tokens Community Group: <https://www.w3.org/community/design-tokens/>
 - Design Tokens Format Module: <https://tr.designtokens.org/format/>
 - Design Tokens specification reaches first stable version (2025.10): <https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/>

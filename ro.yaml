@@ -22,7 +22,7 @@ docker:
 
 docs:
   output: docs/cli-reference.md
-  wikiOutput: wiki/CLI.md
+  wikiOutput: docs/wiki/CLI.md
   publishToWiki: false
 
 scaffold:

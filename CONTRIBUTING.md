@@ -12,7 +12,7 @@ The repository is organized by bounded context (see `AGENTS.md`):
 - `admin/keycloak/` — Local Keycloak provisioning script and operator notes
 - `infrastructure/local/` — Local Docker Compose for Keycloak, Postgres, and the tournament management service
 - `tools/cli/ro/` — Go developer CLI
-- `wiki/` — GitHub wiki submodule (architectural notes)
+- `docs/wiki/` — Wiki content in-repo (architectural notes)
 
 ## Development commands
 

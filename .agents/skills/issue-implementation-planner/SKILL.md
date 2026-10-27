@@ -12,7 +12,7 @@ Use this skill to plan GitHub issue work before implementation.
 - Do create or update plan files under `docs/issue-implementation-plans/`.
 - Do add the plan as a GitHub issue comment.
 - Do commit the plan file in a dedicated git commit with an agent `Co-authored-by` trailer.
-- Do inspect code, docs, tests, wiki pages, issue comments, and current git state.
+- Do inspect code, docs, tests, wiki pages (under `docs/wiki/`), issue comments, and current git state.
 - Do not modify production code, tests, migrations, runtime config, dependency files, generated app artifacts, or implementation docs outside the plan folder.
 - Do not stage or commit unrelated files; the only allowed commit content is the issue plan file under `docs/issue-implementation-plans/`.
 - Stop after publishing and committing the plan unless the user separately asks to implement.
@@ -25,7 +25,7 @@ Use this skill to plan GitHub issue work before implementation.
    - root `AGENTS.md`
    - closest nested `AGENTS.md` for affected paths
    - relevant RallyOn skill for the area
-   - relevant `wiki/` pages when the issue involves architecture, CLI workflows, personas, docs, or UX flow
+   - relevant `docs/wiki/` pages when the issue involves architecture, CLI workflows, personas, docs, or UX flow
 4. Identify scope, non-goals, affected subsystems, compatibility constraints, and validation commands.
 5. Write the plan to `docs/issue-implementation-plans/issue-<number>-<short-slug>.md`.
 6. Add the same plan as a GitHub issue comment. If the plan is unusually long, post a concise summary and include the repo path to the saved plan.

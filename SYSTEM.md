@@ -21,7 +21,7 @@ Active implementation areas today:
 - `service/tournamentmgmt`: Spring Boot tournament management service
 - `3rd_party/iam`: shared Keycloak auth libraries
 - `tools/cli/ro`: Go developer CLI
-- supporting ops/docs areas such as `admin/keycloak`, `infrastructure/local`, `persistence/db`, `.github/workflows`, and `wiki/`
+- supporting ops/docs areas such as `admin/keycloak`, `infrastructure/local`, `persistence/db`, `.github/workflows`, and `docs/wiki/`
 
 Treat these as placeholders unless the task explicitly targets them:
 
@@ -73,7 +73,7 @@ Before editing, identify the owning area and read the closest applicable guidanc
 ### Source of truth
 
 - Use code, tests, manifests, config, scripts, and workflow files as the source of truth for current behavior.
-- Use `wiki/` for intended architecture, workflow context, personas, and design direction unless code/tests/config contradict it.
+- Use `docs/wiki/` for intended architecture, workflow context, personas, and design direction unless code/tests/config contradict it.
 - Treat the root `README.md` as helpful background, not the canonical description of the current repo state; parts of it are stale.
 
 ### Preferred commands
@@ -88,7 +88,7 @@ Before editing, identify the owning area and read the closest applicable guidanc
 
 - Prefer minimal diffs over broad cleanup or opportunistic refactors.
 - Do not rename modules, packages, directories, routes, command surfaces, or workflow files just for consistency.
-- Do not update `wiki/` unless the task explicitly calls for wiki edits or a generated wiki refresh.
+- Do not update `docs/wiki/` unless the task explicitly calls for wiki edits or a generated wiki refresh.
 - Do not refresh committed Modulith docs, generated CLI reference, Storybook output, or other derived assets unless the task intentionally changes them.
 - When docs, automation, or command surfaces materially change, update the nearby authoritative docs in the same workstream.
 
@@ -108,7 +108,7 @@ Before editing, identify the owning area and read the closest applicable guidanc
 - Keep instructions aligned with actual repo commands and current behavior.
 - Prefer updating the closest maintained doc rather than duplicating guidance in multiple places.
 - Use `docs/cli-reference.md` as generated output, not as the design source for CLI behavior.
-- Preserve the distinction between repo docs and the `wiki/` submodule; wiki updates are deliberate and may require separate commit handling.
+- Preserve the distinction between repo docs and `docs/wiki/`; wiki updates are deliberate and may require separate commit handling.
 
 ## Uncertainty and Fallback Behavior
 

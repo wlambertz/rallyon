@@ -10,8 +10,8 @@ Use this skill for work in `service/tournamentmgmt/`.
 ## Read before editing
 
 1. [service/tournamentmgmt/AGENTS.md](../../../service/tournamentmgmt/AGENTS.md)
-2. [wiki/Architecture/Modules.md](../../../wiki/Architecture/Modules.md)
-3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../../wiki/Architecture/Tournamentmgmt-Modulith.md)
+2. [wiki/Architecture/Modules.md](../../../docs/wiki/Architecture/Modules.md)
+3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../../docs/wiki/Architecture/Tournamentmgmt-Modulith.md)
 4. [service/tournamentmgmt/docs/modulith/README.md](../../../service/tournamentmgmt/docs/modulith/README.md) when the task affects architecture docs or module boundaries
 
 ## Architecture rules

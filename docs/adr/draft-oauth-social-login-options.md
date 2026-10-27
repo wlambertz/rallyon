@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft. This document records a July 2026 research snapshot answering a narrow question: should RallyOn add "Sign in with Google/Microsoft/etc." as a login option, and if so, how? Like `docs/adr/draft-passwordless-login-magic-links-otp.md`, this is exploratory research for RallyOn's not-yet-built "Authentifizierung & Autorisierung" module (`wiki/Architecture/Modules.md`), not scheduled work. `application/organizer` has no frontend today, so there is no login UI this ADR displaces, and this ADR changes nothing in `3rd_party/iam`, `admin/keycloak/`, or `service/tournamentmgmt`. This ADR cross-references, but does not modify, the "Social login" row already present in the passwordless ADR's comparison table.
+Draft. This document records a July 2026 research snapshot answering a narrow question: should RallyOn add "Sign in with Google/Microsoft/etc." as a login option, and if so, how? Like `docs/adr/draft-passwordless-login-magic-links-otp.md`, this is exploratory research for RallyOn's not-yet-built "Authentifizierung & Autorisierung" module (`docs/wiki/Architecture/Modules.md`), not scheduled work. `application/organizer` has no frontend today, so there is no login UI this ADR displaces, and this ADR changes nothing in `3rd_party/iam`, `admin/keycloak/`, or `service/tournamentmgmt`. This ADR cross-references, but does not modify, the "Social login" row already present in the passwordless ADR's comparison table.
 
 ## Context
 
@@ -49,7 +49,7 @@ A note on security framing: OIDC-based social login is a **convenience/reach** o
 
 - `docs/adr/draft-passwordless-login-magic-links-otp.md`
 - `docs/adr/draft-organizer-platform-target.md`
-- `wiki/Architecture/Modules.md`
+- `docs/wiki/Architecture/Modules.md`
 - `3rd_party/iam/AGENTS.md`
 - [RFC 6749: The OAuth 2.0 Authorization Framework](https://www.rfc-editor.org/rfc/rfc6749.html)
 - [OAuth 2.0 and OpenID Connect overview (Okta Developer)](https://developer.okta.com/docs/concepts/oauth-openid/)

@@ -116,7 +116,7 @@ Use `--verbose` for more logging, `--json` for machine-friendly output. `--dry-r
 ## CLI Reference Generation
 
 - `ro docs generate` emits a full command reference at `docs/cli-reference.md`.
-- Pass `--wiki` (or set `docs.publishToWiki: true`) to mirror the output into `wiki/CLI.md`; remember to commit the wiki submodule separately.
+- Pass `--wiki` (or set `docs.publishToWiki: true`) to mirror the output into `docs/wiki/CLI.md`; remember to commit the wiki changes separately.
 - Add `--output <path>` or `--wiki-output <path>` to override the targets when needed.
 - `--commit-wiki` stages and commits the wiki update automatically (use `--commit-message` or `docs.wikiCommitMessage` for the commit text). Combine with `--dry-run` to preview.
 - `ro completion install` writes shell completion scripts under the current user's home directory. Those files are generated local environment artifacts, not project documentation, and should not be committed under the repository root.
@@ -171,7 +171,7 @@ Use `--verbose` for more logging, `--json` for machine-friendly output. `--dry-r
   # equivalent npm command: npm run format:check
   ```
 
-- Changes to generated or vendored content are ignored through `.prettierignore` (e.g., `docs/cli-reference.md`, `wiki/`, build outputs).
+- Changes to generated or vendored content are ignored through `.prettierignore` (e.g., `docs/cli-reference.md`, `docs/wiki/`, build outputs).
 - `docs/prettier-sample.md` demonstrates the expected output across headings, lists, tables, fenced code, and inline HTML—use it when experimenting with new Prettier options.
 - `tools/scripts/check-format.sh` centralizes the Prettier check logic; CI calls this script so results stay consistent (you can also reuse it in custom hooks if desired).
 

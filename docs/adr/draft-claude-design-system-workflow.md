@@ -25,7 +25,7 @@ This means Claude Design does not drop into Penpot's role unchanged. Penpot's ro
 ## New Proposed Decision
 
 - RallyOn's design source of truth becomes an in-repo HTML/CSS component library (working name: `design-system/`), authored and iterated on through Claude Design, kept in Git via the `/design-sync` push/pull workflow (`DesignSync` tool: `list_files`/`get_file` to read the remote project, `finalize_plan` + `write_files`/`delete_files` to push local changes).
-- Design tokens (color, spacing, typography, radii, motion, semantic states) are expressed as **CSS custom properties** inside that component library, seeded from the existing brief in `wiki/design/frontend-spaceport-theme.md`, rather than as portable W3C DTCG JSON.
+- Design tokens (color, spacing, typography, radii, motion, semantic states) are expressed as **CSS custom properties** inside that component library, seeded from the existing brief in `docs/wiki/design/frontend-spaceport-theme.md`, rather than as portable W3C DTCG JSON.
 - The Style Dictionary transform layer proposed in the prior ADR is dropped. There is no DTCG JSON source to transform from, and Claude Design does not produce one. CSS custom properties are the only target for now.
 - Because sync is incremental and file-based, the component HTML/CSS files remain plain Git-tracked files with reviewable diffs, even though visual editing happens through Claude Design. The source of truth is the **committed files in this repo**, not an exclusively-remote claude.ai project — `/design-sync` keeps the two in agreement, it does not make the remote project authoritative on its own.
 - Non-web runtime targets (Godot, Unity, etc.) have no transform path under this model. That is an explicit, accepted gap until a concrete non-web client is chosen — see "Consequences."
@@ -49,7 +49,7 @@ Retained from the prior ADR for history; only the entries below changed status.
 
 ## Open Follow-Up Work
 
-- Stand up the initial `design-system/` directory and first component pass, seeded from `wiki/design/frontend-spaceport-theme.md`.
+- Stand up the initial `design-system/` directory and first component pass, seeded from `docs/wiki/design/frontend-spaceport-theme.md`.
 - Decide `@dsCard` grouping/naming conventions for RallyOn's components.
 - Decide whether `_ds_manifest.json` (or any other sync-generated file) is committed or regenerated locally.
 - Add lightweight validation that committed component files and the synced claude.ai project haven't drifted apart.
@@ -59,4 +59,4 @@ Retained from the prior ADR for history; only the entries below changed status.
 
 - Claude Design product page: <https://claude.com/product/design>
 - Prior ADR (Penpot decision, now superseded): `docs/adr/draft-design-tools-and-design-token-workflow.md`
-- RallyOn organizer design brief: `wiki/design/frontend-spaceport-theme.md`
+- RallyOn organizer design brief: `docs/wiki/design/frontend-spaceport-theme.md`

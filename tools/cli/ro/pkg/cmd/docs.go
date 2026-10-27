@@ -51,11 +51,11 @@ var docsGenerateCmd = &cobra.Command{
 
 		shouldWriteWiki := flagDocsWiki || cfg.Docs.PublishToWiki
 		if shouldWriteWiki {
-			wikiPath := resolveDocsPath(flagDocsWikiPath, cfg.Docs.WikiOutput, filepath.Join("wiki", "CLI.md"))
+			wikiPath := resolveDocsPath(flagDocsWikiPath, cfg.Docs.WikiOutput, filepath.Join("docs/wiki", "CLI.md"))
 			if err := writeDocsFile(wikiPath, content); err != nil {
 				return err
 			}
-			slog.Info("docs written to wiki; remember to commit wiki submodule", "path", wikiPath)
+			slog.Info("docs written to wiki; remember to commit docs/wiki changes", "path", wikiPath)
 			if cfg.Docs.AutoStageWiki || flagDocsPublish {
 				if err := stageWikiFile(wikiPath); err != nil {
 					return err
@@ -112,7 +112,7 @@ func renderDocs(root *cobra.Command) (string, error) {
 func stageWikiFile(path string) error {
 	wikiDir, file := filepath.Split(path)
 	if wikiDir == "" {
-		wikiDir = "wiki"
+		wikiDir = "docs/wiki"
 	}
 	if err := runGitCommand(context.Background(), []string{"git", "-C", wikiDir, "add", file}); err != nil {
 		return fmt.Errorf("stage wiki file: %w", err)
@@ -122,7 +122,7 @@ func stageWikiFile(path string) error {
 }
 
 func commitWiki(message string) error {
-	wikiDir := filepath.Join(cfg.Project.Root, "wiki")
+	wikiDir := filepath.Join(cfg.Project.Root, "docs/wiki")
 	args := []string{"git", "-C", wikiDir, "commit", "-m", message}
 	if err := runGitCommand(context.Background(), args); err != nil {
 		return fmt.Errorf("commit wiki: %w", err)
