@@ -18,11 +18,15 @@ Use [Spring Modulith](https://docs.spring.io/spring-modulith/reference/) to:
 
 ## Consequences
 
+Positive:
+
 - Clear, bounded-context-aligned packages (`setup.configuration`, `setup.rules`, `setup.phases`, ...)
 - Automated verification that modules do not bypass each other's internals
 - Runtime module documentation via Actuator
 
-* Build-time verification adds a small step to CI (`verify -Pmodulith`)
+Negative:
+
+- Build-time verification adds a small step to the normal `verify` run (`TournamentmgmtModuleStructureTest`)
 
 ## Related
 

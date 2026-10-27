@@ -51,7 +51,7 @@ var docsGenerateCmd = &cobra.Command{
 
 		shouldWriteWiki := flagDocsWiki || cfg.Docs.PublishToWiki
 		if shouldWriteWiki {
-			wikiPath := resolveDocsPath(flagDocsWikiPath, cfg.Docs.WikiOutput, filepath.Join("docs/wiki", "CLI.md"))
+			wikiPath := resolveDocsPath(flagDocsWikiPath, cfg.Docs.WikiOutput, filepath.Join("docs", "wiki", "CLI.md"))
 			if err := writeDocsFile(wikiPath, content); err != nil {
 				return err
 			}
@@ -110,11 +110,9 @@ func renderDocs(root *cobra.Command) (string, error) {
 }
 
 func stageWikiFile(path string) error {
-	wikiDir, file := filepath.Split(path)
-	if wikiDir == "" {
-		wikiDir = "docs/wiki"
-	}
-	if err := runGitCommand(context.Background(), []string{"git", "-C", wikiDir, "add", file}); err != nil {
+	// Paths are relative to the project root (see writeDocsFile), so stage from there
+	// regardless of the CWD the CLI was started in.
+	if err := runGitCommand(context.Background(), []string{"git", "-C", cfg.Project.Root, "add", "--", path}); err != nil {
 		return fmt.Errorf("stage wiki file: %w", err)
 	}
 	slog.Info("wiki staged", "file", path)
@@ -122,8 +120,10 @@ func stageWikiFile(path string) error {
 }
 
 func commitWiki(message string) error {
-	wikiDir := filepath.Join(cfg.Project.Root, "docs/wiki")
-	args := []string{"git", "-C", wikiDir, "commit", "-m", message}
+	wikiDir := filepath.Join(cfg.Project.Root, "docs", "wiki")
+	// docs/wiki is a plain directory now, so a bare `git commit` would also commit unrelated
+	// staged changes; the pathspec limits the commit to wiki content.
+	args := []string{"git", "-C", wikiDir, "commit", "-m", message, "--", "."}
 	if err := runGitCommand(context.Background(), args); err != nil {
 		return fmt.Errorf("commit wiki: %w", err)
 	}

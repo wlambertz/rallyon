@@ -68,9 +68,7 @@ function parseOptions(args) {
 }
 
 function trackedFiles() {
-  const files = new Set()
-  addFileList(files, gitFileList(["ls-files", "-z"]))
-  return [...files]
+  return gitFileList(["ls-files", "-z"]).filter(isCheckable)
 }
 
 function changedFiles({ base, head }) {
@@ -113,17 +111,18 @@ function addDiffFiles(files, args) {
 }
 
 function addFileList(files, candidates) {
-  for (const candidate of candidates) {
-    if (!candidate || candidate === "wiki" || candidate.startsWith("wiki/")) {
-      continue
-    }
-    // Prettier exits with an error on explicitly passed symlinks (e.g. `.claude/skills`),
-    // and their targets are already checked as regular tracked files.
-    if (isSymlink(candidate)) {
-      continue
-    }
+  for (const candidate of candidates.filter(isCheckable)) {
     files.add(candidate)
   }
+}
+
+function isCheckable(candidate) {
+  if (!candidate || candidate === "docs/wiki" || candidate.startsWith("docs/wiki/")) {
+    return false
+  }
+  // Prettier exits with an error on explicitly passed symlinks (e.g. `.claude/skills`),
+  // and their targets are already checked as regular tracked files.
+  return !isSymlink(candidate)
 }
 
 function isSymlink(file) {

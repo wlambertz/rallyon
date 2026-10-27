@@ -73,11 +73,7 @@ Use the pull request template at `.github/pull_request_template.md`.
 
 ## Documentation
 
-Keep architectural notes and ADRs in `docs/adr/`. Update the wiki submodule when module responsibilities change:
-
-```bash
-git submodule update --remote --merge
-```
+Keep architectural notes and ADRs in `docs/adr/`. Update the in-repo wiki under `docs/wiki/` when module responsibilities change, and commit it together with the code.
 
 ## Code of conduct
 
