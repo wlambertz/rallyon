@@ -60,8 +60,10 @@ Follow `.editorconfig`:
 
 ## Commit & pull request guidelines
 
-- Commits use Conventional Commit prefixes: `feat`, `fix`, `chore` (scope optional)
-- Start commit messages in imperative mood, keep under 72 characters
+- Commits use Conventional Commit prefixes: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`, `build`, `ci`, `perf`, `style` (scope optional)
+- Start commit messages in imperative mood, keep subjects at most 72 characters, and name the concrete change (`chore: commit current changes` and `update files` are rejected)
+- Changes touching more than 3 files or 100 lines need a body explaining what and why
+- Enable the local check once per clone with `bin/ro git hooks install` (devcontainers do this automatically); CI re-checks every PR commit. Thresholds live under `git.commitLint` in `ro.yaml`
 - Pull requests should:
   - Summarize changes
   - Link tracking issues
