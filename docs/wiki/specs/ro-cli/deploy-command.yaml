@@ -1,0 +1,35 @@
+# OpenSpec Specification: ro-cli-deploy-command
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-deploy-command"
+title: "RallyOn CLI Deploy Command"
+status: implemented
+epic: "CLI Deployment"
+ticket:
+  title: "Deploy Command"
+  description: |
+    Deploys the application to target environments.
+    Supports deploying to local Docker or remote environments.
+
+  acceptanceCriteria:
+    - given: "valid deployment configuration"
+      when: "ro deploy is called"
+      then: "application deploys successfully"
+    - given: "invalid deployment target"
+      when: "ro deploy is called"
+      then: "error with configuration details"
+
+  implementationSteps:
+    - text: "Deploy command implementation"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/deploy.go"]
+      codeReferences: ["deploy.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["deploy.go"]
+typeReferences: []

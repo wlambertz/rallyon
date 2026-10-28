@@ -1,0 +1,57 @@
+# OpenSpec Specification: keycloak-auth-integration
+# Reverse-engineered from implemented code
+
+specification: "keycloak-auth-integration"
+title: "Keycloak Authentication Integration"
+status: implemented
+epic: "Security & Identity"
+ticket:
+  title: "Keycloak Authentication Integration"
+  description: |
+    Shared Keycloak security library for backend services.
+    Provides JWT validation, role mapping, and user identity resolution.
+    Used by tournamentmgmt service for authentication and authorization.
+
+  acceptanceCriteria:
+    - given: "valid JWT token with rallyon_user_id claim"
+      when: "protected endpoint is called"
+      then: "200 OK with user context"
+    - given: "expired or invalid JWT token"
+      when: "protected endpoint is called"
+      then: "401 Unauthorized"
+    - given: "missing JWT token on protected endpoint"
+      when: "endpoint is called without Authorization header"
+      then: "401 Unauthorized"
+    - given: "user with ADMIN role"
+      when: "admin-only endpoint is called"
+      then: "200 OK"
+    - given: "user without required role"
+      when: "protected endpoint is called"
+      then: "403 Forbidden"
+
+  implementationSteps:
+    - text: "Shared IAM core library (3rd_party/iam)"
+      type: "development"
+      references: ["3rd_party/iam/"]
+      codeReferences: ["3rd_party/iam"]
+    - text: "JWT claim handling for rallyon_user_id"
+      type: "development"
+      references: ["3rd_party/iam/"]
+      codeReferences: ["3rd_party/iam"]
+    - text: "Role mapping from Keycloak roles to Spring Security"
+      type: "development"
+      references: ["3rd_party/iam/"]
+      codeReferences: ["3rd_party/iam"]
+    - text: "Security auto-configuration for Spring Boot"
+      type: "development"
+      references: ["3rd_party/iam/"]
+      codeReferences: ["3rd_party/iam"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["3rd_party/iam/"]
+typeReferences: ["rallyon_user_id"]

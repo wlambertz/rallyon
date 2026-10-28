@@ -1,0 +1,46 @@
+# OpenSpec Specification: ro-cli-spec-commands
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-spec-commands"
+title: "RallyOn CLI Spec Commands"
+status: implemented
+epic: "CLI Spec Management"
+ticket:
+  title: "Spec Commands (create, validate, view)"
+  description: |
+    OpenSpec specification management commands.
+    Supports creating, validating, and viewing spec files.
+
+  acceptanceCriteria:
+    - given: "valid spec name"
+      when: "ro spec create <name> is called"
+      then: "spec file generated in configured directory"
+    - given: "valid spec file"
+      when: "ro spec validate <file> is called"
+      then: "validation passes with no errors"
+    - given: "valid spec file"
+      when: "ro spec view <file> is called"
+      then: "spec content displayed to user"
+
+  implementationSteps:
+    - text: "Spec create command"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/spec_create.go"]
+      codeReferences: ["spec_create.go"]
+    - text: "Spec validate command"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/spec_validate.go"]
+      codeReferences: ["spec_validate.go"]
+    - text: "Spec view command"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/spec_view.go"]
+      codeReferences: ["spec_view.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["spec_create.go", "spec_validate.go", "spec_view.go"]
+typeReferences: []

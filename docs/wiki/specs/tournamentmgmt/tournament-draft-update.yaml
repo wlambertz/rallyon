@@ -1,0 +1,58 @@
+# OpenSpec Specification: tournament-draft-update
+# Reverse-engineered from implemented code
+
+specification: "tournament-draft-update"
+title: "Update Tournament Draft"
+status: implemented
+epic: "Tournament Setup"
+ticket:
+  title: "Update Tournament Draft"
+  description: |
+    Updates an existing tournament draft with new configuration.
+    Supports partial updates with conflict detection via versioning.
+    The draft must be in DRAFT status to be updated.
+
+  acceptanceCriteria:
+    - given: "valid tournament ID and updated configuration"
+      when: "PUT /api/tournamentmgmt/setup/configuration/tournaments/{id} is called"
+      then: "200 OK with updated tournament draft"
+    - given: "tournament not in DRAFT status"
+      when: "PUT endpoint is called"
+      then: "409 Conflict"
+    - given: "version mismatch (concurrent update)"
+      when: "PUT endpoint is called with stale version"
+      then: "409 Conflict (DraftUpdateConflictException)"
+    - given: "tournament not found"
+      when: "PUT endpoint is called with unknown ID"
+      then: "404 Not Found (TournamentNotFoundException)"
+
+  implementationSteps:
+    - text: "UpdateDraftUseCase interface defines the contract"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/usecase/UpdateDraftUseCase.kt"]
+      codeReferences: ["UpdateDraftUseCase.kt"]
+    - text: "UpdateDraftService implements the use case with conflict detection"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/usecase/UpdateDraftService.kt"]
+      codeReferences: ["UpdateDraftService.kt"]
+    - text: "DraftUpdateConflictException for version conflicts"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/DraftUpdateConflictException.kt"]
+      codeReferences: ["DraftUpdateConflictException.kt"]
+    - text: "TournamentNotFoundException for missing tournaments"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/TournamentNotFoundException.kt"]
+      codeReferences: ["TournamentNotFoundException.kt"]
+    - text: "InvalidDraftUpdateException for invalid state transitions"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/InvalidDraftUpdateException.kt"]
+      codeReferences: ["InvalidDraftUpdateException.kt"]
+
+dependencies: [tournament-draft-create]
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["UpdateDraftUseCase.kt", "UpdateDraftService.kt", "DraftUpdateConflictException.kt", "TournamentNotFoundException.kt", "InvalidDraftUpdateException.kt"]
+typeReferences: ["Tournament", "TournamentStatus", "Visibility", "TimeWindow", "TimeWindowRange", "Court", "DisciplineConfig", "BracketId", "Category", "TeamSize"]

@@ -1,0 +1,35 @@
+# OpenSpec Specification: ro-cli-docker-command
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-docker-command"
+title: "RallyOn CLI Docker Command"
+status: implemented
+epic: "CLI Infrastructure"
+ticket:
+  title: "Docker Command"
+  description: |
+    Manages Docker containers and images for the project.
+    Supports building, running, and managing Docker services.
+
+  acceptanceCriteria:
+    - given: "valid Docker configuration"
+      when: "ro docker is called"
+      then: "Docker operation completes successfully"
+    - given: "Docker not available"
+      when: "ro docker is called"
+      then: "error with Docker availability details"
+
+  implementationSteps:
+    - text: "Docker command implementation"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/docker.go"]
+      codeReferences: ["docker.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["docker.go"]
+typeReferences: []

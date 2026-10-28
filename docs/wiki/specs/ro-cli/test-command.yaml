@@ -1,0 +1,35 @@
+# OpenSpec Specification: ro-cli-test-command
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-test-command"
+title: "RallyOn CLI Test Command"
+status: implemented
+epic: "CLI Build & Test"
+ticket:
+  title: "Test Command"
+  description: |
+    Runs tests for Go, Java, and other project components.
+    Supports running specific test suites or all tests.
+
+  acceptanceCriteria:
+    - given: "valid project with tests"
+      when: "ro test is called"
+      then: "tests run and report results"
+    - given: "failing tests"
+      when: "ro test is called"
+      then: "exit code non-zero with failure details"
+
+  implementationSteps:
+    - text: "Test command implementation"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/test.go"]
+      codeReferences: ["test.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["test.go"]
+typeReferences: []
