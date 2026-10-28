@@ -1,0 +1,104 @@
+/* ============================================================
+   RallyOn — Color tokens
+   Swiss Brutalist Operations Terminal.
+   Light "paper" (FREITAG) is primary. One operational accent
+   (industrial orange). Dark "terminal" (Nothing) is the support
+   theme, used for the Turnier-TV spectator display.
+   ============================================================ */
+
+:root {
+  /* --- Base neutrals: warm paper stock ------------------- */
+  --paper-0: #EAE8E0;   /* app background / recessed wells   */
+  --paper-1: #F5F3EC;   /* default surface                   */
+  --paper-2: #FCFBF6;   /* raised card / input field         */
+  --paper-inverse: #16150F;
+
+  --ink-0: #16150F;     /* primary text, hard seams          */
+  --ink-1: #45433A;     /* secondary text                    */
+  --ink-2: #78756A;     /* tertiary / muted / placeholder    */
+  --ink-inverse: #F5F3EC;
+
+  /* --- Seams & borders (brutalist: visible, hard) -------- */
+  --line-strong: #16150F;  /* structural 1.5–2px seams       */
+  --line: #CFCCC0;         /* hairline dividers               */
+  --line-soft: #E1DED4;    /* faint internal separators       */
+
+  /* --- Operational accent: industrial orange ------------- */
+  --accent: #FF5C2B;
+  --accent-hover: #E84A1B;
+  --accent-press: #CC3F14;
+  --accent-on: #16150F;    /* text/icons sitting on accent    */
+  --accent-soft: #FFE6DB;  /* tinted background wash          */
+  --accent-line: #FFB59C;  /* accent border on soft bg        */
+
+  /* --- Status ------------------------------------------------
+     Collapsed toward monochrome: done/pending/scheduled form an
+     ink→grey ramp (done darkest, scheduled faintest), LIVE is the
+     one orange, conflict is the one decisive cool crimson. No green,
+     no amber. --------------------------------------------------- */
+  --status-live: #FF5C2B;      /* live / running = accent      */
+  --status-live-soft: #FFE6DB;
+  --status-ok: #16150F;        /* done / confirmed = ink       */
+  --status-ok-soft: #E1DED4;
+  --status-warn: #545249;      /* pending / attention = dk grey*/
+  --status-warn-soft: #E6E3D9;
+  --status-danger: #A40034;    /* conflict / error = cool crimson */
+  --status-danger-soft: #F4DBE3;
+  --status-idle: #78756A;      /* scheduled / neutral = grey   */
+  --status-idle-soft: #E5E2D8;
+
+  /* --- Focus ring ---------------------------------------- */
+  --focus: #16150F;
+
+  /* --- Semantic surface aliases -------------------------- */
+  --surface-app: var(--paper-0);
+  --surface-panel: var(--paper-1);
+  --surface-card: var(--paper-2);
+  --surface-well: var(--paper-0);
+
+  --text-strong: var(--ink-0);
+  --text-body: var(--ink-1);
+  --text-muted: var(--ink-2);
+
+  --border-structural: var(--line-strong);
+  --border-hairline: var(--line);
+}
+
+/* ============================================================
+   Dark "terminal" theme — Turnier-TV / big-screen displays
+   ============================================================ */
+[data-theme="dark"] {
+  --paper-0: #0A0A09;
+  --paper-1: #121210;
+  --paper-2: #1B1B17;
+  --paper-inverse: #F5F3EC;
+
+  --ink-0: #F5F3EC;
+  --ink-1: #B6B3A6;
+  --ink-2: #77746A;
+  --ink-inverse: #16150F;
+
+  --line-strong: #F5F3EC;
+  --line: #2C2B26;
+  --line-soft: #201F1B;
+
+  --accent: #FF6A3C;
+  --accent-hover: #FF7E54;
+  --accent-press: #E84A1B;
+  --accent-on: #0A0A09;
+  --accent-soft: #2A1710;
+  --accent-line: #5C3120;
+
+  --status-live: #FF6A3C;
+  --status-live-soft: #2A1710;
+  --status-ok: #F5F3EC;        /* done = near-white ink        */
+  --status-ok-soft: #201F1B;
+  --status-warn: #9C998D;      /* pending = light grey         */
+  --status-warn-soft: #201F1B;
+  --status-danger: #E8385F;    /* conflict = bright crimson    */
+  --status-danger-soft: #2A121A;
+  --status-idle: #77746A;      /* scheduled = mid grey         */
+  --status-idle-soft: #201F1B;
+
+  --focus: #FF6A3C;
+}

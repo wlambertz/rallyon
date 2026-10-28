@@ -60,3 +60,15 @@ Retained from the prior ADR for history; only the entries below changed status.
 - Claude Design product page: <https://claude.com/product/design>
 - Prior ADR (Penpot decision, now superseded): `docs/adr/draft-design-tools-and-design-token-workflow.md`
 - RallyOn organizer design brief: `docs/wiki/design/frontend-spaceport-theme.md`
+
+## Update 2026-10-28: Design System Snapshot Pulled Into the Repo
+
+- Source: the Claude Design project "RallyOn design system foundation" (`aa991090-92e3-482f-8abb-d9d1f9ec925e`), pulled on 2026-10-28 into `design-system/` via `DesignSync` `get_file`. This is the first time the design work is committed; before this update the repo held no design files.
+- The pulled set is the core system: `styles.css`, `tokens/`, `guidelines/`, `components/` (React reference components with `.d.ts` contracts and `.prompt.md` usage notes), the three `ui_kits/` entry pages, `ui_kits/organizer/tournament-create.html`, `readme.md`, and `SKILL.md`. Left on claude.ai only: the `keep-calm-*` posters, `color-explore.html`, the `uploads/` PNGs, and thumbnails.
+- That project is a regular project (`PROJECT_TYPE_PROJECT`), not a design-system project, so `/design-sync` (which targets design-system projects) is not its sync path. The pull is a one-time snapshot, and later changes are re-pulled by hand.
+- Standalone claude.ai/design is announced to close on 2026-12-14 (per the `DesignSync` tool description and third-party sources; not independently confirmed on an Anthropic page). The committed files are therefore the durable copy.
+- Tokens are plain CSS custom properties (`tokens/*.css`, entry `styles.css`); no DTCG JSON exists, which matches the decision above.
+- `design-system/` is listed in `.prettierignore` so the files stay byte-identical to the export and re-pulls produce clean diffs.
+- `design-system/tokens/` is authoritative over `docs/wiki/design/frontend-spaceport-theme.md` where they differ; the brief now carries a pointer note.
+- The React components are design reference only. They do not select a frontend stack for `application/organizer`, which still needs its own decision.
+- Open Design (`nexu-io/open-design`) was evaluated as an alternative design workspace and not adopted for now: it adds a heavy toolchain (Node 24, pnpm, Next.js, Electron) while there is no frontend yet, and it saves cost only with a cheaper or local model.
