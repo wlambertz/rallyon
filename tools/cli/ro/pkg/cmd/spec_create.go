@@ -91,7 +91,7 @@ epic: "%s workflow"
 ticket:
   title: "%s"
   description: |
-    Description of the %%s feature or requirement.
+    Description of the %s feature or requirement.
 
   acceptanceCriteria:
     - given: "no implementation"
@@ -115,7 +115,7 @@ filesToBeDeleted: []
 filesToBeReferenced: []
 codeReferences: []
 typeReferences: []
-`, name, name, name, name, name, name)
+`, name, name, name, name, name, name, name, name)
 }
 
 func authSpecTemplate(name string) string {
