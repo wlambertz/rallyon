@@ -34,6 +34,14 @@ Negative:
 - OpenSpec enforces no approval gates itself; gates must come from repo workflow and hooks.
 - Without the `claude` target there are no `/opsx:*` shortcuts; skills are invoked as `/openspec-propose` etc.
 
+## Open follow-ups
+
+These are part of this decision and must not be dropped; this ADR stays the tracking point until they are done.
+
+- [ ] Migrate the 8 reverse-engineered YAML specs in `docs/wiki/specs/{tournamentmgmt,ro-cli}/` to `openspec/specs/<capability>/spec.md` (Requirement/Scenario format), verify with `openspec validate --all`, then remove the originals in a separate commit.
+- [ ] Deprecate `ro spec create|validate|view` with a pointer message (keep the commands working; `ro` compatibility rule), regenerate `docs/cli-reference.md`.
+- [ ] Remove the remaining openspec.tech references (`specs.schemaURL` default, wiki pages) once the migration is done.
+
 ## Related
 
 - `.agents/skills/openspec/SKILL.md` — legacy openspec.tech skill, to be rewritten
