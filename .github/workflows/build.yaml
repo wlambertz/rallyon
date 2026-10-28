@@ -42,7 +42,12 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Make Maven wrapper executable
+        run: chmod +x service/tournamentmgmt/mvnw
+      # The repo has no root pom.xml, so Maven must be pointed at the service and its IAM dependency.
+      - name: Install shared IAM modules
+        run: ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install
       - name: Sonar analyze maven
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wlambertz_rallyon
+        run: ./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=wlambertz_rallyon

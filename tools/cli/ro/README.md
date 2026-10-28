@@ -137,7 +137,7 @@ ro deploy --env dev --check-only --json  # CI preflight
 - Docs
 
 ```shell
-ro docs generate --wiki                     # writes docs/cli-reference.md (+ wiki/CLI.md)
+ro docs generate --wiki                     # writes docs/cli-reference.md (+ docs/wiki/CLI.md)
 ro docs generate --wiki --commit-wiki       # also commits wiki (docs.wikiCommitMessage)
 ro docs generate --wiki --commit-wiki --commit-message "docs: refresh CLI"
 ```

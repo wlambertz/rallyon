@@ -105,4 +105,4 @@ These apply regardless of language; they're the ones cheap enough to check in a 
 - `AGENTS.md` — "Architecture Boundaries" (the enforceable one-liners derived from this doc)
 - `service/tournamentmgmt/AGENTS.md` — "Architecture Rules"
 - `tools/cli/ro/AGENTS.md` — "Local Conventions"
-- `wiki/Architecture/Modules.md`, `wiki/Architecture/Tournamentmgmt-Modulith.md`
+- `docs/wiki/Architecture/Modules.md`, `docs/wiki/Architecture/Tournamentmgmt-Modulith.md`

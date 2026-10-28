@@ -21,7 +21,7 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 ## Source of truth
 
 - Treat code, manifests, configs, scripts, and tests as authoritative for current behavior.
-- Treat `wiki/` as authoritative for intended architecture, workflows, personas, and design direction unless code/tests contradict it.
+- Treat `docs/wiki/` as authoritative for intended architecture, workflows, personas, and design direction unless code/tests contradict it.
 - `AGENTS.md` (root and per-area) is canonical for agent instructions; `README.md` is a project overview only.
 
 ## Active areas

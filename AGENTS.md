@@ -23,7 +23,7 @@
 - When asked to create an implementation plan for a GitHub issue, write the plan under `docs/issue-implementation-plans/`, add the same plan as a comment on the issue, and commit the plan file.
 - Planning work may inspect code, docs, tests, wiki pages, and issue comments, but must not modify production code, tests, migrations, runtime config, dependency files, or generated app artifacts.
 - Plan commits must contain only the relevant plan file and include the agent `Co-authored-by` trailer required by this guide.
-- Codex should use `.agents/skills/issue-implementation-planner/`; Claude should follow this shared rule through its `AGENTS.md` adapter.
+- Codex and Claude Code should use `.agents/skills/issue-implementation-planner/` (Claude loads it through the `.claude/skills` symlink); agents without skill support follow this shared rule directly.
 
 ## Read This First
 
@@ -32,8 +32,8 @@
   - `service/tournamentmgmt/`
   - `3rd_party/iam/`
   - `tools/cli/ro/`
-- Use the repo wiki as a normal research source, not just a submodule to avoid touching:
-  - read relevant pages in `wiki/` before making architecture, CLI workflow, docs, persona, or UX-flow assumptions
+- Use the repo wiki as a normal research source:
+  - read relevant pages in `docs/wiki/` before making architecture, CLI workflow, docs, persona, or UX-flow assumptions
   - treat code, config, manifests, and scripts as authoritative for commands, runtime behavior, and current implementation details
   - treat the wiki as authoritative for intended architecture, workflow context, personas, and higher-level system framing unless contradicted by code or config
 - Prefer the smallest change that solves the task.
@@ -70,11 +70,12 @@
 - `infrastructure/local/`: local Docker Compose for Keycloak, Postgres, and tournament management service
 - `persistence/db/`: Postgres image used by local compose
 - `tools/cli/ro/`: Go Cobra CLI for build/test/run/deploy/docs/scaffolding workflows
-- `.agents/skills/`: repo-scoped Codex skills for repeatable RallyOn workflows
+- `.agents/skills/`: repo-scoped agent skills for repeatable RallyOn workflows, shared by Codex and Claude Code
+- `.claude/skills`: symlink to `../.agents/skills` so Claude Code discovers the same skills; see `docs/agent-workflows.md` for the tradeoffs
 - `.agents/skills/sdlc-skills/`: SDLC skills catalog (personas → requirements → QA → CI/CD) usable by Codex, Claude, and Cline
 - `docs/issue-implementation-plans/`: durable implementation plans created from GitHub issues before coding
 - `docs/clean-architecture-and-clean-code.md`: Dependency Rule and Clean Code conventions behind the Architecture Boundaries rules below
-- `wiki/`: git submodule and expected agent research source for architecture, CLI workflows, personas, and design context
+- `docs/wiki/`: wiki content (architecture, CLI workflows, personas, design context) stored in-repo alongside code
 
 ## Architecture Boundaries
 
@@ -97,7 +98,7 @@
 - Deploy and infra:
   - `ro.yaml`, `.github/workflows/`, Dockerfiles, compose files, and `admin/keycloak/` impact delivery environments. Keep diffs intentional and minimal.
 - Wiki:
-  - `wiki/` is both a submodule and an expected research source.
+  - `docs/wiki/` is the wiki content stored in-repo alongside code.
   - Read relevant wiki pages before planning architecture, CLI, or UX changes.
   - Only update wiki content when the task explicitly requires wiki edits or generated docs there.
 

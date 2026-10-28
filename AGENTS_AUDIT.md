@@ -26,8 +26,8 @@
 
 - Top-level purpose and layout:
   - `README.md`
-  - `wiki/Home.md`
-  - `wiki/Architecture/Modules.md`
+  - `docs/wiki/Home.md`
+  - `docs/wiki/Architecture/Modules.md`
 - Root tooling:
   - `package.json`
   - `tools/scripts/check-format.sh`
@@ -48,8 +48,8 @@
   - `application/organizer/src/styles/README.md`
   - `application/organizer/design/pencil/README.md`
   - `application/organizer/tests/login.spec.ts`
-  - `wiki/Personas.md`
-  - `wiki/design/frontend-spaceport-theme.md`
+  - `docs/wiki/Personas.md`
+  - `docs/wiki/design/frontend-spaceport-theme.md`
 - Tournament service evidence:
   - `service/tournamentmgmt/pom.xml`
   - `service/tournamentmgmt/src/main/resources/application.properties`
@@ -62,7 +62,7 @@
   - `service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/TournamentmgmtModuleStructureTest.java`
   - `service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java`
   - `service/tournamentmgmt/docs/modulith/README.md`
-  - `wiki/Architecture/Tournamentmgmt-Modulith.md`
+  - `docs/wiki/Architecture/Tournamentmgmt-Modulith.md`
 - IAM evidence:
   - `3rd_party/iam/pom.xml`
   - `3rd_party/iam/keycloak-core/src/main/java/.../KeycloakPrincipalFactory.java`
@@ -73,7 +73,7 @@
   - `tools/cli/ro/pkg/cmd/auth_test.go`
   - `tools/cli/ro/pkg/cmd/deploy_test.go`
   - `ro.yaml`
-  - `wiki/CLI-Manual.md`
+  - `docs/wiki/CLI-Manual.md`
 - Infra/admin evidence:
   - `infrastructure/local/docker-compose.yml`
   - `persistence/db/Dockerfile`
@@ -88,7 +88,7 @@
 - The root `README.md` mentions Angular 20, but `application/organizer/package.json` currently uses Angular `^21.2.x`; the instructions follow the manifest/config rather than the stale README wording.
 - No root `Makefile`, Gradle build, pnpm workspace, or repo-wide task runner was found, so none were documented as canonical.
 - `codeql.yml` currently analyzes only GitHub Actions, so it was treated as a repo security signal rather than a source of build commands.
-- The instruction structure now treats `wiki/` as an explicit agent research source for architecture, workflows, personas, and design context, while code/config remain the source of truth for executable behavior.
+- The instruction structure now treats `docs/wiki/` as an explicit agent research source for architecture, workflows, personas, and design context, while code/config remain the source of truth for executable behavior.
 
 ## Commands Discovered
 
@@ -149,4 +149,4 @@
   - Dockerfiles and `infrastructure/local/docker-compose.yml`
 - Docs and generated architecture artifacts:
   - `service/tournamentmgmt/docs/modulith/generated/`
-  - `wiki/` is a submodule, so edits there should be deliberate
+  - `docs/wiki/` is in-repo, so edits there should be deliberate

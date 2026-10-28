@@ -83,6 +83,12 @@ type Telemetry struct {
 	CollectCommands []string `mapstructure:"collectCommands"`
 }
 
+type Specs struct {
+	Directory        string `mapstructure:"directory"`
+	DefaultTemplate  string `mapstructure:"defaultTemplate"`
+	SchemaURL        string `mapstructure:"schemaURL"`
+}
+
 type Project struct {
 	Name string `mapstructure:"name"`
 	Root string `mapstructure:"root"`
@@ -99,6 +105,7 @@ type Config struct {
 	Docs      Docs           `mapstructure:"docs"`
 	Scaffold  Scaffold       `mapstructure:"scaffold"`
 	Telemetry Telemetry      `mapstructure:"telemetry"`
+	Specs     Specs          `mapstructure:"specs"`
 	Apps      map[string]App `mapstructure:"apps"`
 }
 
@@ -142,7 +149,7 @@ func Load(repoRoot string) (*Config, error) {
 	v.SetDefault("output.verbose", false)
 	v.SetDefault("output.quiet", false)
 	v.SetDefault("docs.output", "docs/cli-reference.md")
-	v.SetDefault("docs.wikiOutput", "wiki/CLI.md")
+	v.SetDefault("docs.wikiOutput", "docs/wiki/CLI.md")
 	v.SetDefault("docs.publishToWiki", false)
 	v.SetDefault("docs.autoStageWiki", false)
 	v.SetDefault("docs.wikiCommitMessage", "docs: update CLI reference")
@@ -153,6 +160,9 @@ func Load(repoRoot string) (*Config, error) {
 	v.SetDefault("telemetry.endpoint", "")
 	v.SetDefault("telemetry.clientId", "")
 	v.SetDefault("telemetry.collectCommands", []string{"deploy", "docker build", "docker compose", "scaffold module"})
+	v.SetDefault("specs.directory", "docs/wiki/specs")
+	v.SetDefault("specs.defaultTemplate", "basic")
+	v.SetDefault("specs.schemaURL", "https://openspec.tech/schema/v1.1/openspec-schema.json")
 	v.SetDefault("apps", map[string]App{})
 
 	// Config file from repo root if provided, else perform upward search from CWD

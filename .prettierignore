@@ -10,7 +10,7 @@ service/**/target
 
 # generated or vendored docs
 docs/cli-reference.md
-wiki
+docs/wiki
 
 # other generated artifacts
 **/.angular/**

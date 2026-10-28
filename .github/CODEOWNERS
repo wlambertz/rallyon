@@ -1,4 +1,4 @@
-# Code owners for the RallyOn / BadTourn repository.
+# Code owners for the RallyOn repository.
 # Follows the AGENTS.md module organization.
 
 # Domain services
@@ -10,7 +10,7 @@
 /application/organizer/    @wlambertz
 /application/audience/     @wlambertz
 
-# Shared adapters
+# Shared platform code (Keycloak IAM)
 /3rd_party/                @wlambertz
 
 # Operations & infrastructure
@@ -19,9 +19,8 @@
 
 # Build & CI configuration
 .github/                   @wlambertz
-pom.xml                    @wlambertz
-build.gradle               @wlambertz
-settings.gradle            @wlambertz
+**/pom.xml                 @wlambertz
+ro.yaml                    @wlambertz
 
 # Documentation
 AGENTS.md                  @wlambertz

@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft. This document records a July 2026 research snapshot answering a narrow question: can a SaaS product define passwordless login using only magic links and email-delivered one-time codes, and how would that compare to stronger alternatives? It is exploratory research for RallyOn's not-yet-built "Authentifizierung & Autorisierung" module (`wiki/Architecture/Modules.md`), not a scheduled implementation. `application/organizer` has no frontend today, so there is no login UI this ADR displaces. This ADR does not change anything in `3rd_party/iam` or `service/tournamentmgmt`. If a mechanism like this is ever adopted, it must preserve the existing Keycloak `rallyon_user_id` claim contract and JWT issuer/audience validation described in `3rd_party/iam/AGENTS.md` — either as a Keycloak-native authenticator/flow, or as a separate service that delegates final token issuance to Keycloak rather than replacing it.
+Draft. This document records a July 2026 research snapshot answering a narrow question: can a SaaS product define passwordless login using only magic links and email-delivered one-time codes, and how would that compare to stronger alternatives? It is exploratory research for RallyOn's not-yet-built "Authentifizierung & Autorisierung" module (`docs/wiki/Architecture/Modules.md`), not a scheduled implementation. `application/organizer` has no frontend today, so there is no login UI this ADR displaces. This ADR does not change anything in `3rd_party/iam` or `service/tournamentmgmt`. If a mechanism like this is ever adopted, it must preserve the existing Keycloak `rallyon_user_id` claim contract and JWT issuer/audience validation described in `3rd_party/iam/AGENTS.md` — either as a Keycloak-native authenticator/flow, or as a separate service that delegates final token issuance to Keycloak rather than replacing it.
 
 ## Context
 
@@ -59,7 +59,7 @@ WebAuthn/passkeys are phishing-resistant because the credential is cryptographic
 ## References
 
 - `docs/adr/draft-organizer-platform-target.md`
-- `wiki/Architecture/Modules.md`
+- `docs/wiki/Architecture/Modules.md`
 - `3rd_party/iam/AGENTS.md`
 - [NIST SP 800-63B, §5.1.3.1 Out-of-Band Verifiers](https://pages.nist.gov/800-63-3/sp800-63b.html)
 - [NIST SP 800-63-4 Authenticators](https://pages.nist.gov/800-63-4/sp800-63b/authenticators/)
