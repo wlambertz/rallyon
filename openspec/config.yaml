@@ -1,0 +1,35 @@
+schema: spec-driven
+
+# Only constraints an agent cannot infer from the code; see AGENTS.md and the linked docs for the rest.
+context: |
+  RallyOn is a badminton tournament platform; the repo is an educational project, so prefer
+  explainable, incremental changes and record tradeoffs next to the change.
+  Read before writing any artifact: root AGENTS.md, the nearest nested AGENTS.md,
+  docs/clean-architecture-and-clean-code.md, docs/adr/.
+  Business logic is split by bounded context (Spring Modulith modules in service/tournamentmgmt,
+  placeholders service/playermgmt and service/scoring). Each app targets one primary user group.
+  Inner code follows the Dependency Rule: domain and use cases never import web or persistence code.
+  Backward compatibility is required for /api/tournamentmgmt/... endpoints, JWT claims and role names,
+  and `ro` CLI commands and flags, unless a change explicitly authorizes a break.
+  application/organizer has no frontend stack yet; do not specify UI work that assumes one.
+
+rules:
+  proposal:
+    - Name the primary user group (Organizer, Player, Spectator) and the owning bounded context.
+    - State what is out of scope.
+    - State backward-compatibility impact, or that there is none.
+  specs:
+    - Write requirements in domain terms, not in endpoint or table terms, unless the contract is the endpoint itself.
+    - Every requirement has at least one testable scenario; include failure scenarios and, where auth is involved, security scenarios.
+  design:
+    - List the bounded context, aggregates and invariants touched, and any events or API surface that change.
+    - Flag Flyway migrations, 3rd_party/iam changes, new dependencies and new modules; these need human review.
+    - Say whether an ADR is needed.
+  tasks:
+    - Each task cites the requirement it implements and names the validation command that proves it.
+
+operations:
+  apply:
+    guidance:
+      - Run the narrowest check for the touched runtime first (see AGENTS.md Validation Contract), then the full verify.
+      - If the spec turns out to be ambiguous or wrong, stop and update the change instead of silently deviating.
