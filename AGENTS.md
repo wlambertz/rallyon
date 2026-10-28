@@ -113,6 +113,7 @@
 - Do not rename directories, packages, or modules just for consistency.
 - Update nearby docs when command surfaces, env vars, workflows, or developer setup materially change.
 - When an agent creates a Git commit, it must add itself as a `Co-authored-by` trailer in the commit message using its agent name and configured noreply/contact address.
+- Commit messages must be descriptive: `type(scope): summary` naming the concrete change, plus a body explaining what and why for changes touching more than 3 files or 100 lines. Generic messages such as `commit current changes` or `update files` are rejected by `ro git lint-message` (commit-msg hook in `.githooks/`, enabled with `bin/ro git hooks install`, plus the `Commit message lint` CI check). Never bypass the hook; see `.agents/skills/commit-messages/`.
 
 ## Done Criteria
 

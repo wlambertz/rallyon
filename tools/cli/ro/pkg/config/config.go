@@ -51,9 +51,19 @@ type Deploy struct {
 }
 
 type Git struct {
-	ConventionalCommits bool   `mapstructure:"conventionalCommits"`
-	DefaultRemote       string `mapstructure:"defaultRemote"`
-	DefaultBranch       string `mapstructure:"defaultBranch"`
+	ConventionalCommits bool       `mapstructure:"conventionalCommits"`
+	DefaultRemote       string     `mapstructure:"defaultRemote"`
+	DefaultBranch       string     `mapstructure:"defaultBranch"`
+	CommitLint          CommitLint `mapstructure:"commitLint"`
+}
+
+// CommitLint tunes `ro git lint-message`. Zero values fall back to the
+// defaults in pkg/cmd/git_lint.go so existing ro.yaml files keep working.
+type CommitLint struct {
+	MinSubjectWords   int      `mapstructure:"minSubjectWords"`
+	BodyRequiredFiles int      `mapstructure:"bodyRequiredFiles"`
+	BodyRequiredLines int      `mapstructure:"bodyRequiredLines"`
+	ExtraDenyPatterns []string `mapstructure:"extraDenyPatterns"`
 }
 
 type Output struct {
@@ -84,9 +94,9 @@ type Telemetry struct {
 }
 
 type Specs struct {
-	Directory        string `mapstructure:"directory"`
-	DefaultTemplate  string `mapstructure:"defaultTemplate"`
-	SchemaURL        string `mapstructure:"schemaURL"`
+	Directory       string `mapstructure:"directory"`
+	DefaultTemplate string `mapstructure:"defaultTemplate"`
+	SchemaURL       string `mapstructure:"schemaURL"`
 }
 
 type Project struct {
