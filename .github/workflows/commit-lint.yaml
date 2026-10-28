@@ -1,0 +1,32 @@
+name: Commit message lint
+
+# Server-side backstop for .githooks/commit-msg: catches --no-verify, agents
+# without hooks, and web-UI commits. Rules live in `ro git lint-message`.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Descriptive commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26.1"
+
+      - name: Build ro
+        working-directory: tools/cli/ro
+        run: go build -o "$GITHUB_WORKSPACE/bin/ro" .
+
+      - name: Lint commits in this pull request
+        run: ./bin/ro git lint-message --range "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"

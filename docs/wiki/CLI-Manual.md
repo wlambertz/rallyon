@@ -164,6 +164,8 @@ All commands delegate to the Docker CLI and respect `--dry-run` where possible (
 - `ro git commit` – guided Conventional Commit builder (prompts for type/scope/summary/body, supports `--breaking`, `--wip`, `--all`).
 - `ro git push [--force] [--remote <name>] [--branch <name>]` – uses default remote/branch if omitted and enforces clean worktree unless `--yes`.
 - `ro git sync` – pulls with rebase against configured upstream.
+- `ro git lint-message [file] [--stdin] [--range base..head]` – rejects generic commit messages (Conventional Commit header, concrete summary, body for large changes); used by `.githooks/commit-msg` and CI. `ro git commit` runs the same checks. Thresholds: `git.commitLint` in `ro.yaml`.
+- `ro git hooks install` – sets `core.hooksPath` to `.githooks` so the commit-msg hook runs locally.
 
 ### 4.6 Deployments (GitHub Actions)
 

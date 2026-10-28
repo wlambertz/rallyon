@@ -176,6 +176,18 @@ func runGitCommit(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	lintOpts, err := lintOptionsFromConfig(cfg.Git.CommitLint)
+	if err != nil {
+		return err
+	}
+	stats, statsErr := stagedDiffStats(ctx)
+	if statsErr != nil {
+		stats = nil
+	}
+	if problems := lintCommitMessage(strings.Join(append([]string{msg.Subject}, msg.Bodies...), "\n\n"), stats, lintOpts); len(problems) > 0 {
+		return errors.New(formatLintProblems(msg.Subject, problems))
+	}
+
 	fmt.Println("-------- Commit Preview --------")
 	fmt.Println(msg.Subject)
 	for _, body := range msg.Bodies {

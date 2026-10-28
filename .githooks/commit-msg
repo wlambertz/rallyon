@@ -1,0 +1,18 @@
+#!/bin/sh
+# Rejects generic commit messages. Rules live in `ro git lint-message`
+# (tools/cli/ro/pkg/cmd/git_lint.go); this hook is only a thin caller.
+# Enable with: bin/ro git hooks install   (or: git config core.hooksPath .githooks)
+root="$(git rev-parse --show-toplevel)"
+ro="$root/bin/ro"
+[ -x "$ro" ] || ro="$(command -v ro 2>/dev/null || true)"
+if [ -z "$ro" ]; then
+  # Fail open on a fresh clone so the first commit is never blocked by a missing binary; CI still lints.
+  echo "commit-msg: ro not found; skipping lint. Build it: (cd tools/cli/ro && go build -o ../../../bin/ro .)" >&2
+  exit 0
+fi
+# A stale binary without the subcommand would otherwise reject every commit.
+if ! "$ro" git lint-message --help >/dev/null 2>&1; then
+  echo "commit-msg: $ro has no 'git lint-message'; rebuild it. Skipping lint." >&2
+  exit 0
+fi
+cd "$root" && exec "$ro" git lint-message "$1"
