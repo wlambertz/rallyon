@@ -1,0 +1,20 @@
+<!-- @dsCard group="Colors" viewport="700x150" subtitle="Warm near-black ink — text hierarchy & seams" name="Ink / text" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-mono); background: var(--paper-1); }
+  .row { display:flex; gap:0; padding:20px; }
+  .sw { flex:1; height:96px; border:var(--bw) solid var(--line-strong); border-left:0; display:flex; flex-direction:column; justify-content:flex-end; padding:8px; }
+  .sw:first-child { border-left:var(--bw) solid var(--line-strong); }
+  .name { font-size:11px; font-weight:600; }
+  .val { font-size:10px; opacity:.7; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="sw" style="background:var(--ink-0);color:var(--paper-1)"><span class="name">ink-0</span><span class="val">#16150F</span></div>
+    <div class="sw" style="background:var(--ink-1);color:var(--paper-1)"><span class="name">ink-1</span><span class="val">#45433A</span></div>
+    <div class="sw" style="background:var(--ink-2);color:var(--paper-1)"><span class="name">ink-2</span><span class="val">#78756A</span></div>
+    <div class="sw" style="background:var(--line-strong);color:var(--paper-1)"><span class="name">line-strong</span><span class="val">seam</span></div>
+  </div>
+</body></html>

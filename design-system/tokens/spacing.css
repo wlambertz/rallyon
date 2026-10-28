@@ -1,0 +1,32 @@
+/* ============================================================
+   RallyOn — Spacing & layout tokens (4px base grid)
+   ============================================================ */
+:root {
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+
+  /* Container / rhythm */
+  --gutter: var(--s-6);
+  --panel-pad: var(--s-5);
+  --card-pad: var(--s-4);
+
+  /* Control heights (min touch target 44px on interactive) */
+  --control-sm: 30px;
+  --control-md: 38px;
+  --control-lg: 44px;
+
+  /* Fixed chrome */
+  --topbar-h: 56px;
+  --sidebar-w: 240px;
+}

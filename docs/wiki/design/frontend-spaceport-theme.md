@@ -1,5 +1,7 @@
 # Organizer Theme Brief: Swiss Brutalist Operations
 
+> **Superseded in part (2026-10-28).** `design-system/` (tokens in `design-system/tokens/`, rules in `design-system/readme.md`) is now the authoritative visual source. Where this brief differs, the design system wins. Known differences from the palette below: three paper tones (`#EAE8E0` / `#F5F3EC` / `#FCFBF6`) instead of one; accent `#FF5C2B`, reserved for live/in-progress signals only; no green or amber (done = ink, pending = dark grey, scheduled = grey); danger is crimson `#A40034`; a dark "terminal" theme exists for the Turnier-TV display; IBM Plex Mono is added for data; UI copy is German. This brief is kept for its narrative and component direction.
+
 ## Summary
 RallyOn Organizer should feel like a tournament operations terminal: clear, strict, fast, and built for staff who need to scan status and act. The product keeps the mission control + airport operating model, but drops sci-fi styling in favor of a Swiss/brutalist system shaped by FREITAG and Nothing.
 

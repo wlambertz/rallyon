@@ -64,6 +64,7 @@
 ## File Map
 
 - `application/organizer/`: placeholder; no frontend stack is currently in place
+- `design-system/`: Claude Design export (CSS tokens, React reference components, guidelines, UI kits); the visual source of truth, Prettier-ignored and kept byte-identical to the export. Its `.jsx` files are design reference only and do not select a frontend stack for `application/organizer`; see `docs/adr/draft-claude-design-system-workflow.md`
 - `service/tournamentmgmt/`: Spring Boot 4 service, Spring Modulith, JPA, Flyway, PostgreSQL, OpenAPI
 - `3rd_party/iam/`: shared Keycloak core and Spring security auto-configuration
 - `admin/keycloak/`: local Keycloak provisioning script and operator notes

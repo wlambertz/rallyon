@@ -12,6 +12,9 @@ service/**/target
 docs/cli-reference.md
 docs/wiki
 
+# vendored Claude Design export; kept byte-identical to the source so re-pulls produce clean diffs
+design-system
+
 # other generated artifacts
 **/.angular/**
 **/coverage/**
