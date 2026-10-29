@@ -49,7 +49,7 @@ Retained from the prior ADR for history; only the entries below changed status.
 
 ## Open Follow-Up Work
 
-- Stand up the initial `design-system/` directory and first component pass, seeded from `docs/wiki/design/frontend-spaceport-theme.md`.
+- ~~Stand up the initial `design-system/` directory and first component pass, seeded from `docs/wiki/design/frontend-spaceport-theme.md`.~~ Resolved 2026-10-28 — see "Update 2026-10-28" below.
 - Decide `@dsCard` grouping/naming conventions for RallyOn's components.
 - Decide whether `_ds_manifest.json` (or any other sync-generated file) is committed or regenerated locally.
 - Add lightweight validation that committed component files and the synced claude.ai project haven't drifted apart.
