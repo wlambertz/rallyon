@@ -14,3 +14,5 @@ mkdir -p bin
   cd tools/cli/ro
   go build -o "$repo_root/bin/ro" .
 )
+
+./bin/ro git hooks install

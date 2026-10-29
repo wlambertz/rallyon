@@ -19,8 +19,8 @@
 ## Architecture Rules
 
 - Read wiki architecture context before restructuring modules or exposing new boundaries:
-  - `../../wiki/Architecture/Modules.md`
-  - `../../wiki/Architecture/Tournamentmgmt-Modulith.md`
+  - `../../docs/wiki/Architecture/Modules.md`
+  - `../../docs/wiki/Architecture/Tournamentmgmt-Modulith.md`
 - Preserve Modulith boundaries verified by `TournamentmgmtModuleStructureTest`.
 - Exposed contracts live in `...setup.configuration.api`, `...setup.rules.api`, and `...setup.phases.api`.
 - Treat `...internal...` packages as non-public implementation details.

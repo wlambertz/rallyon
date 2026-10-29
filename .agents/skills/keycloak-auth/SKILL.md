@@ -12,7 +12,7 @@ Use this skill for security-sensitive auth work spanning `3rd_party/iam`, local 
 1. [3rd_party/iam/AGENTS.md](../../../3rd_party/iam/AGENTS.md)
 2. [admin/keycloak/README.md](../../../admin/keycloak/README.md)
 3. [infrastructure/local/docker-compose.yml](../../../infrastructure/local/docker-compose.yml)
-4. [wiki/CLI-Manual.md](../../../wiki/CLI-Manual.md) section on `ro auth token` when the task touches token retrieval or local testing
+4. [docs/wiki/CLI-Manual.md](../../../docs/wiki/CLI-Manual.md) section on `ro auth token` when the task touches token retrieval or local testing
 
 Inspect these implementation points as needed:
 
@@ -21,10 +21,7 @@ Inspect these implementation points as needed:
 
 ## Safety rules
 
-- Do not relax token validation, issuer checks, audience checks, role mapping, or `rallyon_user_id` claim requirements without explicit approval.
-- Preserve property names under `rallyon.security.keycloak.*`.
-- Do not silently change failures for missing roles or missing user-id claims.
-- Keep shared IAM code reusable; do not bake service-specific assumptions into `3rd_party/iam` unless the repo already does.
+Follow root `AGENTS.md` Safety Boundaries and `3rd_party/iam/AGENTS.md` Safety Boundaries: do not relax token validation, issuer checks, audience checks, role mapping, or `rallyon_user_id` claim handling; preserve `rallyon.security.keycloak.*` property names; do not silently change failures for missing roles or claims; keep shared IAM code reusable.
 
 ## Local bootstrap flow
 

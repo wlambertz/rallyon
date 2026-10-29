@@ -1,0 +1,28 @@
+# Code owners for the RallyOn repository.
+# Follows the AGENTS.md module organization.
+
+# Domain services
+/service/tournamentmgmt/   @wlambertz
+/service/playermgmt/       @wlambertz
+/service/scoring/          @wlambertz
+
+# Application shell
+/application/organizer/    @wlambertz
+/application/audience/     @wlambertz
+
+# Shared platform code (Keycloak IAM)
+/3rd_party/                @wlambertz
+
+# Operations & infrastructure
+/admin/                    @wlambertz
+/infrastructure/           @wlambertz
+
+# Build & CI configuration
+.github/                   @wlambertz
+**/pom.xml                 @wlambertz
+ro.yaml                    @wlambertz
+
+# Documentation
+AGENTS.md                  @wlambertz
+README.md                  @wlambertz
+/docs/                     @wlambertz

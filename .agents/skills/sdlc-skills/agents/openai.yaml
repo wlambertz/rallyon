@@ -1,0 +1,4 @@
+interface:
+  display_name: "SDLC Skills"
+  short_description: "Adopt and apply the full software-development-lifecycle skills catalog (personas, requirements, design, implementation, QA/testing, CI/CD, operations)."
+  default_prompt: "Use the SDLC Skills catalog in .agents/skills/sdlc-skills/SKILL.md to adopt or apply software-development-lifecycle practices (personas, requirements, design, implementation, QA/testing, CI/CD, operations) in the RallyOn repo."

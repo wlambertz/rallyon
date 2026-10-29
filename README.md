@@ -17,14 +17,14 @@ badtourn/
     authentication/            Authentifizierung/Identität (Integration)
     event_bus/                 Event-Bus/Integration
     search_engine/             Suche/Indexierung
-  wiki/                        GitHub-Wiki als Submodul
+  docs/wiki/                    Wiki content (architecture, CLI workflows, personas, design context)
   build.gradle                 Gradle Buildskript (Root)
   settings.gradle              Gradle Settings
   gradlew, gradlew.bat         Gradle Wrapper (Unix/Windows)
   gradle/wrapper/              Wrapper-Konfiguration
 ```
 
-- Die fachlichen Module und ihre Verantwortlichkeiten sind im Wiki beschrieben: `wiki/Architecture/Modules.md`.
+- Die fachlichen Module und ihre Verantwortlichkeiten sind im Wiki beschrieben: `docs/wiki/Architecture/Modules.md`.
 - Hohe Ebene der Module (Auszug):
   - Authentifizierung & Autorisierung: Benutzer, Rollen, Rechte.
   - Turnierverwaltung: Planung/Konfiguration/Spielpläne.
@@ -60,45 +60,17 @@ docker compose -f infrastructure/local/docker-compose.yml up -d keycloak tournam
 
 Hinweis: Wenn ein `server.servlet.context-path` konfiguriert ist, wird dieser den Pfaden vorangestellt.
 
-## Wiki-Submodul
+## Wiki-Inhalt
 
-Das GitHub-Wiki ist als Submodul im Ordner `wiki/` eingebunden.
+Das Wiki wird im Ordner `docs/wiki/` im Haupt-Repo vorgehalten (kein separates Submodul mehr).
 
-- Initiales Klonen mit Submodulen:
+- Initiales Klonen: `git clone https://github.com/wlambertz/rallyon.git` (enthält bereits `docs/wiki/`)
+- Falls bereits geklont und das Wiki fehlt: `docs/wiki/` ist Teil des Haupt-Repos, kein `git submodule update` nötig.
+- Änderungen am Wiki: Bearbeiten Sie die Dateien unter `docs/wiki/` und committen Sie sie zusammen mit dem Code.
 
-  ```bash
-  git clone --recurse-submodules https://github.com/wlambertz/badtourn.git
-  ```
+### Hinweis: Früheres Wiki-Submodul
 
-- Falls bereits geklont, Submodul initialisieren und holen:
-
-  ```bash
-  git submodule update --init --recursive
-  ```
-
-- Submodule auf den neuesten Stand bringen:
-
-  ```bash
-  git submodule update --remote --merge
-  ```
-
-- Änderungen im Wiki-Submodul committen/pushen (innerhalb von `wiki/`):
-
-  ```bash
-  cd wiki
-  git status
-  git add <dateien>
-  git commit -m "Update wiki"
-  git push
-  cd ..
-  ```
-
-Hinweis: Änderungen am Submodul-Zeiger müssen im Haupt-Repo separat committed werden:
-
-```bash
-git add wiki
-git commit -m "Update wiki submodule pointer"
-```
+Früher wurde das GitHub-Wiki als Submodul im Ordner `wiki/` eingebunden. Das Submodul wurde entfernt und der Inhalt in `docs/wiki/` überführt.
 
 ## Windows: Zeilenenden (CRLF/LF)
 

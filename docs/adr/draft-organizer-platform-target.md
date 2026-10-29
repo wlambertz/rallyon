@@ -6,7 +6,7 @@ Draft. This document records a July 2026 research snapshot answering a narrower 
 
 ## Context
 
-`application/organizer` is currently a placeholder; the previous Angular frontend was removed while the frontend stack is reconsidered. The design brief in `wiki/design/frontend-spaceport-theme.md` frames the organizer UI as a "tournament operations terminal" for staff who need to "scan status and act," with a responsive Swiss-style grid (12 columns desktop, 8 tablet, 4 mobile) — implying desktop, tablet, and mobile use are all expected. `docs/adr/draft-design-tools-and-design-token-workflow.md` further notes RallyOn is expected to grow beyond one client runtime over time, so the design system is deliberately kept platform-agnostic.
+`application/organizer` is currently a placeholder; the previous Angular frontend was removed while the frontend stack is reconsidered. The design brief in `docs/wiki/design/frontend-spaceport-theme.md` frames the organizer UI as a "tournament operations terminal" for staff who need to "scan status and act," with a responsive Swiss-style grid (12 columns desktop, 8 tablet, 4 mobile) — implying desktop, tablet, and mobile use are all expected. `docs/adr/draft-design-tools-and-design-token-workflow.md` further notes RallyOn is expected to grow beyond one client runtime over time, so the design system is deliberately kept platform-agnostic.
 
 No offline requirement is documented anywhere today. The "on-site operations terminal" framing (staff running tournaments at venues, potentially with unreliable Wi-Fi) makes offline resilience a plausible future need, but this is an inference, not a stated requirement.
 
@@ -51,7 +51,7 @@ A recurring pattern across the sources below: build the web app as a PWA first, 
 
 ## References
 
-- RallyOn organizer design brief: `wiki/design/frontend-spaceport-theme.md`
+- RallyOn organizer design brief: `docs/wiki/design/frontend-spaceport-theme.md`
 - `application/organizer/AGENTS.md`
 - `docs/adr/draft-design-tools-and-design-token-workflow.md`
 - [PWA vs Electron: A Deep Dive (SimiCart)](https://simicart.com/blog/pwa-vs-electron/)

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Colors" viewport="700x170" subtitle="Low-chroma status set — never louder than the accent" name="Status" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; font-family: var(--font-mono); background: var(--paper-1); }
+  .row { display:flex; gap:0; padding:20px; }
+  .col { flex:1; border:var(--bw) solid var(--line-strong); border-left:0; }
+  .col:first-child { border-left:var(--bw) solid var(--line-strong); }
+  .solid { height:56px; display:flex; align-items:flex-end; padding:6px; font-size:11px; font-weight:600; }
+  .soft { height:40px; display:flex; align-items:center; padding:6px; font-size:10px; color:var(--ink-1); }
+  .lbl { font-size:10px; padding:6px; color:var(--ink-2); border-top:1px solid var(--line); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="col"><div class="solid" style="background:var(--status-live);color:#fff">LIVE</div><div class="soft" style="background:var(--status-live-soft)">läuft</div><div class="lbl">status-live</div></div>
+    <div class="col"><div class="solid" style="background:var(--status-ok);color:#fff">OK</div><div class="soft" style="background:var(--status-ok-soft)">fertig</div><div class="lbl">status-ok</div></div>
+    <div class="col"><div class="solid" style="background:var(--status-warn);color:#fff">WARN</div><div class="soft" style="background:var(--status-warn-soft)">wartet</div><div class="lbl">status-warn</div></div>
+    <div class="col"><div class="solid" style="background:var(--status-danger);color:#fff">FEHLER</div><div class="soft" style="background:var(--status-danger-soft)">Konflikt</div><div class="lbl">status-danger</div></div>
+    <div class="col"><div class="solid" style="background:var(--status-idle);color:#fff">IDLE</div><div class="soft" style="background:var(--status-idle-soft)">geplant</div><div class="lbl">status-idle</div></div>
+  </div>
+</body></html>

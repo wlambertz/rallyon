@@ -32,6 +32,6 @@ To refresh the wiki diagrams after regenerating the `.puml` files:
 ./service/tournamentmgmt/docs/modulith/render-wiki-diagrams.sh
 ```
 
-That command writes PNG files to `wiki/Architecture/generated/tournamentmgmt-png/`.
+That command writes PNG files to `docs/wiki/Architecture/generated/tournamentmgmt-png/`.
 
 `render-wiki-svg.sh` remains as a compatibility wrapper around the new command.

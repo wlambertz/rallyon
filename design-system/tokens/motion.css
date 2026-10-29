@@ -1,0 +1,35 @@
+/* ============================================================
+   RallyOn — Motion tokens
+   Restrained, mechanical. 120–160ms. No bounce, no overshoot.
+   ============================================================ */
+:root {
+  --dur-instant: 80ms;
+  --dur-1: 120ms;   /* default UI transition */
+  --dur-2: 160ms;   /* larger surfaces / overlays */
+  --dur-slow: 240ms;/* rare — page-level */
+
+  /* Easing: firm entrance, no bounce */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-linear: linear; /* for mechanical / marquee / scan */
+
+  --transition-ui: all var(--dur-1) var(--ease-standard);
+}
+
+@keyframes ro-blink {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0.25; }
+}
+
+@keyframes ro-scan {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

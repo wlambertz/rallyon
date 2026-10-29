@@ -22,7 +22,7 @@ docker:
 
 docs:
   output: docs/cli-reference.md
-  wikiOutput: wiki/CLI.md
+  wikiOutput: docs/wiki/CLI.md
   publishToWiki: false
 
 scaffold:
@@ -56,6 +56,12 @@ deploy:
 
 git:
   conventionalCommits: true
+  # Rules for `ro git lint-message` (commit-msg hook and CI). Omit keys to use defaults.
+  commitLint:
+    minSubjectWords: 3
+    bodyRequiredFiles: 3 # more files than this requires a commit body
+    bodyRequiredLines: 100 # more changed lines than this requires a commit body
+    extraDenyPatterns: []
 
 output:
   json: false

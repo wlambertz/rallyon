@@ -21,8 +21,8 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 ## Source of truth
 
 - Treat code, manifests, configs, scripts, and tests as authoritative for current behavior.
-- Treat `wiki/` as authoritative for intended architecture, workflows, personas, and design direction unless code/tests contradict it.
-- Do not rely on the root `README.md` for current structure; it is stale.
+- Treat `docs/wiki/` as authoritative for intended architecture, workflows, personas, and design direction unless code/tests contradict it.
+- `AGENTS.md` (root and per-area) is canonical for agent instructions; `README.md` is a project overview only.
 
 ## Active areas
 
@@ -39,11 +39,7 @@ Ignore placeholder domains unless the user explicitly wants to create them:
 
 ## Validation contract
 
-- Docs or scripts only: `npm run format:check`
-- Backend or IAM: `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` when needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`
-- Go CLI: `cd tools/cli/ro && go test ./...`
-
-If multiple runtimes are touched, validate each one. If a heavier check is skipped, call it out explicitly.
+Follow the Validation Contract in root `AGENTS.md` (docs/scripts: `npm run format:check`; backend/IAM: `mvnw clean verify`; Go CLI: `go test ./...`). Validate each touched runtime; call out skipped heavier checks explicitly.
 
 ## Safety rules
 

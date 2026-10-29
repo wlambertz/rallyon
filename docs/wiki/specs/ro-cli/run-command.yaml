@@ -1,0 +1,35 @@
+# OpenSpec Specification: ro-cli-run-command
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-run-command"
+title: "RallyOn CLI Run Command"
+status: implemented
+epic: "CLI Runtime"
+ticket:
+  title: "Run Command"
+  description: |
+    Runs the application or specific services.
+    Supports running the tournament management service and other components.
+
+  acceptanceCriteria:
+    - given: "valid project configuration"
+      when: "ro run is called"
+      then: "application starts successfully"
+    - given: "missing dependencies"
+      when: "ro run is called"
+      then: "error with missing dependency details"
+
+  implementationSteps:
+    - text: "Run command implementation"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/run.go"]
+      codeReferences: ["run.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["run.go"]
+typeReferences: []

@@ -19,7 +19,7 @@
 - Shared helpers belong in the dedicated support packages (`pkg/config`, `pkg/execx`, `pkg/fsx`, `pkg/logx`, `pkg/prompt`, `pkg/telemetry`, `pkg/version`).
 - Dependency Rule: `pkg/cmd` may import the support packages; a support package must never import `pkg/cmd`, and one subcommand file must not reach into another subcommand's internals directly. See `../../../docs/clean-architecture-and-clean-code.md`.
 - Respect `ro.yaml` as the canonical project config for paths, workflows, deploy defaults, app scripts, and conventional-commit behavior.
-- Read `../../wiki/CLI-Manual.md` before changing command semantics, workflow descriptions, config behavior, or docs generation expectations.
+- Read `../../docs/wiki/CLI-Manual.md` before changing command semantics, workflow descriptions, config behavior, or docs generation expectations.
 - Preserve command-line compatibility unless the task explicitly approves a breaking change.
 - If the wiki and implementation diverge, preserve the implemented CLI behavior and update docs intentionally rather than changing behavior to match stale prose.
 

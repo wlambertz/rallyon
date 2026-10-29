@@ -23,7 +23,7 @@
 - When asked to create an implementation plan for a GitHub issue, write the plan under `docs/issue-implementation-plans/`, add the same plan as a comment on the issue, and commit the plan file.
 - Planning work may inspect code, docs, tests, wiki pages, and issue comments, but must not modify production code, tests, migrations, runtime config, dependency files, or generated app artifacts.
 - Plan commits must contain only the relevant plan file and include the agent `Co-authored-by` trailer required by this guide.
-- Codex should use `.agents/skills/issue-implementation-planner/`; Cursor and Claude should follow this shared rule through their `AGENTS.md` adapters.
+- Codex and Claude Code should use `.agents/skills/issue-implementation-planner/` (Claude loads it through the `.claude/skills` symlink); agents without skill support follow this shared rule directly.
 
 ## Read This First
 
@@ -32,8 +32,8 @@
   - `service/tournamentmgmt/`
   - `3rd_party/iam/`
   - `tools/cli/ro/`
-- Use the repo wiki as a normal research source, not just a submodule to avoid touching:
-  - read relevant pages in `wiki/` before making architecture, CLI workflow, docs, persona, or UX-flow assumptions
+- Use the repo wiki as a normal research source:
+  - read relevant pages in `docs/wiki/` before making architecture, CLI workflow, docs, persona, or UX-flow assumptions
   - treat code, config, manifests, and scripts as authoritative for commands, runtime behavior, and current implementation details
   - treat the wiki as authoritative for intended architecture, workflow context, personas, and higher-level system framing unless contradicted by code or config
 - Prefer the smallest change that solves the task.
@@ -64,16 +64,19 @@
 ## File Map
 
 - `application/organizer/`: placeholder; no frontend stack is currently in place
+- `design-system/`: Claude Design export (CSS tokens, React reference components, guidelines, UI kits); the visual source of truth, Prettier-ignored and kept byte-identical to the export. Its `.jsx` files are design reference only and do not select a frontend stack for `application/organizer`; see `docs/adr/draft-claude-design-system-workflow.md`
 - `service/tournamentmgmt/`: Spring Boot 4 service, Spring Modulith, JPA, Flyway, PostgreSQL, OpenAPI
 - `3rd_party/iam/`: shared Keycloak core and Spring security auto-configuration
 - `admin/keycloak/`: local Keycloak provisioning script and operator notes
 - `infrastructure/local/`: local Docker Compose for Keycloak, Postgres, and tournament management service
 - `persistence/db/`: Postgres image used by local compose
 - `tools/cli/ro/`: Go Cobra CLI for build/test/run/deploy/docs/scaffolding workflows
-- `.agents/skills/`: repo-scoped Codex skills for repeatable RallyOn workflows
+- `.agents/skills/`: repo-scoped agent skills for repeatable RallyOn workflows, shared by Codex and Claude Code
+- `.claude/skills`: symlink to `../.agents/skills` so Claude Code discovers the same skills; see `docs/agent-workflows.md` for the tradeoffs
+- `.agents/skills/sdlc-skills/`: SDLC skills catalog (personas → requirements → QA → CI/CD) usable by Codex, Claude, and Cline
 - `docs/issue-implementation-plans/`: durable implementation plans created from GitHub issues before coding
 - `docs/clean-architecture-and-clean-code.md`: Dependency Rule and Clean Code conventions behind the Architecture Boundaries rules below
-- `wiki/`: git submodule and expected agent research source for architecture, CLI workflows, personas, and design context
+- `docs/wiki/`: wiki content (architecture, CLI workflows, personas, design context) stored in-repo alongside code
 
 ## Architecture Boundaries
 
@@ -96,7 +99,7 @@
 - Deploy and infra:
   - `ro.yaml`, `.github/workflows/`, Dockerfiles, compose files, and `admin/keycloak/` impact delivery environments. Keep diffs intentional and minimal.
 - Wiki:
-  - `wiki/` is both a submodule and an expected research source.
+  - `docs/wiki/` is the wiki content stored in-repo alongside code.
   - Read relevant wiki pages before planning architecture, CLI, or UX changes.
   - Only update wiki content when the task explicitly requires wiki edits or generated docs there.
 
@@ -110,6 +113,7 @@
 - Do not rename directories, packages, or modules just for consistency.
 - Update nearby docs when command surfaces, env vars, workflows, or developer setup materially change.
 - When an agent creates a Git commit, it must add itself as a `Co-authored-by` trailer in the commit message using its agent name and configured noreply/contact address.
+- Commit messages must be descriptive: `type(scope): summary` naming the concrete change, plus a body explaining what and why for changes touching more than 3 files or 100 lines. Generic messages such as `commit current changes` or `update files` are rejected by `ro git lint-message` (commit-msg hook in `.githooks/`, enabled with `bin/ro git hooks install`, plus the `Commit message lint` CI check). Never bypass the hook; see `.agents/skills/commit-messages/`.
 
 ## Done Criteria
 

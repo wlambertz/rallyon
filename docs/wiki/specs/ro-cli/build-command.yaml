@@ -1,0 +1,35 @@
+# OpenSpec Specification: ro-cli-build-command
+# Reverse-engineered from implemented code
+
+specification: "ro-cli-build-command"
+title: "RallyOn CLI Build Command"
+status: implemented
+epic: "CLI Build & Test"
+ticket:
+  title: "Build Command"
+  description: |
+    Builds Go, Java, and other project components.
+    Supports building specific modules or the entire project.
+
+  acceptanceCriteria:
+    - given: "valid project structure"
+      when: "ro build is called"
+      then: "project builds successfully"
+    - given: "build errors in source code"
+      when: "ro build is called"
+      then: "build fails with error details"
+
+  implementationSteps:
+    - text: "Build command implementation"
+      type: "development"
+      references: ["tools/cli/ro/pkg/cmd/build.go"]
+      codeReferences: ["build.go"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["build.go"]
+typeReferences: []

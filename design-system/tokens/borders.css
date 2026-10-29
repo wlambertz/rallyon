@@ -1,0 +1,29 @@
+/* ============================================================
+   RallyOn — Borders, radii, elevation
+   Brutalist discipline: hard seams over soft shadows,
+   low radius, near-flat surfaces.
+   ============================================================ */
+:root {
+  /* --- Border widths ------------------------------------- */
+  --bw-hair: 1px;
+  --bw: 1.5px;     /* default structural seam */
+  --bw-heavy: 2px; /* emphasis / active edge  */
+
+  /* --- Radii (low) --------------------------------------- */
+  --r-0: 0px;      /* default — sharp                        */
+  --r-1: 2px;      /* inputs, chips                          */
+  --r-2: 4px;      /* cards, dialogs                         */
+  --r-pill: 999px; /* status pills only                      */
+
+  /* --- Elevation: minimal. Prefer seams. ----------------- */
+  --shadow-0: none;
+  --shadow-1: 0 1px 0 rgba(22, 21, 15, 0.05);           /* hairline lift */
+  --shadow-2: 0 2px 0 rgba(22, 21, 15, 0.08);           /* raised card   */
+  --shadow-pop: 0 4px 24px -8px rgba(22, 21, 15, 0.30); /* dialog/overlay */
+
+  /* Offset "print block" shadow — the one expressive move   */
+  --shadow-block: 3px 3px 0 var(--line-strong);
+
+  /* Overlay scrim */
+  --scrim: rgba(22, 21, 15, 0.55);
+}

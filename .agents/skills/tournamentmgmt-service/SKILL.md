@@ -10,8 +10,8 @@ Use this skill for work in `service/tournamentmgmt/`.
 ## Read before editing
 
 1. [service/tournamentmgmt/AGENTS.md](../../../service/tournamentmgmt/AGENTS.md)
-2. [wiki/Architecture/Modules.md](../../../wiki/Architecture/Modules.md)
-3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../../wiki/Architecture/Tournamentmgmt-Modulith.md)
+2. [wiki/Architecture/Modules.md](../../../docs/wiki/Architecture/Modules.md)
+3. [wiki/Architecture/Tournamentmgmt-Modulith.md](../../../docs/wiki/Architecture/Tournamentmgmt-Modulith.md)
 4. [service/tournamentmgmt/docs/modulith/README.md](../../../service/tournamentmgmt/docs/modulith/README.md) when the task affects architecture docs or module boundaries
 
 ## Architecture rules
@@ -34,9 +34,7 @@ Use this skill for work in `service/tournamentmgmt/`.
 
 ## Security rules
 
-- The service is an OAuth2 resource server backed by shared Keycloak code in `3rd_party/iam`.
-- Do not weaken issuer, audience, role mapping, or `rallyon_user_id` claim handling.
-- Security-sensitive endpoint changes should keep or extend test coverage similar to [service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java](../../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java).
+The service is an OAuth2 resource server backed by shared Keycloak code in `3rd_party/iam`. Follow root `AGENTS.md` Safety Boundaries and `3rd_party/iam/AGENTS.md`: do not weaken issuer, audience, role mapping, or `rallyon_user_id` claim handling. Security-sensitive endpoint changes should keep or extend test coverage similar to `ConfigurationControllerSecurityTest`.
 
 ## Validation
 

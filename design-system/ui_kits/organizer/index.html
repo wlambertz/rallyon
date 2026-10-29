@@ -1,0 +1,1330 @@
+<!-- @dsCard group="Organizer" viewport="1180x760" subtitle="Ops terminal — Übersicht, Setup, Planung" name="Organizer terminal" -->
+<!-- @startingPoint section="Organizer" subtitle="Full organizer ops terminal" viewport="1180x760" -->
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>RallyOn — Organizer</title>
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--surface-app);font-family:var(--font-sans);color:var(--text-body)}#err{color:var(--status-danger);white-space:pre-wrap;font:12px var(--font-mono);padding:12px}a{color:var(--accent)}a:hover{color:var(--accent-hover)}</style></head>
+<body><pre id="err"></pre><div id="root"></div>
+<script>window.addEventListener('load',function(){try{var t=document.getElementById('src').textContent;var out=Babel.transform(t,{presets:[['react',{runtime:'classic'}]]}).code;(0,eval)(out);}catch(e){document.getElementById('err').textContent='ERR: '+e.message+'\n'+(e.stack||'');}});</script>
+<script type="text/plain" id="src">
+
+
+/**
+ * RallyOn Button — primary operational action control.
+ * Brutalist: hard ink seam, low radius, offset print-block on primary.
+ */
+function Button({
+  variant = 'primary',
+  size = 'md',
+  block = false,
+  disabled = false,
+  type = 'button',
+  iconLeft = null,
+  iconRight = null,
+  onClick,
+  children,
+  style,
+  ...rest
+}) {
+  const [state, setState] = React.useState('idle'); // idle | hover | active
+
+  const heights = { sm: 'var(--control-sm)', md: 'var(--control-md)', lg: 'var(--control-lg)' };
+  const pads = { sm: '0 12px', md: '0 16px', lg: '0 22px' };
+  const fontSizes = { sm: '12px', md: '13px', lg: '15px' };
+
+  const base = {
+    display: block ? 'flex' : 'inline-flex',
+    width: block ? '100%' : 'auto',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    height: heights[size],
+    padding: pads[size],
+    font: `var(--fw-semibold) ${fontSizes[size]}/1 var(--font-sans)`,
+    letterSpacing: '0.01em',
+    borderRadius: 'var(--r-1)',
+    border: 'var(--bw) solid var(--line-strong)',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    opacity: disabled ? 0.4 : 1,
+    transition: 'transform var(--dur-1) var(--ease-standard), background var(--dur-1) var(--ease-standard)',
+    userSelect: 'none',
+    whiteSpace: 'nowrap',
+  };
+
+  const palettes = {
+    primary: {
+      idle:   { background: 'var(--ink-0)', color: 'var(--paper-1)' },
+      hover:  { background: '#33302A', color: 'var(--paper-1)' },
+      active: { background: '#000', color: 'var(--paper-1)', transform: 'translateY(1px)' },
+    },
+    secondary: {
+      idle:   { background: 'var(--paper-2)', color: 'var(--ink-0)' },
+      hover:  { background: 'var(--paper-0)', color: 'var(--ink-0)' },
+      active: { background: 'var(--line-soft)', color: 'var(--ink-0)' },
+    },
+    ghost: {
+      idle:   { background: 'transparent', color: 'var(--ink-0)', borderColor: 'transparent' },
+      hover:  { background: 'var(--paper-0)', color: 'var(--ink-0)', borderColor: 'var(--line)' },
+      active: { background: 'var(--line-soft)', color: 'var(--ink-0)', borderColor: 'var(--line)' },
+    },
+    danger: {
+      idle:   { background: 'var(--status-danger)', color: '#fff' },
+      hover:  { background: '#8A002C', color: '#fff' },
+      active: { background: '#750025', color: '#fff', transform: 'translateY(1px)' },
+    },
+  };
+
+  const p = palettes[variant] || palettes.primary;
+  const s = disabled ? p.idle : p[state];
+
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      onMouseEnter={() => !disabled && setState('hover')}
+      onMouseLeave={() => !disabled && setState('idle')}
+      onMouseDown={() => !disabled && setState('active')}
+      onMouseUp={() => !disabled && setState('hover')}
+      style={{ ...base, ...s, ...style }}
+      {...rest}
+    >
+      {iconLeft}
+      {children}
+      {iconRight}
+    </button>
+  );
+}
+
+
+
+/**
+ * RallyOn Checkbox — square check with hard seam.
+ */
+function Checkbox({ label, checked, defaultChecked, disabled = false, onChange, style, ...rest }) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = React.useState(!!defaultChecked);
+  const on = isControlled ? checked : internal;
+
+  const toggle = (e) => {
+    if (disabled) return;
+    if (!isControlled) setInternal(e.target.checked);
+    onChange && onChange(e);
+  };
+
+  return (
+    <label style={{
+      display: 'inline-flex', alignItems: 'center', gap: '10px',
+      cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.45 : 1,
+      font: 'var(--fw-regular) 14px/1 var(--font-sans)', color: 'var(--ink-0)', ...style,
+    }}>
+      <span style={{ position: 'relative', display: 'inline-flex', width: 18, height: 18 }}>
+        <input
+          type="checkbox"
+          checked={on}
+          disabled={disabled}
+          onChange={toggle}
+          style={{ position: 'absolute', opacity: 0, width: 18, height: 18, margin: 0, cursor: 'inherit' }}
+          {...rest}
+        />
+        <span style={{
+          width: 18, height: 18,
+          background: on ? 'var(--ink-0)' : 'var(--paper-2)',
+          border: `var(--bw) solid ${on ? 'var(--line-strong)' : 'var(--line)'}`,
+          borderRadius: 'var(--r-1)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'var(--transition-ui)',
+        }}>
+          {on && (
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--paper-1)" strokeWidth="2.4" strokeLinecap="square">
+              <path d="M2.5 6.2 L5 8.6 L9.5 3.5" />
+            </svg>
+          )}
+        </span>
+      </span>
+      {label && <span>{label}</span>}
+    </label>
+  );
+}
+
+
+
+/**
+ * RallyOn IconButton — square, icon-only control for toolbars and rows.
+ */
+function IconButton({
+  variant = 'secondary',
+  size = 'md',
+  disabled = false,
+  active = false,
+  title,
+  onClick,
+  children,
+  style,
+  ...rest
+}) {
+  const [hover, setHover] = React.useState(false);
+  const dims = { sm: 30, md: 38, lg: 44 };
+  const d = dims[size];
+
+  const palettes = {
+    primary: { bg: 'var(--accent)', fg: 'var(--accent-on)', bd: 'var(--line-strong)', hbg: 'var(--accent-hover)' },
+    secondary: { bg: 'var(--paper-2)', fg: 'var(--ink-0)', bd: 'var(--line-strong)', hbg: 'var(--paper-0)' },
+    ghost: { bg: 'transparent', fg: 'var(--ink-1)', bd: 'transparent', hbg: 'var(--paper-0)' },
+  };
+  const p = palettes[variant] || palettes.secondary;
+  const on = active || hover;
+
+  return (
+    <button
+      type="button"
+      title={title}
+      aria-label={title}
+      disabled={disabled}
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        width: d, height: d, flex: `0 0 ${d}px`,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        background: active ? 'var(--accent-soft)' : (on ? p.hbg : p.bg),
+        color: active ? 'var(--accent)' : p.fg,
+        border: `var(--bw) solid ${active ? 'var(--accent)' : p.bd}`,
+        borderRadius: 'var(--r-1)',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.4 : 1,
+        transition: 'var(--transition-ui)',
+        ...style,
+      }}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
+
+
+
+/**
+ * RallyOn Input — text field with optional uppercase mono label,
+ * prefix/suffix adornment, and error state.
+ */
+function Input({
+  label,
+  value,
+  defaultValue,
+  placeholder,
+  type = 'text',
+  size = 'md',
+  disabled = false,
+  invalid = false,
+  hint,
+  prefix = null,
+  suffix = null,
+  mono = false,
+  onChange,
+  style,
+  ...rest
+}) {
+  const [focus, setFocus] = React.useState(false);
+  const heights = { sm: 'var(--control-sm)', md: 'var(--control-md)', lg: 'var(--control-lg)' };
+  const borderColor = invalid ? 'var(--status-danger)' : (focus ? 'var(--ink-0)' : 'var(--line)');
+
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', ...style }}>
+      {label && (
+        <span style={{ font: 'var(--fw-semibold) 11px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>
+          {label}
+        </span>
+      )}
+      <div style={{
+        display: 'flex', alignItems: 'center',
+        height: heights[size],
+        background: disabled ? 'var(--paper-0)' : 'var(--paper-2)',
+        border: `${focus ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${borderColor}`,
+        borderRadius: 'var(--r-1)',
+        padding: '0 10px', gap: '8px',
+        transition: 'border-color var(--dur-1) var(--ease-standard)',
+        boxShadow: focus && !invalid ? '0 0 0 2px var(--line-soft)' : 'none',
+      }}>
+        {prefix && <span style={{ color: 'var(--ink-2)', display: 'flex' }}>{prefix}</span>}
+        <input
+          type={type}
+          value={value}
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          disabled={disabled}
+          onChange={onChange}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          style={{
+            flex: 1, minWidth: 0, border: 'none', outline: 'none', background: 'transparent',
+            font: mono ? 'var(--fw-medium) 13px/1.4 var(--font-mono)' : 'var(--fw-regular) 14px/1.4 var(--font-sans)',
+            color: 'var(--ink-0)',
+          }}
+          {...rest}
+        />
+        {suffix && <span style={{ color: 'var(--ink-2)', display: 'flex', font: '600 12px/1 var(--font-mono)' }}>{suffix}</span>}
+      </div>
+      {hint && (
+        <span style={{ font: '400 11px/1.3 var(--font-sans)', color: invalid ? 'var(--status-danger)' : 'var(--ink-2)' }}>{hint}</span>
+      )}
+    </label>
+  );
+}
+
+
+
+/**
+ * RallyOn Select — native dropdown styled as a hard-seam control.
+ */
+function Select({
+  label,
+  value,
+  defaultValue,
+  options = [],
+  size = 'md',
+  disabled = false,
+  invalid = false,
+  hint,
+  onChange,
+  style,
+  ...rest
+}) {
+  const [focus, setFocus] = React.useState(false);
+  const heights = { sm: 'var(--control-sm)', md: 'var(--control-md)', lg: 'var(--control-lg)' };
+  const borderColor = invalid ? 'var(--status-danger)' : (focus ? 'var(--ink-0)' : 'var(--line)');
+
+  const norm = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', ...style }}>
+      {label && (
+        <span style={{ font: 'var(--fw-semibold) 11px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>
+          {label}
+        </span>
+      )}
+      <div style={{ position: 'relative', display: 'flex' }}>
+        <select
+          value={value}
+          defaultValue={defaultValue}
+          disabled={disabled}
+          onChange={onChange}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          style={{
+            appearance: 'none', WebkitAppearance: 'none',
+            width: '100%', height: heights[size],
+            padding: '0 34px 0 10px',
+            background: disabled ? 'var(--paper-0)' : 'var(--paper-2)',
+            border: `${focus ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${borderColor}`,
+            borderRadius: 'var(--r-1)',
+            font: 'var(--fw-regular) 14px/1 var(--font-sans)',
+            color: 'var(--ink-0)', cursor: disabled ? 'not-allowed' : 'pointer',
+            outline: 'none',
+            boxShadow: focus && !invalid ? '0 0 0 2px var(--line-soft)' : 'none',
+            transition: 'border-color var(--dur-1) var(--ease-standard)',
+          }}
+          {...rest}
+        >
+          {norm.map((o) => (
+            <option key={o.value} value={o.value}>{o.label}</option>
+          ))}
+        </select>
+        <span style={{
+          position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
+          pointerEvents: 'none', color: 'var(--ink-1)', font: '700 10px/1 var(--font-mono)',
+        }}>▼</span>
+      </div>
+      {hint && (
+        <span style={{ font: '400 11px/1.3 var(--font-sans)', color: invalid ? 'var(--status-danger)' : 'var(--ink-2)' }}>{hint}</span>
+      )}
+    </label>
+  );
+}
+
+
+
+/**
+ * RallyOn Switch — mechanical on/off toggle. No spring; 120ms slide.
+ */
+function Switch({ label, checked, defaultChecked, disabled = false, onChange, style, ...rest }) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = React.useState(!!defaultChecked);
+  const on = isControlled ? checked : internal;
+
+  const toggle = (e) => {
+    if (disabled) return;
+    if (!isControlled) setInternal(e.target.checked);
+    onChange && onChange(e);
+  };
+
+  return (
+    <label style={{
+      display: 'inline-flex', alignItems: 'center', gap: '10px',
+      cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.45 : 1,
+      font: 'var(--fw-regular) 14px/1 var(--font-sans)', color: 'var(--ink-0)', ...style,
+    }}>
+      <span style={{ position: 'relative', display: 'inline-flex', width: 40, height: 22 }}>
+        <input
+          type="checkbox"
+          checked={on}
+          disabled={disabled}
+          onChange={toggle}
+          style={{ position: 'absolute', opacity: 0, width: 40, height: 22, margin: 0, cursor: 'inherit' }}
+          {...rest}
+        />
+        <span style={{
+          width: 40, height: 22,
+          background: on ? 'var(--ink-0)' : 'var(--paper-0)',
+          border: `var(--bw) solid var(--line-strong)`,
+          borderRadius: 'var(--r-pill)',
+          transition: 'background var(--dur-1) var(--ease-standard)',
+          display: 'flex', alignItems: 'center',
+        }}>
+          <span style={{
+            position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: on ? 20 : 2,
+            width: 16, height: 16,
+            background: on ? 'var(--paper-1)' : 'var(--ink-0)',
+            border: 'var(--bw) solid var(--line-strong)',
+            borderRadius: 'var(--r-pill)',
+            transition: 'left var(--dur-1) var(--ease-standard)',
+          }} />
+        </span>
+      </span>
+      {label && <span>{label}</span>}
+    </label>
+  );
+}
+
+
+
+/**
+ * RallyOn Card — a module: paper surface, hard seam, optional uppercase
+ * mono eyebrow header with a hairline divider, optional header action.
+ */
+function Card({
+  eyebrow,
+  title,
+  action = null,
+  raised = false,
+  padded = true,
+  accent = false,
+  children,
+  style,
+  ...rest
+}) {
+  return (
+    <section
+      style={{
+        background: 'var(--paper-2)',
+        border: 'var(--bw) solid var(--line-strong)',
+        borderRadius: 'var(--r-2)',
+        boxShadow: raised ? 'var(--shadow-2)' : 'none',
+        borderLeft: accent ? '3px solid var(--accent)' : 'var(--bw) solid var(--line-strong)',
+        display: 'flex', flexDirection: 'column',
+        overflow: 'hidden',
+        ...style,
+      }}
+      {...rest}
+    >
+      {(eyebrow || title || action) && (
+        <header style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+          padding: '12px 16px',
+          borderBottom: '1px solid var(--line)',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
+            {eyebrow && (
+              <span style={{ font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>{eyebrow}</span>
+            )}
+            {title && (
+              <span style={{ font: '600 16px/1.2 var(--font-display)', letterSpacing: '-0.01em', color: 'var(--ink-0)' }}>{title}</span>
+            )}
+          </div>
+          {action}
+        </header>
+      )}
+      <div style={{ padding: padded ? 'var(--card-pad)' : 0, flex: 1 }}>{children}</div>
+    </section>
+  );
+}
+
+
+
+/**
+ * RallyOn DataTable — dense, mono-aligned tabular data with hard header seam.
+ * columns: [{ key, header, width, align, mono, render }]
+ */
+function DataTable({ columns = [], rows = [], onRowClick, getRowKey, compact = false, style, ...rest }) {
+  const [hover, setHover] = React.useState(-1);
+  const rowH = compact ? 34 : 42;
+
+  return (
+    <div style={{ overflowX: 'auto', ...style }} {...rest}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-sans)' }}>
+        <thead>
+          <tr>
+            {columns.map((c) => (
+              <th key={c.key} style={{
+                textAlign: c.align || 'left',
+                padding: '0 12px', height: 34,
+                width: c.width, whiteSpace: 'nowrap',
+                font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase',
+                color: 'var(--ink-2)',
+                borderBottom: 'var(--bw) solid var(--line-strong)',
+                background: 'var(--paper-1)',
+              }}>{c.header}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr
+              key={getRowKey ? getRowKey(r, i) : i}
+              onClick={onRowClick ? () => onRowClick(r, i) : undefined}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(-1)}
+              style={{
+                cursor: onRowClick ? 'pointer' : 'default',
+                background: hover === i ? 'var(--paper-1)' : 'transparent',
+                boxShadow: hover === i && onRowClick ? 'inset 2px 0 0 var(--accent)' : 'none',
+                transition: 'background var(--dur-instant) var(--ease-standard)',
+              }}
+            >
+              {columns.map((c) => (
+                <td key={c.key} style={{
+                  textAlign: c.align || 'left',
+                  padding: '0 12px', height: rowH,
+                  borderBottom: '1px solid var(--line)',
+                  font: c.mono ? '500 13px/1.3 var(--font-mono)' : '400 13px/1.3 var(--font-sans)',
+                  color: 'var(--ink-0)', whiteSpace: 'nowrap',
+                }}>
+                  {c.render ? c.render(r[c.key], r, i) : r[c.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+
+
+/**
+ * RallyOn Metric — a single KPI readout for the ops board.
+ * Big mono value, uppercase label, optional delta + unit.
+ */
+function Metric({ label, value, unit, delta, deltaTone = 'idle', accent = false, style, ...rest }) {
+  const deltaColors = {
+    up: 'var(--status-ok)', down: 'var(--status-danger)', idle: 'var(--ink-2)',
+  };
+  return (
+    <div
+      style={{
+        display: 'flex', flexDirection: 'column', gap: 6,
+        padding: '14px 16px',
+        background: 'var(--paper-2)',
+        border: 'var(--bw) solid var(--line-strong)',
+        borderRadius: 'var(--r-2)',
+        borderLeft: accent ? '3px solid var(--accent)' : 'var(--bw) solid var(--line-strong)',
+        minWidth: 120,
+        ...style,
+      }}
+      {...rest}
+    >
+      <span style={{ font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>{label}</span>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+        <span style={{ font: '600 30px/1 var(--font-mono)', color: 'var(--ink-0)', letterSpacing: '-0.02em' }}>{value}</span>
+        {unit && <span style={{ font: '500 12px/1 var(--font-mono)', color: 'var(--ink-2)' }}>{unit}</span>}
+      </div>
+      {delta != null && (
+        <span style={{ font: '500 11px/1 var(--font-mono)', color: deltaColors[deltaTone] }}>{delta}</span>
+      )}
+    </div>
+  );
+}
+
+
+
+const TONES_10 = {
+  live:   { fg: 'var(--status-live)',   bg: 'var(--status-live-soft)',   dot: 'var(--status-live)' },
+  ok:     { fg: 'var(--status-ok)',     bg: 'var(--status-ok-soft)',     dot: 'var(--status-ok)' },
+  warn:   { fg: 'var(--status-warn)',   bg: 'var(--status-warn-soft)',   dot: 'var(--status-warn)' },
+  danger: { fg: 'var(--status-danger)', bg: 'var(--status-danger-soft)', dot: 'var(--status-danger)' },
+  idle:   { fg: 'var(--ink-1)',         bg: 'var(--status-idle-soft)',   dot: 'var(--status-idle)' },
+};
+
+/**
+ * RallyOn StatusPill — operational status chip. Color + dot + UPPERCASE label.
+ * `live` blinks (mechanical 2-step).
+ */
+function StatusPill({ tone = 'idle', label, dot = true, solid = false, style, ...rest }) {
+  const t = TONES_10[tone] || TONES_10.idle;
+  const blink = tone === 'live';
+
+  const solidStyle = {
+    background: t.fg, color: tone === 'live' || tone === 'warn' ? '#fff' : '#fff',
+    borderColor: 'transparent',
+  };
+
+  return (
+    <span
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6,
+        height: 22, padding: '0 10px',
+        borderRadius: 'var(--r-pill)',
+        border: `var(--bw) solid ${solid ? 'transparent' : t.fg}`,
+        background: solid ? t.fg : t.bg,
+        color: solid ? '#fff' : t.fg,
+        font: '600 10px/1 var(--font-mono)',
+        letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase',
+        whiteSpace: 'nowrap',
+        ...style,
+      }}
+      {...rest}
+    >
+      {dot && (
+        <span style={{
+          width: 7, height: 7, borderRadius: '50%',
+          background: solid ? '#fff' : t.dot,
+          animation: blink ? 'ro-blink 1s steps(1) infinite' : 'none',
+        }} />
+      )}
+      {label}
+    </span>
+  );
+}
+
+
+
+/**
+ * RallyOn Tag — square metadata chip for categories, formats, seeds.
+ * Neutral by default; `accent` for the one thing worth highlighting.
+ */
+function Tag({ children, accent = false, removable = false, onRemove, style, ...rest }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6,
+        height: 20, padding: '0 8px',
+        borderRadius: 'var(--r-1)',
+        border: `1px solid ${accent ? 'var(--accent-line)' : 'var(--line)'}`,
+        background: accent ? 'var(--accent-soft)' : 'var(--paper-1)',
+        color: accent ? 'var(--accent-press)' : 'var(--ink-1)',
+        font: '500 11px/1 var(--font-mono)',
+        letterSpacing: '0.02em',
+        whiteSpace: 'nowrap',
+        ...style,
+      }}
+      {...rest}
+    >
+      {children}
+      {removable && (
+        <button
+          type="button"
+          onClick={onRemove}
+          aria-label="Entfernen"
+          style={{
+            border: 'none', background: 'transparent', cursor: 'pointer',
+            color: 'inherit', font: '700 11px/1 var(--font-mono)', padding: 0, marginRight: -2,
+          }}
+        >×</button>
+      )}
+    </span>
+  );
+}
+
+
+
+/**
+ * RallyOn BracketNode — a single KO-bracket slot (two competitors + scores).
+ * Connectors are drawn by the layout, not the node.
+ */
+function BracketNode({ sides = [{}, {}], label = null, live = false, onClick, style, ...rest }) {
+  const winner = sides.findIndex((s) => s.winner);
+
+  const Row = ({ p, idx }) => {
+    const isWinner = winner === idx;
+    const decided = winner !== -1;
+    return (
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+        padding: '5px 10px',
+        borderBottom: idx === 0 ? '1px solid var(--line)' : 'none',
+        background: isWinner ? 'var(--paper-0)' : 'transparent',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, minWidth: 0 }}>
+          <span style={{ font: '600 9px/1 var(--font-mono)', color: 'var(--ink-2)', width: 16, flex: '0 0 16px' }}>{p.seed != null ? p.seed : '·'}</span>
+          <span style={{
+            font: `${isWinner ? 700 : 500} 12px/1.2 var(--font-sans)`,
+            color: decided && !isWinner ? 'var(--ink-2)' : 'var(--ink-0)',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>{p.name || '—'}</span>
+        </div>
+        <span style={{ font: '700 12px/1 var(--font-mono)', color: 'var(--ink-0)' }}>{p.score != null ? p.score : ''}</span>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        width: 200,
+        background: 'var(--paper-2)',
+        border: 'var(--bw) solid var(--line-strong)',
+        borderRadius: 'var(--r-1)',
+        borderLeft: live ? '3px solid var(--accent)' : 'var(--bw) solid var(--line-strong)',
+        cursor: onClick ? 'pointer' : 'default',
+        overflow: 'hidden',
+        ...style,
+      }}
+      {...rest}
+    >
+      {label && (
+        <div style={{ padding: '3px 10px', borderBottom: '1px solid var(--line)', background: 'var(--paper-1)', font: '600 9px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' }}>{label}</div>
+      )}
+      <Row p={sides[0] || {}} idx={0} />
+      <Row p={sides[1] || {}} idx={1} />
+    </div>
+  );
+}
+
+
+
+const STATE_13 = {
+  live: { fg: 'var(--status-live)', label: 'LÄUFT', blink: true },
+  free: { fg: 'var(--status-ok)',   label: 'FREI',  blink: false },
+  next: { fg: 'var(--status-warn)', label: 'GLEICH', blink: false },
+  off:  { fg: 'var(--status-idle)', label: 'GESPERRT', blink: false },
+};
+
+/**
+ * RallyOn FieldTile — a court in the hall manifest. Big field number,
+ * current occupant / free, state chip.
+ */
+function FieldTile({ field, state = 'free', match = null, note = null, onClick, style, ...rest }) {
+  const s = STATE_13[state] || STATE_13.free;
+  const active = state === 'live';
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        display: 'flex', flexDirection: 'column',
+        background: 'var(--paper-2)',
+        border: `var(--bw) solid var(--line-strong)`,
+        borderRadius: 'var(--r-2)',
+        borderTop: `3px solid ${s.fg}`,
+        cursor: onClick ? 'pointer' : 'default',
+        minWidth: 150, overflow: 'hidden',
+        opacity: state === 'off' ? 0.65 : 1,
+        ...style,
+      }}
+      {...rest}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '8px 12px 4px', minHeight: 18 }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, font: '600 9px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: s.fg, whiteSpace: 'nowrap' }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: s.fg, animation: s.blink ? 'ro-blink 1s steps(1) infinite' : 'none' }} />
+          {s.label}
+        </span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, padding: '0 12px' }}>
+        <span style={{ font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' }}>FELD</span>
+        <span style={{ font: '700 34px/1 var(--font-display)', letterSpacing: '-0.03em', color: 'var(--ink-0)' }}>{field}</span>
+      </div>
+      <div style={{ padding: '6px 12px 10px', borderTop: '1px solid var(--line)', marginTop: 8, minHeight: 30 }}>
+        {match ? (
+          <span style={{ font: '500 12px/1.3 var(--font-sans)', color: 'var(--ink-1)' }}>{match}</span>
+        ) : (
+          <span style={{ font: '400 12px/1.3 var(--font-sans)', color: 'var(--ink-2)' }}>{note || '—'}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+
+const STATUS_14 = {
+  live:   { fg: 'var(--status-live)',   label: 'Läuft',   blink: true },
+  ok:     { fg: 'var(--status-ok)',     label: 'Fertig',  blink: false },
+  warn:   { fg: 'var(--status-warn)',   label: 'Wartet',  blink: false },
+  idle:   { fg: 'var(--status-idle)',   label: 'Geplant', blink: false },
+};
+
+/**
+ * RallyOn MatchCard — a single tie: two sides, score, court, time, status.
+ */
+function MatchCard({
+  matchId,
+  round,
+  court,
+  time,
+  status = 'idle',
+  sides = [{ name: '—', seed: null }, { name: '—', seed: null }],
+  sets = [],
+  onClick,
+  style,
+  ...rest
+}) {
+  const st = STATUS_14[status] || STATUS_14.idle;
+  const [a, b] = sides;
+  const aWon = sets.filter((s) => s.a > s.b).length > sets.filter((s) => s.b > s.a).length;
+  const bWon = sets.filter((s) => s.b > s.a).length > sets.filter((s) => s.a > s.b).length;
+  const done = status === 'ok';
+
+  const Side = ({ p, win }) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+      {p.seed != null && (
+        <span style={{ font: '600 10px/1 var(--font-mono)', color: 'var(--ink-2)', width: 20, flex: '0 0 20px' }}>#{p.seed}</span>
+      )}
+      <span style={{
+        font: `${win && done ? 700 : 500} 14px/1.2 var(--font-sans)`,
+        color: done && !win ? 'var(--ink-2)' : 'var(--ink-0)',
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+      }}>{p.name}</span>
+    </div>
+  );
+
+  return (
+    <div
+      onClick={onClick}
+      style={{
+        display: 'flex', flexDirection: 'column',
+        background: 'var(--paper-2)',
+        border: 'var(--bw) solid var(--line-strong)',
+        borderRadius: 'var(--r-2)',
+        borderLeft: status === 'live' ? '3px solid var(--accent)' : 'var(--bw) solid var(--line-strong)',
+        cursor: onClick ? 'pointer' : 'default',
+        overflow: 'hidden',
+        ...style,
+      }}
+      {...rest}
+    >
+      {/* header row */}
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+        padding: '7px 12px', borderBottom: '1px solid var(--line)', background: 'var(--paper-1)',
+      }}>
+        <span style={{ font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' }}>
+          {[round, court && `FELD ${court}`, time].filter(Boolean).join(' · ')}
+        </span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: st.fg }}>
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: st.fg, animation: st.blink ? 'ro-blink 1s steps(1) infinite' : 'none' }} />
+          {st.label}
+        </span>
+      </div>
+      {/* body */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '10px 12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, minWidth: 0, flex: 1 }}>
+          <Side p={a} win={aWon} />
+          <Side p={b} win={bWon} />
+        </div>
+        {sets.length > 0 && <ScoreDisplay sets={sets} variant="inline" />}
+      </div>
+    </div>
+  );
+}
+
+
+
+/**
+ * RallyOn ScoreDisplay — badminton set scores.
+ * sets: [{ a, b }, ...]. `variant="board"` uses large Doto numerals
+ * (scoreboard / Turnier-TV); `variant="inline"` is compact mono (lists).
+ */
+function ScoreDisplay({ sets = [], variant = 'inline', serving = null, style, ...rest }) {
+  const aWon = sets.filter((s) => s.a > s.b).length;
+  const bWon = sets.filter((s) => s.b > s.a).length;
+
+  if (variant === 'board') {
+    const cur = sets[sets.length - 1] || { a: 0, b: 0 };
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', gap: 18, fontFamily: 'var(--font-dot)', ...style }} {...rest}>
+        <span style={{ fontSize: 96, fontWeight: 900, lineHeight: 0.9, color: cur.a >= cur.b ? 'var(--accent)' : 'var(--ink-0)' }}>{String(cur.a).padStart(2,'0')}</span>
+        <span style={{ fontSize: 64, fontWeight: 700, color: 'var(--ink-2)' }}>:</span>
+        <span style={{ fontSize: 96, fontWeight: 900, lineHeight: 0.9, color: cur.b > cur.a ? 'var(--accent)' : 'var(--ink-0)' }}>{String(cur.b).padStart(2,'0')}</span>
+      </div>
+    );
+  }
+
+  // inline
+  return (
+    <div style={{ display: 'inline-flex', gap: 6, ...style }} {...rest}>
+      {sets.map((s, i) => {
+        const done = s.a >= 21 || s.b >= 21 || i < sets.length - 1;
+        const aw = s.a > s.b;
+        return (
+          <div key={i} style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            minWidth: 26, padding: '2px 4px',
+            border: '1px solid var(--line)', borderRadius: 'var(--r-1)',
+            background: done ? 'var(--paper-1)' : 'var(--paper-0)',
+            font: '600 13px/1.3 var(--font-mono)',
+          }}>
+            <span style={{ color: aw ? 'var(--ink-0)' : 'var(--ink-2)', fontWeight: aw ? 700 : 500 }}>{s.a}</span>
+            <span style={{ color: !aw ? 'var(--ink-0)' : 'var(--ink-2)', fontWeight: !aw ? 700 : 500 }}>{s.b}</span>
+          </div>
+        );
+      })}
+      {sets.length > 0 && (
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          minWidth: 24, marginLeft: 2, paddingLeft: 6, borderLeft: '1px solid var(--line)',
+          font: '700 15px/1.1 var(--font-mono)', color: 'var(--ink-0)',
+        }}>
+          <span style={{ color: aWon > bWon ? 'var(--ink-0)' : 'var(--ink-1)' }}>{aWon}</span>
+          <span style={{ color: bWon > aWon ? 'var(--ink-0)' : 'var(--ink-1)' }}>{bWon}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+const TONES_16 = {
+  info:   { fg: 'var(--ink-0)',         bg: 'var(--paper-2)',            bar: 'var(--ink-0)' },
+  live:   { fg: 'var(--status-live)',   bg: 'var(--status-live-soft)',   bar: 'var(--status-live)' },
+  ok:     { fg: 'var(--status-ok)',     bg: 'var(--status-ok-soft)',     bar: 'var(--status-ok)' },
+  warn:   { fg: 'var(--status-warn)',   bg: 'var(--status-warn-soft)',   bar: 'var(--status-warn)' },
+  danger: { fg: 'var(--status-danger)', bg: 'var(--status-danger-soft)', bar: 'var(--status-danger)' },
+};
+
+/**
+ * RallyOn Banner — inline system message with a left status bar.
+ */
+function Banner({ tone = 'info', title, children, action = null, onDismiss, style, ...rest }) {
+  const t = TONES_16[tone] || TONES_16.info;
+  return (
+    <div
+      role="status"
+      style={{
+        display: 'flex', alignItems: 'flex-start', gap: 12,
+        padding: '11px 14px',
+        background: t.bg,
+        border: `1px solid ${tone === 'info' ? 'var(--line)' : t.bar}`,
+        borderLeft: `3px solid ${t.bar}`,
+        borderRadius: 'var(--r-1)',
+        ...style,
+      }}
+      {...rest}
+    >
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {title && <span style={{ font: '600 13px/1.3 var(--font-sans)', color: 'var(--ink-0)' }}>{title}</span>}
+        {children && <span style={{ font: '400 13px/1.45 var(--font-sans)', color: 'var(--ink-1)' }}>{children}</span>}
+      </div>
+      {action}
+      {onDismiss && (
+        <button type="button" onClick={onDismiss} aria-label="Ausblenden" style={{
+          border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--ink-2)',
+          font: '700 14px/1 var(--font-mono)', padding: 0, marginTop: -1,
+        }}>×</button>
+      )}
+    </div>
+  );
+}
+
+
+
+/**
+ * RallyOn Dialog — modal overlay. Scrim + centered panel with mono eyebrow,
+ * hard seam, and a footer action row.
+ */
+function Dialog({ open, title, eyebrow, onClose, footer = null, width = 560, children }) {
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape' && onClose) onClose(); };
+    if (open) window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      onMouseDown={(e) => { if (e.target === e.currentTarget && onClose) onClose(); }}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 1000,
+        background: 'var(--scrim)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+        animation: 'ro-dialog-in var(--dur-2) var(--ease-standard)',
+      }}
+    >
+      <style>{`@keyframes ro-dialog-in{from{opacity:0}to{opacity:1}}`}</style>
+      <div style={{
+        width, maxWidth: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column',
+        background: 'var(--paper-2)',
+        border: 'var(--bw) solid var(--line-strong)',
+        borderRadius: 'var(--r-2)',
+        boxShadow: 'var(--shadow-pop)',
+        overflow: 'hidden',
+      }}>
+        <header style={{
+          display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12,
+          padding: '14px 16px', borderBottom: 'var(--bw) solid var(--line-strong)',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {eyebrow && <span style={{ font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>{eyebrow}</span>}
+            {title && <span style={{ font: '600 18px/1.2 var(--font-display)', letterSpacing: '-0.01em', color: 'var(--ink-0)' }}>{title}</span>}
+          </div>
+          <button type="button" onClick={onClose} aria-label="Schließen" style={{
+            border: '1px solid var(--line)', background: 'var(--paper-1)', cursor: 'pointer',
+            width: 28, height: 28, borderRadius: 'var(--r-1)', color: 'var(--ink-0)',
+            font: '700 14px/1 var(--font-mono)', flex: '0 0 28px',
+          }}>×</button>
+        </header>
+        <div style={{ padding: 16, overflowY: 'auto', font: 'var(--fw-regular) 14px/1.55 var(--font-sans)', color: 'var(--ink-1)' }}>{children}</div>
+        {footer && (
+          <footer style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, padding: '12px 16px', borderTop: '1px solid var(--line)', background: 'var(--paper-1)' }}>{footer}</footer>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+
+/**
+ * RallyOn ProgressBar — flat determinate bar for phase/round progress.
+ * segmented=true renders discrete round ticks instead of a continuous fill.
+ */
+function ProgressBar({ value = 0, max = 100, label, showValue = true, segmented = false, tone = 'ink', style, ...rest }) {
+  const pct = Math.max(0, Math.min(100, (value / max) * 100));
+  const fill = tone === 'accent' ? 'var(--accent)' : 'var(--ink-0)';
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, ...style }} {...rest}>
+      {(label || showValue) && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' }}>
+          {label && <span>{label}</span>}
+          {showValue && <span style={{ color: 'var(--ink-0)' }}>{segmented ? `${value}/${max}` : `${Math.round(pct)}%`}</span>}
+        </div>
+      )}
+      {segmented ? (
+        <div style={{ display: 'flex', gap: 3 }}>
+          {Array.from({ length: max }).map((_, i) => (
+            <div key={i} style={{
+              flex: 1, height: 8,
+              background: i < value ? fill : 'var(--paper-0)',
+              border: '1px solid var(--line-strong)',
+              borderRadius: '1px',
+            }} />
+          ))}
+        </div>
+      ) : (
+        <div style={{ height: 8, background: 'var(--paper-0)', border: 'var(--bw) solid var(--line-strong)', borderRadius: '1px', overflow: 'hidden' }}>
+          <div style={{ width: `${pct}%`, height: '100%', background: fill, transition: 'width var(--dur-2) var(--ease-standard)' }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+/**
+ * RallyOn Tabs — underline-seam tab bar for switching views within a module.
+ * tabs: [{ id, label, count }]
+ */
+function Tabs({ tabs = [], value, defaultValue, onChange, style, ...rest }) {
+  const isControlled = value !== undefined;
+  const [internal, setInternal] = React.useState(defaultValue ?? (tabs[0] && tabs[0].id));
+  const active = isControlled ? value : internal;
+
+  const select = (id) => {
+    if (!isControlled) setInternal(id);
+    onChange && onChange(id);
+  };
+
+  return (
+    <div
+      role="tablist"
+      style={{ display: 'flex', gap: 0, borderBottom: 'var(--bw) solid var(--line-strong)', ...style }}
+      {...rest}
+    >
+      {tabs.map((t) => {
+        const on = t.id === active;
+        return (
+          <button
+            key={t.id}
+            role="tab"
+            aria-selected={on}
+            onClick={() => select(t.id)}
+            style={{
+              position: 'relative',
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '9px 14px', marginBottom: -1.5,
+              border: 'none', background: 'transparent', cursor: 'pointer',
+              font: `${on ? 600 : 500} 12px/1 var(--font-mono)`,
+              letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase',
+              color: on ? 'var(--ink-0)' : 'var(--ink-2)',
+              borderBottom: `2px solid ${on ? 'var(--ink-0)' : 'transparent'}`,
+              transition: 'color var(--dur-1) var(--ease-standard)',
+            }}
+          >
+            {t.label}
+            {t.count != null && (
+              <span style={{
+                font: '600 10px/1 var(--font-mono)',
+                background: on ? 'var(--paper-0)' : 'var(--paper-0)',
+                color: on ? 'var(--ink-0)' : 'var(--ink-2)',
+                border: `1px solid ${on ? 'var(--line-strong)' : 'var(--line)'}`, borderRadius: 'var(--r-1)',
+                padding: '2px 5px',
+              }}>{t.count}</span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+
+
+
+
+
+
+const {useState} = React;
+const Ico = ({d,s=18,sw=1.75}) => React.createElement('svg',{width:s,height:s,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:sw,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d}));
+const ICONS={
+  grid:'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+  sliders:'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+  calendar:'M3 4h18v18H3zM3 10h18M8 2v4M16 2v4',
+  users:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+  tv:'M2 7h20v13H2zM7 3l5 4 5-4',
+  plus:'M12 5v14M5 12h14',
+  play:'M6 4l14 8-14 8z',
+  bolt:'M13 2 3 14h7l-1 8 10-12h-7z',
+  clock:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20M12 6v6l4 2',
+  search:'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16M21 21l-4.35-4.35'
+};
+const NAV=[
+  {id:'ueberblick',label:'Übersicht',icon:'grid'},
+  {id:'setup',label:'Setup',icon:'sliders'},
+  {id:'planung',label:'Planung',icon:'calendar'},
+  {id:'verwaltung',label:'Verwaltung',icon:'users'},
+  {id:'tv',label:'Turnier-TV',icon:'tv'},
+];
+
+function Sidebar({active,onNav}){
+  return React.createElement('aside',{style:{width:220,flex:'0 0 220px',background:'var(--paper-2)',borderRight:'var(--bw) solid var(--line-strong)',display:'flex',flexDirection:'column'}},
+    React.createElement('div',{style:{height:'var(--topbar-h)',flex:'0 0 var(--topbar-h)',padding:'0 16px',display:'flex',alignItems:'center',gap:0}},
+      React.createElement('span',{style:{background:'var(--ink-0)',color:'var(--paper-1)',font:'700 15px/1 var(--font-display)',padding:'4px 7px',letterSpacing:'-0.02em'}},'RO'),
+      React.createElement('span',{style:{font:'700 18px/1 var(--font-display)',letterSpacing:'-0.03em',color:'var(--ink-0)',marginLeft:8}},'Rally',React.createElement('span',{style:{color:'var(--accent)'}},'On'))),
+    React.createElement('nav',{style:{padding:8,display:'flex',flexDirection:'column',gap:2,flex:1}},
+      NAV.map(n=>{const on=n.id===active;return React.createElement('button',{key:n.id,onClick:()=>onNav(n.id),style:{display:'flex',alignItems:'center',gap:10,padding:'9px 12px',border:'none',cursor:'pointer',textAlign:'left',background:on?'var(--paper-0)':'transparent',color:on?'var(--ink-0)':'var(--ink-1)',borderRadius:'var(--r-1)',font:(on?600:500)+' 13px/1 var(--font-sans)',boxShadow:on?'inset 2px 0 0 var(--ink-0)':'none'}},React.createElement(Ico,{d:ICONS[n.icon],s:17}),n.label);})),
+    React.createElement('div',{style:{padding:'12px 16px',borderTop:'1px solid var(--line)',font:'500 11px/1.5 var(--font-mono)',color:'var(--ink-2)'}},'T-2026-014',React.createElement('br'),'Stadtmeisterschaft'));
+}
+
+const SEARCH_INDEX=[
+  {t:'Krüger vs. Sørensen',s:'Feld 1 · läuft',k:'SPIEL'},
+  {t:'Behnke vs. Vogt',s:'Feld 2 · läuft',k:'SPIEL'},
+  {t:'Lindqvist vs. Mayer',s:'Feld 3 · gleich',k:'SPIEL'},
+  {t:'Weber vs. Novak',s:'Feld 5 · läuft',k:'SPIEL'},
+  {t:'Roth vs. Kellermann',s:'Feld 8 · gleich',k:'SPIEL'},
+  {t:'M. Krüger',s:'Seed #1 · Herren-Einzel',k:'SPIELER'},
+  {t:'E. Lindqvist',s:'Seed #2 · Herren-Einzel',k:'SPIELER'},
+  {t:'L. Sørensen',s:'Seed #4 · Herren-Einzel',k:'SPIELER'},
+  {t:'Übersicht',s:'Ansicht wechseln',k:'SEITE'},
+  {t:'Setup',s:'Ansicht wechseln',k:'SEITE'},
+  {t:'Planung',s:'Ansicht wechseln',k:'SEITE'},
+  {t:'Verwaltung',s:'Ansicht wechseln',k:'SEITE'},
+  {t:'Turnier-TV',s:'Ansicht wechseln',k:'SEITE'},
+  {t:'Ergebnis erfassen',s:'Aktion ausführen',k:'AKTION'},
+  {t:'Zeitplan anpassen',s:'Aktion ausführen',k:'AKTION'},
+];
+function fuzzyScore(q,str){
+  q=q.toLowerCase();const s=str.toLowerCase();
+  let i=0,score=0,last=-1;
+  for(let j=0;j<s.length&&i<q.length;j++){
+    if(s[j]===q[i]){score+=(last>=0&&j===last+1)?3:1;last=j;i++;}
+  }
+  return i===q.length?score-s.length*0.02:-1;
+}
+function CommandSearch(){
+  const [q,setQ]=useState('');
+  const [focus,setFocus]=useState(false);
+  const [sel,setSel]=useState(0);
+  const ref=React.useRef(null);
+  React.useEffect(()=>{
+    const h=(e)=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();ref.current&&ref.current.focus();}};
+    window.addEventListener('keydown',h);return ()=>window.removeEventListener('keydown',h);
+  },[]);
+  const results=React.useMemo(()=>{
+    const term=q.trim();if(!term)return [];
+    return SEARCH_INDEX.map(r=>({r,sc:fuzzyScore(term,r.t)})).filter(x=>x.sc>=0).sort((a,b)=>b.sc-a.sc).slice(0,6).map(x=>x.r);
+  },[q]);
+  React.useEffect(()=>{setSel(0);},[q]);
+  const open=focus&&results.length>0;
+  const commit=()=>{setQ('');ref.current&&ref.current.blur();};
+  const onKey=(e)=>{
+    if(e.key==='Escape'){setQ('');ref.current&&ref.current.blur();}
+    else if(e.key==='ArrowDown'){e.preventDefault();setSel(s=>Math.min(s+1,results.length-1));}
+    else if(e.key==='ArrowUp'){e.preventDefault();setSel(s=>Math.max(s-1,0));}
+    else if(e.key==='Enter'&&results[sel]){commit();}
+  };
+  return React.createElement('div',{style:{position:'relative',width:'100%',maxWidth:460}},
+    React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,height:34,padding:'0 10px',background:'var(--paper-2)',border:`${focus?'var(--bw-heavy)':'var(--bw)'} solid ${focus?'var(--ink-0)':'var(--line)'}`,borderRadius:'var(--r-1)',color:'var(--ink-2)',transition:'border-color var(--dur-1) var(--ease-standard)'}},
+      React.createElement(Ico,{d:ICONS.search,s:15,sw:1.9}),
+      React.createElement('input',{ref:ref,value:q,onChange:(e)=>setQ(e.target.value),onFocus:()=>setFocus(true),onBlur:()=>setTimeout(()=>setFocus(false),120),onKeyDown:onKey,placeholder:'Spieler, Spiele, Aktionen…',style:{flex:1,minWidth:0,border:'none',outline:'none',background:'transparent',font:'var(--fw-regular) 13px/1 var(--font-sans)',color:'var(--ink-0)'}}),
+      React.createElement('span',{style:{display:'inline-flex',alignItems:'center',gap:3,font:'600 10px/1 var(--font-mono)',letterSpacing:'0.02em',color:'var(--ink-2)',border:'1px solid var(--line)',borderRadius:'var(--r-1)',padding:'3px 5px',background:'var(--paper-0)',whiteSpace:'nowrap'}},'Strg K')),
+    open&&React.createElement('div',{style:{position:'absolute',top:'calc(100% + 6px)',left:0,right:0,zIndex:50,background:'var(--paper-2)',border:'var(--bw) solid var(--line-strong)',borderRadius:'var(--r-2)',boxShadow:'var(--shadow-pop)',overflow:'hidden'}},
+      results.map((r,i)=>React.createElement('div',{key:i,onMouseEnter:()=>setSel(i),onMouseDown:(e)=>{e.preventDefault();commit();},style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,padding:'8px 12px',cursor:'pointer',background:i===sel?'var(--paper-0)':'transparent',borderBottom:i<results.length-1?'1px solid var(--line)':'none',boxShadow:i===sel?'inset 2px 0 0 var(--accent)':'none'}},
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:2,minWidth:0}},
+          React.createElement('span',{style:{font:'500 13px/1.2 var(--font-sans)',color:'var(--ink-0)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},r.t),
+          React.createElement('span',{style:{font:'400 11px/1 var(--font-sans)',color:'var(--ink-2)'}},r.s)),
+        React.createElement('span',{style:{font:'600 9px/1 var(--font-mono)',letterSpacing:'var(--tracking-caps)',color:'var(--ink-2)',border:'1px solid var(--line)',borderRadius:'var(--r-1)',padding:'3px 5px',flex:'0 0 auto'}},r.k)))));
+}
+
+function TopBar({onAction}){
+  return React.createElement('header',{style:{height:'var(--topbar-h)',flex:'0 0 var(--topbar-h)',borderBottom:'var(--bw) solid var(--line-strong)',background:'var(--paper-2)',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 20px',gap:16}},
+    React.createElement('div',{style:{display:'flex',alignItems:'baseline',gap:12,minWidth:0,flex:'0 0 auto'}},
+      React.createElement('span',{style:{font:'700 18px/1 var(--font-display)',letterSpacing:'-0.02em',color:'var(--ink-0)'}},'Stadtmeisterschaft 2026'),
+      React.createElement(Tag,null,'Schweizer System'),
+      React.createElement('span',{style:{font:'600 10px/1 var(--font-mono)',letterSpacing:'var(--tracking-caps)',color:'var(--ink-2)'}},'PHASE 2 / 5')),
+    React.createElement('div',{style:{flex:'1 1 auto',display:'flex',justifyContent:'center',minWidth:0,padding:'0 24px'}},
+      React.createElement(CommandSearch)),
+    React.createElement('div',{style:{display:'flex',alignItems:'center',gap:14,flex:'0 0 auto'}},
+      React.createElement('span',{style:{display:'inline-flex',alignItems:'center',gap:7,font:'600 12px/1 var(--font-mono)',color:'var(--ink-0)'}},React.createElement(Ico,{d:ICONS.clock,s:15}),'14:38'),
+      React.createElement(Button,{variant:'primary',size:'sm',iconLeft:React.createElement(Ico,{d:ICONS.plus,s:15}),onClick:onAction},'Ergebnis erfassen')));
+}
+
+function Ueberblick({onResult}){
+  const fields=[
+    {field:1,state:'live',match:'Krüger vs. Sørensen'},
+    {field:2,state:'live',match:'Behnke vs. Vogt'},
+    {field:3,state:'next',match:'Lindqvist vs. Mayer'},
+    {field:4,state:'free',note:'verfügbar'},
+    {field:5,state:'live',match:'Weber vs. Novak'},
+    {field:6,state:'free',note:'verfügbar'},
+    {field:7,state:'off',note:'gesperrt · Reparatur'},
+    {field:8,state:'next',match:'Roth vs. Kellermann'},
+  ];
+  const next=[
+    {round:'RUNDE 3',court:3,time:'14:45',status:'idle',sides:[{name:'E. Lindqvist',seed:2},{name:'J. Mayer',seed:7}]},
+    {round:'RUNDE 3',court:8,time:'14:50',status:'idle',sides:[{name:'S. Roth',seed:5},{name:'P. Kellermann',seed:12}]},
+    {round:'RUNDE 3',court:1,time:'15:00',status:'idle',sides:[{name:'M. Krüger',seed:1},{name:'—'}]},
+  ];
+  const box={display:'flex',flexDirection:'column',gap:16};
+  return React.createElement('div',{style:box},
+    React.createElement(Banner,{tone:'danger',title:'Zeitplan-Konflikt',action:React.createElement(Button,{size:'sm',variant:'secondary'},'Beheben')},'Feld 3 ist um 15:00 doppelt belegt. Zuweisung prüfen.'),
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12}},
+      React.createElement(Metric,{label:'Aktive Felder',value:'4',unit:'/ 8'}),
+      React.createElement(Metric,{label:'Offene Spiele',value:'23',delta:'−4 seit 14:00',deltaTone:'down'}),
+      React.createElement(Metric,{label:'Ø Spieldauer',value:'18',unit:'min'}),
+      React.createElement(Metric,{label:'Teilnehmer',value:'64'})),
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'2fr 1fr',gap:16,alignItems:'start'}},
+      React.createElement(Card,{eyebrow:'FELD-MANIFEST',title:'Hallen-Belegung',action:React.createElement(Tag,null,'HALLE NORD')},
+        React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10}},
+          fields.map(f=>React.createElement(FieldTile,{key:f.field,...f,style:{minWidth:0}})))),
+      React.createElement(Card,{eyebrow:'SCHNELLAKTIONEN',title:'Desk'},
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:8}},
+          React.createElement(Button,{variant:'primary',block:true,iconLeft:React.createElement(Ico,{d:ICONS.bolt,s:15}),onClick:onResult},'Ergebnis erfassen'),
+          React.createElement(Button,{variant:'secondary',block:true,iconLeft:React.createElement(Ico,{d:ICONS.play,s:15})},'Nächste Runde starten'),
+          React.createElement(Button,{variant:'secondary',block:true,iconLeft:React.createElement(Ico,{d:ICONS.calendar,s:15})},'Zeitplan anpassen'),
+          React.createElement(Button,{variant:'ghost',block:true,iconLeft:React.createElement(Ico,{d:ICONS.users,s:15})},'Anmeldung öffnen'),
+          React.createElement('div',{style:{marginTop:8,paddingTop:12,borderTop:'1px solid var(--line)'}},
+            React.createElement(ProgressBar,{label:'Runde',value:2,max:5,segmented:true}))))),
+    React.createElement(Card,{eyebrow:'CHECKPOINT',title:'Nächste Spiele'},
+      React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12}},
+        next.map((m,i)=>React.createElement(MatchCard,{key:i,...m})))));
+}
+
+function Setup(){
+  const box={display:'flex',flexDirection:'column',gap:16};
+  return React.createElement('div',{style:box},
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16,alignItems:'start'}},
+      React.createElement(Card,{eyebrow:'KONFIGURATION',title:'Turnier'},
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:14}},
+          React.createElement(Input,{label:'Turniername',defaultValue:'Stadtmeisterschaft 2026'}),
+          React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},
+            React.createElement(Select,{label:'Modus',options:['Kaiser-System','Schweizer System','KO-Bracket'],defaultValue:'Schweizer System'}),
+            React.createElement(Input,{label:'Punkte / Satz',mono:true,suffix:'Pkt',defaultValue:'21'})),
+          React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},
+            React.createElement(Input,{label:'Felder',mono:true,defaultValue:'8'}),
+            React.createElement(Input,{label:'Sätze (Best-of)',mono:true,defaultValue:'3'})),
+          React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:10,paddingTop:6}},
+            React.createElement(Checkbox,{label:'Automatische Feldzuweisung',defaultChecked:true}),
+            React.createElement(Checkbox,{label:'Ergebnisse öffentlich anzeigen',defaultChecked:true}),
+            React.createElement(Switch,{label:'Turnier-TV aktiv',defaultChecked:true})))),
+      React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:16}},
+        React.createElement(Card,{eyebrow:'KATEGORIEN',title:'Disziplinen'},
+          React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:8}},
+            ['Herren-Einzel','Damen-Einzel','Herren-Doppel','Damen-Doppel','Mixed'].map(t=>React.createElement(Tag,{key:t,removable:true},t)),
+            React.createElement(Tag,{accent:true},'+ Kategorie'))),
+        React.createElement(Card,{eyebrow:'PHASEN',title:'Ablauf'},
+          React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:12}},
+            React.createElement(ProgressBar,{label:'Gesamtfortschritt',value:38}),
+            React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:8}},
+              React.createElement(StatusPill,{tone:'ok',label:'Anmeldung'}),
+              React.createElement(StatusPill,{tone:'ok',label:'Auslosung'}),
+              React.createElement(StatusPill,{tone:'live',label:'Gruppen'}),
+              React.createElement(StatusPill,{tone:'idle',label:'KO-Runde'}),
+              React.createElement(StatusPill,{tone:'idle',label:'Finale'})))),
+        React.createElement(Button,{variant:'primary',iconLeft:React.createElement(Ico,{d:ICONS.play,s:15})},'Konfiguration speichern'))));
+}
+
+function Planung(){
+  const rows=[
+    {t:'14:45',court:3,match:'Lindqvist vs. Mayer',cat:'HE',st:{tone:'idle',label:'Geplant'}},
+    {t:'14:38',court:1,match:'Krüger vs. Sørensen',cat:'HE',st:{tone:'live',label:'Läuft'}},
+    {t:'14:38',court:2,match:'Behnke vs. Vogt',cat:'HD',st:{tone:'live',label:'Läuft'}},
+    {t:'14:20',court:5,match:'Weber vs. Novak',cat:'DE',st:{tone:'ok',label:'Fertig'}},
+    {t:'15:00',court:3,match:'Roth vs. Kellermann',cat:'HE',st:{tone:'warn',label:'Konflikt'}},
+  ];
+  return React.createElement('div',{style:{display:'grid',gridTemplateColumns:'3fr 2fr',gap:16,alignItems:'start'}},
+    React.createElement(Card,{eyebrow:'ZEITPLAN',title:'Feldbelegung',padded:false,action:React.createElement(Button,{size:'sm',variant:'secondary'},'Neu generieren')},
+      React.createElement(DataTable,{onRowClick:()=>{},getRowKey:(r,i)=>i,columns:[
+        {key:'t',header:'Zeit',width:64,mono:true},
+        {key:'court',header:'Feld',width:52,mono:true,align:'right',render:v=>'F'+v},
+        {key:'match',header:'Begegnung'},
+        {key:'cat',header:'Kat.',width:56,render:v=>React.createElement(Tag,null,v)},
+        {key:'st',header:'Status',width:118,render:v=>React.createElement(StatusPill,{tone:v.tone,label:v.label})},
+      ],rows:rows})),
+    React.createElement(Card,{eyebrow:'KO-BRACKET',title:'Endrunde'},
+      React.createElement('div',{style:{display:'flex',gap:20,alignItems:'center'}},
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:16}},
+          React.createElement(BracketNode,{label:'VF 1',sides:[{seed:1,name:'Krüger',score:2,winner:true},{seed:8,name:'Roth',score:0}]}),
+          React.createElement(BracketNode,{label:'VF 2',live:true,sides:[{seed:4,name:'Sørensen',score:1},{seed:5,name:'Behnke',score:1}]}),
+          React.createElement(BracketNode,{label:'VF 3',sides:[{seed:3,name:'Weber',score:2,winner:true},{seed:6,name:'Vogt',score:1}]}),
+          React.createElement(BracketNode,{label:'VF 4',sides:[{seed:2,name:'Novak'},{seed:7,name:'Mayer'}]})),
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:60,paddingTop:30}},
+          React.createElement(BracketNode,{label:'HF 1',sides:[{seed:1,name:'Krüger',score:1},{name:'—'}]}),
+          React.createElement(BracketNode,{label:'HF 2',sides:[{seed:3,name:'Weber'},{name:'—'}]})))));
+}
+
+function TV(){
+  return React.createElement('div',{style:{padding:'40px 20px',textAlign:'center',color:'var(--ink-2)',font:'500 14px/1.6 var(--font-sans)'}},
+    React.createElement('div',{style:{font:'600 11px/1 var(--font-mono)',letterSpacing:'var(--tracking-caps)',marginBottom:12}},'TURNIER-TV'),
+    'Öffentliche Anzeige läuft in einem separaten Vollbild-Fenster.',React.createElement('br'),
+    React.createElement('a',{href:'../audience/index.html',style:{font:'600 13px/1 var(--font-mono)'}},'→ Turnier-TV öffnen'));
+}
+
+function App(){
+  const [nav,setNav]=useState('ueberblick');
+  const [dlg,setDlg]=useState(false);
+  const screens={ueberblick:React.createElement(Ueberblick,{onResult:()=>setDlg(true)}),setup:React.createElement(Setup),planung:React.createElement(Planung),verwaltung:React.createElement(Setup),tv:React.createElement(TV)};
+  return React.createElement('div',{style:{display:'flex',height:'100vh',overflow:'hidden'}},
+    React.createElement(Sidebar,{active:nav,onNav:setNav}),
+    React.createElement('div',{style:{flex:1,display:'flex',flexDirection:'column',minWidth:0}},
+      React.createElement(TopBar,{onAction:()=>setDlg(true)}),
+      React.createElement('main',{style:{flex:1,overflow:'auto',padding:20}},screens[nav])),
+    React.createElement(Dialog,{open:dlg,eyebrow:'AKTION · FELD 1',title:'Ergebnis erfassen',onClose:()=>setDlg(false),footer:React.createElement(React.Fragment,null,
+        React.createElement(Button,{variant:'secondary',onClick:()=>setDlg(false)},'Abbrechen'),
+        React.createElement(Button,{variant:'primary',onClick:()=>setDlg(false)},'Speichern'))},
+      React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:14}},
+        React.createElement('div',{style:{font:'600 14px/1.3 var(--font-sans)',color:'var(--ink-0)'}},'M. Krüger  vs.  L. Sørensen'),
+        React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:10}},
+          React.createElement(Input,{label:'Satz 1',mono:true,placeholder:'21 : 18',style:{minWidth:0}}),
+          React.createElement(Input,{label:'Satz 2',mono:true,placeholder:'14 : 21',style:{minWidth:0}}),
+          React.createElement(Input,{label:'Satz 3',mono:true,placeholder:'21 : 15',style:{minWidth:0}})))));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+
+</script></body></html>

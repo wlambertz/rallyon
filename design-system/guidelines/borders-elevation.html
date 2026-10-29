@@ -1,0 +1,18 @@
+<!-- @dsCard group="Borders" viewport="700x180" subtitle="Radii, seam widths, and the offset print-block shadow" name="Borders & elevation" -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin:0; padding:24px; background:var(--paper-1); font-family:var(--font-mono); display:flex; gap:28px; align-items:center; flex-wrap:wrap; }
+  .item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .box { width:80px; height:64px; background:var(--paper-2); border:var(--bw) solid var(--line-strong); display:flex; align-items:center; justify-content:center; }
+  .lbl { font-size:10px; color:var(--ink-2); text-align:center; }
+  .lbl b { color:var(--ink-0); display:block; font-size:11px; }
+</style></head>
+<body>
+  <div class="item"><div class="box" style="border-radius:var(--r-0)"></div><span class="lbl"><b>r-0</b>0px · default</span></div>
+  <div class="item"><div class="box" style="border-radius:var(--r-1)"></div><span class="lbl"><b>r-1</b>2px · input</span></div>
+  <div class="item"><div class="box" style="border-radius:var(--r-2)"></div><span class="lbl"><b>r-2</b>4px · card</span></div>
+  <div class="item"><div class="box" style="border-radius:var(--r-pill);width:64px"></div><span class="lbl"><b>r-pill</b>status only</span></div>
+  <div class="item"><div class="box" style="box-shadow:var(--shadow-block)"></div><span class="lbl"><b>shadow-block</b>3px 3px 0</span></div>
+</body></html>

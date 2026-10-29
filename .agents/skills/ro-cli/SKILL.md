@@ -10,7 +10,7 @@ Use this skill for work on `tools/cli/ro`, `ro.yaml`, and CLI-adjacent docs.
 ## Read before editing
 
 1. [tools/cli/ro/AGENTS.md](../../../tools/cli/ro/AGENTS.md)
-2. [wiki/CLI-Manual.md](../../../wiki/CLI-Manual.md)
+2. [wiki/CLI-Manual.md](../../../docs/wiki/CLI-Manual.md)
 3. [tools/cli/ro/README.md](../../../tools/cli/ro/README.md)
 4. [ro.yaml](../../../ro.yaml)
 
@@ -36,7 +36,7 @@ Use [docs/cli-reference.md](../../../docs/cli-reference.md) as generated output,
 
 When command semantics or config behavior change, check whether these also need updates:
 
-- [wiki/CLI-Manual.md](../../../wiki/CLI-Manual.md)
+- [wiki/CLI-Manual.md](../../../docs/wiki/CLI-Manual.md)
 - [tools/cli/ro/README.md](../../../tools/cli/ro/README.md)
 - generated CLI reference via `ro docs generate`
 - related workflow files under [.github/workflows](../../../.github/workflows)

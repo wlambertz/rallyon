@@ -1,0 +1,56 @@
+# OpenSpec Specification: tournament-draft-create
+# Reverse-engineered from implemented code
+
+specification: "tournament-draft-create"
+title: "Create Tournament Draft"
+status: implemented
+epic: "Tournament Setup"
+ticket:
+  title: "Create Tournament Draft"
+  description: |
+    Creates a new tournament draft with initial configuration.
+    The user provides basic tournament details (name, dates, visibility)
+    and the system creates a draft tournament in DRAFT status.
+    The draft can then be updated with further configuration.
+
+  acceptanceCriteria:
+    - given: "valid tournament name and date range"
+      when: "POST /api/tournamentmgmt/setup/configuration/tournaments is called"
+      then: "201 Created with tournament draft in DRAFT status"
+    - given: "missing required fields (name, dates)"
+      when: "POST endpoint is called"
+      then: "400 Bad Request with validation errors"
+    - given: "invalid date range (end before start)"
+      when: "POST endpoint is called"
+      then: "400 Bad Request"
+
+  implementationSteps:
+    - text: "CreateDraftUseCase interface defines the contract"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/usecase/CreateDraftUseCase.kt"]
+      codeReferences: ["CreateDraftUseCase.kt"]
+    - text: "CreateDraftService implements the use case"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/usecase/CreateDraftService.kt"]
+      codeReferences: ["CreateDraftService.kt"]
+    - text: "ConfigurationController exposes REST endpoint"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationController.kt"]
+      codeReferences: ["ConfigurationController.kt"]
+    - text: "Tournament entity persisted via TournamentRepository"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/persistence/repository/TournamentRepository.kt"]
+      codeReferences: ["TournamentRepository.kt"]
+    - text: "TournamentMapper converts between API and persistence models"
+      type: "development"
+      references: ["service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/persistence/mapping/TournamentMapper.kt"]
+      codeReferences: ["TournamentMapper.kt"]
+
+dependencies: []
+
+filesToBeCreated: []
+filesToBeModified: []
+filesToBeDeleted: []
+filesToBeReferenced: []
+codeReferences: ["CreateDraftUseCase.kt", "CreateDraftService.kt", "ConfigurationController.kt", "TournamentRepository.kt", "TournamentMapper.kt"]
+typeReferences: ["Tournament", "TournamentStatus", "Visibility", "TimeWindow", "TimeWindowRange", "Court", "DisciplineConfig", "BracketId", "Category", "TeamSize"]

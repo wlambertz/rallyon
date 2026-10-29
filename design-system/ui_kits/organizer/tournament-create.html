@@ -1,0 +1,476 @@
+<!-- @dsCard group="Organizer" viewport="1240x860" subtitle="Turnier einrichten — Entwurf-Assistent (7 Schritte)" name="Turnier anlegen" -->
+<!-- @startingPoint section="Organizer" subtitle="Tournament creation wizard" viewport="1240x860" -->
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>RallyOn — Turnier einrichten</title>
+<link rel="stylesheet" href="../../styles.css">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--surface-app);font-family:var(--font-sans);color:var(--text-body)}#err{color:var(--status-danger);white-space:pre-wrap;font:12px var(--font-mono);padding:12px}a{color:var(--accent)}a:hover{color:var(--accent-hover)}
+input[type=date],input[type=time],input[type=datetime-local]{font-family:var(--font-mono)}</style></head>
+<body><pre id="err"></pre><div id="root"></div>
+<script>window.addEventListener('load',function(){try{var t=document.getElementById('src').textContent;var out=Babel.transform(t,{presets:[['react',{runtime:'classic'}]]}).code;(0,eval)(out);}catch(e){document.getElementById('err').textContent='ERR: '+e.message+'\n'+(e.stack||'');}});</script>
+<script type="text/plain" id="src">
+const { useState } = React;
+
+/* ---------- icon helper ---------- */
+const Ico = ({ d, s = 18, sw = 1.75 }) =>
+  React.createElement('svg', { width: s, height: s, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: sw, strokeLinecap: 'round', strokeLinejoin: 'round' },
+    (Array.isArray(d) ? d : [d]).map((p, i) => React.createElement('path', { key: i, d: p })));
+const ICONS = {
+  check: 'M20 6 9 17l-5-5',
+  plus: 'M12 5v14M5 12h14',
+  trash: ['M3 6h18', 'M8 6V4h8v2', 'M19 6l-1 14H6L5 6', 'M10 11v6M14 11v6'],
+  chevL: 'M15 18l-6-6 6-6',
+  chevR: 'M9 18l6-6-6-6',
+  lock: ['M5 11h14v10H5z', 'M8 11V7a4 4 0 0 1 8 0v4'],
+  save: ['M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z', 'M17 21v-8H7v8M7 3v5h8'],
+  info: ['M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20', 'M12 16v-4M12 8h.01'],
+  layers: ['M12 2 2 7l10 5 10-5-10-5z', 'M2 17l10 5 10-5', 'M2 12l10 5 10-5'],
+};
+
+/* ============================================================
+   Primitives (copied from the organizer kit — kept in sync)
+   ============================================================ */
+
+function Button({ variant = 'primary', size = 'md', block = false, disabled = false, type = 'button', iconLeft = null, iconRight = null, onClick, children, style, ...rest }) {
+  const [state, setState] = useState('idle');
+  const heights = { sm: 'var(--control-sm)', md: 'var(--control-md)', lg: 'var(--control-lg)' };
+  const pads = { sm: '0 12px', md: '0 16px', lg: '0 22px' };
+  const fontSizes = { sm: '12px', md: '13px', lg: '15px' };
+  const base = { display: block ? 'flex' : 'inline-flex', width: block ? '100%' : 'auto', alignItems: 'center', justifyContent: 'center', gap: '8px', height: heights[size], padding: pads[size], font: `var(--fw-semibold) ${fontSizes[size]}/1 var(--font-sans)`, letterSpacing: '0.01em', borderRadius: 'var(--r-1)', border: 'var(--bw) solid var(--line-strong)', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.4 : 1, transition: 'transform var(--dur-1) var(--ease-standard), background var(--dur-1) var(--ease-standard)', userSelect: 'none', whiteSpace: 'nowrap' };
+  const palettes = {
+    primary: { idle: { background: 'var(--ink-0)', color: 'var(--paper-1)' }, hover: { background: '#33302A', color: 'var(--paper-1)' }, active: { background: '#000', color: 'var(--paper-1)', transform: 'translateY(1px)' } },
+    secondary: { idle: { background: 'var(--paper-2)', color: 'var(--ink-0)' }, hover: { background: 'var(--paper-0)', color: 'var(--ink-0)' }, active: { background: 'var(--line-soft)', color: 'var(--ink-0)' } },
+    ghost: { idle: { background: 'transparent', color: 'var(--ink-0)', borderColor: 'transparent' }, hover: { background: 'var(--paper-0)', color: 'var(--ink-0)', borderColor: 'var(--line)' }, active: { background: 'var(--line-soft)', color: 'var(--ink-0)', borderColor: 'var(--line)' } },
+    danger: { idle: { background: 'var(--status-danger)', color: '#fff' }, hover: { background: '#8A002C', color: '#fff' }, active: { background: '#750025', color: '#fff', transform: 'translateY(1px)' } },
+  };
+  const p = palettes[variant] || palettes.primary;
+  const s = disabled ? p.idle : p[state];
+  return React.createElement('button', { type, disabled, onClick, onMouseEnter: () => !disabled && setState('hover'), onMouseLeave: () => !disabled && setState('idle'), onMouseDown: () => !disabled && setState('active'), onMouseUp: () => !disabled && setState('hover'), style: { ...base, ...s, ...style }, ...rest }, iconLeft, children, iconRight);
+}
+
+function Checkbox({ label, checked, defaultChecked, disabled = false, onChange, style, ...rest }) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = useState(!!defaultChecked);
+  const on = isControlled ? checked : internal;
+  const toggle = (e) => { if (disabled) return; if (!isControlled) setInternal(e.target.checked); onChange && onChange(e); };
+  return React.createElement('label', { style: { display: 'inline-flex', alignItems: 'center', gap: '10px', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.45 : 1, font: 'var(--fw-regular) 14px/1 var(--font-sans)', color: 'var(--ink-0)', ...style } },
+    React.createElement('span', { style: { position: 'relative', display: 'inline-flex', width: 18, height: 18 } },
+      React.createElement('input', { type: 'checkbox', checked: on, disabled, onChange: toggle, style: { position: 'absolute', opacity: 0, width: 18, height: 18, margin: 0, cursor: 'inherit' }, ...rest }),
+      React.createElement('span', { style: { width: 18, height: 18, background: on ? 'var(--ink-0)' : 'var(--paper-2)', border: `var(--bw) solid ${on ? 'var(--line-strong)' : 'var(--line)'}`, borderRadius: 'var(--r-1)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'var(--transition-ui)' } },
+        on && React.createElement('svg', { width: 12, height: 12, viewBox: '0 0 12 12', fill: 'none', stroke: 'var(--paper-1)', strokeWidth: 2.4, strokeLinecap: 'square' }, React.createElement('path', { d: 'M2.5 6.2 L5 8.6 L9.5 3.5' })))),
+    label && React.createElement('span', null, label));
+}
+
+function Switch({ label, checked, defaultChecked, disabled = false, onChange, style, ...rest }) {
+  const isControlled = checked !== undefined;
+  const [internal, setInternal] = useState(!!defaultChecked);
+  const on = isControlled ? checked : internal;
+  const toggle = (e) => { if (disabled) return; if (!isControlled) setInternal(e.target.checked); onChange && onChange(e); };
+  return React.createElement('label', { style: { display: 'inline-flex', alignItems: 'center', gap: '10px', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.45 : 1, font: 'var(--fw-regular) 14px/1 var(--font-sans)', color: 'var(--ink-0)', ...style } },
+    React.createElement('span', { style: { position: 'relative', display: 'inline-flex', width: 40, height: 22 } },
+      React.createElement('input', { type: 'checkbox', checked: on, disabled, onChange: toggle, style: { position: 'absolute', opacity: 0, width: 40, height: 22, margin: 0, cursor: 'inherit' }, ...rest }),
+      React.createElement('span', { style: { width: 40, height: 22, background: on ? 'var(--ink-0)' : 'var(--paper-0)', border: 'var(--bw) solid var(--line-strong)', borderRadius: 'var(--r-pill)', transition: 'background var(--dur-1) var(--ease-standard)', display: 'flex', alignItems: 'center' } },
+        React.createElement('span', { style: { position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: on ? 20 : 2, width: 16, height: 16, background: on ? 'var(--paper-1)' : 'var(--ink-0)', border: 'var(--bw) solid var(--line-strong)', borderRadius: 'var(--r-pill)', transition: 'left var(--dur-1) var(--ease-standard)' } }))),
+    label && React.createElement('span', null, label));
+}
+
+function Card({ eyebrow, title, action = null, padded = true, children, style, ...rest }) {
+  return React.createElement('section', { style: { background: 'var(--paper-2)', border: 'var(--bw) solid var(--line-strong)', borderRadius: 'var(--r-2)', display: 'flex', flexDirection: 'column', overflow: 'hidden', ...style }, ...rest },
+    (eyebrow || title || action) && React.createElement('header', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '12px 16px', borderBottom: '1px solid var(--line)' } },
+      React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 } },
+        eyebrow && React.createElement('span', { style: { font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' } }, eyebrow),
+        title && React.createElement('span', { style: { font: '600 16px/1.2 var(--font-display)', letterSpacing: '-0.01em', color: 'var(--ink-0)' } }, title)),
+      action),
+    React.createElement('div', { style: { padding: padded ? 'var(--card-pad)' : 0, flex: 1 } }, children));
+}
+
+function Tag({ children, accent = false, style, ...rest }) {
+  return React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, height: 20, padding: '0 8px', borderRadius: 'var(--r-1)', border: `1px solid ${accent ? 'var(--accent-line)' : 'var(--line)'}`, background: accent ? 'var(--accent-soft)' : 'var(--paper-1)', color: accent ? 'var(--accent-press)' : 'var(--ink-1)', font: '500 11px/1 var(--font-mono)', letterSpacing: '0.02em', whiteSpace: 'nowrap', ...style }, ...rest }, children);
+}
+
+function Banner({ tone = 'info', title, children, action = null, onDismiss, style, ...rest }) {
+  const tones = {
+    info: { bar: 'var(--ink-0)', bg: 'var(--paper-2)', border: 'var(--line)' },
+    danger: { bar: 'var(--status-danger)', bg: 'var(--status-danger-soft)', border: 'var(--status-danger)' },
+    warn: { bar: 'var(--status-warn)', bg: 'var(--status-warn-soft)', border: 'var(--status-warn)' },
+  };
+  const t = tones[tone] || tones.info;
+  return React.createElement('div', { role: 'status', style: { display: 'flex', alignItems: 'flex-start', gap: 12, padding: '11px 14px', background: t.bg, border: `1px solid ${t.border}`, borderLeft: `3px solid ${t.bar}`, borderRadius: 'var(--r-1)', ...style }, ...rest },
+    React.createElement('div', { style: { flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 } },
+      title && React.createElement('span', { style: { font: '600 13px/1.3 var(--font-sans)', color: 'var(--ink-0)' } }, title),
+      children && React.createElement('span', { style: { font: '400 13px/1.45 var(--font-sans)', color: 'var(--ink-1)' } }, children)),
+    action,
+    onDismiss && React.createElement('button', { type: 'button', onClick: onDismiss, 'aria-label': 'Ausblenden', style: { border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--ink-2)', font: '700 14px/1 var(--font-mono)', padding: 0, marginTop: -1 } }, '\u00d7'));
+}
+
+/* ---------- form field wrappers ---------- */
+const monoLabel = { font: 'var(--fw-semibold) 11px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)' };
+
+function Field({ label, hint, required, children, style }) {
+  return React.createElement('label', { style: { display: 'flex', flexDirection: 'column', gap: 6, ...style } },
+    label && React.createElement('span', { style: monoLabel }, label, required && React.createElement('span', { style: { color: 'var(--accent)', marginLeft: 4 } }, '\u2217')),
+    children,
+    hint && React.createElement('span', { style: { font: '400 11px/1.3 var(--font-sans)', color: 'var(--ink-2)' } }, hint));
+}
+
+function TextInput({ mono, suffix, ...rest }) {
+  const [focus, setFocus] = useState(false);
+  return React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 8, height: 'var(--control-md)', background: 'var(--paper-2)', border: `${focus ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${focus ? 'var(--ink-0)' : 'var(--line)'}`, borderRadius: 'var(--r-1)', padding: '0 10px', transition: 'border-color var(--dur-1) var(--ease-standard)' } },
+    React.createElement('input', { onFocus: () => setFocus(true), onBlur: () => setFocus(false), style: { flex: 1, minWidth: 0, border: 'none', outline: 'none', background: 'transparent', font: mono ? '500 13px/1.4 var(--font-mono)' : '400 14px/1.4 var(--font-sans)', color: 'var(--ink-0)' }, ...rest }),
+    suffix && React.createElement('span', { style: { color: 'var(--ink-2)', font: '600 12px/1 var(--font-mono)' } }, suffix));
+}
+
+function TextArea(props) {
+  const [focus, setFocus] = useState(false);
+  return React.createElement('textarea', { onFocus: () => setFocus(true), onBlur: () => setFocus(false), rows: 3, style: { resize: 'vertical', minHeight: 74, padding: '9px 10px', background: 'var(--paper-2)', border: `${focus ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${focus ? 'var(--ink-0)' : 'var(--line)'}`, borderRadius: 'var(--r-1)', font: '400 14px/1.5 var(--font-sans)', color: 'var(--ink-0)', outline: 'none', transition: 'border-color var(--dur-1) var(--ease-standard)' }, ...props });
+}
+
+function NativeSelect({ options = [], compact, ...rest }) {
+  const [focus, setFocus] = useState(false);
+  const norm = options.map(o => (typeof o === 'string' ? { value: o, label: o } : o));
+  return React.createElement('div', { style: { position: 'relative', display: 'flex' } },
+    React.createElement('select', { onFocus: () => setFocus(true), onBlur: () => setFocus(false), style: { appearance: 'none', WebkitAppearance: 'none', width: '100%', height: compact ? 'var(--control-sm)' : 'var(--control-md)', padding: '0 30px 0 10px', background: 'var(--paper-2)', border: `${focus ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${focus ? 'var(--ink-0)' : 'var(--line)'}`, borderRadius: 'var(--r-1)', font: '400 13px/1 var(--font-sans)', color: 'var(--ink-0)', cursor: 'pointer', outline: 'none', transition: 'border-color var(--dur-1) var(--ease-standard)' }, ...rest },
+      norm.map(o => React.createElement('option', { key: o.value, value: o.value }, o.label))),
+    React.createElement('span', { style: { position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--ink-1)', font: '700 9px/1 var(--font-mono)' } }, '\u25bc'));
+}
+
+/* ---------- segmented control ---------- */
+function Segmented({ options = [], value, onChange, style }) {
+  return React.createElement('div', { style: { display: 'inline-flex', border: 'var(--bw) solid var(--line-strong)', borderRadius: 'var(--r-1)', overflow: 'hidden', ...style } },
+    options.map((o, i) => {
+      const on = o.value === value;
+      return React.createElement('button', { key: o.value, type: 'button', onClick: () => onChange(o.value), style: { flex: 1, height: 'var(--control-md)', padding: '0 16px', border: 'none', borderLeft: i === 0 ? 'none' : '1px solid var(--line-strong)', background: on ? 'var(--ink-0)' : 'var(--paper-2)', color: on ? 'var(--paper-1)' : 'var(--ink-1)', font: `${on ? 600 : 500} 12px/1 var(--font-mono)`, letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background var(--dur-1) var(--ease-standard)' } }, o.label);
+    }));
+}
+
+/* ---------- radio option card (policy pattern) ---------- */
+function OptionCard({ selected, title, caption, onClick, style }) {
+  const [hover, setHover] = useState(false);
+  return React.createElement('button', { type: 'button', onClick, onMouseEnter: () => setHover(true), onMouseLeave: () => setHover(false), style: { textAlign: 'left', display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', background: selected ? 'var(--paper-0)' : 'var(--paper-2)', border: `var(--bw) solid ${selected ? 'var(--line-strong)' : 'var(--line)'}`, borderLeft: `3px solid ${selected ? 'var(--ink-0)' : (hover ? 'var(--line)' : 'var(--line)')}`, borderRadius: 'var(--r-2)', cursor: 'pointer', transition: 'var(--transition-ui)', ...style } },
+    React.createElement('span', { style: { flex: '0 0 16px', width: 16, height: 16, marginTop: 1, borderRadius: '50%', border: `var(--bw) solid ${selected ? 'var(--ink-0)' : 'var(--line)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+      selected && React.createElement('span', { style: { width: 8, height: 8, borderRadius: '50%', background: 'var(--ink-0)' } })),
+    React.createElement('span', { style: { display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 } },
+      React.createElement('span', { style: { font: '600 13px/1.2 var(--font-sans)', color: 'var(--ink-0)' } }, title),
+      caption && React.createElement('span', { style: { font: '400 12px/1.4 var(--font-sans)', color: 'var(--ink-2)' } }, caption)));
+}
+
+/* ---------- preset card (rules pattern) ---------- */
+function PresetCard({ selected, code, title, meta, onClick, style }) {
+  const [hover, setHover] = useState(false);
+  return React.createElement('button', { type: 'button', onClick, onMouseEnter: () => setHover(true), onMouseLeave: () => setHover(false), style: { textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 8, padding: '13px 14px', minHeight: 92, background: selected ? 'var(--paper-0)' : 'var(--paper-2)', border: `${selected ? 'var(--bw-heavy)' : 'var(--bw)'} solid ${selected ? 'var(--line-strong)' : 'var(--line)'}`, borderRadius: 'var(--r-2)', boxShadow: selected ? 'var(--shadow-block)' : 'none', cursor: 'pointer', transition: 'var(--transition-ui)', transform: selected ? 'translate(-1px,-1px)' : (hover ? 'translateY(-1px)' : 'none'), ...style } },
+    React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
+      React.createElement('span', { style: { font: '600 13px/1.2 var(--font-sans)', color: 'var(--ink-0)' } }, title),
+      React.createElement('span', { style: { flex: '0 0 14px', width: 14, height: 14, borderRadius: '50%', border: `var(--bw) solid ${selected ? 'var(--ink-0)' : 'var(--line)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' } }, selected && React.createElement('span', { style: { width: 7, height: 7, borderRadius: '50%', background: 'var(--ink-0)' } }))),
+    React.createElement('span', { style: { font: '400 11.5px/1.5 var(--font-sans)', color: 'var(--ink-2)', flex: 1 } }, meta),
+    React.createElement('span', { style: { font: '600 9px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' } }, code));
+}
+
+/* ---------- repeatable-row shell ---------- */
+function RowShell({ children, onRemove }) {
+  return React.createElement('div', { style: { display: 'flex', alignItems: 'flex-end', gap: 10, padding: '10px 12px', background: 'var(--paper-1)', border: '1px solid var(--line)', borderRadius: 'var(--r-1)' } },
+    children,
+    React.createElement('button', { type: 'button', onClick: onRemove, title: 'Entfernen', 'aria-label': 'Entfernen', style: { flex: '0 0 34px', width: 34, height: 34, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--paper-2)', border: '1px solid var(--line)', borderRadius: 'var(--r-1)', color: 'var(--ink-2)', cursor: 'pointer' } }, React.createElement(Ico, { d: ICONS.trash, s: 15 })));
+}
+function AddButton({ children, onClick }) {
+  return React.createElement('button', { type: 'button', onClick, style: { display: 'inline-flex', alignItems: 'center', gap: 8, alignSelf: 'flex-start', height: 'var(--control-sm)', padding: '0 12px', background: 'transparent', border: '1px dashed var(--line-strong)', borderRadius: 'var(--r-1)', color: 'var(--ink-0)', font: '600 12px/1 var(--font-mono)', letterSpacing: '0.02em', cursor: 'pointer' } }, React.createElement(Ico, { d: ICONS.plus, s: 14 }), children);
+}
+const grid2 = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 };
+const stack = { display: 'flex', flexDirection: 'column', gap: 16 };
+const groupLabel = { font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--ink-2)', paddingBottom: 4, borderBottom: '1px solid var(--line)' };
+
+/* ============================================================
+   Lifecycle strip
+   ============================================================ */
+const LIFECYCLE = [
+  { key: 'DRAFT', label: 'Entwurf' },
+  { key: 'PUBLISHED', label: 'Ver\u00f6ffentlicht' },
+  { key: 'REGISTRATION_OPEN', label: 'Anmeldung' },
+  { key: 'LOCKED', label: 'Gesperrt' },
+  { key: 'IN_PROGRESS', label: 'L\u00e4uft' },
+  { key: 'COMPLETED', label: 'Abgeschlossen' },
+];
+function LifecycleStrip() {
+  return React.createElement('div', { style: { display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 6, rowGap: 6, justifyContent: 'flex-end' } },
+    LIFECYCLE.map((s, i) => {
+      const active = i === 0;
+      return React.createElement(React.Fragment, { key: s.key },
+        i > 0 && React.createElement('span', { style: { color: 'var(--ink-2)', font: '600 10px/1 var(--font-mono)' } }, '\u2192'),
+        React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, height: 24, padding: '0 10px', borderRadius: 'var(--r-1)', background: active ? 'var(--ink-0)' : 'var(--paper-1)', border: `1px ${active ? 'solid' : 'dashed'} ${active ? 'var(--line-strong)' : 'var(--line)'}`, color: active ? 'var(--paper-1)' : 'var(--ink-2)', font: `${active ? 600 : 500} 10px/1 var(--font-mono)`, letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', whiteSpace: 'nowrap' } },
+          !active && React.createElement(Ico, { d: ICONS.lock, s: 11, sw: 2 }),
+          s.label));
+    }));
+}
+
+/* ============================================================
+   Step definitions
+   ============================================================ */
+const STEPS = [
+  { n: '01', id: 'basics', title: 'Grundlagen', sub: 'Name, Sichtbarkeit' },
+  { n: '02', id: 'schedule', title: 'Zeitplan', sub: 'Zeitraum, Anmeldung' },
+  { n: '03', id: 'venue', title: 'Austragungsort', sub: 'Hallen, Felder' },
+  { n: '04', id: 'disciplines', title: 'Disziplinen', sub: 'Kategorien, Brackets' },
+  { n: '05', id: 'capacity', title: 'Kapazit\u00e4t', sub: 'Teilnehmerzahl' },
+  { n: '06', id: 'policies', title: 'Richtlinien', sub: 'Anmeldung, Zuteilung' },
+  { n: '07', id: 'rules', title: 'Regeln', sub: 'Z\u00e4hlweise, Seeding' },
+];
+
+const FORMATS = [
+  { value: 'KAISER', label: 'Kaiser-System' },
+  { value: 'SWISS', label: 'Schweizer System' },
+  { value: 'KO_POULE', label: 'KO-Poule' },
+  { value: 'KO_ABC', label: 'KO A/B/C' },
+  { value: 'ROUND_ROBIN', label: 'Round Robin' },
+  { value: 'KING_OF_THE_COURT', label: 'King of the Court' },
+  { value: 'LOTTERY', label: 'Losverfahren' },
+  { value: 'RANKING', label: 'Rangliste' },
+];
+
+/* ============================================================
+   Step bodies
+   ============================================================ */
+function StepBasics() {
+  const [vis, setVis] = useState('ORGANIZATION');
+  return React.createElement('div', { style: stack },
+    React.createElement(Field, { label: 'Turniername', required: true, hint: 'Pflichtfeld \u00b7 max. 200 Zeichen' },
+      React.createElement(TextInput, { defaultValue: 'Stadtmeisterschaft 2026', maxLength: 200, placeholder: 'z.\u2009B. Stadtmeisterschaft 2026' })),
+    React.createElement(Field, { label: 'Sichtbarkeit', required: true },
+      React.createElement(Segmented, { value: vis, onChange: setVis, options: [{ value: 'PRIVATE', label: 'Privat' }, { value: 'ORGANIZATION', label: 'Organisation' }, { value: 'PUBLIC', label: '\u00d6ffentlich' }] })),
+    React.createElement(Field, { label: 'Beschreibung', hint: 'Optional' },
+      React.createElement(TextArea, { placeholder: 'Kurzbeschreibung f\u00fcr Teilnehmer und Zuschauer\u2026' })),
+    React.createElement(Field, { label: 'Sprache', style: { maxWidth: 260 } },
+      React.createElement(NativeSelect, { defaultValue: 'de-DE', options: [{ value: 'de-DE', label: 'Deutsch (de-DE)' }, { value: 'en-US', label: 'English (en-US)' }, { value: 'fr-FR', label: 'Fran\u00e7ais (fr-FR)' }] })));
+}
+
+function StepSchedule() {
+  const [windows, setWindows] = useState([{ id: 1 }]);
+  return React.createElement('div', { style: stack },
+    React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 12 } },
+      React.createElement('span', { style: groupLabel }, 'Turnier-Zeitraum'),
+      React.createElement('div', { style: grid2 },
+        React.createElement(Field, { label: 'Beginn' }, React.createElement(TextInput, { type: 'datetime-local', defaultValue: '2026-03-14T09:00' })),
+        React.createElement(Field, { label: 'Ende', hint: 'Muss nach dem Beginn liegen' }, React.createElement(TextInput, { type: 'datetime-local', defaultValue: '2026-03-14T18:00' })))),
+    React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 12 } },
+      React.createElement('span', { style: groupLabel }, 'Anmeldefenster'),
+      windows.map((w, i) => React.createElement(RowShell, { key: w.id, onRemove: () => setWindows(windows.filter(x => x.id !== w.id)) },
+        React.createElement(Field, { label: 'Von', style: { flex: 1 } }, React.createElement(TextInput, { type: 'datetime-local' })),
+        React.createElement(Field, { label: 'Bis', style: { flex: 1 } }, React.createElement(TextInput, { type: 'datetime-local' })))),
+      React.createElement(AddButton, { onClick: () => setWindows([...windows, { id: Date.now() }]) }, 'Anmeldefenster')));
+}
+
+function VenueBlock({ hall, index, isPrimary, canRemove, onMakePrimary, onRemove }) {
+  const [courts, setCourts] = useState(hall.courts || [{ id: 1, label: 'Feld 1' }]);
+  const avail = [{ value: 'AVAILABLE', label: 'Verf\u00fcgbar' }, { value: 'IN_USE', label: 'Belegt' }, { value: 'UNAVAILABLE', label: 'Gesperrt' }];
+  const type = [{ value: 'STANDARD', label: 'Standard' }, { value: 'SINGLES_ONLY', label: 'Nur Einzel' }];
+  return React.createElement('div', { style: { border: `${isPrimary ? 'var(--bw-heavy)' : 'var(--bw)'} solid var(--line-strong)`, borderRadius: 'var(--r-2)', overflow: 'hidden' } },
+    React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, padding: '9px 12px', background: 'var(--paper-1)', borderBottom: '1px solid var(--line)' } },
+      React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 8, font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-1)' } }, React.createElement(Ico, { d: ICONS.layers, s: 14 }), 'HALLE ' + String(index + 1).padStart(2, '0')),
+      React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
+        React.createElement('button', { type: 'button', onClick: onMakePrimary, style: { display: 'inline-flex', alignItems: 'center', gap: 6, height: 26, padding: '0 10px', borderRadius: 'var(--r-1)', border: `var(--bw) solid ${isPrimary ? 'var(--line-strong)' : 'var(--line)'}`, background: isPrimary ? 'var(--ink-0)' : 'var(--paper-2)', color: isPrimary ? 'var(--paper-1)' : 'var(--ink-1)', font: `${isPrimary ? 600 : 500} 10px/1 var(--font-mono)`, letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', cursor: 'pointer' } },
+          isPrimary && React.createElement(Ico, { d: ICONS.check, s: 12, sw: 2.4 }), 'Haupthalle'),
+        canRemove && React.createElement('button', { type: 'button', onClick: onRemove, 'aria-label': 'Halle entfernen', style: { width: 28, height: 28, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--paper-2)', border: '1px solid var(--line)', borderRadius: 'var(--r-1)', color: 'var(--ink-2)', cursor: 'pointer' } }, React.createElement(Ico, { d: ICONS.trash, s: 14 })))),
+    React.createElement('div', { style: { padding: 14, display: 'flex', flexDirection: 'column', gap: 14 } },
+      React.createElement(Field, { label: 'Bezeichnung' }, React.createElement(TextInput, { defaultValue: hall.name, placeholder: 'Name der Halle' })),
+      React.createElement(Field, { label: 'Stra\u00dfe und Hausnummer' }, React.createElement(TextInput, { defaultValue: hall.street, placeholder: 'Turnierstra\u00dfe 12' })),
+      React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '140px 1fr', gap: 12 } },
+        React.createElement(Field, { label: 'PLZ', hint: 'Genau 5 Ziffern' }, React.createElement(TextInput, { mono: true, maxLength: 5, inputMode: 'numeric', defaultValue: hall.plz, placeholder: '10115' })),
+        React.createElement(Field, { label: 'Stadt' }, React.createElement(TextInput, { defaultValue: hall.city, placeholder: 'Berlin' }))),
+      React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 200px', gap: 12 } },
+        React.createElement(Field, { label: 'Personen-Kapazit\u00e4t', hint: 'Einheit erforderlich, wenn Menge gesetzt' }, React.createElement(TextInput, { mono: true, inputMode: 'numeric', defaultValue: hall.cap, placeholder: '500' })),
+        React.createElement(Field, { label: 'Einheit' }, React.createElement(NativeSelect, { defaultValue: 'PEOPLE', options: [{ value: 'PEOPLE', label: 'Personen' }, { value: 'SEATS', label: 'Sitzpl\u00e4tze' }] }))),
+      React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 4 } },
+        React.createElement('span', { style: { font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' } }, 'FELDER'),
+        courts.map(c => React.createElement(RowShell, { key: c.id, onRemove: () => setCourts(courts.filter(x => x.id !== c.id)) },
+          React.createElement(Field, { label: 'Bezeichnung', style: { flex: 1.4 } }, React.createElement(TextInput, { defaultValue: c.label, placeholder: 'Feld \u2026' })),
+          React.createElement(Field, { label: 'Verf\u00fcgbarkeit', style: { flex: 1 } }, React.createElement(NativeSelect, { defaultValue: c.avail, options: avail })),
+          React.createElement(Field, { label: 'Typ', style: { flex: 1 } }, React.createElement(NativeSelect, { options: type })))),
+        React.createElement(AddButton, { onClick: () => setCourts([...courts, { id: Date.now(), label: '' }]) }, 'Feld'))));
+}
+
+function StepVenue() {
+  const [halls, setHalls] = useState([
+    { id: 1, name: 'Sporthalle Nord', street: 'Turnierstra\u00dfe 12', plz: '10115', city: 'Berlin', cap: '500', courts: [{ id: 11, label: 'Feld 1', avail: 'IN_USE' }, { id: 12, label: 'Feld 2', avail: 'IN_USE' }, { id: 13, label: 'Feld 3', avail: 'AVAILABLE' }] },
+  ]);
+  const [primary, setPrimary] = useState(1);
+  return React.createElement('div', { style: stack },
+    halls.map((h, i) => React.createElement(VenueBlock, { key: h.id, hall: h, index: i, isPrimary: h.id === primary, canRemove: halls.length > 1, onMakePrimary: () => setPrimary(h.id), onRemove: () => { const rest = halls.filter(x => x.id !== h.id); setHalls(rest); if (h.id === primary && rest[0]) setPrimary(rest[0].id); } })),
+    React.createElement(AddButton, { onClick: () => setHalls([...halls, { id: Date.now(), name: '', courts: [{ id: Date.now() + 1, label: 'Feld 1' }] }]) }, 'Halle'));
+}
+
+function DisciplineBlock({ d, onRemove }) {
+  const [brackets, setBrackets] = useState(d.brackets || [{ id: 1, name: 'A-Bracket', format: 'SWISS' }]);
+  const cat = [{ value: 'SINGLES', label: 'Einzel' }, { value: 'DOUBLES', label: 'Doppel' }, { value: 'MIXED', label: 'Mixed' }];
+  const team = [{ value: 'SINGLES', label: '1 (Einzel)' }, { value: 'DOUBLES', label: '2 (Doppel)' }];
+  return React.createElement('div', { style: { border: 'var(--bw) solid var(--line-strong)', borderRadius: 'var(--r-2)', overflow: 'hidden' } },
+    React.createElement('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, padding: '9px 12px', background: 'var(--paper-1)', borderBottom: '1px solid var(--line)' } },
+      React.createElement('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 8, font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-1)' } }, React.createElement(Ico, { d: ICONS.layers, s: 14 }), 'DISZIPLIN'),
+      React.createElement('button', { type: 'button', onClick: onRemove, 'aria-label': 'Disziplin entfernen', style: { width: 28, height: 28, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--paper-2)', border: '1px solid var(--line)', borderRadius: 'var(--r-1)', color: 'var(--ink-2)', cursor: 'pointer' } }, React.createElement(Ico, { d: ICONS.trash, s: 14 }))),
+    React.createElement('div', { style: { padding: 14, display: 'flex', flexDirection: 'column', gap: 14 } },
+      React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 } },
+        React.createElement(Field, { label: 'Kategorie' }, React.createElement(NativeSelect, { defaultValue: d.category, options: cat })),
+        React.createElement(Field, { label: 'Anzeigename' }, React.createElement(TextInput, { defaultValue: d.name, placeholder: 'z.\u2009B. Mixed Doppel' })),
+        React.createElement(Field, { label: 'Teamgr\u00f6\u00dfe' }, React.createElement(NativeSelect, { defaultValue: d.team, options: team }))),
+      React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10, paddingTop: 4 } },
+        React.createElement('span', { style: { font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' } }, 'BRACKETS'),
+        brackets.map(b => React.createElement(RowShell, { key: b.id, onRemove: () => setBrackets(brackets.filter(x => x.id !== b.id)) },
+          React.createElement(Field, { label: 'Anzeigename', style: { flex: '1.4' } }, React.createElement(TextInput, { defaultValue: b.name, placeholder: 'A-Bracket' })),
+          React.createElement(Field, { label: 'Format', style: { flex: 1.2 } }, React.createElement(NativeSelect, { defaultValue: b.format, options: FORMATS })),
+          React.createElement(Field, { label: 'Kapazit\u00e4t', style: { flex: '0 0 96px' } }, React.createElement(TextInput, { mono: true, inputMode: 'numeric', defaultValue: b.cap, placeholder: '16' })))),
+        React.createElement(AddButton, { onClick: () => setBrackets([...brackets, { id: Date.now(), format: 'SWISS' }]) }, 'Bracket'))));
+}
+
+function StepDisciplines() {
+  const [list, setList] = useState([
+    { id: 1, category: 'MIXED', name: 'Mixed Doppel', team: 'DOUBLES', brackets: [{ id: 11, name: 'A-Bracket', format: 'SWISS', cap: 16 }] },
+    { id: 2, category: 'SINGLES', name: 'Herren-Einzel', team: 'SINGLES', brackets: [{ id: 21, name: 'Hauptfeld', format: 'KO_ABC', cap: 32 }] },
+  ]);
+  return React.createElement('div', { style: stack },
+    list.map(d => React.createElement(DisciplineBlock, { key: d.id, d, onRemove: () => setList(list.filter(x => x.id !== d.id)) })),
+    React.createElement(AddButton, { onClick: () => setList([...list, { id: Date.now(), category: 'SINGLES', name: '', team: 'SINGLES', brackets: [] }]) }, 'Disziplin'));
+}
+
+function StepCapacity() {
+  return React.createElement('div', { style: stack },
+    React.createElement(Banner, { tone: 'info', title: 'Menge und Einheit werden als Paar gepr\u00fcft.' }, 'Eine Menge ohne Einheit (oder umgekehrt) wird abgelehnt.'),
+    React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 220px', gap: 14, maxWidth: 460 } },
+      React.createElement(Field, { label: 'Maximale Kapazit\u00e4t', hint: 'Positive ganze Zahl' }, React.createElement(TextInput, { mono: true, inputMode: 'numeric', defaultValue: '64', placeholder: '64' })),
+      React.createElement(Field, { label: 'Einheit' }, React.createElement(NativeSelect, { defaultValue: 'PARTICIPANTS', options: [{ value: 'PARTICIPANTS', label: 'Teilnehmer' }, { value: 'PEOPLE', label: 'Personen' }] }))));
+}
+
+function PolicyGroup({ label, value, onChange, options }) {
+  return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
+    React.createElement('span', { style: groupLabel }, label),
+    React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 } },
+      options.map(o => React.createElement(OptionCard, { key: o.value, selected: value === o.value, title: o.title, caption: o.caption, onClick: () => onChange(o.value) }))));
+}
+function StepPolicies() {
+  const [reg, setReg] = useState('OPEN');
+  const [sched, setSched] = useState('ROUND_PACING');
+  const [court, setCourt] = useState('FILL_LOWEST_NUMBER_FIRST');
+  return React.createElement('div', { style: stack },
+    React.createElement(PolicyGroup, { label: 'Anmeldung', value: reg, onChange: setReg, options: [
+      { value: 'OPEN', title: 'Offen', caption: 'Jede berechtigte Person kann sich anmelden.' },
+      { value: 'INVITE_ONLY', title: 'Nur auf Einladung', caption: 'Anmeldung ausschlie\u00dflich mit Einladungscode.' }] }),
+    React.createElement(PolicyGroup, { label: 'Ablaufsteuerung', value: sched, onChange: setSched, options: [
+      { value: 'MAX_PARALLEL_MATCHES', title: 'Max. parallele Spiele', caption: 'Anzahl gleichzeitig laufender Spiele begrenzen.' },
+      { value: 'ROUND_PACING', title: 'Runden-Takt', caption: 'Runden in festem Takt starten.' }] }),
+    React.createElement(PolicyGroup, { label: 'Feldzuteilung', value: court, onChange: setCourt, options: [
+      { value: 'SEQUENTIAL', title: 'Sequenziell', caption: 'Felder der Reihe nach belegen.' },
+      { value: 'FILL_LOWEST_NUMBER_FIRST', title: 'Niedrigstes zuerst', caption: 'Immer das niedrigste freie Feld belegen.' }] }));
+}
+
+function StepRules() {
+  const [scoring, setScoring] = useState('TWO_BY_TWENTY_ONE');
+  const [tie, setTie] = useState('HEAD_TO_HEAD');
+  const [dur, setDur] = useState('BEST_OF_N_GAMES');
+  const [seed, setSeed] = useState('RATING_BASED');
+  return React.createElement('div', { style: stack },
+    React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
+      React.createElement('span', { style: groupLabel }, 'Z\u00e4hlweise'),
+      React.createElement('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 } },
+        React.createElement(PresetCard, { code: 'TWO_BY_TWENTY_ONE', selected: scoring === 'TWO_BY_TWENTY_ONE', title: '2\u00d721', meta: '21 pro Satz \u00b7 Best-of-3 \u00b7 Zwei-Punkte-Vorsprung \u00b7 Cap 30', onClick: () => setScoring('TWO_BY_TWENTY_ONE') }),
+        React.createElement(PresetCard, { code: 'THREE_BY_FIFTEEN', selected: scoring === 'THREE_BY_FIFTEEN', title: '3\u00d715', meta: '15 pro Satz \u00b7 Best-of-3 \u00b7 Zwei-Punkte-Vorsprung \u00b7 Cap 21', onClick: () => setScoring('THREE_BY_FIFTEEN') }),
+        React.createElement(PresetCard, { code: 'CUSTOM', selected: scoring === 'CUSTOM', title: 'Benutzerdefiniert', meta: 'Eigene Werte f\u00fcr Punkte, S\u00e4tze und Cap.', onClick: () => setScoring('CUSTOM') })),
+      scoring === 'CUSTOM' && React.createElement('div', { style: { padding: 14, background: 'var(--paper-0)', border: '1px solid var(--line)', borderRadius: 'var(--r-2)', display: 'flex', flexDirection: 'column', gap: 12 } },
+        React.createElement('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 } },
+          React.createElement(Field, { label: 'Punkte / Satz' }, React.createElement(TextInput, { mono: true, defaultValue: '21' })),
+          React.createElement(Field, { label: 'S\u00e4tze / Spiel' }, React.createElement(TextInput, { mono: true, defaultValue: '3' })),
+          React.createElement(Field, { label: 'Cap' }, React.createElement(TextInput, { mono: true, defaultValue: '30' }))),
+        React.createElement(Switch, { label: 'Zwei-Punkte-Vorsprung erforderlich', defaultChecked: true }))),
+    React.createElement('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
+      React.createElement('span', { style: groupLabel }, 'Tie-Break'),
+      React.createElement('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10 } },
+        React.createElement(PresetCard, { code: 'HEAD_TO_HEAD', selected: tie === 'HEAD_TO_HEAD', title: 'Direkter Vergleich', meta: 'Ergebnis der direkten Begegnung.', onClick: () => setTie('HEAD_TO_HEAD') }),
+        React.createElement(PresetCard, { code: 'POINTS_RATIO', selected: tie === 'POINTS_RATIO', title: 'Punktverh\u00e4ltnis', meta: 'Verh\u00e4ltnis gewonnener zu verlorenen Punkten.', onClick: () => setTie('POINTS_RATIO') }),
+        React.createElement(PresetCard, { code: 'SWISS_STRENGTH', selected: tie === 'SWISS_STRENGTH', title: 'Buchholz', meta: 'St\u00e4rke der bisherigen Gegner.', onClick: () => setTie('SWISS_STRENGTH') }),
+        React.createElement(PresetCard, { code: 'CUSTOM', selected: tie === 'CUSTOM', title: 'Benutzerdefiniert', meta: 'Kriterien frei kombinieren.', onClick: () => setTie('CUSTOM') })),
+      tie === 'CUSTOM' && React.createElement('div', { style: { padding: 14, background: 'var(--paper-0)', border: '1px solid var(--line)', borderRadius: 'var(--r-2)', display: 'flex', flexDirection: 'column', gap: 10 } },
+        React.createElement(Checkbox, { label: 'Direkter Vergleich', defaultChecked: true }),
+        React.createElement(Checkbox, { label: 'Punktverh\u00e4ltnis', defaultChecked: true }),
+        React.createElement(Checkbox, { label: 'Satzverh\u00e4ltnis' }))),
+    React.createElement('div', { style: grid2 },
+      React.createElement(Field, { label: 'Spieldauer' }, React.createElement(Segmented, { value: dur, onChange: setDur, style: { width: '100%' }, options: [{ value: 'FIXED_TIMEBOX', label: 'Feste Zeit' }, { value: 'BEST_OF_N_GAMES', label: 'Nach S\u00e4tzen' }] })),
+      React.createElement(Field, { label: 'Seeding' }, React.createElement(Segmented, { value: seed, onChange: setSeed, style: { width: '100%' }, options: [{ value: 'MANUAL', label: 'Manuell' }, { value: 'RATING_BASED', label: 'Wertung' }, { value: 'RANDOM', label: 'Zufall' }] }))));
+}
+
+const BODIES = { basics: StepBasics, schedule: StepSchedule, venue: StepVenue, disciplines: StepDisciplines, capacity: StepCapacity, policies: StepPolicies, rules: StepRules };
+const HINTS = {
+  basics: 'Pflichtangaben zum Anlegen des Entwurfs.',
+  schedule: 'Zeitraum des Turniers und die Fenster f\u00fcr die Anmeldung.',
+  venue: 'Eine oder mehrere Hallen mit Adresse und Feldern \u2014 eine davon als Haupthalle.',
+  disciplines: 'Wettbewerbe und ihre Brackets \u2014 z.\u2009B. \u201eMixed Doppel A-Bracket\u201c.',
+  capacity: 'Maximale Teilnehmer- bzw. Personenzahl.',
+  policies: 'Regeln f\u00fcr Anmeldung, Ablauf und Feldzuteilung.',
+  rules: 'Z\u00e4hlweise, Tie-Break, Spieldauer und Seeding.',
+};
+
+/* ============================================================
+   App shell
+   ============================================================ */
+function App() {
+  const [step, setStep] = useState(0);
+  const [maxReached, setMaxReached] = useState(0);
+  const [conflict, setConflict] = useState(true);
+  const cur = STEPS[step];
+  const Body = BODIES[cur.id];
+  const go = (i) => { setStep(i); setMaxReached(Math.max(maxReached, i)); };
+
+  return React.createElement('div', { style: { display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' } },
+    /* top bar */
+    React.createElement('header', { style: { flex: '0 0 auto', minHeight: 'var(--topbar-h)', borderBottom: 'var(--bw) solid var(--line-strong)', background: 'var(--paper-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', gap: 20 } },
+      React.createElement('div', { style: { display: 'flex', alignItems: 'baseline', gap: 12, flex: '0 0 auto' } },
+        React.createElement('span', { style: { background: 'var(--ink-0)', color: 'var(--paper-1)', font: '700 15px/1 var(--font-display)', padding: '4px 7px', letterSpacing: '-0.02em' } }, 'RO'),
+        React.createElement('span', { style: { font: '700 17px/1 var(--font-display)', letterSpacing: '-0.03em', color: 'var(--ink-0)' } }, 'Turnier einrichten'),
+        React.createElement(Tag, { style: { marginLeft: 4 } }, 'T-2026-014')),
+      React.createElement('div', { style: { flex: 1, display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', gap: 6, rowGap: 6, minWidth: 0, padding: '10px 0' } },
+        React.createElement(LifecycleStrip))),
+
+    /* body */
+    React.createElement('div', { style: { flex: 1, display: 'flex', minHeight: 0 } },
+      /* step rail */
+      React.createElement('aside', { style: { width: 264, flex: '0 0 264px', background: 'var(--paper-2)', borderRight: 'var(--bw) solid var(--line-strong)', display: 'flex', flexDirection: 'column' } },
+        React.createElement('div', { style: { padding: '14px 16px 10px', borderBottom: '1px solid var(--line)' } },
+          React.createElement('span', { style: { font: '600 10px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' } }, 'ENTWURF \u00b7 7 SCHRITTE')),
+        React.createElement('nav', { style: { flex: 1, overflowY: 'auto', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 } },
+          STEPS.map((s, i) => {
+            const active = i === step;
+            const done = i < maxReached && !active;
+            return React.createElement('button', { key: s.id, onClick: () => go(i), style: { display: 'flex', alignItems: 'center', gap: 11, padding: '9px 10px', border: 'none', cursor: 'pointer', textAlign: 'left', background: active ? 'var(--paper-0)' : 'transparent', borderRadius: 'var(--r-1)', boxShadow: active ? 'inset 2px 0 0 var(--ink-0)' : 'none' } },
+              React.createElement('span', { style: { flex: '0 0 26px', width: 26, height: 26, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--r-1)', border: `var(--bw) solid ${active ? 'var(--line-strong)' : (done ? 'var(--accent)' : 'var(--line)')}`, background: active ? 'var(--ink-0)' : (done ? 'var(--accent-soft)' : 'var(--paper-2)'), color: active ? 'var(--paper-1)' : (done ? 'var(--accent-press)' : 'var(--ink-1)'), font: '600 11px/1 var(--font-mono)' } },
+                done ? React.createElement(Ico, { d: ICONS.check, s: 13, sw: 2.4 }) : s.n),
+              React.createElement('span', { style: { display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 } },
+                React.createElement('span', { style: { font: `${active ? 600 : 500} 13px/1.1 var(--font-sans)`, color: active ? 'var(--ink-0)' : 'var(--ink-1)' } }, s.title),
+                React.createElement('span', { style: { font: '400 10.5px/1.1 var(--font-mono)', color: 'var(--ink-2)', letterSpacing: '0.02em' } }, s.sub)));
+          })),
+        React.createElement('div', { style: { padding: '12px 16px', borderTop: '1px solid var(--line)', display: 'flex', flexDirection: 'column', gap: 6 } },
+          React.createElement('span', { style: { font: '600 9px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)' } }, 'AUDIT'),
+          React.createElement('span', { style: { font: '500 11px/1.5 var(--font-mono)', color: 'var(--ink-1)' } }, 'Version 0'),
+          React.createElement('span', { style: { font: '400 11px/1.4 var(--font-sans)', color: 'var(--ink-2)' } }, 'Zuletzt ge\u00e4ndert 14:32 \u00b7 von dir'))),
+
+      /* main column */
+      React.createElement('div', { style: { flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 } },
+        React.createElement('main', { style: { flex: 1, overflowY: 'auto', padding: 24 } },
+          React.createElement('div', { style: { maxWidth: 820, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 } },
+            conflict && React.createElement(Banner, { tone: 'danger', title: 'Konflikt \u2014 Entwurf wurde an einem anderen Desk ge\u00e4ndert', onDismiss: () => setConflict(false), action: React.createElement(Button, { size: 'sm', variant: 'secondary' }, 'Neu laden') }, 'Deine Version (0) ist nicht mehr aktuell. Neu laden, bevor du speicherst \u2014 sonst wird die Speicherung abgelehnt.'),
+            React.createElement(Card, { eyebrow: `SCHRITT ${cur.n} / 07`, title: cur.title, action: React.createElement(Tag, null, 'NUR ENTWURF') },
+              React.createElement('div', { style: { marginBottom: 18, paddingBottom: 14, borderBottom: '1px solid var(--line)' } },
+                React.createElement('span', { style: { font: '400 13px/1.5 var(--font-sans)', color: 'var(--ink-2)' } }, HINTS[cur.id])),
+              React.createElement(Body)))),
+
+        /* footer nav */
+        React.createElement('footer', { style: { flex: '0 0 auto', borderTop: 'var(--bw) solid var(--line-strong)', background: 'var(--paper-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 24px', gap: 16 } },
+          React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 12 } },
+            React.createElement(Button, { variant: 'secondary', iconLeft: React.createElement(Ico, { d: ICONS.save, s: 15 }) }, 'Entwurf speichern'),
+            React.createElement('span', { style: { font: '400 11px/1.3 var(--font-mono)', color: 'var(--ink-2)' } }, 'Speichert \u00fcber PUT /draft \u00b7 If-Match: 0')),
+          React.createElement('div', { style: { display: 'flex', alignItems: 'center', gap: 10 } },
+            React.createElement('span', { style: { font: '600 11px/1 var(--font-mono)', letterSpacing: 'var(--tracking-caps)', color: 'var(--ink-2)', marginRight: 4 } }, `${cur.n} / 07`),
+            React.createElement(Button, { variant: 'ghost', disabled: step === 0, iconLeft: React.createElement(Ico, { d: ICONS.chevL, s: 15 }), onClick: () => go(Math.max(0, step - 1)) }, 'Zur\u00fcck'),
+            step < STEPS.length - 1
+              ? React.createElement(Button, { variant: 'primary', iconRight: React.createElement(Ico, { d: ICONS.chevR, s: 15 }), onClick: () => go(step + 1) }, 'Weiter')
+              : React.createElement('div', { style: { display: 'inline-flex', alignItems: 'center', gap: 8 } },
+                  React.createElement(Button, { variant: 'primary', disabled: true, iconLeft: React.createElement(Ico, { d: ICONS.lock, s: 14 }) }, 'Ver\u00f6ffentlichen'),
+                  React.createElement(Tag, { style: { height: 22 } }, 'BALD'))))))
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script></body></html>
