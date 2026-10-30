@@ -8,15 +8,23 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournam
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.repository.TournamentRepository
 import jakarta.persistence.EntityManagerFactory
 import jakarta.persistence.RollbackException
+import java.time.Clock
+import java.time.Instant
+import java.time.ZoneOffset
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Import
+import org.springframework.context.annotation.Primary
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 
 @SpringBootTest
+@Import(DraftPersistenceIntegrationTest.FixedClockConfiguration::class)
 class DraftPersistenceIntegrationTest {
     @Autowired private lateinit var service: ConfigurationService
     @Autowired private lateinit var repository: TournamentRepository
@@ -31,6 +39,8 @@ class DraftPersistenceIntegrationTest {
     @Test
     fun `round trips replacement retaining child ids and response version timing`() {
         val created = service.createDraft(5, "Persistence Cup", Visibility.PRIVATE, 12)
+        assertThat(created.createdAt).isEqualTo(FIXED_INSTANT)
+        val storedCreation = read(created.id)
         val first = service.updateDraft(created.id, changes().copy(courts = listOf(court(0, "A"), court(0, "B"))), created.version!!, 42)
         assertThat(first.version).isEqualTo(created.version)
         val persisted = read(created.id)
@@ -41,7 +51,8 @@ class DraftPersistenceIntegrationTest {
         val replaced = read(created.id)
         assertThat(replaced.courts!!.map { it.id }).containsExactly(retainedId)
         assertThat(replaced.courts!![0].label).isEqualTo("B retained")
-        assertThat(replaced.createdAt).isEqualTo(created.createdAt)
+        // Persistence precision differs from the response's nanoseconds; compare stored values.
+        assertThat(replaced.createdAt).isEqualTo(storedCreation.createdAt)
         assertThat(replaced.createdByUserId).isEqualTo(12)
         assertThat(replaced.lastModifiedByUserId).isEqualTo(43)
     }
@@ -118,6 +129,17 @@ class DraftPersistenceIntegrationTest {
             first.close()
             second.close()
         }
+    }
+
+    @TestConfiguration(proxyBeanMethods = false)
+    class FixedClockConfiguration {
+        @Bean
+        @Primary
+        fun fixedClock(): Clock = Clock.fixed(FIXED_INSTANT, ZoneOffset.UTC)
+    }
+
+    companion object {
+        private val FIXED_INSTANT = Instant.parse("2026-10-30T10:00:00.123456789Z")
     }
 
     private fun changes() = Tournament(name = "Updated", visibility = Visibility.PUBLIC)
