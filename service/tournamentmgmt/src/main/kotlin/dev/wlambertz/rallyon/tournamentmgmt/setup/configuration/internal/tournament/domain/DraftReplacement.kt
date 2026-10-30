@@ -41,9 +41,16 @@ fun Tournament.validateReplacementAgainst(existing: Tournament) {
     validateVenue(venue)
     validateCapacity(capacity, "Tournament capacity")
     registrationWindows.orEmpty().forEach { validateTimeWindow(it, "Registration window") }
+    validateCourts(courts.orEmpty(), existing.courts.orEmpty())
+    val bracketTeams = validateDisciplines(disciplines.orEmpty())
+    participants?.let { validateRoster(it, "Tournament participants") }
+    validateBracketRosters(bracketRosters.orEmpty(), bracketTeams)
+}
+
+private fun validateCourts(courts: List<Court?>, existingCourts: List<Court?>) {
     val courtIds = mutableSetOf<Long>()
     val labels = mutableSetOf<String?>()
-    for (court in courts.orEmpty()) {
+    for (court in courts) {
         validateCourt(court)
         court!!
         if (!labels.add(court.label)) {
@@ -53,17 +60,20 @@ fun Tournament.validateReplacementAgainst(existing: Tournament) {
             if (!courtIds.add(court.id)) {
                 throw InvalidDraftUpdateException("Duplicate court id '${court.id}'")
             }
-            if (existing.courts.orEmpty().none { it?.id == court.id }) {
+            if (existingCourts.none { it?.id == court.id }) {
                 throw InvalidDraftUpdateException("Unknown court id '${court.id}'")
             }
         } else if (court.id < 0) {
             throw InvalidDraftUpdateException("Court id must not be negative")
         }
     }
+}
+
+private fun validateDisciplines(disciplines: List<DisciplineConfig?>): Map<String, TeamSize> {
     val disciplinesSeen = mutableSetOf<Long>()
     val bracketsSeen = mutableSetOf<String>()
     val bracketTeams = linkedMapOf<String, TeamSize>()
-    for (discipline in disciplines.orEmpty()) {
+    for (discipline in disciplines) {
         validateDiscipline(discipline)
         discipline!!
         if (!disciplinesSeen.add(discipline.id)) {
@@ -83,8 +93,14 @@ fun Tournament.validateReplacementAgainst(existing: Tournament) {
             bracketTeams[id] = discipline.teamSize
         }
     }
-    participants?.let { validateRoster(it, "Tournament participants") }
-    for ((id, roster) in bracketRosters.orEmpty()) {
+    return bracketTeams
+}
+
+private fun validateBracketRosters(
+    bracketRosters: Map<BracketId, ParticipantsRoster?>,
+    bracketTeams: Map<String, TeamSize>
+) {
+    for ((id, roster) in bracketRosters) {
         if (roster == null) {
             throw InvalidDraftUpdateException("Bracket roster for '${id.value}' must not be null")
         }

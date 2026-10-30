@@ -8,44 +8,17 @@ data class ScoringRules(
     val capPoints: Int?
 ) {
     init {
-        val spec = type.presetSpec
-        require(spec == null || spec.matches(pointsPerGame, gamesPerMatch, winByTwo, capPoints)) {
-            "Values must match preset definition for type $type"
+        val matchesPreset = when (type) {
+            Type.TWO_BY_TWENTY_ONE -> pointsPerGame == 21 && gamesPerMatch == 3 && winByTwo && capPoints == 30
+            Type.THREE_BY_FIFTEEN -> pointsPerGame == 15 && gamesPerMatch == 3 && winByTwo && capPoints == 21
+            Type.CUSTOM -> true
         }
+        require(matchesPreset) { "Values must match preset definition for type $type" }
     }
 
-    fun isCapPointsConsistent(): Boolean = capPoints == null || capPoints > pointsPerGame
-
-    internal data class PresetSpec(
-        val pointsPerGame: Int,
-        val gamesPerMatch: Int,
-        val winByTwo: Boolean,
-        val capPoints: Int?
-    ) {
-        fun matches(pointsPerGame: Int, gamesPerMatch: Int, winByTwo: Boolean, capPoints: Int?): Boolean =
-            this.pointsPerGame == pointsPerGame &&
-                this.gamesPerMatch == gamesPerMatch &&
-                this.winByTwo == winByTwo &&
-                this.capPoints == capPoints
-    }
-
-    enum class Type(internal val presetSpec: PresetSpec?) {
-        TWO_BY_TWENTY_ONE(PresetSpec(21, 3, true, 30)),
-        THREE_BY_FIFTEEN(PresetSpec(15, 3, true, 21)),
-        CUSTOM(null)
-    }
-
-    companion object {
-        fun twoByTwentyOne(): ScoringRules = fromPreset(Type.TWO_BY_TWENTY_ONE)
-
-        fun threeByFifteen(): ScoringRules = fromPreset(Type.THREE_BY_FIFTEEN)
-
-        fun custom(pointsPerGame: Int, gamesPerMatch: Int, winByTwo: Boolean, capPoints: Int?): ScoringRules =
-            ScoringRules(Type.CUSTOM, pointsPerGame, gamesPerMatch, winByTwo, capPoints)
-
-        private fun fromPreset(type: Type): ScoringRules {
-            val spec = requireNotNull(type.presetSpec) { "Type $type is not a preset" }
-            return ScoringRules(type, spec.pointsPerGame, spec.gamesPerMatch, spec.winByTwo, spec.capPoints)
-        }
+    enum class Type {
+        TWO_BY_TWENTY_ONE,
+        THREE_BY_FIFTEEN,
+        CUSTOM
     }
 }

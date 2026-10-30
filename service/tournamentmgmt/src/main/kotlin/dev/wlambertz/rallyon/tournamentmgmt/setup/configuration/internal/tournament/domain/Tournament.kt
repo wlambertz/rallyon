@@ -45,9 +45,7 @@ data class Tournament(
 )
 
 fun createDraft(organizerId: Long, name: String?, visibility: Visibility?, actor: Long, now: Instant): Tournament {
-    if (name == null) {
-        throw IllegalArgumentException("Tournament name must not be null")
-    }
+    requireNotNull(name) { "Tournament name must not be null" }
     require(name.isNotBlank()) { "Tournament name must not be blank" }
     require(name.length <= 200) { "Tournament name must be <= 200 characters" }
     val requiredVisibility = java.util.Objects.requireNonNull(visibility, "Visibility must not be null")

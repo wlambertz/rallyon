@@ -129,6 +129,31 @@ class DraftUseCaseTest {
         assertThat(updated.schedule!!.start).isEqualTo(updated.schedule.end)
     }
 
+    @Test
+    fun `duplicate retained court ids report the established error`() {
+        val court = Court(200, "A", Court.Availability.AVAILABLE, Court.Type.STANDARD)
+        store.current = original.copy(courts = listOf(court))
+        val error = assertThrows(InvalidDraftUpdateException::class.java) {
+            update.execute(10, changes.copy(courts = listOf(court, court.copy(label = "B"))), 3, 42)
+        }
+        assertThat(error.message).isEqualTo("Duplicate court id '200'")
+        assertThat(store.saves).isZero()
+    }
+
+    @Test
+    fun `doubles brackets reject player rosters with the established error`() {
+        val bracket = BracketConfig(BracketId("doubles"), "Doubles", TournamentFormat.SWISS, null)
+        val discipline = DisciplineConfig(11, Category.DOUBLES, "Doubles", TeamSize.DOUBLES, listOf(bracket))
+        val error = assertThrows(InvalidDraftUpdateException::class.java) {
+            update.execute(10, changes.copy(
+                disciplines = listOf(discipline),
+                bracketRosters = mapOf(bracket.id to ParticipantsRoster(listOf(1), null))
+            ), 3, 42)
+        }
+        assertThat(error.message).isEqualTo("Bracket roster 'doubles' must use teamIds for doubles disciplines")
+        assertThat(store.saves).isZero()
+    }
+
     private class MemoryStore(var current: Tournament?) : TournamentStore {
         var lookups = 0
         var saves = 0
