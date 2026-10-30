@@ -1,6 +1,6 @@
 # Tactical design
 
-How the business logic inside one bounded context is modelled and layered. It complements `docs/clean-architecture-and-clean-code.md` (Dependency Rule, Clean Code) with the Domain-Driven Design building blocks. Status: **draft**; the "Current state" section is a finding, not a decision. Decisions that change code need an ADR.
+How the business logic inside one bounded context is modelled and layered. It complements `docs/clean-architecture-and-clean-code.md` (Dependency Rule, Clean Code) with the Domain-Driven Design building blocks. Status: **draft** guidance; implemented draft layering is recorded in ADR 0003. Further architectural decisions that change code need an ADR.
 
 ## Layers and the Dependency Rule
 
@@ -28,12 +28,16 @@ adapters (web, persistence, messaging)  →  application (use cases)  →  domai
 
 Kotlin idioms: `data class` for value objects, `sealed interface` for variants and states, `@JvmInline value class` for typed ids, `require`/`check` for invariants, `internal` visibility for non-published code. Names come from `docs/architecture/glossary.md`.
 
-## Current state in `service/tournamentmgmt` (finding)
+## Current state in `service/tournamentmgmt`
 
-- `Tournament` (`setup.configuration.api`) is a data class with about 30 properties, nearly all nullable, serving as REST contract, use-case argument and domain model at once. Required-field rules live in Bean Validation annotations and in the use-case services rather than in the type, so an invalid `Tournament` can be constructed. This is the "anemic model" pattern the Clean Code docs warn about, and it is the main gap against the guidelines above.
-- Some value types already follow the guideline: `ScoringRules` and `TieBreakRules` enforce preset consistency in `init`.
-- JPA entities (`setup.configuration.internal.tournament.persistence.entity`) are mapped to and from `Tournament` with MapStruct; the dependency direction (adapter → api) is correct. `docs/clean-architecture-and-clean-code.md` records one deliberate exception: entities reuse `api` enums.
-- Aggregate boundaries are implicit. Disciplines, brackets, courts and rosters all hang off one `Tournament`; whether participant rosters belong inside that aggregate is the first question to settle (see the context map: participants likely move to Player Management).
+[ADR 0003](../adr/0003-separate-tournament-domain-and-adapters.md) introduces a separate framework-free draft model and application persistence port. API `Tournament` remains the wide, nullable published DTO for compatibility; use cases now exchange domain snapshots instead.
+
+- `internal.tournament.domain` owns draft creation and replacement validation, including court identities, bracket uniqueness and roster rules. Pure tests exercise these operations without Spring or persistence.
+- Domain snapshots retain partial draft fields and support rehydration of existing records. Operation-level validation preserves existing accepted inputs; this is not yet a lifecycle model with every invalid construction made impossible.
+- `ConfigurationServiceImpl` converts API/domain values and owns the Spring transaction. Pure use cases use `TournamentStore` and an injected `Clock`; `JpaTournamentStore` implements the port and reconciles existing JPA children.
+- MapStruct remains in persistence. Entities still reuse API enums as an adapter implementation detail; no API type enters the domain or application layers.
+- The aggregate remains a tournament with disciplines, brackets, courts and rosters. Reassigning participant ownership to Player Management remains a separate architecture decision.
+- [ArchUnit rules](layering-and-archunit.md) enforce inward dependencies; Modulith continues to enforce cross-module APIs.
 
 ## Rules for new and changed code
 
@@ -45,7 +49,6 @@ Kotlin idioms: `data class` for value objects, `sealed interface` for variants a
 
 ## Decisions needed (candidate ADRs)
 
-- Domain model separate from the API type and the JPA entity, versus the current single wide type.
 - Aggregate boundaries inside Tournament Management (tournament, discipline/bracket, roster).
 - Events versus synchronous APIs between contexts.
-- Enforcement: ArchUnit rules for the Dependency Rule (see Phase A plan), added next to `TournamentmgmtModuleStructureTest`.
+- Future lifecycle state modelling beyond partial draft snapshots; preserve published DTO compatibility.

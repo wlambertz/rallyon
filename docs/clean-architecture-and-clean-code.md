@@ -32,30 +32,21 @@ assertThat(configurationModule.isExposed(CreateDraftUseCase::class.java)).isFals
 assertThat(configurationModule.isExposed(TournamentRepository::class.java)).isFalse()
 ```
 
-**The vertical slice, traced.** A request flows strictly inward-to-outward on the way in, and the dependency arrows all point the other way:
+**The vertical slice, traced.** [ADR 0003](adr/0003-separate-tournament-domain-and-adapters.md) separates the draft model from its published DTOs and persistence:
 
 ```
-ConfigurationController (web)
-   -> ConfigurationService                [api interface]
-        <- ConfigurationServiceImpl        [internal]
-             -> CreateDraftUseCase / UpdateDraftUseCase   [internal interfaces]
-                  <- CreateDraftService / UpdateDraftService  [internal @Component @Transactional]
-                       -> TournamentRepository (Spring Data)   [internal]
-                       -> TournamentMapper (MapStruct)         [internal]
-                            -> *Entity (JPA)                  [internal persistence]
+ConfigurationController (web) -> ConfigurationService (api)
+  <- ConfigurationServiceImpl (API mapping, error translation, Spring transaction)
+       -> CreateDraftUseCase / UpdateDraftUseCase (pure application)
+            -> domain draft operations
+            -> TournamentStore (application port)
+                 <- JpaTournamentStore (persistence adapter)
+                      -> TournamentRepository / TournamentMapper / JPA entities
 ```
 
-`ConfigurationController` only ever imports the `api` interface, never `ConfigurationServiceImpl` or anything under `internal`. `internal` code freely imports `api`; `api` never imports `internal` or persistence types. That asymmetry — inner code stable and ignorant of outer detail, outer code depending on inner contracts — _is_ the Dependency Rule.
+Dependencies from pure application code point to its own port and the domain. The persistence adapter implements the port; no entity or mapper crosses it. `ConfigurationServiceImpl` converts DTOs at the boundary and translates domain errors to the existing web-facing exceptions. The full transaction includes lookup, validation, reconciliation and save.
 
-**A documented exception, done the right way.** JPA entities reuse `api` enums (`Visibility`, `TournamentStatus`, `TournamentFormat`, ...) directly via `@Enumerated(EnumType.STRING)` instead of defining entity-local enums:
-
-```kotlin
-// service/tournamentmgmt/.../persistence/entity/TournamentEntity.kt
-@Enumerated(EnumType.STRING)
-val visibility: Visibility  // api enum, reused directly in a persistence entity
-```
-
-This is a real, deliberate crossing of the boundary in the "wrong" direction (persistence depending on an api type rather than mapping through an internal one) — a small pragmatic shortcut for a small domain. It's acceptable _because_ it's a conscious, bounded trade-off, not because no one noticed. The pattern to follow when you take a similar shortcut: make sure it stays a single, greppable exception, not a habit that erodes the boundary generally.
+**Published DTOs versus domain values.** Existing API types retain Jackson and Bean Validation annotations for compatibility. Domain values have no such dependencies, including no dependency on another module's annotated API types. Explicit boundary mapping costs code but makes that separation visible and testable. JPA entities continue to reuse API enums; both are adapter-side representations, and this reuse does not create an inward dependency from the domain. See [layering and ArchUnit](architecture/layering-and-archunit.md) for the actual enforcement and limitations.
 
 **Generalized rule for new modules:** a new module's `internal` types must never be imported from outside that module. Only `*.api` packages (or an equivalent explicitly-exposed interface) are a stable contract other modules — or other layers, like `web` — are allowed to depend on.
 
@@ -70,16 +61,8 @@ The Dependency Rule here: **`pkg/cmd` may import the support packages; a support
 These apply regardless of language; they're the ones cheap enough to check in a code review without deep domain context.
 
 - **Naming reveals intent.** A reader shouldn't need to open the implementation to guess what a name means. Boolean names should read as predicates (`isExposed`, `isUnitConsistent`), not as ambiguous nouns.
-- **Functions should do one thing, at one level of abstraction.** `CreateDraftService`/`UpdateDraftService` are a good example already in this codebase: each use-case service orchestrates one operation and delegates mapping (`TournamentMapper`) and persistence (`TournamentRepository`) rather than inlining them.
-- **Comments explain WHY, never WHAT.** This is already the top-level instruction for this project, and the codebase has two good exemplars worth pointing new contributors to:
-
-  ```kotlin
-  // service/tournamentmgmt/.../persistence/mapping/TournamentMapper.kt
-  // Jackson can deserialize a JSON null into this map's value slot even though the
-  // declared Kotlin type is non-null; the static type does not hold at runtime here.
-  @Suppress("SENSELESS_COMPARISON")
-  if (roster == null) { ... }
-  ```
+- **Functions should do one thing, at one level of abstraction.** `CreateDraftService`/`UpdateDraftService` orchestrate one operation through domain operations and `TournamentStore`; mapping and JPA reconciliation stay in the persistence adapter.
+- **Comments explain WHY, never WHAT.** This is already the top-level instruction for this project, and the codebase has a useful example:
 
   ```kotlin
   // service/tournamentmgmt/.../setup/configuration/web/ConfigurationController.kt
@@ -87,9 +70,9 @@ These apply regardless of language; they're the ones cheap enough to check in a 
   request.disciplineId!!,
   ```
 
-  Both explain a non-obvious _reason_ for code that would otherwise look like a mistake. Neither explains what the surrounding code does — that's left to be self-evident from names and structure. A comment that only restates the next line in English is a candidate for deletion, not a model to copy.
+  This explains a non-obvious _reason_ for code that would otherwise look like a mistake, rather than explaining what the surrounding code does — that's left to be self-evident from names and structure. A comment that only restates the next line in English is a candidate for deletion, not a model to copy.
 
-- **Error handling is a deliberate boundary decision, not an accident.** Exceptions that cross the `web`/`internal` boundary (e.g. `TournamentNotFoundException`, `InvalidDraftUpdateException`) should be mapped intentionally (see `ControllerAdvice`), not left to leak a framework- or persistence-specific exception type into the API surface.
+- **Error handling is a deliberate boundary decision, not an accident.** Exceptions that cross the `web`/`internal` boundary (e.g. `TournamentNotFoundException`, `InvalidDraftUpdateException`) should be mapped intentionally (see `ConfigurationControllerAdvice`), not left to leak a framework- or persistence-specific exception type into the API surface.
 - **Tests are documentation of the contract, not just regression insurance.** `TournamentmgmtModuleStructureTest` is the canonical example: reading it tells you the module boundary rules faster than reading the annotations across five files.
 
 ## Where this is enforced today vs. aspirational
@@ -97,6 +80,7 @@ These apply regardless of language; they're the ones cheap enough to check in a 
 | Rule | Status |
 | --- | --- |
 | Modulith `api`/`internal` boundary (`service/tournamentmgmt`) | **Enforced** — `TournamentmgmtModuleStructureTest` fails the build if broken. |
+| Domain/application/adapter direction (`service/tournamentmgmt`) | **Enforced** — `LayerDependencyTest`, with populated production selections and forbidden-dependency fixtures. |
 | `pkg/cmd` / support-package direction (`tools/cli/ro`) | Convention only — no test today. |
 | Naming, function size/SRP, comments-for-WHY, error-handling boundaries | Review-time only — checked by `/code-review`'s Conventions lens against the `AGENTS.md` rules derived from this doc, not by a compiler or test. |
 

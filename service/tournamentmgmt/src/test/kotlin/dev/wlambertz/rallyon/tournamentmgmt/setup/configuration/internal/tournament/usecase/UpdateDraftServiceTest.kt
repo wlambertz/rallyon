@@ -16,9 +16,9 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentFo
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.DraftUpdateConflictException
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.InvalidDraftUpdateException
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.TournamentNotFoundException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.DraftUpdateConflictException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.InvalidDraftUpdateException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.TournamentNotFoundException
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketEntity
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketParticipantEntity
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.CourtEntity
@@ -34,6 +34,9 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.ScoringRules
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.SeedingPolicy
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules
 import java.time.Instant
+import java.time.Clock
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.JpaTournamentStore
 import java.util.Locale
 import java.util.Optional
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -65,8 +68,8 @@ class UpdateDraftServiceTest {
     @BeforeEach
     fun setUp() {
         updateDraftService = UpdateDraftService(
-            tournamentRepository,
-            Mappers.getMapper(TournamentMapper::class.java)
+            JpaTournamentStore(tournamentRepository, Mappers.getMapper(TournamentMapper::class.java)),
+            Clock.systemUTC()
         )
     }
 
@@ -120,7 +123,7 @@ class UpdateDraftServiceTest {
         assertEquals(2, entity.participants.stream().filter { participant -> participant.category == null }.count())
         assertEquals(1, entity.disciplines.first().brackets.first().participants.size)
 
-        verify(tournamentRepository).findById(TOURNAMENT_ID)
+        verify(tournamentRepository, Mockito.times(2)).findById(TOURNAMENT_ID)
         verify(tournamentRepository).save(entity)
     }
 
@@ -217,7 +220,7 @@ class UpdateDraftServiceTest {
     }
 
     private fun executeUpdate(draftChanges: Tournament): Tournament =
-        updateDraftService.execute(TOURNAMENT_ID, draftChanges, EXPECTED_VERSION, ACTING_USER_ID)
+        TournamentApiMapping.toApi(updateDraftService.execute(TOURNAMENT_ID, TournamentApiMapping.toDomain(draftChanges), EXPECTED_VERSION, ACTING_USER_ID))
 
     private fun givenExistingDraft(): TournamentEntity = existingDraftEntity().also { entity ->
         Mockito.`when`(tournamentRepository.findById(TOURNAMENT_ID)).thenReturn(Optional.of(entity))

@@ -51,7 +51,7 @@ Open decision: events (Spring Modulith application events inside one deployable,
 ## Observations about the current code
 
 - `setup.configuration` is a deployable-sized chunk of Tournament Management: it owns the tournament, disciplines, brackets, courts, venue, participants and registration. Participants and rosters will likely move to Player Management and registration policy stays with Tournament Management; plan that split before building registration features.
-- `Tournament` in `setup.configuration.api` is a wide data class with almost every field nullable, used as API contract and domain model at once. See `docs/architecture/tactical-design.md` for the gap this creates.
+- `Tournament` in `setup.configuration.api` remains a wide nullable published DTO. ADR 0003 separates draft domain snapshots and pure use cases from that contract; aggregate ownership is unchanged. See `docs/architecture/tactical-design.md` for current implementation and remaining modelling decisions.
 - `setup.rules` mixes Tournament Management configuration (seeding, court allocation) with Scoring concerns (scoring rules, tie-breaks). Decide which context owns each rule type before implementing `setup.phases` or a scoring service.
 - Several rule types carry `TODO(review)` markers (seeding rating source, court allocation fairness, match duration); these are domain decisions the refinement step should surface, not implementation details.
 

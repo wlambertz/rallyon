@@ -16,11 +16,12 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.SchedulingPo
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TeamSize;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TimeWindow;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentFormat;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue;
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.InvalidDraftUpdateException;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.InvalidDraftUpdateException;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketParticipantEntity;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.CourtEntity;
@@ -154,6 +155,7 @@ class TournamentMapperTest {
         entity.getParticipants().add(participant);
 
         Tournament tournament = mapper.toApi(entity);
+        assertEquals(tournament, TournamentApiMapping.toApi(TournamentApiMapping.toDomain(tournament)));
 
         assertEquals(99L, tournament.getId());
         assertEquals(3L, tournament.getVersion());
