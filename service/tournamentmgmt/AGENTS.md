@@ -24,7 +24,8 @@
 - Preserve Modulith boundaries verified by `TournamentmgmtModuleStructureTest`.
 - Exposed contracts live in `...setup.configuration.api`, `...setup.rules.api`, and `...setup.phases.api`.
 - Treat `...internal...` packages as non-public implementation details.
-- Keep web adapters in `...web`, use cases/services in `...internal...usecase`, and persistence in `...internal...persistence`.
+- Keep web adapters in `...web`, pure application orchestration and `TournamentStore` in `...internal.tournament.usecase`, domain values/operations in `...internal.tournament.domain`, and JPA/MapStruct adapters in `...internal.tournament.persistence`.
+- Domain and application code must not import API DTOs or frameworks; `LayerDependencyTest` enforces this alongside Modulith verification. `ConfigurationServiceImpl` translates DTOs/errors and owns Spring transactions; `TournamentUseCaseConfiguration` constructs pure use cases with a JDK `Clock`. See `../../docs/adr/0003-separate-tournament-domain-and-adapters.md`.
 - Dependency Rule: `internal` packages may depend on their module's `api` package; `api` and web-layer code must never import types from another module's `internal` package. Verified by `TournamentmgmtModuleStructureTest`.
 - Keep persistence-only concerns (entities, repositories, mappers) out of `...usecase` and `...web`; a use case should orchestrate, not map JPA rows. See `../../docs/clean-architecture-and-clean-code.md` for the full rationale and the one documented exception (JPA entities reusing `api` enums via `@Enumerated`).
 - The controller surface under `/api/tournamentmgmt/config` is compatibility-sensitive.

@@ -40,6 +40,9 @@ jobs:
       # The action has no fail-on-CVSS input; extra CLI flags go through `args`.
       - name: Run OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@1e54355a8b4c8abaa8cc7d0b70aa655a3bb15a6c # main, 2026-10-27
+        env:
+          # setup-java's runner path does not exist inside the action container.
+          JAVA_HOME: /opt/jdk
         with:
           project: rallyon-tournamentmgmt
           path: service/tournamentmgmt/target/dependency

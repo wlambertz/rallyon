@@ -10,9 +10,10 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TeamSize
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TimeWindow
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.InvalidDraftUpdateException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.validateReplacementAgainst
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketEntity
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.BracketParticipantEntity
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.persistence.entity.CourtEntity
@@ -26,7 +27,6 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.TieBreakRules
 import java.time.Instant
 import java.util.Comparator
 import java.util.LinkedHashMap
-import java.util.LinkedHashSet
 import java.util.Locale
 import java.util.Objects
 import java.util.stream.Collectors
@@ -115,6 +115,9 @@ abstract class TournamentMapper {
     protected abstract fun toBracketConfig(bracket: BracketEntity): BracketConfig
 
     fun applyDraftReplacement(entity: TournamentEntity, draftChanges: Tournament, actingUserId: Long, now: Instant) {
+        TournamentApiMapping.toDomain(draftChanges).validateReplacementAgainst(
+            TournamentApiMapping.toDomain(toApi(entity))
+        )
         applyScalars(entity, draftChanges)
         replaceRegistrationWindows(entity, normalizeList(draftChanges.registrationWindows))
         replaceCourts(entity, normalizeList(draftChanges.courts))
@@ -354,7 +357,6 @@ abstract class TournamentMapper {
     }
 
     private fun applySchedule(entity: TournamentEntity, schedule: TimeWindow?) {
-        validateTimeWindow(schedule, "Schedule")
         if (schedule == null) {
             entity.scheduleStart = null
             entity.scheduleEnd = null
@@ -365,7 +367,6 @@ abstract class TournamentMapper {
     }
 
     private fun applyVenue(entity: TournamentEntity, venue: Venue?) {
-        validateVenue(venue)
         if (venue == null) {
             entity.venueName = null
             entity.venueStreet = null
@@ -393,7 +394,6 @@ abstract class TournamentMapper {
     }
 
     private fun applyCapacity(entity: TournamentEntity, capacity: Capacity?) {
-        validateCapacity(capacity, "Tournament capacity")
         entity.capacityMaxParticipants = capacity?.amount
     }
 
@@ -429,7 +429,6 @@ abstract class TournamentMapper {
         val replacements = ArrayList<RegistrationWindowEntity>(registrationWindows.size)
         for (index in registrationWindows.indices) {
             val window = registrationWindows[index]
-            validateTimeWindow(window, "Registration window")
 
             val registrationWindow = RegistrationWindowEntity()
             registrationWindow.tournament = entity
@@ -455,27 +454,15 @@ abstract class TournamentMapper {
                 )
             )
 
-        val seenCourtIds = LinkedHashSet<Long>()
-        val seenCourtLabels = LinkedHashSet<String?>()
         val replacements = ArrayList<CourtEntity>(courts.size)
 
         for (index in courts.indices) {
             val court = courts[index]
-            validateCourt(court)
-
-            if (!seenCourtLabels.add(court.label)) {
-                throw InvalidDraftUpdateException("Duplicate court label '${court.label}'")
-            }
 
             val courtEntity: CourtEntity
             if (court.id > 0) {
-                if (!seenCourtIds.add(court.id)) {
-                    throw InvalidDraftUpdateException("Duplicate court id '${court.id}'")
-                }
                 courtEntity = existingCourtsById[court.id]
-                    ?: throw InvalidDraftUpdateException("Unknown court id '${court.id}'")
-            } else if (court.id < 0) {
-                throw InvalidDraftUpdateException("Court id must not be negative")
+                    ?: error("Validated court is missing")
             } else {
                 courtEntity = CourtEntity()
             }
@@ -503,17 +490,9 @@ abstract class TournamentMapper {
                 )
             )
 
-        val seenDisciplineIds = LinkedHashSet<Long>()
-        val seenBracketIds = LinkedHashSet<String>()
         val replacements = ArrayList<DisciplineEntity>(disciplines.size)
 
         for (discipline in disciplines) {
-            validateDiscipline(discipline)
-
-            if (!seenDisciplineIds.add(discipline.id)) {
-                throw InvalidDraftUpdateException("Duplicate discipline id '${discipline.id}'")
-            }
-
             var disciplineEntity = existingDisciplinesById[discipline.id]
             if (disciplineEntity == null) {
                 disciplineEntity = DisciplineEntity()
@@ -525,7 +504,7 @@ abstract class TournamentMapper {
             disciplineEntity.displayName = discipline.displayName
             disciplineEntity.teamSize = discipline.teamSize
 
-            replaceBrackets(disciplineEntity, normalizeList(discipline.brackets), seenBracketIds)
+            replaceBrackets(disciplineEntity, normalizeList(discipline.brackets))
             replacements.add(disciplineEntity)
         }
 
@@ -535,8 +514,7 @@ abstract class TournamentMapper {
 
     private fun replaceBrackets(
         disciplineEntity: DisciplineEntity,
-        brackets: List<BracketConfig>,
-        seenBracketIds: MutableSet<String>
+        brackets: List<BracketConfig>
     ) {
         val existingBracketsById: Map<String, BracketEntity> = disciplineEntity.brackets.stream()
             .collect(
@@ -548,21 +526,10 @@ abstract class TournamentMapper {
                 )
             )
 
-        val seenLocalBracketIds = LinkedHashSet<String>()
         val replacements = ArrayList<BracketEntity>(brackets.size)
 
         for (bracket in brackets) {
-            validateBracket(bracket)
             val bracketId = bracket.id.value
-
-            if (!seenLocalBracketIds.add(bracketId)) {
-                throw InvalidDraftUpdateException(
-                    "Duplicate bracket id '$bracketId' within discipline ${disciplineEntity.disciplineId}"
-                )
-            }
-            if (!seenBracketIds.add(bracketId)) {
-                throw InvalidDraftUpdateException("Duplicate bracket id '$bracketId' across tournament disciplines")
-            }
 
             var bracketEntity = existingBracketsById[bracketId]
             if (bracketEntity == null) {
@@ -591,8 +558,8 @@ abstract class TournamentMapper {
         val replacements = ArrayList<ParticipantEntity>()
 
         if (roster != null) {
-            val rosterKind = validateRoster(roster, "Tournament participants")
-            if (rosterKind == RosterKind.PLAYER) {
+            val playerRoster = roster.playerIds != null
+            if (playerRoster) {
                 for (playerId in roster.playerIds!!) {
                     val participant = ParticipantEntity()
                     participant.tournament = entity
@@ -627,28 +594,6 @@ abstract class TournamentMapper {
         val incomingByBracketId = LinkedHashMap<String, ParticipantsRoster>()
 
         for ((bracketId, roster) in bracketRosters) {
-            // Jackson can deserialize a JSON null into this map's value slot even though the
-            // declared Kotlin type is non-null; the static type does not hold at runtime here.
-            @Suppress("SENSELESS_COMPARISON")
-            if (roster == null) {
-                throw InvalidDraftUpdateException("Bracket roster for '${bracketId.value}' must not be null")
-            }
-
-            val target = bracketTargets[bracketId.value]
-                ?: throw InvalidDraftUpdateException("Unknown bracket roster key '${bracketId.value}'")
-
-            val rosterKind = validateRoster(roster, "Bracket roster '${bracketId.value}'")
-            if (target.teamSize == TeamSize.SINGLES && rosterKind != RosterKind.PLAYER) {
-                throw InvalidDraftUpdateException(
-                    "Bracket roster '${bracketId.value}' must use playerIds for singles disciplines"
-                )
-            }
-            if (target.teamSize == TeamSize.DOUBLES && rosterKind != RosterKind.TEAM) {
-                throw InvalidDraftUpdateException(
-                    "Bracket roster '${bracketId.value}' must use teamIds for doubles disciplines"
-                )
-            }
-
             incomingByBracketId.put(bracketId.value, roster)
         }
 
@@ -687,140 +632,13 @@ abstract class TournamentMapper {
         for (discipline in entity.disciplines) {
             for (bracket in discipline.brackets) {
                 val bracketId = bracket.bracketId!!
-                val existing = bracketTargets.put(
+                bracketTargets.put(
                     bracketId,
                     BracketRosterTarget(bracket, discipline.teamSize)
                 )
-                if (existing != null) {
-                    throw InvalidDraftUpdateException("Duplicate bracket id '$bracketId' across tournament disciplines")
-                }
             }
         }
         return bracketTargets
-    }
-
-    private fun validateRoster(roster: ParticipantsRoster, fieldName: String): RosterKind {
-        val playerIds = roster.playerIds
-        val teamIds = roster.teamIds
-
-        val hasPlayers = playerIds != null
-        val hasTeams = teamIds != null
-        if (hasPlayers == hasTeams) {
-            throw InvalidDraftUpdateException("$fieldName must provide exactly one of playerIds or teamIds")
-        }
-
-        if (hasPlayers) {
-            validateIds(playerIds, "$fieldName playerIds")
-            return RosterKind.PLAYER
-        }
-
-        validateIds(teamIds!!, "$fieldName teamIds")
-        return RosterKind.TEAM
-    }
-
-    // Element type is nullable because Jackson can place a JSON null into a list position
-    // even though callers pass a Kotlin List<Long>; List<out T> covariance permits that here.
-    private fun validateIds(ids: List<Long?>, fieldName: String) {
-        val seenIds = LinkedHashSet<Long>()
-        for (id in ids) {
-            if (id == null || id <= 0) {
-                throw InvalidDraftUpdateException("$fieldName must only contain positive ids")
-            }
-            if (!seenIds.add(id)) {
-                throw InvalidDraftUpdateException("Duplicate id '$id' in $fieldName")
-            }
-        }
-    }
-
-    private fun validateCourt(court: Court?) {
-        if (court == null) {
-            throw InvalidDraftUpdateException("Court must not be null")
-        }
-        if (court.label == null || court.label.isBlank()) {
-            throw InvalidDraftUpdateException("Court label must not be blank")
-        }
-        if (court.availability == null) {
-            throw InvalidDraftUpdateException("Court availability must not be null")
-        }
-        if (court.type == null) {
-            throw InvalidDraftUpdateException("Court type must not be null")
-        }
-    }
-
-    private fun validateDiscipline(discipline: DisciplineConfig?) {
-        if (discipline == null) {
-            throw InvalidDraftUpdateException("Discipline must not be null")
-        }
-        if (discipline.id <= 0) {
-            throw InvalidDraftUpdateException("Discipline id must be positive")
-        }
-        if (discipline.displayName.isBlank()) {
-            throw InvalidDraftUpdateException("Discipline display name must not be blank")
-        }
-    }
-
-    private fun validateBracket(bracket: BracketConfig?) {
-        if (bracket == null) {
-            throw InvalidDraftUpdateException("Bracket must not be null")
-        }
-        if (bracket.id.value.isBlank()) {
-            throw InvalidDraftUpdateException("Bracket id must not be blank")
-        }
-        if (bracket.displayName.isBlank()) {
-            throw InvalidDraftUpdateException("Bracket display name must not be blank")
-        }
-        validateCapacity(bracket.capacity, "Bracket capacity")
-    }
-
-    private fun validateVenue(venue: Venue?) {
-        if (venue == null) {
-            return
-        }
-        if (venue.name == null || venue.name.isBlank()) {
-            throw InvalidDraftUpdateException("Venue name must not be blank")
-        }
-        if (venue.address != null) {
-            if (venue.address.streetWithNumber == null || venue.address.streetWithNumber.isBlank()) {
-                throw InvalidDraftUpdateException("Venue street must not be blank")
-            }
-            val postalCode = venue.address.postalCode
-            if (postalCode == null || postalCode.length != 5) {
-                throw InvalidDraftUpdateException("Venue postal code must be exactly 5 characters")
-            }
-            if (venue.address.city == null || venue.address.city.isBlank()) {
-                throw InvalidDraftUpdateException("Venue city must not be blank")
-            }
-        }
-
-        validateCapacity(venue.peopleCapacity, "Venue capacity")
-        val peopleCapacity = venue.peopleCapacity
-        if (peopleCapacity != null && peopleCapacity.amount != null && peopleCapacity.unit != Capacity.Unit.PEOPLE) {
-            throw InvalidDraftUpdateException("Venue capacity must use PEOPLE as unit")
-        }
-    }
-
-    private fun validateCapacity(capacity: Capacity?, fieldName: String) {
-        if (capacity == null) {
-            return
-        }
-        if (capacity.amount != null && capacity.amount <= 0) {
-            throw InvalidDraftUpdateException("$fieldName amount must be positive")
-        }
-        if (capacity.amount != null && capacity.unit == null) {
-            throw InvalidDraftUpdateException("$fieldName unit must be provided when amount is set")
-        }
-    }
-
-    private fun validateTimeWindow(window: TimeWindow?, fieldName: String) {
-        if (window == null) {
-            return
-        }
-        if (window.start == null || window.end == null) {
-            throw InvalidDraftUpdateException("$fieldName must define both start and end")
-        }
-        if (window.end.isBefore(window.start)) {
-            throw InvalidDraftUpdateException("$fieldName end must not be before start")
-        }
     }
 
     private fun matches(candidate: ScoringRules, preset: ScoringRules): Boolean =
@@ -837,11 +655,6 @@ abstract class TournamentMapper {
     private fun <T> normalizeList(values: List<T>?): List<T> = values ?: emptyList()
 
     private fun <K, V> normalizeMap(values: Map<K, V>?): Map<K, V> = values ?: emptyMap()
-
-    private enum class RosterKind {
-        PLAYER,
-        TEAM
-    }
 
     private data class BracketRosterTarget(val bracket: BracketEntity, val teamSize: TeamSize?)
 }

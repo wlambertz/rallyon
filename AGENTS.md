@@ -84,7 +84,7 @@
 - Keep service module boundaries intact in `service/tournamentmgmt`; `setup.configuration.api` is exposed, `internal` packages are not.
 - Dependency Rule (Clean Architecture): within any module boundary in this repo (Modulith `api`/`internal`, or the Go CLI's `cmd`/`pkg` split), inner/contract code must never import outer/detail code. See `docs/clean-architecture-and-clean-code.md`.
 - In `tools/cli/ro`, new subcommands belong in `pkg/cmd`; do not add subcommand logic directly inside a shared support package (`pkg/config`, `pkg/execx`, etc.).
-- Comments explain WHY a line of code deviates from the obvious approach, never WHAT the code does; see `TournamentMapper.kt`'s `@Suppress("SENSELESS_COMPARISON")` and `ConfigurationController.kt`'s null-unboxing comment as the pattern to follow.
+- Comments explain WHY a line of code deviates from the obvious approach, never WHAT the code does; see `ConfigurationController.kt`'s null-unboxing comment and `TournamentApiMapping.kt`'s nullable-ID copy comment as patterns to follow.
 - Treat `3rd_party/iam` as shared platform code. Changes there affect backend authentication behavior across services.
 - Do not add assumptions about `application/audience`, `service/playermgmt`, or `service/scoring`; they are placeholders today.
 

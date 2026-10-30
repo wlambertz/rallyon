@@ -1,6 +1,6 @@
 package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase
 
-import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.Tournament
 
 interface UpdateDraftUseCase {
 

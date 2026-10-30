@@ -13,6 +13,10 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.TournamentStatus
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Venue
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.DraftUpdateConflictException as DomainDraftUpdateConflictException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.InvalidDraftUpdateException as DomainInvalidDraftUpdateException
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.TournamentNotFoundException as DomainTournamentNotFoundException
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.phases.api.Phase
@@ -25,6 +29,7 @@ import java.time.Instant
 import java.util.Locale
 import java.util.Objects
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ConfigurationServiceImpl(
@@ -32,15 +37,31 @@ class ConfigurationServiceImpl(
     private val updateDraftUseCase: UpdateDraftUseCase
 ) : ConfigurationService {
 
+    @Transactional
     override fun createDraft(organizerId: Long, name: String?, visibility: Visibility?, actingUserId: Long): Tournament {
         Objects.requireNonNull(name, "Tournament name must not be null")
         Objects.requireNonNull(visibility, "Visibility must not be null")
-        return createDraftUseCase.execute(organizerId, name, visibility, actingUserId)
+        return TournamentApiMapping.toApi(
+            createDraftUseCase.execute(organizerId, name, TournamentApiMapping.toDomain(visibility!!), actingUserId)
+        )
     }
 
+    @Transactional
     override fun updateDraft(tournamentId: Long, draftChanges: Tournament?, version: Long, actingUserId: Long): Tournament {
         Objects.requireNonNull(draftChanges, "Tournament draft changes must not be null")
-        return updateDraftUseCase.execute(tournamentId, draftChanges, version, actingUserId)
+        return try {
+            TournamentApiMapping.toApi(
+                updateDraftUseCase.execute(
+                    tournamentId, TournamentApiMapping.toDomain(draftChanges!!), version, actingUserId
+                )
+            )
+        } catch (error: DomainInvalidDraftUpdateException) {
+            throw InvalidDraftUpdateException(error.message)
+        } catch (error: DomainDraftUpdateConflictException) {
+            throw DraftUpdateConflictException(error.message)
+        } catch (error: DomainTournamentNotFoundException) {
+            throw TournamentNotFoundException(tournamentId)
+        }
     }
 
     override fun publish(tournamentId: Long, version: Long, actingUserId: Long): Tournament {

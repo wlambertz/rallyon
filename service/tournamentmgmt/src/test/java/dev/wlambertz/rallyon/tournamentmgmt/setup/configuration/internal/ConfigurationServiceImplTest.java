@@ -2,6 +2,7 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal;
 
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,12 +42,12 @@ class ConfigurationServiceImplTest {
         long actingUserId = 99L;
 
         Tournament expected = Tournament.builder().id(42L).build();
-        when(createDraftUseCase.execute(organizerId, name, visibility, actingUserId)).thenReturn(expected);
+        when(createDraftUseCase.execute(organizerId, name, TournamentApiMapping.toDomain(visibility), actingUserId)).thenReturn(TournamentApiMapping.toDomain(expected));
 
         Tournament result = configurationService.createDraft(organizerId, name, visibility, actingUserId);
 
-        assertSame(expected, result);
-        verify(createDraftUseCase).execute(organizerId, name, visibility, actingUserId);
+        assertEquals(expected, result);
+        verify(createDraftUseCase).execute(organizerId, name, TournamentApiMapping.toDomain(visibility), actingUserId);
     }
 
     @Test
@@ -76,12 +77,12 @@ class ConfigurationServiceImplTest {
         Tournament draftChanges = Tournament.builder().name("Updated Cup").visibility(Visibility.PUBLIC).build();
         Tournament expected = Tournament.builder().id(42L).build();
 
-        when(updateDraftUseCase.execute(42L, draftChanges, 3L, 99L)).thenReturn(expected);
+        when(updateDraftUseCase.execute(42L, TournamentApiMapping.toDomain(draftChanges), 3L, 99L)).thenReturn(TournamentApiMapping.toDomain(expected));
 
         Tournament result = configurationService.updateDraft(42L, draftChanges, 3L, 99L);
 
-        assertSame(expected, result);
-        verify(updateDraftUseCase).execute(42L, draftChanges, 3L, 99L);
+        assertEquals(expected, result);
+        verify(updateDraftUseCase).execute(42L, TournamentApiMapping.toDomain(draftChanges), 3L, 99L);
     }
 
     @Test
