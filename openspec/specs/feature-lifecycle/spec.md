@@ -45,6 +45,12 @@ The lifecycle SHALL persist gate records per change, bind approvals to reviewed 
 - **THEN** its evidence and created issue URLs are retained
 - **AND** a different active change must first be explicitly deactivated
 
+#### Scenario: Change reduced-mode planning artifacts
+
+- **WHEN** an existing proposal, design, value or specification artifact is edited, added or removed after reduced-mode specification approval
+- **THEN** affected G2–G4 evidence becomes stale
+- **AND** genuinely omitted artifacts remain optional
+
 ### Requirement: Exact approved issue creation
 
 The supported issue-creation path SHALL submit only the structured payload approved at current G4, persist each successful result immediately, skip recorded successes on resume and stop after ambiguous outcomes until explicit reconciliation. Reusing a draft identifier with a changed attempted payload SHALL be rejected.
@@ -55,6 +61,13 @@ The supported issue-creation path SHALL submit only the structured payload appro
 - **THEN** the first URL remains recorded and resumption does not recreate it
 - **AND** the uncertain attempt requires verified reconciliation before retrying
 
+#### Scenario: Rename or remove an uncertain draft
+
+- **WHEN** an attempted creation has an ambiguous outcome and its draft is later renamed or removed
+- **THEN** the unresolved attempt remains visible in status and blocks further issue creation and G5
+- **AND** an active session can reconcile the saved attempted payload with a verification reference despite stale approvals
+- **AND** subsequent issue creation still requires current G4 approval
+
 ### Requirement: Session-scoped enforcement and reduced work
 
 The Claude Bash hook SHALL guard ordinary direct issue creation for the lifecycle repository only while a session is active, preserving the existing commit guard. Shared agent instructions SHALL require the checked helper across agents. Narrow bugs and documentation MAY use a reduced record with explicit reasons for omitted ceremony, while retaining human decisions, independent checking and applicable escalation.
@@ -63,6 +76,28 @@ The Claude Bash hook SHALL guard ordinary direct issue creation for the lifecycl
 
 - **WHEN** no lifecycle session is active
 - **THEN** the lifecycle hook does not impose issue-creation approval on unrelated work
+
+#### Scenario: Use the ordinary issue-creation alias
+
+- **WHEN** an active session's repository is targeted through `gh issue new`
+- **THEN** the hook requires the same checked creation path as `gh issue create`
+
+#### Scenario: Execute creation inside a command substitution
+
+- **WHEN** an issue-creation command for the lifecycle repository appears in an executable command substitution, including nested substitutions, backticks, line continuations or intervening flags
+- **THEN** the hook blocks it even when the surrounding command prints documentation
+
+#### Scenario: Change the tool working directory
+
+- **WHEN** the tool cwd is outside the repository but `CLAUDE_PROJECT_DIR` identifies an active worktree session
+- **THEN** the project session continues to guard issue creation
+- **AND** sibling worktree sessions are not discovered through shared Git metadata
+
+#### Scenario: Write documentation with heredocs
+
+- **WHEN** a quoted heredoc contains text mentioning issue-creation commands
+- **THEN** the hook treats the body as literal documentation
+- **AND** executable expansions in unquoted heredocs and commands following their terminators remain inspected
 
 #### Scenario: Reduced documentation delivery
 

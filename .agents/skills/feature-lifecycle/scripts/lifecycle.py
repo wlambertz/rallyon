@@ -98,10 +98,12 @@ class Session:
     def manifest(self, gate):
         if gate in {'G1', 'G2', 'G3', 'G4'}:
             names = ['lifecycle.md'] if self.state['mode'] == 'reduced' else ['refinement.md']
-            if gate != 'G1' and self.state['mode'] == 'full':
-                names += ['proposal.md', 'design.md', 'value.md']
+            if gate != 'G1':
+                planning = ['proposal.md', 'design.md', 'value.md']
+                names += [name for name in planning if self.state['mode'] == 'full'
+                          or (self.change / name).exists() or (self.change / name).is_symlink()]
                 specs = sorted(self.change.glob('specs/**/spec.md'))
-                if not specs:
+                if not specs and self.state['mode'] == 'full':
                     raise LifecycleError('Specification scenarios are missing')
                 names += [p.relative_to(self.change).as_posix() for p in specs]
             if gate == 'G4':
@@ -154,6 +156,8 @@ class Session:
         return result
 
     def require(self, gate):
+        if GATES.index(gate) >= GATES.index('G5'):
+            self.require_resolved_attempts()
         for previous in GATES[:GATES.index(gate) + 1]:
             lenses = LENSES if previous == 'G7' and self.state['mode'] == 'full' else [None]
             for lens in lenses:
@@ -189,6 +193,7 @@ class Session:
         if gate == 'G4':
             self.drafts()
         if gate == 'G5':
+            self.require_resolved_attempts()
             for item in self.drafts()['issues']:
                 if item['id'] not in self.state['issues'] or self.state['attempts'][item['id']]['payload'] != item:
                     raise LifecycleError('Create or reconcile every current approved payload before G5')
@@ -228,9 +233,19 @@ class Session:
                 raise LifecycleError('milestone must be a title string')
         return data
 
+    def unresolved_attempts(self):
+        return {key: attempt for key, attempt in self.state['attempts'].items()
+                if key not in self.state['issues']}
+
+    def require_resolved_attempts(self):
+        pending = self.unresolved_attempts()
+        if pending:
+            raise LifecycleError(f'Ambiguous prior creation for {", ".join(sorted(pending))}; reconcile before continuing')
+
     def create_issues(self):
         self.active()
         self.require('G4')
+        self.require_resolved_attempts()
         data = self.drafts()
         for item in data['issues']:
             previous = self.state['attempts'].get(item['id'])
@@ -240,8 +255,6 @@ class Session:
             key = item['id']
             if key in self.state['issues']:
                 continue
-            if key in self.state['attempts']:
-                raise LifecycleError(f'Ambiguous prior creation for {key}; reconcile before retrying')
             self.state['attempts'][key] = dict(payload=item, timestamp=datetime.now(timezone.utc).isoformat())
             self.save()
             with tempfile.NamedTemporaryFile(mode='w', suffix='.md') as body:
@@ -266,19 +279,20 @@ class Session:
 
     def reconcile(self, key, url, retry, source):
         self.active()
-        self.require('G4')
         if key not in self.state['attempts'] or key in self.state['issues'] or not source:
             raise LifecycleError('Reconciliation needs an unresolved attempt and verification source')
-        current = next((i for i in self.drafts()['issues'] if i['id'] == key), None)
-        if current != self.state['attempts'][key]['payload']:
-            raise LifecycleError('Restore the attempted payload before reconciling it')
+        # Recovery records the remote outcome of the saved request, even when
+        # later scope edits made G4 stale or removed that draft entirely.
+        attempt = self.state['attempts'][key]
         if retry and not url:
             self.state['attempts'].pop(key)
         elif not retry and url and re.fullmatch(r'https://github.com/' + re.escape(self.state['repository']) + r'/issues/\d+', url):
             self.state['issues'][key] = url
         else:
             raise LifecycleError('Provide a verified issue URL or --retry')
-        self.state.setdefault('reconciliations', []).append(dict(id=key, url=url, retry=retry, source=source))
+        self.state.setdefault('reconciliations', []).append(dict(
+            id=key, url=url, retry=retry, source=source, attempt=attempt,
+            timestamp=datetime.now(timezone.utc).isoformat()))
         self.save()
 
     def status(self):
@@ -296,7 +310,7 @@ class Session:
             except (LifecycleError, OSError) as error:
                 snapshots[gate] = dict(pending=str(error))
         return dict(mode=self.state['mode'], makers=self.state['makers'], gates=result,
-                    snapshots=snapshots, issues=self.state['issues'])
+                    snapshots=snapshots, issues=self.state['issues'], unresolved_attempts=self.unresolved_attempts())
 
 
 def main():

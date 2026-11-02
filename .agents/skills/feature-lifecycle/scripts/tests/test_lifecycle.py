@@ -348,6 +348,117 @@ print(f'https://github.com/owner/repo/issues/{number}')
         with self.assertRaisesRegex(lifecycle.LifecycleError, 'G5 evidence is stale'):
             self.session.require('G6')
 
+    def test_removed_ambiguous_attempt_blocks_creation_and_g5(self):
+        self.planning()
+        with patch.dict(os.environ, {'FAKE_GH_FAIL_TITLE': 'Second'}):
+            with self.assertRaises(lifecycle.LifecycleError):
+                self.session.create_issues()
+        self.payload['issues'].pop()
+        self.write_payload()
+        self.approve('G4')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'Ambiguous prior'):
+            self.session.create_issues()
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'Ambiguous prior'):
+            self.check('G5')
+        self.assertEqual(self.session.status()['unresolved_attempts'], {'second': self.session.state['attempts']['second']})
+        self.assertEqual(len(self.calls()), 2)
+
+    def test_renamed_ambiguous_attempt_cannot_create_again(self):
+        self.planning()
+        with patch.dict(os.environ, {'FAKE_GH_FAIL_TITLE': 'First'}):
+            with self.assertRaises(lifecycle.LifecycleError):
+                self.session.create_issues()
+        self.payload['issues'][0]['id'] = 'renamed-first'
+        self.payload['issues'][1]['depends_on'] = ['renamed-first']
+        self.write_payload()
+        self.approve('G4')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'Ambiguous prior'):
+            self.session.create_issues()
+        self.assertEqual(len(self.calls()), 1)
+
+    def test_reconcile_removed_attempt_without_current_g4_does_not_authorize_creation(self):
+        self.planning()
+        with patch.dict(os.environ, {'FAKE_GH_FAIL_TITLE': 'Second'}):
+            with self.assertRaises(lifecycle.LifecycleError):
+                self.session.create_issues()
+        attempted = self.session.state['attempts']['second']
+        self.payload['issues'].pop()
+        self.write_payload()
+        self.session.reconcile('second', 'https://github.com/owner/repo/issues/22', False, 'Verified saved payload on GitHub')
+        self.assertEqual(self.session.state['reconciliations'][-1]['attempt'], attempted)
+        self.assertEqual(self.session.status()['unresolved_attempts'], {})
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G4 evidence is stale'):
+            self.session.create_issues()
+        self.approve('G4')
+        self.session.create_issues()
+        self.check('G5')
+        self.assertEqual(len(self.calls()), 2)
+        self.assertEqual(self.session.state['issues']['first'], 'https://github.com/owner/repo/issues/1')
+
+    def test_verified_absence_after_payload_change_preserves_attempt_history(self):
+        self.planning()
+        with patch.dict(os.environ, {'FAKE_GH_FAIL_TITLE': 'First'}):
+            with self.assertRaises(lifecycle.LifecycleError):
+                self.session.create_issues()
+        attempted = self.session.state['attempts']['first']
+        self.payload['issues'][0]['body'] = 'Changed scope'
+        self.write_payload()
+        self.session.reconcile('first', None, True, 'Verified original payload was not created')
+        self.assertNotIn('first', self.session.state['attempts'])
+        self.assertEqual(self.session.state['reconciliations'][-1]['attempt'], attempted)
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G4 evidence is stale'):
+            self.session.create_issues()
+        self.approve('G4')
+        self.session.create_issues()
+        self.assertEqual(self.calls()[1]['body'], 'Changed scope')
+
+    def start_reduced(self):
+        self.session.pointer.unlink()
+        self.session.path.unlink()
+        self.session = lifecycle.Session(self.root, 'demo')
+        self.session.start('owner/repo', 'maker', mode='reduced')
+
+    def test_reduced_mode_existing_planning_artifacts_are_approval_inputs(self):
+        self.start_reduced()
+        self.planning()
+        for name in ['proposal.md', 'design.md', 'value.md', 'specs/example/spec.md']:
+            path = self.change / name
+            original = path.read_text()
+            with self.subTest(path=name):
+                path.write_text('Material change after approval\n')
+                with self.assertRaisesRegex(lifecycle.LifecycleError, 'G2 evidence is stale'):
+                    self.session.require('G4')
+                path.write_text(original)
+                self.session.require('G4')
+
+    def test_reduced_mode_artifact_additions_and_deletions_invalidate_approval(self):
+        self.start_reduced()
+        self.planning()
+        design = self.change / 'design.md'
+        original = design.read_text()
+        design.unlink()
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G2 evidence is stale'):
+            self.session.require('G4')
+        design.write_text(original)
+        added = self.change / 'specs/additional/spec.md'
+        added.parent.mkdir()
+        added.write_text('Additional requirements\n')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G2 evidence is stale'):
+            self.session.require('G4')
+        added.unlink()
+        self.session.require('G4')
+
+    def test_reduced_mode_all_optional_planning_artifacts_can_be_omitted(self):
+        self.start_reduced()
+        for name in ['proposal.md', 'design.md', 'value.md', 'specs/example/spec.md']:
+            (self.change / name).unlink()
+        (self.change / 'tasks.md').write_text('- [ ] 1.1 Correct documentation\n')
+        self.planning()
+        self.session.create_issues()
+        (self.change / 'tasks.md').write_text('- [x] 1.1 Correct documentation\n')
+        self.session.require('G4')
+        self.check('G5')
+
 
 if __name__ == '__main__':
     unittest.main()

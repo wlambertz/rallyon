@@ -12,6 +12,12 @@ import shlex
 import subprocess
 import sys
 
+VALUE_OPTIONS = {
+    "--title", "-t", "--body", "-b", "--body-file", "-F", "--label", "-l",
+    "--assignee", "-a", "--milestone", "-m", "--project", "-p", "--template", "-T",
+    "--recover", "--hostname", "--repo", "-R",
+}
+
 
 def active_session(cwd):
     result = subprocess.run(
@@ -42,7 +48,7 @@ def repository(tokens):
         if skip:
             skip = False
             continue
-        if token in ("--title", "-t", "--body", "-b", "--body-file", "-F", "--label", "-l", "--assignee", "-a", "--milestone", "-m", "--project", "-p", "--template", "-T", "--hostname"):
+        if token in VALUE_OPTIONS - {"--repo", "-R"}:
             skip = True
             continue
         if token in ("-R", "--repo") and index + 1 < len(tokens):
@@ -58,36 +64,193 @@ def repository(tokens):
     return value.lower() if re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", value) else None
 
 
-def expansion_text(command):
-    """Mask literal single quotes and escaped characters before spotting execution."""
-    output = []
-    single = False
-    double = False
-    escaped = False
-    for char in command:
-        if escaped:
-            output.append(" ")
-            escaped = False
-        elif char == "\\" and not single:
-            escaped = True
-            output.append(" ")
-        elif char == "\'" and not double:
-            single = not single
-            output.append(" ")
-        elif char == '"' and not single:
-            double = not double
+def creates_issue(tokens):
+    commands = []
+    skip = False
+    for token in tokens:
+        if skip:
+            skip = False
+            continue
+        if token in VALUE_OPTIONS:
+            skip = True
+            continue
+        if token.startswith("-"):
+            continue
+        commands.append(token)
+        if len(commands) == 1 and token != "issue":
+            return False
+        if len(commands) == 2:
+            return commands == ["issue", "create"] or commands == ["issue", "new"]
+    return False
+
+
+class ShellScanner:
+    """Separate ordinary commands from literal input and executable expansions.
+
+    This bounded scanner covers the shell forms supported by the workflow guard;
+    it does not evaluate shell code or implement Bash's entire grammar.
+    """
+
+    def __init__(self, command, depth=0):
+        if depth > 8:
+            raise ValueError("Shell nesting exceeds inspection limit")
+        self.command = command
+        self.index = 0
+        self.depth = depth
+        self.commands = []
+
+    def heredoc(self):
+        start = self.index
+        self.index += 2
+        strip_tabs = self.command[self.index:self.index + 1] == "-"
+        self.index += int(strip_tabs)
+        while self.command[self.index:self.index + 1] in (" ", "\t"):
+            self.index += 1
+        word = self.index
+        quote = None
+        quoted = False
+        while self.index < len(self.command):
+            char = self.command[self.index]
+            if char == "\\" and quote != "'":
+                quoted = True
+                self.index += 2
+                continue
+            if char in ("'", '"') and (quote is None or quote == char):
+                quoted = True
+                quote = char if quote is None else None
+            elif quote is None and (char.isspace() or char in ";&|()<>"):
+                break
+            self.index += 1
+        raw = self.command[word:self.index]
+        tokens = shlex.split(raw, comments=False)
+        if quote or len(tokens) != 1:
+            raise ValueError("Cannot inspect heredoc delimiter")
+        return self.command[start:self.index], (tokens[0], not quoted, strip_tabs)
+
+    def heredoc_bodies(self, pending):
+        for delimiter, expands, strip_tabs in pending:
+            body = []
+            while self.index < len(self.command):
+                end = self.command.find("\n", self.index)
+                end = len(self.command) if end < 0 else end + 1
+                line = self.command[self.index:end]
+                self.index = end
+                candidate = line.lstrip("\t") if strip_tabs else line
+                if candidate.removesuffix("\n") == delimiter:
+                    break
+                body.append(line)
+            else:
+                raise ValueError("Unterminated heredoc")
+            if expands:
+                # Quotes in an unquoted heredoc are data: only backslashes can
+                # suppress expansions, unlike quotes in ordinary shell words.
+                self.commands.extend(shell_fragments("".join(body), self.depth + 1, expansions_only=True))
+
+    def backticks(self):
+        self.index += 1
+        start = self.index
+        while self.index < len(self.command):
+            char = self.command[self.index]
+            if char == "\\":
+                self.index += 2
+                continue
+            if char == "`":
+                raw = self.command[start:self.index]
+                self.index += 1
+                raw = re.sub(r"\\([$`\\])", r"\1", raw)
+                self.commands.extend(shell_fragments(raw, self.depth + 1))
+                return
+            self.index += 1
+        raise ValueError("Unterminated backtick substitution")
+
+    def scan(self, closing=False, expansions_only=False, depth=0):
+        if depth + self.depth > 8:
+            raise ValueError("Shell nesting exceeds inspection limit")
+        output = []
+        quote = None
+        parentheses = 0
+        pending = []
+        while self.index < len(self.command):
+            char = self.command[self.index]
+            if char == "\\" and quote != "'":
+                # Bash removes executable line continuations before tokenizing;
+                # retaining them makes shlex invent a newline argument.
+                if self.command[self.index + 1:self.index + 2] == "\n":
+                    self.index += 2
+                    continue
+                output.append(self.command[self.index:self.index + 2])
+                self.index += 2
+                continue
+            if not expansions_only and char in ("'", '"') and (quote is None or quote == char):
+                quote = char if quote is None else None
+                output.append(char)
+                self.index += 1
+                continue
+            if quote != "'" and (self.command.startswith("$(", self.index) or
+                                  (quote is None and not expansions_only and self.command[self.index:self.index + 2] in ("<(", ">("))):
+                self.index += 2
+                self.commands.append(self.scan(closing=True, depth=depth + 1))
+                output.append("$RALLYON_SUBSTITUTION")
+                continue
+            if quote != "'" and char == "`":
+                self.backticks()
+                output.append("$RALLYON_SUBSTITUTION")
+                continue
+            if quote is None and not expansions_only:
+                if char == "#" and (self.index == 0 or self.command[self.index - 1].isspace() or self.command[self.index - 1] in ";&|()"):
+                    end = self.command.find("\n", self.index)
+                    end = len(self.command) if end < 0 else end
+                    output.append(self.command[self.index:end])
+                    self.index = end
+                    continue
+                if self.command.startswith("<<<", self.index):
+                    output.append("<<<")
+                    self.index += 3
+                    continue
+                if self.command.startswith("<<", self.index):
+                    header, document = self.heredoc()
+                    output.append(header)
+                    pending.append(document)
+                    continue
+                if char == "\n" and pending:
+                    output.append("\n")
+                    self.index += 1
+                    self.heredoc_bodies(pending)
+                    pending = []
+                    continue
+                if char == "(":
+                    parentheses += 1
+                elif char == ")":
+                    if closing and not parentheses:
+                        if pending:
+                            raise ValueError("Heredoc body is missing")
+                        self.index += 1
+                        return "".join(output)
+                    parentheses -= 1
             output.append(char)
-        else:
-            output.append(" " if single else char)
-    return "".join(output)
+            self.index += 1
+        if closing or quote or pending:
+            raise ValueError("Incomplete shell input")
+        return "".join(output)
+
+
+def shell_fragments(command, depth=0, expansions_only=False):
+    scanner = ShellScanner(command, depth)
+    outer = scanner.scan(expansions_only=expansions_only)
+    return scanner.commands + ([] if expansions_only else [outer])
 
 
 def blocked(command, target, depth=0):
     if depth > 8:
         return True
-    # Substitutions execute even inside double-quoted documentation arguments.
-    if re.search(r"(?:\$\(|`)[^\n]*(?:\bgh\b)[^\n]*\bissue\s+create\b", expansion_text(command)):
-        return True
+    try:
+        fragments = shell_fragments(command, depth)
+    except ValueError:
+        return bool(re.search(r"\bgh\b.*\bissue\b.*\b(?:create|new)\b", command, re.S))
+    return any(blocked_fragment(fragment, target, depth) for fragment in fragments)
+
+
+def blocked_fragment(command, target, depth):
     try:
         lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|()\n")
         lexer.whitespace = " \t\r"
@@ -95,7 +258,7 @@ def blocked(command, target, depth=0):
         lexer.commenters = "#"
         tokens = list(lexer)
     except ValueError:
-        return bool(re.search(r"\bgh\b.*\bissue\b.*\bcreate\b", command, re.S))
+        return bool(re.search(r"\bgh\b.*\bissue\b.*\b(?:create|new)\b", command, re.S))
     segments = [[]]
     for token in tokens:
         if token and all(char in ";&|()\n" for char in token):
@@ -125,13 +288,10 @@ def blocked(command, target, depth=0):
                                 return True
             if executable == "gh":
                 tail = segment[pos + 1:]
-                # Search around global flags and wrappers without relying on
-                # one fragile positional layout of the GitHub CLI command.
-                for issue in range(len(tail) - 1):
-                    if tail[issue] == "issue" and "create" in tail[issue + 1:]:
-                        repo = repository(tail)
-                        if not target or repo is None or repo == target.lower():
-                            return True
+                if creates_issue(tail):
+                    repo = repository(tail)
+                    if not target or repo is None or repo == target.lower():
+                        return True
     return False
 
 
@@ -141,8 +301,10 @@ def main():
     except ValueError:
         print("Cannot inspect lifecycle hook input.", file=sys.stderr)
         return 2
-    cwd = payload.get("cwd") or os.environ.get("CLAUDE_PROJECT_DIR") or os.getcwd()
-    session = active_session(cwd)
+    project = os.environ.get("CLAUDE_PROJECT_DIR")
+    session = active_session(project) if project else None
+    if session is None:
+        session = active_session(payload.get("cwd") or os.getcwd())
     if session is None:
         return 0
     command = payload.get("tool_input", {}).get("command", "")
