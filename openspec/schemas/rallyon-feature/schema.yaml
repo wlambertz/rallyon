@@ -1,0 +1,87 @@
+name: rallyon-feature
+version: 1
+description: RallyOn human-gated feature lifecycle from refinement through UAT
+artifacts:
+  - id: refinement
+    generates: "refinement.md"
+    description: Problem, primary persona, scope and success measures for G1
+    template: refinement.md
+    instruction: |
+      Read the repository personas, context map and nearest agent guide. Record the problem evidence, primary persona, owning app/context, scope, exclusions, measurable success criteria, assumptions and agreed budget (or explicitly no agreed budget). Distinguish hypotheses from verified evidence. Present this concrete artifact for explicit human G1 approval before preparing the specification. Do not infer approval from silence or task authorization.
+    requires: []
+  - id: proposal
+    generates: "proposal.md"
+    description: Capability proposal within approved scope
+    template: proposal.md
+    instruction: |
+      Require current human G1 approval in the lifecycle record. Explain why and what changes, list new and modified capabilities using existing capability paths where applicable, and state affected APIs and backward compatibility. Discover existing specifications before introducing a capability. Resolve material scope changes at G1. Planning only; do not implement or create issues.
+    requires: [refinement]
+  - id: specs
+    generates: "specs/**/*.md"
+    description: Testable behavior requirements and scenarios
+    template: spec.md
+    instruction: |
+      Create one delta spec at specs/<capability>/spec.md for each proposal capability. Use ## ADDED Requirements, ## MODIFIED Requirements, ## REMOVED Requirements or ## RENAMED Requirements. Each ### Requirement: uses SHALL/MUST and has at least one #### Scenario: with WHEN/THEN. Include success, failure and applicable security scenarios. For modifications preserve the entire existing requirement and its scenarios. New capabilities begin with a meaningful ## Purpose. Write domain behavior, not an implementation checklist. Use skip_specs only for changes without requirement changes.
+    requires: [proposal]
+  - id: design
+    generates: "design.md"
+    description: Architecture, compatibility, risks and validation approach
+    template: design.md
+    instruction: |
+      Describe the bounded context, aggregates, invariants, ports/adapters and affected contracts. Record decisions and tradeoffs, validation approach and rollout/recovery if applicable. Flag IAM changes, Flyway migrations, compatibility breaks, new dependencies or modules for human review. State whether an ADR is needed. Resolve decisions that affect scope or tasks before requesting approval. Do not assume an organizer frontend stack.
+    requires: [proposal]
+  - id: value
+    generates: "value.md"
+    description: Value assessment prepared before G2 and checked at G3
+    template: value.md
+    instruction: |
+      Apply docs/value-scoring.md. Record user, learning and risk-reduction values, confidence, effort, calculation, evidence and uncertainty. Prepare this assessment before human G2 specification/go-no-go approval. Present proposal, specs, design and value together for G2. After G2 a fresh-context independent checker challenges the calculation, evidence and effort at G3. A materially changed conclusion returns to G2. A numerical score never grants approval.
+    requires: [specs, design]
+  - id: tasks
+    generates: "tasks.md"
+    description: Traceable implementation checklist
+    template: tasks.md
+    instruction: |
+      Require current G2 approval and an independent G3 value check before issue decomposition. Use numbered groups and - [ ] X.Y checkbox tasks. Every task cites its requirement and a concrete validation command or observable completion check. Keep tests and docs with the work they validate. Resolve dependencies and ordering. Tasks are preparation only; apply still requires human G4 approval of the exact issue payload and continuing implementation.
+    requires: [value]
+  - id: issue-drafts
+    generates: "issue-drafts.json"
+    description: Exact structured GitHub issue payload for G4
+    template: issue-drafts.json
+    instruction: |
+      Prepare structured JSON with repository, stable issue draft identifiers, titles, bodies, dependencies and requested metadata using {repository: owner/name, issues: [{id, title, body, depends_on: [draft IDs], labels: [], assignees: [], milestone: optional string}]}. Each issue body includes requirement references, acceptance criteria and validation commands. Preview the exact payload and hash for human G4 approval, explicitly covering creation and continuing implementation. Do not create issues here. Use only the lifecycle helper after approval; record returned URLs immediately and reconcile ambiguous failures before retrying.
+    requires: [tasks]
+  - id: verification
+    generates: "verification.md"
+    description: Independent implementation and test evidence after G5/G6
+    template: verification.md
+    instruction: |
+      Post-implementation only: do not generate this artifact during proposal preparation. Require current G4 authorization and actual implementation before recording G5 evidence. An independent checker verifies implementation and then G6 tests against the current source snapshot. Map requirements/scenarios to tests, record exact commands/results, environment and limitations. Keep failures pending; never invent a passed check or let a maker certify their own work. Changed inputs invalidate dependent evidence.
+    requires: [issue-drafts]
+  - id: review
+    generates: "review.md"
+    description: Fresh-context review findings and resolutions for G7
+    template: review.md
+    instruction: |
+      Post-implementation only: require current successful G5/G6 evidence. Run separate fresh-context reviews for domain/architecture, correctness/security and tests/maintainability. Give bounded raw inputs and record identities, findings, resolutions and source snapshot. Makers cannot certify their work. Resolve blocking findings and independently recheck fixes. After two unresolved review rounds escalate disagreement to the human. If independent review is unavailable leave G7 pending.
+    requires: [verification]
+  - id: uat
+    generates: "uat.md"
+    description: Persona-oriented UAT script and human acceptance for G8
+    template: uat.md
+    instruction: |
+      After current G7 review, prepare reproducible persona-oriented scenarios with environment/setup, actions and expected outcomes. Record actual observed results and limitations only when executed or witnessed. Require explicit human G8 acceptance of current evidence. Never fabricate UAT success, infer acceptance from a report file, or auto-approve. Changed source requires affected checks again. Merge requires separate explicit human approval of the reviewed revision.
+    requires: [review]
+apply:
+  requires: [issue-drafts]
+  tracks: tasks.md
+  instruction: |
+    OpenSpec file readiness is not approval. Read the feature-lifecycle skill and
+    run python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change NAME check G4 --require
+    to check current G1-G4 evidence before changing implementation (replace NAME).
+    G4 must authorize the exact issue payload and continuing implementation.
+    Work through approved tasks, keeping requirement/test traceability current.
+    Stop for scope/spec ambiguity or the escalation conditions in docs/feature-lifecycle-gates.md.
+    Do not generate verification, review or UAT evidence until actual implementation exists.
+    After implementation use independent checking for G5/G6, fresh G7 reviews,
+    human G8 acceptance, and separate explicit merge approval.

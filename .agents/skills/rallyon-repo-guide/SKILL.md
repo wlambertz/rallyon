@@ -18,6 +18,8 @@ Use this skill first when the request is ambiguous, cross-cutting, or touches mo
 3. Read the closer `AGENTS.md` for each touched area before editing.
 4. Read relevant wiki pages before changing architecture, CLI semantics, docs, personas, or UX framing.
 
+For idea-to-UAT work, start or resume [feature-lifecycle](../feature-lifecycle/SKILL.md). It coordinates OpenSpec artifacts, native independent agents, durable gate evidence and human decisions. Use the documented reduced path only for narrow bugs/docs. It does not replace owning-area skills or authorize live issue creation before approval of the concrete payload.
+
 ## Source of truth
 
 - Treat code, manifests, configs, scripts, and tests as authoritative for current behavior.

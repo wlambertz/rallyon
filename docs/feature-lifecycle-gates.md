@@ -1,6 +1,6 @@
 # Feature lifecycle gates
 
-Phase A of [issue #191](https://github.com/wlambertz/rallyon/issues/191) defines the review contract for idea → UAT. These gates are a manual workflow today. Phase B will implement the OpenSpec schema, orchestrator, approval records and hooks; this document does not claim that automation exists.
+Phase A of [issue #191](https://github.com/wlambertz/rallyon/issues/191) defines the review contract for idea → UAT. Phase B supplies the `rallyon-feature` schema, shared lifecycle skill, evidence helper and session-scoped Claude issue hook. The [operation guide](agent-workflows.md#feature-lifecycle) explains their use and limits. Human decisions and independent checking remain explicit; file existence is not gate approval.
 
 Read the [personas](wiki/Personas.md), [context map](architecture/context-map.md), [tactical design](architecture/tactical-design.md), [layering rules](architecture/layering-and-archunit.md) and [value model](value-scoring.md). OpenSpec artifacts live in `openspec/`, following ADR 0002. Existing behavior, commands and constraints come from code and the nearest `AGENTS.md`.
 
@@ -26,7 +26,7 @@ Value scoring is prepared **before G2** so the human go/no-go uses both the spec
 
 Record the artifact/revision, evidence, approver or checker, date and outcome next to the change artifacts. Do not infer approval from silence or a score. Material changes to scope, requirements, architecture, compatibility, effort or evidence invalidate affected approvals and downstream evidence. Resume from the earliest affected gate. A rejection records actionable reasons and returns to that gate's preparation; it never advances automatically.
 
-The maker cannot act as their own checker. Automated checks and fresh-context reviewers support decisions; human gates remain human. Phase A can be followed manually, with a different person or fresh-context agent performing independent checks. If no independent checker is available, record that the gate remains pending.
+The maker cannot act as their own checker. Automated checks and fresh-context reviewers support decisions; human gates remain human. A different person or fresh-context native agent performs independent checks. If no independent checker is available, record that the gate remains pending.
 
 Escalate to the maintainer regardless of the current gate for:
 
@@ -48,4 +48,4 @@ The existing Java CI workflow calls its Maven verification job **Gate 1**. That 
 
 ## Phase A completion and deferred work
 
-Phase A delivers layering enforcement, this gate contract, value scoring, issue/PR templates and an accurate testing inventory. API, persistence, security and observability guideline expansion is deferred. Phase B's schema, skills and hooks, Phase C's pilot, legacy YAML migration and `ro spec` deprecation remain tracked by issue #191 and ADR 0002; completing Phase A does not close the issue.
+Phase A delivers layering enforcement, this gate contract, value scoring, issue/PR templates and an accurate testing inventory. Phase B delivers the schema, skill, helpers and focused workflow checks described in [ADR 0004](adr/0004-feature-lifecycle-orchestration.md). API, persistence, security and observability guideline expansion is deferred. Phase C's pilot, legacy YAML migration and `ro spec` deprecation remain tracked by issue #191 and ADR 0002; completing Phase B does not close the issue.
