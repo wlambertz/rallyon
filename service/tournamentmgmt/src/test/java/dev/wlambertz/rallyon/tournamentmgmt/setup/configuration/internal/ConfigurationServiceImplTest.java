@@ -4,6 +4,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Tournament;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.api.Visibility;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.mapping.TournamentApiMapping;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase;
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.GetTournamentUseCase;
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,11 +28,14 @@ class ConfigurationServiceImplTest {
     @Mock
     private UpdateDraftUseCase updateDraftUseCase;
 
+    @Mock
+    private GetTournamentUseCase getTournamentUseCase;
+
     private ConfigurationServiceImpl configurationService;
 
     @BeforeEach
     void setUp() {
-        configurationService = new ConfigurationServiceImpl(createDraftUseCase, updateDraftUseCase);
+        configurationService = new ConfigurationServiceImpl(createDraftUseCase, updateDraftUseCase, getTournamentUseCase);
     }
 
     @Test
@@ -94,5 +98,28 @@ class ConfigurationServiceImplTest {
 
         verifyNoInteractions(updateDraftUseCase);
         assertEquals("Tournament draft changes must not be null", exception.getMessage());
+    }
+
+    @Test
+    void getMapsTheStoredSnapshotWithoutCallingWriteUseCases() {
+        Tournament expected = Tournament.builder().id(42L).version(3L)
+                .name("Saved Cup").visibility(Visibility.PRIVATE).createdByUserId(12L).build();
+        when(getTournamentUseCase.execute(42L)).thenReturn(TournamentApiMapping.toDomain(expected));
+
+        assertEquals(expected, configurationService.get(42L));
+        verify(getTournamentUseCase).execute(42L);
+        verifyNoInteractions(createDraftUseCase, updateDraftUseCase);
+    }
+
+    @Test
+    void getTranslatesTheDomainNotFoundException() {
+        when(getTournamentUseCase.execute(42L)).thenThrow(
+                new dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.TournamentNotFoundException(42L));
+
+        TournamentNotFoundException error = assertThrows(TournamentNotFoundException.class,
+                () -> configurationService.get(42L));
+
+        assertEquals("Tournament 42 was not found", error.getMessage());
+        verifyNoInteractions(createDraftUseCase, updateDraftUseCase);
     }
 }

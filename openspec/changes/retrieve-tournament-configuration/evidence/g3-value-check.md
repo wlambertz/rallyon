@@ -1,0 +1,50 @@
+# G3 independent value check
+
+- Checker: `/root/phase_c_g3_value` (fresh native checker context; not the maker).
+- Date: 2026-11-02.
+- Result: **PASS for value readiness and issue decomposition**. No material rating, confidence, effort, scope or architecture correction is required by the inspected evidence. This report grants no issue-creation or implementation permission.
+- Basis: [independent-check instructions](../../../../.agents/skills/feature-lifecycle/references/value-check.md), [scoring anchors](../../../../docs/value-scoring.md), and the approved [refinement](../refinement.md), [proposal](../proposal.md), [requirements](../specs/tournament-configuration-read/spec.md), [design](../design.md) and [value assessment](../value.md).
+
+## Approval snapshot and independence
+
+I inspected raw source and test fixtures, rather than treating the maker's summaries as proof. No desired verdict was supplied. The inspected HEAD is `9ae7655`.
+
+An independent Python SHA-256 comparison found all five current planning artifacts identical to the G2 manifest in [.lifecycle.json](../.lifecycle.json). That record contains the maintainer quote “Approve G2 specification and go” and a conversation reference. I can establish agreement with that recorded snapshot; I cannot independently authenticate the original conversation from this bounded checker context. The planning files' historical “pending” sections do not override that durable approval record.
+
+## Reproduced calculation and challenge
+
+`(0.5 × 3 + 0.3 × 5 + 0.2 × 2) × 0.5 / 3`
+
+`= (1.5 + 1.5 + 0.4) × 0.5 / 3 = 1.7 / 3 = 0.566666… ≈ 0.567`
+
+Python independently reproduced `0.5666666666666667`. The rounding is correct; three decimals convey calculation precision, not measured business value. There is no automatic approval threshold.
+
+| Input | Independent assessment |
+| --- | --- |
+| User value 3 | Defensible as a hypothesis of noticeable improvement to recurring setup. The GET controller exists but its implementation throws, so an API client cannot reload through that operation. The [Organizer persona](../../../../docs/wiki/Personas.md) supports planning work and interruptions as context, but explicitly labels device/context assumptions as hypotheses. Neither recurring frequency nor saved effort has been measured. Rating 5 would overstate criticality, and the absent frontend prevents claiming a delivered UI benefit. |
+| Learning value 5 | Defensible for the complete pilot's expected central learning objective, not for adding a lookup method alone. [ADR 0004](../../../../docs/adr/0004-feature-lifecycle-orchestration.md) explicitly leaves a practical pilot outstanding to establish workflow usefulness and tune ceremony. Transferable evidence requires actual gates, independent checks, witnessed acceptance and recorded friction. The approved scope includes these outcomes and labels learning as unrealized. An endpoint merged without those outcomes would not earn 5. |
+| Risk reduction 2 | A restrained estimate for executable retrieval/error/non-mutation regression protection. Existing reuse reduces implementation uncertainty, but the new checks do not already exist and recurring defect incidence is unmeasured. This is a prospective hypothesis, not evidence of a prevented major failure. No security improvement or ownership protection is credited. A rating above 2 is unsupported. |
+| Confidence 0.5 | Correct anchor for unvalidated persona and workflow hypotheses. Corroborating code supports the implementation gap but does not establish the central benefit or successful pilot; upgrading the overall confidence to 0.75 or 1.0 would be premature. API UAT can validate behavior without proving organizer task-time savings. |
+| Effort 3 | Plausible moderate work across the one service area plus existing lifecycle delivery. Includes pure query/wiring, API translation, Java constructor compatibility, nested persistence and HTTP coverage, full verification, documentation, reviews and witnessed local delivery. Existing mapping, store, advice and workflow tooling avoid a fresh integration architecture. Effort 1–2 would undercount coordinated verification/delivery. Effort 5 remains a credible downside if local-environment recovery or workflow defects become substantial. |
+
+## Supporting raw evidence and effort comparison
+
+- [ConfigurationController.kt](../../../../service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationController.kt), lines 270–273, exposes GET and delegates to the service. [ConfigurationServiceImpl.kt](../../../../service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/ConfigurationServiceImpl.kt), lines 214–215, throws `UnsupportedOperationException`. This establishes a code gap, not a reproduced HTTP failure.
+- [TournamentStore.kt](../../../../service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/usecase/TournamentStore.kt), lines 5–7, already exposes nullable lookup separately from save. [JpaTournamentStore.kt](../../../../service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/persistence/JpaTournamentStore.kt), lines 17–19, loads and maps the domain snapshot. [ConfigurationControllerAdvice.kt](../../../../service/tournamentmgmt/src/main/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerAdvice.kt) already provides not-found ProblemDetail translation. These are concrete reuse opportunities supporting effort 3.
+- [DraftPersistenceIntegrationTest.kt](../../../../service/tournamentmgmt/src/test/kotlin/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/tournament/persistence/DraftPersistenceIntegrationTest.kt), lines 35–86, supplies committed-read fixtures, response-versus-stored version behavior, audit precision and nested identities. It currently reads via repository/mapper, so it does not prove the proposed service GET or its transaction. Extending service-level coverage is real work and already included in the design.
+- [ConfigurationServiceImplTest.java](../../../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/internal/ConfigurationServiceImplTest.java) and [ConfigurationControllerSecurityTest.java](../../../../service/tournamentmgmt/src/test/java/dev/wlambertz/rallyon/tournamentmgmt/setup/configuration/web/ConfigurationControllerSecurityTest.java) establish existing Java and HTTP test infrastructure. Existing coverage cannot be represented as passing new GET scenarios.
+- [KeycloakSecurityAutoConfiguration.java](../../../../3rd_party/iam/keycloak-spring-starter/src/main/java/dev/wlambertz/rallyon/iam/keycloak/spring/KeycloakSecurityAutoConfiguration.java), line 109, uses `anyRequest().authenticated()`. The explicit cross-creator PRIVATE retrieval requirement is a consequential selected policy, not a risk-reduction claim. Expanding it to ownership enforcement would change approved scope.
+- [Test application.properties](../../../../service/tournamentmgmt/src/test/resources/application.properties) uses H2, schema creation and disabled Flyway. It cannot establish PostgreSQL, migration or real-token correctness. The proposed real local walkthrough is therefore meaningful delivery effort.
+- Historical comparison: `git show --stat 3417f65` reports Phase A's 65-file domain/mapping/layering refactor with 2,025 insertions; `git show --stat 9ae7655` reports Phase B's 31-file lifecycle-tooling addition with 2,096 insertions. This query reuses both completed foundations and is visibly narrower than either. These commits have no inspected numerical effort rating or measured delivery time, so they corroborate relative scope only; they do not prove an exact effort of 3.
+
+## Findings, uncertainty and decomposition readiness
+
+No blocking finding. The proposal, requirements and design give a bounded lookup capability with explicit missing-ID, authentication and non-mutation behavior. They identify existing infrastructure, concrete evidence layers and exclusions sufficiently to draft one cohesive implementation issue. Its acceptance criteria must retain all four requirement IDs and the full lifecycle/API walkthrough obligations; otherwise the issue would silently drop the learning basis used in this score. G4 must still approve its exact payload and continued implementation.
+
+The principal unresolved dependency is a working Docker/Keycloak/PostgreSQL walkthrough environment. The approved artifacts disclose Docker unavailability during refinement. I did not independently test its current availability, and no successful walkthrough is claimed. Local restoration of the documented stack fits the estimate only while routine; substantial infra/tool changes, added dependencies or an effort increase to 5 require renewed human G2 consideration before expanding work. Likewise, a later change to access policy, architecture, value or confidence must return to G2 rather than being absorbed into issue wording.
+
+Sensitivity illustrates the uncertainty, without replacing approved inputs: effort 5 with the same values yields `0.34`; user value 2 instead of 3 yields about `0.483`; learning value 4 instead of 5 yields about `0.517`. None is a pass/fail threshold. The current conservative confidence and explicit hypotheses make retaining the approved estimate reasonable; they do not eliminate uncertainty.
+
+## Limits and actions taken
+
+This was a planning/value review. I inspected source, test definitions, local Git history and approval hashes; I did not run backend tests, recreate an HTTP failure, measure persona tasks, authenticate remote issue/conversation evidence, verify Docker availability or perform UAT. No runtime success or timing claim is made. No production code, approved artifact, gate record or issue was changed, and no delegation occurred. Only this report was written. G3 value readiness passes; subsequent implementation, QA, reviews and witnessed acceptance remain outstanding.

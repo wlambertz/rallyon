@@ -1,0 +1,149 @@
+{
+  "run_at": "2026-11-02T14:41:57.394987+00:00",
+  "api_base": "http://localhost:8080",
+  "source_index_fingerprint": "8cfadcd552127a571395c3b979192a3f686ac846457f61cd6b29a17887d938ac",
+  "authentication": "Real local Keycloak token obtained through ro auth token",
+  "steps": [
+    {
+      "name": "Create a partial PRIVATE draft",
+      "method": "POST",
+      "path": "/api/tournamentmgmt/config/drafts?organizerId=42",
+      "expected": 201,
+      "actual": 201,
+      "observations": {
+        "id": 1,
+        "version": 0,
+        "name": "Phase C pilot 479e8c91ec",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561790584Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.561790584Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Retrieve the saved draft",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 200,
+      "actual": 200,
+      "observations": {
+        "id": 1,
+        "version": 0,
+        "name": "Phase C pilot 479e8c91ec",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561791Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.561791Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Repeat read without mutation",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 200,
+      "actual": 200,
+      "observations": {
+        "id": 1,
+        "version": 0,
+        "name": "Phase C pilot 479e8c91ec",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561791Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.561791Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Commit a draft replacement",
+      "method": "PUT",
+      "path": "/api/tournamentmgmt/config/1/draft",
+      "expected": 200,
+      "actual": 200,
+      "observations": {
+        "id": 1,
+        "version": 0,
+        "name": "Phase C pilot 479e8c91ec updated",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561791Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.997503042Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Retrieve the committed replacement",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 200,
+      "actual": 200,
+      "observations": {
+        "id": 1,
+        "version": 1,
+        "name": "Phase C pilot 479e8c91ec updated",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561791Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.997503Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Repeat committed read without mutation",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 200,
+      "actual": 200,
+      "observations": {
+        "id": 1,
+        "version": 1,
+        "name": "Phase C pilot 479e8c91ec updated",
+        "visibility": "PRIVATE",
+        "status": "DRAFT",
+        "createdAt": "2026-11-02T14:41:57.561791Z",
+        "createdByUserId": 42,
+        "lastModifiedAt": "2026-11-02T14:41:57.997503Z",
+        "lastModifiedByUserId": 42
+      }
+    },
+    {
+      "name": "Unknown numeric ID uses ProblemDetail",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/0",
+      "expected": 404,
+      "actual": 404,
+      "observations": {
+        "status": 404,
+        "title": "Not Found",
+        "detail": "Tournament 0 was not found"
+      }
+    },
+    {
+      "name": "Anonymous access is rejected",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 401,
+      "actual": 401,
+      "observations": {}
+    },
+    {
+      "name": "Malformed bearer token is rejected",
+      "method": "GET",
+      "path": "/api/tournamentmgmt/config/1",
+      "expected": 401,
+      "actual": 401,
+      "observations": {}
+    }
+  ],
+  "human_g8_acceptance": "pending",
+  "outcome": "automated walkthrough passed",
+  "created_tournament_id": 1,
+  "data_checks": "Partial draft, committed replacement and exact repeated snapshots verified",
+  "cleanup": "Pilot record retained only in the isolated rallyon-phase-c Compose database"
+}
