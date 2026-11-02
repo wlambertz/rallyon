@@ -1,0 +1,47 @@
+name: Feature lifecycle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lifecycle-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate lifecycle tooling
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install formatting dependencies
+        run: npm ci
+      - name: Validate lifecycle schema
+        run: npx -y @fission-ai/openspec@1.14.2 schema validate rallyon-feature --json
+      - name: Validate OpenSpec artifacts
+        run: npx -y @fission-ai/openspec@1.14.2 validate --all
+      - name: Test lifecycle helper
+        run: python3 -m unittest discover -s .agents/skills/feature-lifecycle/scripts/tests -v
+      - name: Test lifecycle issue hook
+        run: python3 -m unittest discover -s .claude/hooks/tests -v
+      - name: Test schema readiness
+        run: python3 -m unittest discover -s openspec/schemas/rallyon-feature/tests -v
+      - name: Check formatting
+        run: npm run format:check
+      - name: Check whitespace
+        run: git diff --check

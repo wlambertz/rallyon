@@ -53,6 +53,94 @@ When adding or changing a skill:
 - Link only to references needed for that workflow.
 - Validate relative links after moving files.
 
+## Feature lifecycle
+
+Use the shared [feature-lifecycle skill](../.agents/skills/feature-lifecycle/SKILL.md) for idea → UAT work. The [gate contract](feature-lifecycle-gates.md) defines readiness and ownership; [ADR 0004](adr/0004-feature-lifecycle-orchestration.md) records the architecture and trust limits. Codex and Claude use native maker/checker agents, not a separate runner service. Phase C's product pilot remains separate from installing this workflow.
+
+### Start and inspect
+
+Run from the repository root with Python 3, Git, the pinned OpenSpec CLI and authenticated `gh` for approved issue creation. No extra Python package is required by the helper. Example commands below use a hypothetical change name; choose a real name when starting work.
+
+```bash
+npx -y @fission-ai/openspec@1.14.2 new change improve-draft-feedback --schema rallyon-feature
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback start --repository wlambertz/rallyon --maker maker-session-id
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback status
+npx -y @fission-ai/openspec@1.14.2 status --change improve-draft-feedback --json
+```
+
+The repository default stays `spec-driven`. Explicitly select `rallyon-feature` for full runs. Narrow bugs/docs use `spec-driven` plus helper `start --mode reduced` and `lifecycle.md`, recording scope, criteria, checks, review and reasons for omitted scoring/review ceremony. Existing proposal, design, value and specification artifacts remain bound to G2–G4 approvals even in reduced mode; adding, removing or editing them makes those approvals stale. Omitted artifacts remain optional. Use OpenSpec `skip_specs` only when requirements do not change. Reduced mode is unsuitable for new capabilities, broad refactors, ambiguous scope or security-sensitive work.
+
+The helper writes versioned evidence to `openspec/changes/<name>/.lifecycle.json`. Its active-session pointer is the worktree-specific path returned by `git rev-parse --git-path rallyon-lifecycle.json`, outside tracked source. Starting a different change requires explicit `deactivate`; this preserves records and grants no approval. To resume, start the same change with the same repository/mode/maker identity, inspect status and read evidence. Continue from the earliest pending or stale gate. Register every delegated maker using repeatable `start --additional-maker <identity>` with the original repository/mode/maker arguments. Checks reject all registered makers; adding a checker as a maker invalidates their earlier checks.
+
+### Record actual decisions and checks
+
+Use `--help` on the helper or a subcommand for exact arguments. Only record approval after the human explicitly approves the displayed artifacts; `--quote` and `--source` retain their actual words and conversation reference. For example, after actual G1 approval:
+
+```bash
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback approve G1 --actor maintainer --quote 'actual approval text' --source conversation-reference
+```
+
+Repeat at G2, G4, G8 and `merge` as those decisions occur. Helper status exposes reviewed G1/G2/G4 manifests and hashes for the approval preview. G4 must explicitly cover the exact proposed issues and continuing implementation. UAT requires the human to execute or witness the agreed scenarios. Merge approval is separate. A rejection must remain actionable evidence; neither silence nor an artifact's existence counts as acceptance.
+
+For G3/G5/G6/G7, a fresh checker records an existing repository-relative evidence file and its actual outcome. Put reports under the change's `evidence/` directory, or use `verification.md`, `review.md` and `uat.md`. Use separate finalized reports for successive checks; changing a shared report invalidates earlier checks referencing it. In reduced mode, `lifecycle.md` holds the planning/omission record and reports remain separate:
+
+```bash
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback check G6 --checker checker-session-id --evidence openspec/changes/improve-draft-feedback/verification.md --outcome pass
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback check G7 --checker architecture-review-session-id --evidence openspec/changes/improve-draft-feedback/review.md --outcome pass --lens architecture
+```
+
+Full-mode G7 also needs `correctness` and `tests` lens results. Record findings, review rounds and resolutions in the evidence file. Checkers receive bounded raw inputs and cannot be the maker. If fresh agents are unavailable, leave checking pending and hand off the artifacts to another person or session. Escalate disagreement after two unresolved rounds and the risks named in the gate contract.
+
+Before implementation, require current G1–G4 evidence:
+
+```bash
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback check G4 --require
+```
+
+This is an additional lifecycle check, separate from OpenSpec artifact readiness. G5 also requires every approved issue to have been created or reconciled. G4 binds task definitions and order while allowing OpenSpec completion checkboxes to advance without renewed approval. Verification/review/UAT artifacts are not planning prerequisites and must contain actual post-implementation evidence. Changed inputs invalidate affected gate records and downstream evidence. Source snapshots include staged, unstaged and nonignored untracked content, excluding lifecycle state and the report locations above to avoid circular hashes; report hashes are checked separately. Run status again after edits; do not relabel old checks as current without performing the necessary rechecks.
+
+### Approved issue creation and recovery
+
+Prepare `issue-drafts.json` in the change directory with this shape:
+
+```json
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "draft-feedback",
+      "title": "Concrete proposed issue title",
+      "body": "Requirement references, acceptance criteria and validation commands",
+      "depends_on": [],
+      "labels": [],
+      "assignees": []
+    }
+  ]
+}
+```
+
+Use stable draft IDs for dependencies and optional `milestone` only when required. Preview the complete payload, including metadata, dependency ordering and body text, before G4. After approval:
+
+```bash
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback create-issues
+```
+
+The helper verifies current G1–G4 evidence and submits the approved payload. Successful issue URLs are recorded immediately; retry/resume skips those successes. If the process fails after a remote request might have succeeded, including a 60-second creation timeout, every further creation and G5 remain blocked until all uncertain attempts are reconciled. Status lists unresolved attempts even if their draft IDs were renamed or removed. Inspect GitHub for the exact saved attempted payload before resuming. Use `create-issues --reconcile <draft-id> --url <existing-issue-url> --source <verification-reference>` when it exists, or `create-issues --reconcile <draft-id> --retry --source <verification-reference>` only after confirming no issue was created. Reconciliation records verified facts locally and requires an active session and verification reference; it remains available after scope changes or stale approvals, without restoring removed drafts. Any subsequent creation still requires current G4 approval. Never blindly retry an ambiguous request or hand-edit records to claim success. A changed payload requires renewed G4 approval.
+
+Every helper invocation holds an exclusive worktree-local lock at `git rev-parse --git-path rallyon-lifecycle.lock`, recording its PID, change and command. Normal exits release it. After a crash, inspect the lock and verify that its process has ended before removing it; then reconcile any ambiguous issue attempt before resuming.
+
+Finish or switch the local session explicitly:
+
+```bash
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback deactivate
+```
+
+### Enforcement and validation limits
+
+Claude's Bash `PreToolUse` guard blocks direct issue creation (`gh issue create` and `gh issue new`) for the lifecycle repository while its session is active, preserving the existing commit-hook guard. It prefers the worktree session identified by `CLAUDE_PROJECT_DIR` and falls back to tool cwd when there is no project session, so changing cwd outside the repository does not drop the active project guard. It does not discover sessions in sibling worktrees. Command substitutions are inspected before documentation-command exemptions, including nested substitutions, backticks and executable line continuations. Quoted heredoc bodies are literal documentation; unquoted heredoc bodies are inspected for executable expansions. Unrelated work without an active session is unaffected. Codex follows the same helper-only rule through shared instructions. The Claude guard does not technically intercept connectors, arbitrary shell obfuscation or every runtime; bypassing it remains contrary to the shared workflow. Approval records are auditable assertions, not authenticated signatures or a security boundary.
+
+Do not create live test issues or implement a product feature to test this workflow. Exercise full/reduced flows in temporary repositories with a fake GitHub executable. Validate the custom schema, helper/hooks and formatting using the focused CI workflow. Existing dependency-scan failures remain visible and are tracked separately.
+
 ## MCP Policy
 
 MCP is for external tools and context, not for local repo conventions. Use it when an agent needs live access to systems such as GitHub, design tools, docs servers, or knowledge bases.
