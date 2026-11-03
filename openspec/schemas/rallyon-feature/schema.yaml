@@ -56,14 +56,14 @@ artifacts:
     description: Independent implementation and test evidence after G5/G6
     template: verification.md
     instruction: |
-      Post-implementation only: do not generate this artifact during proposal preparation. Require current G4 authorization and actual implementation before recording G5 evidence. An independent checker verifies implementation and then G6 tests against the current source snapshot. Map requirements/scenarios to tests, record exact commands/results, environment and limitations. Keep failures pending; never invent a passed check or let a maker certify their own work. Changed inputs invalidate dependent evidence.
+      Post-implementation only: do not generate this artifact during proposal preparation. Require current G4 authorization and actual implementation before recording G5 evidence. An independent checker verifies implementation and then G6 tests against the current source snapshot. Map requirements/scenarios to tests, record exact commands/results, environment and limitations. Keep failures pending; never invent a passed check or let a maker certify their own work. Changed inputs invalidate dependent evidence. Write reports findings-first without restating inputs; rechecks cover only the changed delta.
     requires: [issue-drafts]
   - id: review
     generates: "review.md"
     description: Fresh-context review findings and resolutions for G7
     template: review.md
     instruction: |
-      Post-implementation only: require current successful G5/G6 evidence. Run separate fresh-context reviews for domain/architecture, correctness/security and tests/maintainability. Give bounded raw inputs and record identities, findings, resolutions and source snapshot. Makers cannot certify their work. Resolve blocking findings and independently recheck fixes. After two unresolved review rounds escalate disagreement to the human. If independent review is unavailable leave G7 pending.
+      Post-implementation only: require current successful G5/G6 evidence. Run separate fresh-context reviews for domain/architecture, correctness/security and tests/maintainability. Give bounded raw inputs and record identities, findings, resolutions and source snapshot. Makers cannot certify their work. Resolve blocking findings and independently recheck fixes. After two unresolved review rounds escalate disagreement to the human. If independent review is unavailable leave G7 pending. Write reports findings-first without restating inputs; rechecks cover only the changed delta.
     requires: [verification]
   - id: uat
     generates: "uat.md"

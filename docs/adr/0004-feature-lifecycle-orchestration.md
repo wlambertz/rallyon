@@ -26,6 +26,10 @@ There is additional evidence and prompt maintenance. Hashes detect changed input
 
 Existing REST, JWT, database and `ro` CLI contracts remain unchanged. This decision does not migrate legacy YAML specs, deprecate CLI commands, select a frontend stack or remediate dependency findings.
 
+## Amendment — research track
+
+Stories whose goal is knowledge, such as issue #183's requirements reconciliation, ran the full track. That produced a numeric value score for an analysis, a candidate spec that archiving would have merged as accepted behavior, and three review lenses that repeated the source audits which actually found errors. A third helper mode, `research`, with the `rallyon-research` schema, follows the spike/exploration-enabler practice: G1 charter with timebox, a single independent G5 findings check, G8 human acceptance, optional G4 follow-up issues after acceptance, and merge. Track choice is part of the approved G1 artifact and cannot change on resume. The tradeoff is fewer independent checks, so the G5 checker brief must cover source mapping, file scope and documentation checks thoroughly. Research never authorizes production changes or accepted specs.
+
 ## Related
 
 - [Issue #191](https://github.com/wlambertz/rallyon/issues/191)

@@ -17,3 +17,6 @@ service/tournamentmgmt/gradlew text eol=lf
 # Maven wrapper scripts: keep Unix script LF
 mvnw text eol=lf
 service/tournamentmgmt/mvnw text eol=lf
+
+# Lifecycle evidence is machine-written; keep it out of diffs that agents and reviewers read
+**/.lifecycle.json -diff linguist-generated=true

@@ -11,3 +11,5 @@ Give each reviewer the approved requirements/design, raw diff, applicable archit
 Consolidate findings in `review.md`. Resolve blocking findings, rerun affected tests and request independent rechecking. Record rounds and resolution evidence. Escalate disagreement remaining after two rounds instead of forcing consensus. The helper stores one G7 result for each lens; passing one lens does not substitute for the others.
 
 Reduced mode uses one independent review report under the change's `evidence/` directory or in `review.md`; explain omitted ceremony in the planning record `lifecycle.md`. If no independent checker is available, provide the above inputs for a separate session and leave G7 pending.
+
+Keep the report within the skill's [token budget](../SKILL.md#token-budget): verdict and findings first, no restated inputs, delta-only rechecks.

@@ -459,6 +459,121 @@ print(f'https://github.com/owner/repo/issues/{number}')
         self.session.require('G4')
         self.check('G5')
 
+    def start_research(self, drafts=False):
+        self.session.pointer.unlink()
+        self.session.path.unlink()
+        for name in ['charter.md', 'findings.md']:
+            (self.change / name).write_text(f'# {name}\nConcrete research evidence\n')
+        if not drafts:
+            (self.change / 'issue-drafts.json').unlink()
+        self.session = lifecycle.Session(self.root, 'demo')
+        self.session.start('owner/repo', 'maker', mode='research')
+
+    def test_research_progression_without_follow_up_issues(self):
+        self.start_research()
+        self.approve('G1')
+        self.check('G5')
+        self.approve('G8')
+        self.approve('merge')
+        self.session.require('merge')
+        status = self.session.status()
+        for gate in ['G2', 'G3', 'G4', 'G6', 'G7']:
+            self.assertEqual(status['gates'][gate], 'not applicable')
+        self.assertEqual(status['gates']['merge'], 'passed')
+
+    def test_research_follow_up_issues_follow_accepted_findings(self):
+        self.start_research(drafts=True)
+        self.approve('G1')
+        self.check('G5')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G8'):
+            self.approve('G4')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G8'):
+            self.session.create_issues()
+        self.approve('G8')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G4'):
+            self.approve('merge')
+        self.approve('G4')
+        self.session.create_issues()
+        self.assertEqual([call['body'] for call in self.calls()], ['First body', 'Second body'])
+        self.approve('merge')
+        self.session.require('merge')
+
+    def test_research_rejects_feature_only_gates(self):
+        self.start_research()
+        self.approve('G1')
+        for gate in ['G2', 'G3', 'G6', 'G7', 'G4']:
+            with self.assertRaisesRegex(lifecycle.LifecycleError, 'not part of the research track'):
+                self.session.record(gate, 'checker', evidence='openspec/changes/demo/evidence/G5.md',
+                                    quote='approve', source='chat:test')
+
+    def test_research_findings_and_charter_changes_invalidate(self):
+        self.start_research()
+        self.approve('G1')
+        self.check('G5')
+        self.approve('G8')
+        (self.change / 'findings.md').write_text('# Revised findings\n')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G5 evidence is stale'):
+            self.session.require('G8')
+        self.check('G5')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G8 evidence is stale'):
+            self.session.require('G8')
+        (self.change / 'charter.md').write_text('# Revised charter\n')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'G1 evidence is stale'):
+            self.session.require('G5')
+
+    def test_research_maker_cannot_verify_findings(self):
+        self.start_research()
+        self.approve('G1')
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'independent checker'):
+            self.check('G5', actor='maker')
+
+    def test_source_snapshots_are_cached_outside_the_record(self):
+        self.implementation()
+        records = {r['gate']: r for r in self.session.state['records']}
+        self.assertIn('manifest', records['G4'])
+        for gate in ['G5', 'G6']:
+            self.assertNotIn('manifest', records[gate])
+            self.assertGreater(records[gate]['snapshot_size'], 0)
+        self.assertEqual(records['G5']['fingerprint'], records['G6']['fingerprint'])
+        self.assertEqual(len(list(self.session.snapshots.glob('*.json'))), 1)
+        self.assertFalse(self.session.snapshots.is_relative_to(self.change))
+
+    def test_explain_lists_changed_paths_and_handles_missing_cache(self):
+        self.implementation()
+        self.assertEqual(self.session.explain('G5')['changed_paths'], [])
+        (self.root / 'source.txt').write_text('changed\n')
+        result = self.session.explain('G5')
+        self.assertTrue(result['stale'])
+        self.assertEqual(result['changed_paths'], ['source.txt'])
+        (self.change / 'design.md').write_text('# Revised design\n')
+        self.assertEqual(self.session.explain('G2')['changed_paths'], ['openspec/changes/demo/design.md'])
+        for cached in self.session.snapshots.glob('*.json'):
+            cached.unlink()
+        self.assertIn('unavailable', self.session.explain('G5')['changed_paths'])
+
+    def test_status_is_compact_unless_verbose(self):
+        self.planning()
+        compact = self.session.status()
+        self.assertNotIn('manifest', compact['snapshots']['G4'])
+        self.assertGreater(compact['snapshots']['G4']['files'], 0)
+        self.assertIn('manifest', self.session.status(verbose=True)['snapshots']['G4'])
+
+    def test_legacy_inline_source_manifest_remains_valid(self):
+        self.implementation()
+        for record in self.session.state['records']:
+            if record['gate'] == 'G5':
+                record['manifest'] = self.session.manifest('G5')
+        self.session.save()
+        self.session.require('G5')
+        for cached in self.session.snapshots.glob('*.json'):
+            cached.unlink()
+        self.assertEqual(self.session.explain('G5')['changed_paths'], [])
+
+    def test_research_mode_cannot_change_on_resume(self):
+        self.start_research()
+        with self.assertRaisesRegex(lifecycle.LifecycleError, 'mode on resume'):
+            self.session.start('owner/repo', 'maker', mode='full')
+
 
 if __name__ == '__main__':
     unittest.main()
