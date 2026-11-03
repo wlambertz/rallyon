@@ -182,3 +182,11 @@ CI publishes tagged releases via `.github/workflows/ro-release.yml` (tags `ro/v*
 ## Shell completion
 
 Cobra provides the `ro completion` command. See `ro completion --help` and follow your shell instructions.
+
+## Specifications
+
+Project specifications use OpenSpec 1.14.2 under `openspec/specs/`; follow the [shared OpenSpec instructions](../../../.agents/skills/openspec/SKILL.md).
+
+Legacy `ro spec create|validate|view` and their historical root forms `ro create|validate|view` remain functional, with one deprecation notice on stderr. They operate on legacy files, not current OpenSpec Markdown, and never invoke OpenSpec automatically. The nine former repository YAML specifications were [migrated](../../../docs/legacy-spec-migration.md).
+
+Legacy creation still requires an existing configured output directory. An explicit `specs.schemaURL` is retained; without it no `Schema:` line is printed. See the [CLI manual](../../../docs/wiki/CLI-Manual.md#410-specifications-and-legacy-compatibility) for compatibility details.

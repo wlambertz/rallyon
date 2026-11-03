@@ -172,7 +172,7 @@ func Load(repoRoot string) (*Config, error) {
 	v.SetDefault("telemetry.collectCommands", []string{"deploy", "docker build", "docker compose", "scaffold module"})
 	v.SetDefault("specs.directory", "docs/wiki/specs")
 	v.SetDefault("specs.defaultTemplate", "basic")
-	v.SetDefault("specs.schemaURL", "https://openspec.tech/schema/v1.1/openspec-schema.json")
+	_ = v.BindEnv("specs.schemaURL")
 	v.SetDefault("apps", map[string]App{})
 
 	// Config file from repo root if provided, else perform upward search from CWD

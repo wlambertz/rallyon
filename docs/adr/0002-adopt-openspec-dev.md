@@ -34,16 +34,24 @@ Negative:
 - OpenSpec enforces no approval gates itself; gates must come from repo workflow and hooks.
 - Without the `claude` target there are no `/opsx:*` shortcuts; skills are invoked as `/openspec-propose` etc.
 
-## Open follow-ups
+## Adoption follow-ups
 
-These are part of this decision and must not be dropped; this ADR stays the tracking point until they are done.
+These are part of this decision. The implementation below completes them; issue #191 remains open until human acceptance and merge of the closeout.
 
-- [ ] Migrate the 8 reverse-engineered YAML specs in `docs/wiki/specs/{tournamentmgmt,ro-cli}/` to `openspec/specs/<capability>/spec.md` (Requirement/Scenario format), verify with `openspec validate --all`, then remove the originals in a separate commit.
+- [ ] Migrate the 9 reverse-engineered YAML specs in `docs/wiki/specs/{tournamentmgmt,ro-cli}/` to `openspec/specs/<capability>/spec.md` (Requirement/Scenario format), verify with `openspec validate --all`, then remove the originals in a separate commit.
 - [ ] Deprecate `ro spec create|validate|view` with a pointer message (keep the commands working; `ro` compatibility rule), regenerate `docs/cli-reference.md`.
 - [ ] Remove the remaining openspec.tech references (`specs.schemaURL` default, wiki pages) once the migration is done.
 
 ## Related
 
-- `.agents/skills/openspec/SKILL.md` — legacy openspec.tech skill, to be rewritten
+- `.agents/skills/openspec/SKILL.md` — shared OpenSpec workflow and legacy compatibility guidance
 - `docs/agent-workflows.md` — why `.claude/skills` is a symlink to `.agents/skills`
 - ADR 0001 — module boundaries that specs should be organised around
+
+## Migration and compatibility resolution
+
+The inventory contained nine YAML files, rather than the eight originally counted. Their acceptance criteria are reconciled with current code and tests in [the migration inventory](../legacy-spec-migration.md); the Markdown replacements are the current specifications. Original YAMLs are removed in a separate commit after adding and validating replacements. The original Context/Decision/Consequences above retain the adoption rationale as historical text.
+
+Inspection also found the legacy commands registered directly as `ro create|validate|view`, although their documentation advertised `ro spec ...`. Both forms are now supported using shared handlers and remain visible in generated help. A single stderr deprecation notice directs users to OpenSpec 1.14.2; stdout, file formats, validation and errors remain compatible except for the explicitly approved removal of the automatic `Schema:` line. An explicit `specs.schemaURL` still works. Default schema URLs and active external-schema recommendations are removed; historical mentions here and frozen review evidence remain for provenance.
+
+The legacy `specs.directory` default and its directory are deliberately retained for compatibility, using a migration README after removing the YAML originals. Project specifications are authored only under `openspec/`; the compatibility commands do not turn Markdown into legacy tickets or invoke OpenSpec. See [closeout evidence](../issue-191-closeout.md) for validation, human acceptance and merge status.

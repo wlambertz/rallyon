@@ -207,7 +207,28 @@ ro scaffold module registration \
 - `RO_TELEMETRY_ENABLED=true` overrides config for one-off opt-ins.
 - `ro doctor` – see §2.1 for details.
 
-### 4.10 Completion & release packaging
+### 4.10 Specifications and legacy compatibility
+
+Current project specifications live in `openspec/specs/`. Use OpenSpec 1.14.2 and the [shared OpenSpec instructions](../../.agents/skills/openspec/SKILL.md) for proposing, validating and archiving changes:
+
+```bash
+npx -y @fission-ai/openspec@1.14.2 validate --all
+```
+
+The nine former project YAML specifications were migrated; see the [migration inventory](../legacy-spec-migration.md). Both legacy command forms remain available:
+
+```bash
+ro spec create example
+ro spec validate /path/to/legacy.yaml
+ro spec view /path/to/legacy.yaml
+# Historical root forms: ro create, ro validate, ro view
+```
+
+Each executed legacy leaf prints one deprecation notice to stderr, including on argument/file errors; ordinary results stay on stdout. These commands keep their existing YAML templates, basic structural validation, file display and errors. They do not forward to OpenSpec, and `validate` does not validate the Markdown specifications or perform full JSON-schema validation. `create` requires its configured output directory to exist; its legacy `specs.directory` default remains for compatibility, not as the destination for new project specifications. Names and configured templates behave as before; there is no new `--template` flag.
+
+`specs.schemaURL` has no automatic value or fallback. A caller-provided value is still printed by `create`; without one the `Schema:` line is omitted. Help and the generated CLI reference also mark both routes as deprecated. See [ADR 0002](../adr/0002-adopt-openspec-dev.md).
+
+### 4.11 Completion & release packaging
 
 - `ro completion install` – installs completion scripts (see §2.3).
 - Packaging via GoReleaser:

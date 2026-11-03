@@ -8,74 +8,70 @@ import (
 	"github.com/wlambertz/rallyon/tools/cli/ro/pkg/config"
 )
 
-// specCreateCmd represents the create command for OpenSpec specs
-var specCreateCmd = &cobra.Command{
-	Use:   "create [name]",
-	Short: "Create a new OpenSpec specification ticket",
-	Long: `Create a new OpenSpec specification ticket in YAML, JSON, or TOON format.
+func newSpecCreateCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "create [name]",
+		Short: "Create a legacy YAML specification ticket (deprecated)",
+		Long: `Create a legacy specification ticket in YAML format.
 
 The command generates a spec file based on the configured default template
 and writes it to the configured specs directory.
 
 Example:
-  ro spec create my-feature-auth
-  ro spec create --template basic my-feature`,
-	Args: cobra.ExactArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
-		name := args[0]
-		cfg, err := config.Load("")
-		if err != nil {
-			return fmt.Errorf("config error: %w", err)
-		}
+  ro spec create legacy-ticket`,
+		Args: cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			name := args[0]
+			cfg, err := config.Load("")
+			if err != nil {
+				return fmt.Errorf("config error: %w", err)
+			}
 
-		// Determine output directory
-		outputDir := cfg.Specs.Directory
-		if outputDir == "" {
-			outputDir = "docs/wiki/specs"
-		}
+			// Determine output directory
+			outputDir := cfg.Specs.Directory
+			if outputDir == "" {
+				outputDir = "docs/wiki/specs"
+			}
 
-		// Determine template
-		template := cfg.Specs.DefaultTemplate
-		if template == "" {
-			template = "basic"
-		}
+			// Determine template
+			template := cfg.Specs.DefaultTemplate
+			if template == "" {
+				template = "basic"
+			}
 
-		// Determine schema URL
-		schemaURL := cfg.Specs.SchemaURL
-		if schemaURL == "" {
-			schemaURL = "https://openspec.tech/schema/v1.1/openspec-schema.json"
-		}
+			// Determine schema URL
+			schemaURL := cfg.Specs.SchemaURL
 
-		// Create spec file content based on template
-		var specContent string
+			// Create spec file content based on template
+			var specContent string
 
-		switch template {
-		case "basic":
-			specContent = basicSpecTemplate(name)
-		case "auth":
-			specContent = authSpecTemplate(name)
-		default:
-			specContent = basicSpecTemplate(name)
-		}
+			switch template {
+			case "basic":
+				specContent = basicSpecTemplate(name)
+			case "auth":
+				specContent = authSpecTemplate(name)
+			default:
+				specContent = basicSpecTemplate(name)
+			}
 
-		// Write to file
-		filename := fmt.Sprintf("%s.yaml", name)
-		filePath := fmt.Sprintf("%s/%s", outputDir, filename)
+			// Write to file
+			filename := fmt.Sprintf("%s.yaml", name)
+			filePath := fmt.Sprintf("%s/%s", outputDir, filename)
 
-		if err := os.WriteFile(filePath, []byte(specContent), 0644); err != nil {
-			return fmt.Errorf("failed to write spec file: %w", err)
-		}
+			if err := os.WriteFile(filePath, []byte(specContent), 0644); err != nil {
+				return fmt.Errorf("failed to write spec file: %w", err)
+			}
 
-		fmt.Printf("OpenSpec spec created: %s\n", filePath)
-		fmt.Printf("Template used: %s\n", template)
-		fmt.Printf("Schema: %s\n", schemaURL)
+			fmt.Fprintf(cmd.OutOrStdout(), "OpenSpec spec created: %s\n", filePath)
+			fmt.Fprintf(cmd.OutOrStdout(), "Template used: %s\n", template)
+			if schemaURL != "" {
+				fmt.Fprintf(cmd.OutOrStdout(), "Schema: %s\n", schemaURL)
+			}
 
-		return nil
-	},
-}
+			return nil
+		},
+	}
 
-func init() {
-	rootCmd.AddCommand(specCreateCmd)
 }
 
 func basicSpecTemplate(name string) string {
