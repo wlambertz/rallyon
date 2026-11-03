@@ -18,6 +18,49 @@
         "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1"
       },
       "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "G2 freigeben und Go",
+      "source": "Conversation reply to request_user_input_async call_17c9f516ccba429099d285c8af742643, question item 0: explicit G2 specification/go approval for PR 1 review package 4a43143.",
+      "lens": null,
+      "timestamp": "2026-11-03T09:44:53.874822+00:00",
+      "fingerprint": "69c7de94ab2c0ae23ea942f75ceff5a2a5076b7c97d53eab79609d3c2fa635ae",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "473e8e0bf3df038585f1dd74232dab475919246ad2a4f873e93154e72d077437",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "75963cba05d6beec88b259053e0de365684d2d7d2913254307105f61806979f5"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "/root/ci187_g3",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-03T09:49:18.122781+00:00",
+      "evidence": "openspec/changes/stabilize-ci-and-security/evidence/g3-value-check.md",
+      "evidence_hash": "98c0ed0cf21e70e3139d37cb0711821e883870c38fda7b2c7f14ba127dd4d529",
+      "fingerprint": "69c7de94ab2c0ae23ea942f75ceff5a2a5076b7c97d53eab79609d3c2fa635ae",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "473e8e0bf3df038585f1dd74232dab475919246ad2a4f873e93154e72d077437",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "75963cba05d6beec88b259053e0de365684d2d7d2913254307105f61806979f5"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7",
+        "G2:None": "dfabbb5bb4c90229fb328eb7d46dd747da964be7f16b271194d66920df870d09"
+      }
     }
   ],
   "issues": {},
