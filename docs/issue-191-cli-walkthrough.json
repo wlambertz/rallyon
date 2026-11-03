@@ -59,5 +59,6 @@
     }
   ],
   "help_checks": "All six leaf help routes show the deprecation pointer and no stderr warning on help.",
-  "outcome": "passed"
+  "outcome": "passed",
+  "default_directory_smoke": "Root create with no specs.directory override succeeded against the retained repository directory; own generated smoke file removed immediately."
 }

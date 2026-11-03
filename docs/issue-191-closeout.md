@@ -18,7 +18,7 @@ G1/G2 scope and go/no-go: authorized by that explicit supplied implementation pl
 
 ## Validation and review
 
-The replacements were committed first in `845fcb0`; legacy CLI compatibility and regenerated docs were committed in `4343d10`. The nine YAML originals are removed only in the subsequent retirement commit after successful replacement validation.
+The replacements were committed first in `845fcb0`; legacy CLI compatibility and regenerated docs were committed in `4343d10`. The nine YAML originals are removed only in the subsequent retirement commit after successful replacement validation. A migration README retains their former directory so the unchanged legacy default output path still exists in a fresh checkout.
 
 Independent CLI checker `/root/legacy_cli_check` found no functional findings. Its full `GOCACHE=/private/tmp/rallyon-191-go-cache go test ./...` passed with escalation for existing local HTTP test listeners. It independently built and exercised the actual CLI root and grouped routes using discovered `ro.yaml`, auth templates, absent/explicit schema configuration, argument/flag/file errors, all six inherited root-config error paths and all six leaf help routes. Generated reference comparison matched live generator output apart from its timestamp. No files were edited by the checker, and no live external/auth/deploy operations were invoked. Durable regression-test limitation: committed tests construct a synthetic Cobra root, while actual inherited root behavior was independently covered by the built-binary smoke run.
 
