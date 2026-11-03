@@ -48,3 +48,7 @@ Pending explicit acceptance of executed or witnessed results. No agent may appro
 ## Separate merge decision
 
 Pending explicit approval of the final reviewed revision and normal repository checks. No protection bypass. PR2 and final main/Docker observation remain required before closing#187.
+
+## Subsequent Sonar disposition
+
+After the frozen-source reviews, the maintainer explicitly authorized the four exact S8707 False Positive dispositions. The short approved rationale was stored in Sonar with optional analyzer-improvement sharing disabled. Public API confirms all four RESOLVED/FALSE-POSITIVE and quality gate OK with ignoredConditions=false; Safari visibly shows Quality gate Passed and GitHub Sonar check is SUCCESS. [Durable authorization/outcome evidence](evidence/sonar-false-positive-disposition.json) supersedes the historical red-status observations above. No rule/gate configuration or source implementation changed. This approval is not G8 acceptance or merge authorization.

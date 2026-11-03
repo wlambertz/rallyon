@@ -1,0 +1,149 @@
+{
+  "observed_utc": "2026-11-03T12:02:14.545367+00:00",
+  "repository": "wlambertz/rallyon",
+  "pull_request": 201,
+  "reviewed_head": "1e2bc2fd5cf037dfd3be649798c0ebe8e97a34d2",
+  "authorization": {
+    "actor": "maintainer",
+    "quote": "Vier Fehlalarm-Einstufungen freigeben",
+    "source": "Conversation reply to request_user_input_async call_33cfe113551f4e439e0e00e3b6a2a5f6, item0; exact four findings and gate impact displayed beforehand."
+  },
+  "rationale": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+  "analyzer_improvement_comment_sharing": false,
+  "findings": [
+    {
+      "key": "AaGg_UgxQhZb76BLGHsC",
+      "rule": "pythonsecurity:S8707",
+      "line": 119,
+      "message": "Path Traversal via faulty LLM-supplied CLI arguments in security_scan.atomic_write()",
+      "status": "RESOLVED",
+      "resolution": "FALSE-POSITIVE",
+      "comments": [
+        {
+          "key": "AaGhRRAWVCmfR6MynyNW",
+          "login": "wlambertz@github",
+          "htmlText": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "markdown": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "updatable": false,
+          "createdAt": "2026-11-03T11:57:00+0000",
+          "isFeedback": false
+        }
+      ]
+    },
+    {
+      "key": "AaGg5SO-hZE0KGnogF7L",
+      "rule": "pythonsecurity:S8707",
+      "line": 158,
+      "message": "Path Traversal via faulty LLM-supplied CLI arguments in security_scan.run_scan()",
+      "status": "RESOLVED",
+      "resolution": "FALSE-POSITIVE",
+      "comments": [
+        {
+          "key": "AaGhRRAWVCmfR6MynyNV",
+          "login": "wlambertz@github",
+          "htmlText": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "markdown": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "updatable": false,
+          "createdAt": "2026-11-03T11:57:00+0000",
+          "isFeedback": false
+        }
+      ]
+    },
+    {
+      "key": "AaGg5SO-hZE0KGnogF7I",
+      "rule": "pythonsecurity:S8707",
+      "line": 233,
+      "message": "Path Traversal via faulty LLM-supplied CLI arguments in security_scan.main()",
+      "status": "RESOLVED",
+      "resolution": "FALSE-POSITIVE",
+      "comments": [
+        {
+          "key": "AaGhRRAVVCmfR6MynyNT",
+          "login": "wlambertz@github",
+          "htmlText": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "markdown": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "updatable": false,
+          "createdAt": "2026-11-03T11:57:00+0000",
+          "isFeedback": false
+        }
+      ]
+    },
+    {
+      "key": "AaGg5SO-hZE0KGnogF7J",
+      "rule": "pythonsecurity:S8707",
+      "line": 233,
+      "message": "Path Traversal via faulty LLM-supplied CLI arguments in security_scan.main()",
+      "status": "RESOLVED",
+      "resolution": "FALSE-POSITIVE",
+      "comments": [
+        {
+          "key": "AaGhRRAWVCmfR6MynyNU",
+          "login": "wlambertz@github",
+          "htmlText": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "markdown": "Independently reviewed false positives: local, intentionally selected CLI paths and fixed CI arguments; no HTTP or restricted LLM-tool interface. This classification covers only the four reviewed findings.",
+          "updatable": false,
+          "createdAt": "2026-11-03T11:57:00+0000",
+          "isFeedback": false
+        }
+      ]
+    }
+  ],
+  "quality_gate": {
+    "status": "OK",
+    "conditions": [
+      {
+        "status": "OK",
+        "metricKey": "new_reliability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_maintainability_rating",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "1",
+        "actualValue": "1"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_coverage",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "80"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_duplicated_lines_density",
+        "comparator": "GT",
+        "periodIndex": 1,
+        "errorThreshold": "3",
+        "actualValue": "0.0"
+      },
+      {
+        "status": "OK",
+        "metricKey": "new_security_hotspots_reviewed",
+        "comparator": "LT",
+        "periodIndex": 1,
+        "errorThreshold": "100",
+        "actualValue": "100.0"
+      }
+    ],
+    "periods": [],
+    "ignoredConditions": false
+  },
+  "ui_verification": "Bulk change success; open vulnerability list empty; PR Summary visibly Quality gate Passed.",
+  "github_sonar_check": "SUCCESS",
+  "rule_or_gate_configuration_changed": false,
+  "scope_note": "Specific approved false-positive dispositions only; not G8 acceptance, merge approval or completion of PR2."
+}

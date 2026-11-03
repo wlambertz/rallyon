@@ -23,3 +23,7 @@ The original CPE2.3 literal mismatch was corrected to engine-compatible bounded 
 ## Review round and outcome
 
 All final source lenses PASS after independently verified fixes. There is no unresolved reviewer disagreement. Sonar's external red status, default OSS Index credential limitation, unavailable ShellCheck and the existing opt-in test skip remain explicit in verification/UAT. G7 is not human G8 acceptance or merge approval.
+
+## Subsequent Sonar disposition
+
+After the frozen-source reviews, the maintainer explicitly authorized the four exact S8707 False Positive dispositions. The short approved rationale was stored in Sonar with optional analyzer-improvement sharing disabled. Public API confirms all four RESOLVED/FALSE-POSITIVE and quality gate OK with ignoredConditions=false; Safari visibly shows Quality gate Passed and GitHub Sonar check is SUCCESS. [Durable authorization/outcome evidence](evidence/sonar-false-positive-disposition.json) supersedes the historical red-status observations above. No rule/gate configuration or source implementation changed. This approval is not G8 acceptance or merge authorization.

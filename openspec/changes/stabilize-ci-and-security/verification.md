@@ -34,3 +34,7 @@ The [actual CI summary](evidence/github-final-security-summary.json) distinguish
 ## Independent outcome
 
 G5 and G6 independently PASS for implementation/QA against the frozen source snapshot, with the actual coverage limits above. This does not declare every PR check green, approve G8 or authorize merge.
+
+## Subsequent Sonar disposition
+
+After the frozen-source reviews, the maintainer explicitly authorized the four exact S8707 False Positive dispositions. The short approved rationale was stored in Sonar with optional analyzer-improvement sharing disabled. Public API confirms all four RESOLVED/FALSE-POSITIVE and quality gate OK with ignoredConditions=false; Safari visibly shows Quality gate Passed and GitHub Sonar check is SUCCESS. [Durable authorization/outcome evidence](evidence/sonar-false-positive-disposition.json) supersedes the historical red-status observations above. No rule/gate configuration or source implementation changed. This approval is not G8 acceptance or merge authorization.
