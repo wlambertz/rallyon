@@ -8,8 +8,8 @@ G1 and G2 are human-approved; independent G3 passed. These are reviewable implem
 
 ## 2. Coordinated dependency updates and compatibility
 
-- [ ] 2.1 Align the service and IAM starter on Boot 4.1.2, all Kotlin runtime/compiler/plugins on 2.4.21, and the existing Swagger UI artifact on 5.34.1 (SCA-001). Validate with effective dependency/plugin graphs, resolved-JAR/embedded-resource identity and the full Maven checks in task 4.3.
-- [ ] 2.2 Add focused isolated JWT decoder/principal regression coverage for valid tokens and wrong signature/issuer/audience/expiry, required numeric user-ID and mapped-role behavior; preserve existing API/mapping/architecture expectations (SCA-001). Validate with IAM reactor tests and service clean verify; use generated test keys/local fake JWKS only, without live Keycloak requests.
+- [x] 2.1 Align the service and IAM starter on Boot 4.1.2, all Kotlin runtime/compiler/plugins on 2.4.21, and the existing Swagger UI artifact on 5.34.1 (SCA-001). Validate with effective dependency/plugin graphs, resolved-JAR/embedded-resource identity and the full Maven checks in task 4.3.
+- [x] 2.2 Add focused isolated JWT decoder/principal regression coverage for valid tokens and wrong signature/issuer/audience/expiry, required numeric user-ID and mapped-role behavior; preserve existing API/mapping/architecture expectations (SCA-001). Validate with IAM reactor tests and service clean verify; use generated test keys/local fake JWKS only, without live Keycloak requests.
 
 ## 3. Security pipeline and policy
 

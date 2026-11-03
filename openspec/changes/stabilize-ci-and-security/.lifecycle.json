@@ -2,7 +2,7 @@
   "version": 1,
   "repository": "wlambertz/rallyon",
   "maker": "codex-issue-187-maker",
-  "makers": ["codex-issue-187-maker"],
+  "makers": ["/root/ci187_dependencies", "/root/ci187_pipeline", "/root/ci187_triage", "codex-issue-187-maker"],
   "mode": "full",
   "records": [
     {
@@ -61,8 +61,46 @@
         "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7",
         "G2:None": "dfabbb5bb4c90229fb328eb7d46dd747da964be7f16b271194d66920df870d09"
       }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Issue und Umsetzung freigeben",
+      "source": "Conversation reply to request_user_input_async call_d3ee4fced3c34a0a98d8522ecdcb1a92, question item 0: explicit approval of exact issue payload and continued PR-1 implementation; manifest d37695f8bc2bfd2c3b4a52c0ff283124a6dea95369dd6f9a3e19a13a804adae1.",
+      "lens": null,
+      "timestamp": "2026-11-03T09:55:34.349457+00:00",
+      "fingerprint": "d37695f8bc2bfd2c3b4a52c0ff283124a6dea95369dd6f9a3e19a13a804adae1",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "473e8e0bf3df038585f1dd74232dab475919246ad2a4f873e93154e72d077437",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "75963cba05d6beec88b259053e0de365684d2d7d2913254307105f61806979f5",
+        "openspec/changes/stabilize-ci-and-security/tasks.md": "a7091abb1935486d2fcf58d63764961aa198902a21cb74a3a25ad2c3fd14a215",
+        "openspec/changes/stabilize-ci-and-security/issue-drafts.json": "2897ddf35c74c706f0428eea79e6f047a95f384edfb039e8e9a8006946012e38"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7",
+        "G2:None": "dfabbb5bb4c90229fb328eb7d46dd747da964be7f16b271194d66920df870d09",
+        "G3:None": "d609cd5ceb2d2b95fa1b221f6de58a26a4070b8811a3a417b7428b789dcf5135"
+      }
     }
   ],
-  "issues": {},
-  "attempts": {}
+  "issues": {
+    "security-scan-and-sbom": "https://github.com/wlambertz/rallyon/issues/200"
+  },
+  "attempts": {
+    "security-scan-and-sbom": {
+      "payload": {
+        "id": "security-scan-and-sbom",
+        "title": "fix(ci): remediate dependencies and decouple SBOM generation",
+        "body": "## Problem and parent scope\n\nRefs #187. This is the first implementation package of its approved two-PR plan. Main security scans fail on a mixture of genuine affected dependency versions and candidate product mismatches; SBOM generation currently depends on scanner success. The parent issue remains open for the separate all-workflow/CodeQL/Docker/release package and final main verification.\n\n## Approved contract\n\nG1 and G2 are explicit maintainer decisions. [G2 review package](https://github.com/wlambertz/rallyon/tree/4a43143/openspec/changes/stabilize-ci-and-security) contains the proposal, seven SCA requirements / 19 scenarios, design and advisory value assessment. Fresh independent G3 passed with no material correction. [Implementation checklist](https://github.com/wlambertz/rallyon/blob/fix/issue-187-security-sbom/openspec/changes/stabilize-ci-and-security/tasks.md) is prepared for G4 approval; it is not completed implementation evidence.\n\n## Acceptance criteria\n\n- SCA-001: service and IAM starter use Boot 4.1.2 together; Kotlin compiler/runtime/plugins use 2.4.21; the existing Swagger UI artifact uses 5.34.1. Effective dependencies and packaged resources prove alignment, with existing API/JWT/role/claim/database/ro contracts preserved.\n- SCA-002: official Dependency-Check 13.0.0 is pinned to OCI index sha256:0e8f69ad5b00d62000937f4e57189812343f6903d9c83ee712012d51542a020a; runtime-JAR and embedded-JavaScript analysis remain active; changed security Actions use verified full SHAs.\n- SCA-003: CVSS >= 7 and all scanner/feed/runtime failures remain blocking. No ignored exits, reduced threshold, disabled analyzers or missing-report-as-clean behavior.\n- SCA-004: every baseline entry/finding is accounted for using exact identities and primary affected/fixed-version evidence. Only demonstrated wrong-product/version matches receive narrowly scoped, source-backed, <=90-day rules; genuine affected components are not waived because a feature may be unused.\n- SCA-005: cold/warm/keyless updates work as specified; PRs (including same-repository PRs) receive no optional NVD key and do not save the trusted shared cache. Only trusted default-branch push/schedule runs may use the optional key/save data; credentials never enter logs, reports or caches.\n- SCA-006: successful dependency preparation feeds sibling scanner and CycloneDX jobs at the same revision. A failed scan still permits SBOM generation/upload and available report retention, while the overall workflow stays red. Preparation failure blocks both consumers. Existing workflow/check names remain.\n- SCA-007: current local/CI evidence, negative fixtures, operation/recovery guidance, fresh independent G5/G6 and three G7 reviews are recorded. G8 and merge remain explicit separate human decisions. No live auth requests, release/test-tag publication or registry pushes are used for validation.\n\n## Validation commands and observations\n\n- ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install\n- ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml test\n- ./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify\n- cd tools/cli/ro && go test ./...\n- python3 -m unittest discover -s tools/scripts/tests -p 'test_security*.py' -v\n- Lifecycle helper, hook and schema-readiness Python suites; OpenSpec 1.14.2 schema validate rallyon-feature and validate --all.\n- Pinned Actionlint; npm run format:check; active links and git diff --check.\n- Real cold/warm scanner evidence plus fake-process blocking/feed/error/secret/trust/expiry regressions; actual GitHub job/artifact inspection proves independent SBOM behavior. Simulations are identified as such.\n\n## Boundaries and delivery\n\nNo product feature, public contract, auth policy, migration, Java container runtime, Go-module minimum or repository protection change. Optional NVD credentials remain optional. Genuine unresolved blocking findings prevent acceptance. Workflow hardening outside this security package remains PR 2 under #187. Do not close #187 when this child is complete.\n",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-03T09:55:34.446624+00:00"
+    }
+  }
 }
