@@ -1,7 +1,7 @@
 {
   "binary": "built from this worktree",
   "operations": "Local temporary files only; no auth/deploy/Docker/GitHub calls",
-  "human_acceptance": "G8 accepted: maintainer answered “G8 abnehmen” to PR #197 acceptance question; separate merge approval pending",
+  "human_acceptance": "G8 accepted: maintainer answered “G8 abnehmen”; separate merge approved with “Merge und #191 abschließen”",
   "steps": [
     {
       "command": "ro create root",
@@ -61,5 +61,7 @@
   "help_checks": "All six leaf help routes show the deprecation pointer and no stderr warning on help.",
   "outcome": "passed",
   "default_directory_smoke": "Root create with no specs.directory override succeeded against the retained repository directory; own generated smoke file removed immediately.",
-  "acceptance_source": "Conversation reply to request_user_input_async call_8908023ae21941a4af743e8aaa9315c4, question item 0"
+  "acceptance_source": "Conversation reply to request_user_input_async call_8908023ae21941a4af743e8aaa9315c4, question item 0",
+  "merge_approval_source": "Conversation reply to request_user_input_async call_4d1e531f966a486a8f86f14f742c6c7c, question item 0",
+  "merge_commit": "7405045b5d68d963acb1cadbc3a18b997761600f"
 }
