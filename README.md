@@ -94,3 +94,9 @@ Optional kann eine `.gitattributes` mit Standard-Textbehandlung helfen:
 ```gitattributes
 * text=auto
 ```
+
+## Lizenz
+
+Der eigene RallyOn-Code einschließlich der `ro`-CLI steht unter der [MIT-Lizenz](LICENSE). Sie erlaubt die Nutzung, Änderung und Weitergabe auch in kommerziellen und geschlossenen Produkten, sofern der Copyright- und Lizenzhinweis erhalten bleibt. Das unterstützt den Lern- und Austauschgedanken des Projekts.
+
+Fremde Bestandteile behalten ihre jeweiligen Lizenzen; vorhandene Lizenz- und Copyright-Hinweise gelten weiterhin.
