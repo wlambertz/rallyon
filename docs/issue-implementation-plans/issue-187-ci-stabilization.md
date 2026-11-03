@@ -1,93 +1,36 @@
-# Issue #187: CI vollständig stabilisieren und härten
+# Issue #187: NVD als Hauptquelle behalten
 
-## Planrevision: BSI als Ersatz für die NVD-basierte Prüfung
+## Zusammenfassung und Freigabegrundlage
 
-Stand 2026-11-03, auf ausdrücklichen Wunsch des Maintainers. Diese Revision plant den Ersatz der NVD-basierten Schwachstellenprüfung durch öffentliche BSI-/CERT-Bund-CSAF-Daten. Sie ist **keine Umsetzungs-, G8- oder Merge-Freigabe**. Die zuvor vorgeschlagene direkte NIST-Feed-Anpassung wurde nicht bestätigt und wird nicht umgesetzt. Bestehende Genehmigungen betreffen den alten Entwurf; vor einer veränderten Umsetzung sind die betroffenen Lifecycle-Gates erneut vorzubereiten.
+Diese vom Maintainer ausdrücklich zur Umsetzung beauftragte Revision ersetzt den BSI-Ersatzplan aus Commit `0d22186`. NVD bleibt die Hauptquelle des automatischen Dependency-Scans. BSI-/CERT-Bund-Meldungen dienen ergänzend zur manuellen Bewertung; es entstehen keine BSI-Scan-Engine und kein zusätzlicher CI-Job. Hersteller-Advisories bleiben Belege für betroffene und korrigierte Versionen.
 
-Der Zwischenstand liegt in [PR #201](https://github.com/wlambertz/rallyon/pull/201); dessen tatsächlicher Dependency-Check-13.0.0-Kaltstart scheitert am bekannten schlüssellosen NVD-Abruf. Dieser Fehler bleibt sichtbar. Dependency-Upgrades, unabhängige SBOM-Erzeugung und die Arbeit an PR 2 bleiben Bestandteile von #187. Der lokale `main` bleibt unverändert.
+Die Lieferung bleibt bei zwei aufeinanderfolgenden PRs: zuerst Dependencies/Security/SBOM in PR #201, anschließend die übrigen Workflows. #187 bleibt bis zum Abschluss beider Lieferungen offen. Die tatsächlichen Fehlernachweise und bisherigen Genehmigungen bleiben historisch erhalten; die betroffenen Lifecycle-Nachweise werden erneuert. G8-Abnahme und Merge bleiben getrennte menschliche Entscheidungen.
 
-## Ziel und Lieferung
+## PR 1: gezielte Korrektur des Datenabrufs
 
-Alle bestehenden Workflows überarbeiten und echte Dependency-Probleme beheben, ohne Sicherheitsprüfungen abzuschwächen. Lieferung in **zwei aufeinanderfolgenden PRs**:
+- Die bereits implementierten Upgrades auf Boot 4.1.2 im Service/IAM, Kotlin 2.4.21 und Swagger UI 5.34.1, JWT-Regressionstests, eng befristeten Fehlzuordnungsregeln und unabhängigen Scan-/SBOM-Jobs erhalten.
+- Dependency-Check 13.0.0 mit dem bereits verifizierten OCI-Index-Digest `sha256:0e8f69ad5b00d62000937f4e57189812343f6903d9c83ee712012d51542a020a` beibehalten.
+- Ohne vertrauenswürdig bereitgestellten NVD-Schlüssel den offiziell unterstützten direkten NIST-Datenfeed verwenden: `--nvdDatafeed https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz`.
+- Mit optionalem Schlüssel die bisherige NVD-API verwenden. Schlüssel und gemeinsame Cache-Schreibzugriffe bleiben ausschließlich Default-Branch-Push-/Schedule-Läufen vorbehalten. PRs nutzen den schlüssellosen Feed.
+- Vor jedem schlüssellosen Lauf die offiziellen `https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-modified.meta`-Daten abrufen. Fehlende oder ungültige Zeitstempel, ein Alter über 48 Stunden oder eine Datierung mehr als fünf Minuten in die Zukunft blockieren. Abrufe erhalten drei Versuche mit jeweils höchstens 20 Sekunden Timeout.
+- Aktive Scanner-Updates und das 60-Minuten-Joblimit erhalten. Fehler bleiben sichtbar und blockierend; kein automatischer Wechsel zwischen API und Feed nach einem Fehler und kein Offline-Erfolgsfallback.
+- Datenquellenmodus, Metadaten-Zeitstempel und Quellenhash in den Ausführungsnachweis aufnehmen. Bestehende Helper-Befehle sowie REST-, JWT-, Datenbank- und `ro`-Schnittstellen bleiben unverändert.
+- CVSS ≥ 7 bleibt blockierend. Runtime-JARs und eingebettetes JavaScript bleiben geprüft. HTML-/JSON-Diagnosen und die unabhängig erzeugte CycloneDX-SBOM werden auch bei roten Befunden bereitgestellt.
 
-1. Dependencies, Security-Scan und SBOM.
-2. Java-/Go-CI, Formatierung/Sonar, Commit-Lint, Lifecycle, Docker, CodeQL und Release.
+## Dokumentation, Lifecycle und weitere Lieferung
 
-#187 bleibt bis zum Abschluss beider PRs offen. Zu Beginn den Plan unter `docs/issue-implementation-plans/issue-187-ci-stabilization.md` speichern, auf #187 kommentieren und separat committen. Danach auf isolierten Branches von aktuellem `main` arbeiten.
+- Diesen Plan auf #187 veröffentlichen und separat committen. OpenSpec-Design, betroffene Szenarien und Aufgaben konkret aktualisieren. Die ursprünglichen Fehlernachweise und bisherigen Genehmigungen historisch erhalten.
+- Die betroffenen G2–G4-Nachweise anhand des ausdrücklich beauftragten Plans erneuern; bestehendes Umsetzungsticket #200 mit unverändertem genehmigtem Issue-Payload erhalten und keine doppelten Issues erstellen. Danach Implementierung, unabhängige G5/G6-Prüfung und drei G7-Review-Linsen abschließen.
+- G8 umfasst einen nachvollziehbaren Bericht-/CI-Walkthrough. Abnahme und Merge bleiben getrennte menschliche Entscheidungen. Ein Planauftrag ersetzt diese Entscheidungen nicht.
+- PR 2 behält den bisherigen Umfang und die unten festgelegten Toolchain-Versionen/Plattformziele. Nach beiden genehmigten Merges den tatsächlichen `main` einschließlich Docker beobachten, Checklisten abschließen und erst dann #187 schließen.
 
-## PR 1: Dependencies und Security/SBOM
+## Zusätzliche Validierung für den Datenabruf
 
-- Den aktuellen Report als Ausgangspunkt dokumentieren: Paketidentität, erkannte CVEs, Herstellerquelle, betroffene Versionen und Maßnahme pro Befund.
-- Spring Boot im Service und IAM-Starter gemeinsam auf **4.1.2** aktualisieren. Dessen BOM liefert unter anderem Spring Framework 7.0.10, Tomcat 11.0.27 und PostgreSQL JDBC 42.7.14. [Offizielle Versionsverwaltung](https://docs.spring.io/spring-boot/appendix/dependency-versions/coordinates.html).
-- Kotlin-Compiler, Laufzeit und Compiler-Plugins gemeinsam auf **2.4.21** aktualisieren. Swagger UI gezielt auf **5.34.1** verwalten, einschließlich des korrigierten eingebetteten DOMPurify. Keine Spring-Boot-Hauptversion oder Auth-Policy ändern.
-- In `.github/workflows/security-scan.yaml` die bisherige NVD-basierte Vulnerability-Auswertung nach dem unten beschriebenen Nachweis durch eine BSI-CSAF-Auswertung ersetzen. Der bereits gepinnte Dependency-Check 13.0.0 ist der dokumentierte Zwischenstand, nicht die vorausgesetzte BSI-Engine. Eine BSI-URL wird nicht als NVD-Feed ausgegeben. Aufgelöste Runtime-JARs einschließlich eingebetteter JavaScript-Ressourcen bleiben im Inventar und in der Prüfung.
-- **CVSS ≥ 7 bleibt blockierend.** Nur belegte Fehlzuordnungen unterdrücken, jeweils eng auf Paket und falschen CPE/CVE begrenzt, mit Begründung, Herstellerbeleg und maximal 90 Tagen Laufzeit. Keine pauschalen Bibliotheks-, Analyzer- oder Schwellenwert-Ausnahmen.
-- Validierte BSI-Quelldaten und normalisierte Daten getrennt versioniert cachen; Cache-Schreibzugriffe nur aus vertrauenswürdigen Läufen. Updates bleiben aktiviert. Der vollständige BSI-Ersatz benötigt keinen NVD-Schlüssel und keinen neuen Pflicht-Secret. Netzwerk-, Feed-, Signatur-, Zuordnungs- und Auswertungsfehler dürfen keinen grünen Scan erzeugen. Kein stiller Rückfall auf NVD oder andere Datenanbieter.
-- SBOM unabhängig vom Scan-Ergebnis erzeugen. Beide Jobs benötigen eine erfolgreiche Dependency-Auflösung; Scanfehler blockieren weiterhin die Gesamtprüfung. HTML-/JSON-Berichte und CycloneDX-SBOM auch bei roten Befunden bereitstellen.
-
-## PR 1: Umsetzungsplan für den BSI-Ersatz
-
-### 1. Machbarkeit und Abdeckung vor dem Wechsel belegen
-
-- Die offiziellen [BSI-Provider-Metadaten](https://wid.cert-bund.de/.well-known/csaf/provider-metadata.json) als Einstieg verwenden. Daraus öffentliche WHITE/CLEAR-Distributionen entdecken, zunächst WID und anschließend die übrigen öffentlichen BSI-/CVD-Verteilungen abgleichen und Duplikate nach Herausgeber, Dokument-ID und Revision zusammenführen. GREEN- oder andere zugriffsbeschränkte Dokumente nicht abrufen oder in öffentliche CI-Artefakte übernehmen.
-- Ein reproduzierbares, mit Zeitstempel und SHA-256 versehenes Quelleninventar erstellen: Metadaten, ROLIE-Index, Advisory-Revisionen, Quellen-URLs, Produktkennungen, Versionsangaben, Status und verfügbare Scores. Anbieter-Updatezeit und tatsächlichen Abrufzeitpunkt getrennt dokumentieren; unveränderte ältere Advisories sind nicht allein wegen ihres Veröffentlichungsdatums veraltet.
-- Für alle **145 aktuellen Runtime-Koordinaten**, die eingebetteten JavaScript-Komponenten sowie alle **13 Baseline-Einträge / 82 Instanzen / 64 IDs** eine Abdeckungsmatrix liefern. Eine im Index gefundene CVE ist noch kein Nachweis korrekter Paket-/Versionszuordnung. Echte betroffene Fälle und die sieben belegten Fehlzuordnungen getrennt prüfen.
-- Vor dem Umsetzen eines eigenen Matchers vorhandene BSI-/CSAF-Werkzeuge anhand dieser Matrix erproben. Toolauswahl, erforderliche neue CI-Abhängigkeiten, Lizenz, Version/Digest und Wartungsaufwand als konkrete Designentscheidung vorlegen. Ein ständig laufender zusätzlicher Dienst ist nicht vorausgesetzt. Ein umfangreicher eigener allgemeiner SCA-Scanner wäre eine gesonderte Architekturentscheidung.
-- Ergebnis ist ein überprüfbares Go/No-Go für einen **vollständigen** BSI-Ersatz. Nicht abgedeckte kritische Komponenten, fehlende notwendige Versionsangaben oder Scores verhindern den Wechsel. Falls BSI allein nicht reicht, diese Grenzen präsentieren; Herstellerdaten oder weitere Quellen werden nur nach einer neuen ausdrücklichen Entscheidung ergänzt. Kein automatischer NVD-Fallback und keine vorgetäuschte Gleichwertigkeit.
-
-### 2. BSI-Adapter und fachliche Auswertung klar trennen
-
-Vorgesehene Ablage bei Freigabe: `tools/scripts/` für ausführbare CI-Werkzeuge, `tools/scripts/tests/` für isolierte Regressionen, `docs/security/` für Betrieb und Abdeckungsmatrix. Die konkrete Engine wird nach Schritt 1 benannt; diese Planung installiert keine neue Bibliothek.
-
-- Der Quelladapter liest CSAF 2.0 entsprechend den tatsächlich angebotenen Metadaten, prüft Schema, Herausgeber, Verteilungslabel, Integrität und angebotene Signaturen. Vertrauensanker explizit festhalten; Schlüsselwechsel nicht allein aus unbeglaubigten Metadaten automatisch übernehmen. HTTPS, begrenzte Laufzeiten, Retries, Antwortgrößen und zulässige Weiterleitungsziele absichern. Cache nur nach erfolgreicher Validierung aktualisieren und atomar schreiben.
-- ROLIE-Inhalte nicht als ausführbaren Code oder beliebige Download-Ziele behandeln. Nur geprüfte öffentliche Anbieterpfade abrufen; externe Herstellerlinks bleiben Belege. Auch kalte Initialisierung muss innerhalb des CI-Zeitlimits funktionieren; Indexgröße, Downloadanzahl und Rate-Limits im Machbarkeitslauf messen. Kandidatenauswahl über nachvollziehbare Produkt-/Aliaszuordnung und Indexkategorien spezifizieren; kein bloßer Titel-Substring-Filter. ETags, Revisionen und begrenzte Parallelität vermeiden einen ungeprüften Komplettdownload aller Advisories in jedem PR.
-- Aktualität anhand eines erfolgreich aktualisierten Index-/Provider-Snapshots prüfen, maximale Zeit seit erfolgreicher Quellenaktualisierung **48 Stunden**. Rückdatierte Revisionen, widersprüchliche Metadaten und Fehler beim notwendigen Update blockieren. Ein fehlgeschlagener Abruf darf nicht durch einen alten Cache grün werden.
-- Ein normalisiertes internes Ergebnisformat speichert Advisory-ID/Revision, CVE, Paket-/Komponenten-ID, Quelldatenhash, Produktbezug, betroffene/fixe Versionen, Score und Zuordnungsevidenz. CSAF-Produkt-IDs sind dokumentlokal; `product_status`, Produktbaum und etwaige Beziehungen müssen gemeinsam aufgelöst werden.
-- Exakte PURLs bevorzugen; CPE und explizit geprüfte Maven-/Hersteller-Aliase nur mit dokumentierter Identität verwenden. Namensähnlichkeit ist kein belastbarer Treffer: RallyOns eigenes `keycloak-core` bleibt vom Keycloak-Server getrennt, die Micrometer-Registry vom Prometheus-Server. Betriebssystem-/Distributionspakete nicht mit eigenständigen Maven-JARs gleichsetzen.
-- Maven-Versionen, Release-Kandidaten und Versionsbereiche nicht lexikografisch vergleichen. Unklare Angaben werden `unknown`; `fixed` und `known_not_affected` gelten nur für das konkret referenzierte Produkt und die konkrete Version. Neuere Dokumentrevisionen und Rücknahmen nachvollziehbar behandeln; widersprüchliche Aussagen nicht still überschreiben.
-- Eingebettetes DOMPurify aus den tatsächlich ausgelieferten Swagger-UI-JARs und beiden Bundles weiterhin erkennen, dessen Version/Hash belegen und als eigene Komponente prüfen. Die SBOM allein ersetzt diese Erkennung nicht. Versionserkennung und Produktzuordnung müssen auch für unbekannte zukünftige Bundle-Layouts sichtbar fehlschlagen.
-
-### 3. Unverändert blockierendes Sicherheits-Gate
-
-- Numerische, zum betroffenen Produkt gehörige CVSS-Basisscores aus dem gewählten BSI-Dokument verwenden und Score-Version/Quelle ausweisen. Unterstützte CVSS-Versionen und den Umgang mit mehreren Scores spezifizieren und testen; ein vorhandener anwendbarer Basisscore ≥ 7 darf nicht durch einen niedrigeren Wert verschwinden. CSAF `aggregate_severity: hoch` nicht in eine erfundene Zahl umrechnen.
-- Bei einer relevanten Meldung ohne belastbaren numerischen Score, bei unklarer Paket-/Versionszuordnung oder bei widersprüchlichem Status lautet das Ergebnis `unknown` bzw. `conflict` und blockiert. Fehlender Advisory-Treffer wird ausdrücklich `not_listed`, nicht `known_not_affected`. Komponenten ohne nachgewiesene Quellen-/Identitätsabdeckung verhindern die positive Cutover-Abnahme.
-- Die historischen Baseline-Scores bleiben Vergleichsbelege; sie werden nicht als angeblich vom BSI gelieferte aktuelle Werte übernommen. Eine manuelle Ergänzung oder alternative Datenquelle braucht eine konkrete genehmigte Regel und nachvollziehbare Herkunft.
-- Vorhandene Fehlzuordnungsregeln nicht blind in die neue Engine übernehmen. Nur weiterhin erforderliche, eng auf Komponente und Advisory/CVE begrenzte Ausnahmen mit Herstellerbeleg und maximal 90 Tagen Laufzeit zulassen. Abgelaufene, zu breite oder unvollständige Regeln scheitern. Fehlende BSI-Abdeckung ist keine zulässige Ausnahme.
-- Getrennte Ergebnisgründe für blockierenden Befund, unzureichende Abdeckung und Infrastruktur-/Quellfehler liefern. Jeder bleibt im CI rot. Deterministische HTML-/JSON-Berichte enthalten auch fehlende/unklare Daten und Quellenbelege; keine Ausgabe „0 vulnerabilities“ bei fehlgeschlagener Prüfung.
-
-### 4. Workflow-Integration und sichere Umstellung
-
-- Bestehenden Workflow-Dateinamen und Check-Namen `Dependency vulnerability scan` / `Generate SBOM` erhalten. Erfolgreiche Dependency-Vorbereitung liefert unveränderliche Runtime-Inputs und deren Hashes an beide unabhängigen Jobs. SBOM bleibt auch bei rotem BSI-Gate verfügbar.
-- Ausschließlich geprüfte öffentliche BSI-Daten verwenden; keine CI-Schlüssel für BSI voraussetzen. PRs lesen kompatible vertrauenswürdige Caches, schreiben sie aber nicht gemeinsam. Speichern nur bei erfolgreicher Validierung in vertrauenswürdigen Default-Branch-Push-/Schedule-Läufen; Cache-Identität enthält Anbieter, Schema und Engine-Version.
-- Keine neue verpflichtende Produktionsinfrastruktur, keine `pull_request_target`-Ausführung fremden Codes mit Secrets. Für neue Werkzeuge vollständige Versionen/Digests und SHA-gepinnte Actions verwenden. Die bisherige Scanner-Logik, Cache-Schlüssel und NVD-Schlüsselreferenzen erst nach nachgewiesener Gleichwertigkeit entfernen; Historie und fehlgeschlagene Läufe erhalten.
-- Für den Vergleich zunächst gespeicherte Baseline-/Herstellerbelege und Offline-Fixtures verwenden. Ein erneuter NVD-Netzabruf ist keine Voraussetzung für die BSI-Auswertung. Während einer eventuellen CI-Vergleichsphase bleibt ein Fehler sichtbar; es gibt keinen deaktivierten alten Check, der als erfolgreich dargestellt wird.
-- Betriebshandbuch beschreibt Datenquellen, Update-/Frische-Regeln, Fehlerdiagnose, Cache-Recovery, Vertrauensanker und Abdeckungsgrenzen. Ein Rückbau auf den dokumentierten alten Zustand bleibt nachvollziehbar; dessen bekannter NVD-Fehler wird dadurch nicht behoben oder grün.
-
-### 5. Nachweis, Lifecycle und Auslieferung
-
-- Wegen der veränderten Datenquelle, Engine und Sicherheitsannahmen G1/G2 anhand konkreter aktualisierter OpenSpec-Artefakte erneut vorlegen; Value-/Aufwandsannahmen neu bewerten. Danach frische unabhängige G3-Prüfung, aktualisierte Aufgaben und exakt angezeigtes Umsetzungspaket für erneutes G4. #200 wiederverwenden, sofern derselbe Ticketumfang passt; kein zusätzliches Issue ohne G4 und keinen bereits erfolgreichen Helper-Eintrag löschen oder erneut erstellen. Wenn die Änderung des bestehenden Issue-Payloads besondere Helper-Unterstützung erfordert, das offen klären statt den Schutz zu umgehen.
-- Die aktuelle Planung ändert weder bestehende OpenSpec-Approvals noch Gate-Ergebnisse. Die Umsetzung der BSI-Anpassung beginnt erst nach den erneuerten Freigaben. Ein bloß erfolgreicher BSI-Download erfüllt kein Gate.
-- Schritte in PR #201 nachvollziehbar committen: erst Quellen-/Abdeckungsnachweis und Tests, dann freigegebene Engine/Policy und Workflow-Umschaltung, schließlich Entfernen veralteter NVD-Konfiguration und Betriebsdokumentation. Separate PR-1-/PR-2-Lieferung erhalten; bei zusätzlichem Architekturumfang zuerst neu entscheiden.
-- Native unabhängige Prüfungen für G5/G6 und alle drei G7-Linsen; gewitnesseter Walkthrough der Quellen-/Abdeckungsberichte, eines blockierenden Befunds und eines Datenfehlers für G8. Menschliche Merge-Freigabe separat. Ohne positive Abdeckung und vollständige tatsächliche CI-Evidenz bleibt #187 offen.
-
-## BSI-Recherche und offene Machbarkeit
-
-Am **2026-11-03** wurden die offiziellen Provider-Metadaten, der öffentliche WID-Index und drei konkrete Dokumente gelesen. Das ist eine begrenzte Untersuchung, keine vollständige BSI-Abdeckungszertifizierung.
-
-- Der WID-Index umfasst 14.439 Einträge; sein Updatezeitpunkt war `2026-11-03T10:00:02.448+00:00`. SHA-256 des gelesenen JSON: `7decd673bbf39ad8fc2b7487adc6556712f5eeb02542f5c7c76dbc91f96a6fd1`.
-- **47 von 64** bisherigen IDs stehen als CVE-Kategorie im WID-Index; **17 fehlen dort**, darunter vier bereits belegte Fehlzuordnungen und 13 andere IDs aus DOMPurify, Kotlin und Spring Data JPA. Das ist nur Indexpräsenz, keine Aussage über passende Versionen oder über alle weiteren öffentlichen BSI-Feeds. Weitere Feeds müssen vor dem Go/No-Go untersucht werden.
-- Die [Tomcat-Meldung WID-SEC-W-2026-3007](https://wid.cert-bund.de/.well-known/csaf/white/2026/wid-sec-w-2026-3007.json) enthält zehn Vulnerability-Einträge, die [Spring-Meldung WID-SEC-W-2026-1828](https://wid.cert-bund.de/.well-known/csaf/white/2026/wid-sec-w-2026-1828.json) 18 und die [DOMPurify einschließende Meldung WID-SEC-W-2026-2452](https://wid.cert-bund.de/.well-known/csaf/white/2026/wid-sec-w-2026-2452.json) elf. Alle drei sind `csaf_base`, führen `aggregate_severity: hoch`, aber enthalten in den geprüften Vulnerability-Einträgen keine `scores`. Ein vollständiger Ersatz des numerischen CVSS-Gates ist damit **noch nicht belegt**.
-- Die DOMPurify einschließende Meldung betrifft Red Hat Ansible; daraus folgt nicht automatisch eine Aussage über das in Swagger UI eingebettete DOMPurify. Ebenso ist eine PostgreSQL-Server-Meldung kein Beleg für JDBC. Diese Zuordnungen gehören ausdrücklich in den Machbarkeitsnachweis.
-- Dependency-Check dokumentiert [NVD/CPE als Datenquelle](https://dependency-check.github.io/DependencyCheck/data/index.html), während das BSI [CSAF-/ROLIE-Verteilungen](https://wid.cert-bund.de/.well-known/csaf/provider-metadata.json) veröffentlicht. Eine bloße URL-Umstellung erfüllt daher die unterschiedlichen Formate und Auswertungsanforderungen nicht. Maßgeblich für die Adapter-Semantik sind die [CSAF-2.0-Spezifikation](https://docs.oasis-open.org/csaf/csaf/v2.0/os/csaf-v2.0-os.html) und die tatsächlich validierten BSI-Dokumente.
-
-## Zusätzliche Validierung für den BSI-Ersatz
-
-- Vollständiges Inventar und Baseline-Abdeckung prüfen: 145 Runtime-PURLs, eingebettete Bundles, 13 Einträge, 82 Instanzen, 64 IDs; jede fehlende/mehrdeutige Zuordnung und jede Abweichung zu Herstellerbelegen ausweisen. Fix-Versionen und benachbarte betroffene Versionen als Gegenproben verwenden. Keine verlorenen Findings beim Zusammenführen mehrerer Advisories.
-- Offline-Fixtures für CSAF-/ROLIE-Schema, öffentliche Labels, Signaturen/Schlüsselwechsel, ungültige/vertauschte Hashes, URL-/Redirect-Grenzen, Größenlimits, Timeouts, leere oder abgeschnittene Antworten und atomare Cache-Recovery. Kalt-/Warmläufe, notwendige Updates, Cache-Kompatibilität und 48-Stunden-Grenze mit injizierter Uhr prüfen.
-- Paket-/Versionsfälle: exakte PURL/CPE, Namenskollisionen, dokumentlokale Produkt-IDs, `known_affected`, `fixed`, `known_not_affected`, `under_investigation`, fehlender Status, Versionsbereiche und Vorabversionen, zurückgezogene/aktualisierte Dokumente sowie widersprüchliche Meldungen. Tests dürfen die gewünschte Zuordnung nicht einfach selbst erfinden.
-- Policy-Fälle: CVSS 6,9 / 7,0 / 10,0, fehlender Score, mehrere anwendbare Scores, fehlender Treffer und unzureichende Abdeckung. Ein Eintrag mit nur `hoch` bleibt ohne genehmigte Ergänzungsregel ungeklärt. Zwei Bundle-Funde derselben CVE nicht still zu einem einzigen Inventarbestandteil zusammenziehen.
-- Workflow-Fixtures für Fork-/Same-Repo-PR-/Main-/Schedule-Trust, fehlgeschlagene Vorbereitung, blockierende bzw. unbekannte Findings und Quellfehler. Echte GitHub-Läufe und heruntergeladene Artefakte belegen, dass der Scan rot bleibt und die unabhängige SBOM trotzdem vorhanden ist.
-- Existierende Security-Regressionen mit `python3 -m unittest discover -s tools/scripts/tests -p 'test_security*.py' -v` weiter ausführen; für die freigegebene BSI-Engine dort die neuen Fixtures integrieren. Neue Engine-spezifische Befehle erst nach Toolauswahl verbindlich dokumentieren. Keine Live-Issues, Releases, Tags, Registry-Pushes, Deployments oder echten Auth-Aufrufe zur Prüfung.
+- Regressionen für Feed-/API-Auswahl, PR-Vertrauensgrenzen, fehlenden Schlüssel und unveränderte Scanner-Argumente ergänzen.
+- Metadatenfälle testen: gültig, exakt 48 Stunden alt, zu alt, ungültig, fehlend, zukünftiger Zeitstempel sowie HTTP-/Timeout-Fehler. Uhr und Netzwerk in Tests faken.
+- Echte schlüssellose Kalt- und Warmläufe durchführen. Quellenfrische, Input-Hashes, Scanner-Version, Laufzeit, Reports und Exitcodes dokumentieren. Ein unvollständig initialisierter Cache zählt nicht als erfolgreicher Warmlauf.
+- Blockierende Befunde und Datenfehler simulieren: Scan bleibt rot, verfügbare Berichte und SBOM bleiben erhalten. Schlüsselbereinigung, Ausnahmeablauf und bisherige Security-Regressionen erneut prüfen.
+- Keine neuen Pflicht-Secrets, keine zusätzliche Produktionsinfrastruktur und keine neuen Bibliotheken für den Metadatenabruf. Keine Live-Releases, Test-Tags, Registry-Pushes oder Deployments zur Validierung.
 
 ## PR 2: Alle übrigen Workflows
 
