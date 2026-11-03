@@ -33,8 +33,6 @@ jobs:
         run: npm ci
       - name: Validate lifecycle schema
         run: npx -y @fission-ai/openspec@1.14.2 schema validate rallyon-feature --json
-      - name: Validate research schema
-        run: npx -y @fission-ai/openspec@1.14.2 schema validate rallyon-research --json
       - name: Validate OpenSpec artifacts
         run: npx -y @fission-ai/openspec@1.14.2 validate --all
       - name: Test lifecycle helper

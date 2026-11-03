@@ -148,6 +148,7 @@ python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-d
 ### Token budget
 
 The lifecycle runs many fresh agents, so most of its cost is context. The skill's [token budget](../.agents/skills/feature-lifecycle/SKILL.md#token-budget) rules apply to every agent:
+
 - Run deterministic checks before dispatching.
 - Give checkers bounded briefs.
 - Ask for findings-first reports of about 60 lines.
