@@ -1,0 +1,14 @@
+{
+  "revision": "9bbeb3a",
+  "image": "owasp/dependency-check:13.0.0@sha256:0e8f69ad5b00d62000937f4e57189812343f6903d9c83ee712012d51542a020a",
+  "started_utc": "2026-11-03T10:42:43.136514+00:00",
+  "reports_available": true,
+  "exit_code": 15,
+  "nvd_mode": "nist-json2-feed",
+  "nvd_metadata": {
+    "url": "https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-modified.meta",
+    "sha256": "01eaab97a8bd8b9f9d6d26b9a67281e1ad2a22f8afdd3c27e75e9eea7b6399c2",
+    "last_modified_utc": "2026-11-03T06:00:12+00:00"
+  },
+  "finished_utc": "2026-11-03T10:50:03.253197+00:00"
+}

@@ -1,0 +1,17 @@
+{
+  "nist-cold-scanner.log": {
+    "original_sha256": "4187668ee0b964d735e915ef4f61e0831d2d80b56454bfd418af086f73e9feda",
+    "normalized_sha256": "ce2dee3bad359fa5a2dfc877270059a6d365aa4fdaf793094b21dec44fdab3e3",
+    "normalization": "Only trailing whitespace and terminal blank lines removed; no messages filtered. Original remains in task-owned raw reports."
+  },
+  "nist-warm-scanner.log": {
+    "original_sha256": "b8e4e081bf58844f2f56300f0da32aa3c0759fb3e193b2f33339862e04fb3b34",
+    "normalized_sha256": "21729338d6152b3711c51aa0b9e9e9c013d25a58ced1023a868a277070653f5f",
+    "normalization": "Only trailing whitespace and terminal blank lines removed; no messages filtered. Original remains in task-owned raw reports."
+  },
+  "nist-final-scanner.log": {
+    "original_sha256": "7cbeada5b70e44bf03dd039b59f2f3837eed1f53426fef7ee74eff661b0b9b5b",
+    "normalized_sha256": "dc9947d0cce7cb2553ffb57da72b70b0e3c68d147e1df4cf309bbad36feb0bde",
+    "normalization": "Only trailing whitespace and terminal blank lines removed; no messages filtered. Original remains in task-owned raw reports."
+  }
+}

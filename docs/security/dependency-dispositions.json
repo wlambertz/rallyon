@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "as_of": "2026-11-03",
-  "status": "implementation triage; post-upgrade scanner acceptance pending",
+  "status": "baseline and additional matches classified; actual reviewed-policy scan passed at 93e491b; CI and human acceptance tracked separately",
   "baseline": {
     "source_run": "https://github.com/wlambertz/rallyon/actions/runs/41605550061",
     "source_revision": "a5834c703a86774cae04a04757890a516ae1ec74",
@@ -1608,7 +1608,7 @@
     }
   ],
   "suppression_match_checks": {
-    "status": "maker exact current10-rule counterexamples passed; independent review and actual revised scan pending",
+    "status": "independent exact10-rule review passed; actual local revised-policy warm and current-policy GitHub cold both exit0 with zero active findings; human acceptance and Sonar disposition remain pending",
     "assertions": 74,
     "cases": [
       {
@@ -2197,5 +2197,84 @@
         ]
       }
     ]
+  },
+  "final_scan": {
+    "revision": "93e491b",
+    "report_sha256": "051cba5b8b6d7887fbf2e3aa1783afb849c54487b2b9fb3b79d791f3e877add3",
+    "scanInfo": {
+      "engineVersion": "13.0.0",
+      "dataSource": [
+        {
+          "name": "NVD API Last Checked",
+          "timestamp": "2026-11-03T10:42:49Z"
+        },
+        {
+          "name": "NVD API Last Modified",
+          "timestamp": "2026-11-03T01:00:12-05"
+        },
+        {
+          "name": "NVD Cache Last Checked",
+          "timestamp": "2026-11-03T10:42:49Z"
+        },
+        {
+          "name": "NVD Cache Last Modified",
+          "timestamp": "2026-11-03T01:00:12-05"
+        }
+      ]
+    },
+    "dependency_entries": 162,
+    "active_vulnerability_instances": 0,
+    "suppressed_vulnerability_instances": 15,
+    "embedded_javascript": [
+      {
+        "fileName": "spring-boot-devtools-4.1.2.jar: livereload.js",
+        "sha256": "22f51f2ab40406e5b31468e3fea7dd413014f7ccbe780d9e2171d27904c6ccdf",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "spring-security-web-7.1.2.jar: spring-security-webauthn.js",
+        "sha256": "044a2b8d7e995bff815565678631a2d3a5cc0aa96ef8ac35cfacb579307f77a9",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: oauth2-redirect.js",
+        "sha256": "a5c8a34e09e49737382cc5019446eec7c3db3461963fc5bfe448361d3c5549e9",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-initializer.js",
+        "sha256": "a895034f24f12d7cd81ec47c98da4f15721d9d9a8d2405f22f21704821f81d02",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-ui-bundle.js",
+        "sha256": "36eeb4d5640b9c036b1d0f854499af1cceebbdb260b790a03a18be5e8488fbf5",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-ui-es-bundle-core.js",
+        "sha256": "280e31ba334fdd40bf3eaaca3bdd863838c97d3411d98ae56c783b30092e05f9",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-ui-es-bundle.js",
+        "sha256": "47d75bc5218c41b8b7e39536a6d3b254a1a75917c48ad1f6909561a301ed5cb1",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-ui-standalone-preset.js",
+        "sha256": "5243d492e14505e0cab87ac8b0195d0e615943e651743b2b698450a46eb470be",
+        "active_vulnerability_instances": 0
+      },
+      {
+        "fileName": "swagger-ui-5.34.1.jar: swagger-ui.js",
+        "sha256": "2cf0922d011554c091344a681be20f043a9f4e4802cd481931109001a77cb747",
+        "active_vulnerability_instances": 0
+      }
+    ],
+    "evidence": "openspec/changes/stabilize-ci-and-security/evidence/nist-final-report-summary.json",
+    "execution": "openspec/changes/stabilize-ci-and-security/evidence/nist-final-execution.json",
+    "scope_note": "Original baseline entries and earlier pending post_upgrade_scan values are retained historical classification records; this final_scan object records the actual current outcome. This does not establish GitHub CI, UAT or merge approval.",
+    "github_cold_evidence": "openspec/changes/stabilize-ci-and-security/evidence/github-final-security-summary.json"
   }
 }
