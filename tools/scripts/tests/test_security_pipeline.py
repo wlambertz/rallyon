@@ -318,6 +318,27 @@ sys.exit(int(os.environ['FAKE_EXIT']))
         self.assertEqual(unrelated.read_text(), 'preserve me')
         self.assertFalse((self.args.reports / 'execution.json').is_symlink())
 
+    def test_previous_engine_reports_cannot_satisfy_current_run(self):
+        self.args.reports.mkdir()
+        for name in ('dependency-check-report.json', 'dependency-check-report.html'):
+            (self.args.reports / name).write_text('old revision report')
+        result = scan.subprocess.CompletedProcess([], 0, stdout=b'no new engine report')
+        with patch.object(scan.subprocess, 'run', return_value=result):
+            self.assertEqual(scan.run_scan(self.args), 1)
+        evidence = json.loads((self.args.reports / 'execution.json').read_text())
+        self.assertFalse(evidence['reports_available'])
+        for name in ('dependency-check-report.json', 'dependency-check-report.html'):
+            self.assertFalse((self.args.reports / name).exists())
+
+    def test_post_scan_verification_error_is_nonzero(self):
+        self.args.event, self.args.ref = 'push', 'refs/heads/main'
+        with patch.object(scan, 'contains_secret', side_effect=OSError('cannot inspect retained file')):
+            code, _ = self.run_fake(0, 'fixture-secret-123')
+        self.assertEqual(code, 1)
+        evidence = json.loads((self.args.reports / 'execution.json').read_text())
+        self.assertEqual(evidence['exit_code'], 1)
+        self.assertIn('cannot inspect retained file', evidence['error'])
+
     def test_malformed_xml_is_diagnostic_failure(self):
         self.rules.write_text('<not-xml')
         self.assertEqual(scan.run_scan(self.args), 1)

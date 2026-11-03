@@ -150,6 +150,9 @@ def run_scan(args, fetch_metadata=None, now=None):
     evidence["nvd_mode"] = "api" if key else "nist-json2-feed"
     atomic_write(reports / "execution.json", json.dumps(evidence, indent=2) + "\n")
     try:
+        # Reused output directories must not relabel old engine reports as current.
+        for name in ("dependency-check-report.json", "dependency-check-report.html"):
+            (reports / name).unlink(missing_ok=True)
         validate(args.suppressions)
         inputs = inventory(dependencies, args.revision)
         if args.manifest and inputs != json.loads(args.manifest.read_text()):
@@ -198,6 +201,7 @@ def run_scan(args, fetch_metadata=None, now=None):
             evidence["exit_code"] = 1
             evidence["error"] = "scanner returned success without its JSON report"
     except (OSError, ValueError, ET.ParseError) as error:
+        evidence["exit_code"] = 1
         message = str(error).replace(key, "[REDACTED]") if key else str(error)
         evidence["error"] = message
         print(message)
