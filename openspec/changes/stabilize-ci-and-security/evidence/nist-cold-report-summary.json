@@ -1,0 +1,399 @@
+{
+  "source_revision": "9bbeb3a",
+  "report_sha256": "d92a35119ee00aa2ba1f3d34acffcc45b0ed31d77936d4e92dcfa3b8befc5d35",
+  "scanInfo": {
+    "engineVersion": "13.0.0",
+    "dataSource": [
+      {
+        "name": "NVD API Last Checked",
+        "timestamp": "2026-11-03T10:42:49Z"
+      },
+      {
+        "name": "NVD API Last Modified",
+        "timestamp": "2026-11-03T01:00:12-05"
+      },
+      {
+        "name": "NVD Cache Last Checked",
+        "timestamp": "2026-11-03T10:42:49Z"
+      },
+      {
+        "name": "NVD Cache Last Modified",
+        "timestamp": "2026-11-03T01:00:12-05"
+      }
+    ]
+  },
+  "dependency_entries": 162,
+  "findings": [
+    {
+      "fileName": "keycloak-spring-starter-0.1.0-SNAPSHOT.jar",
+      "filePath": "/inputs/dev/wlambertz/rallyon/iam/keycloak-spring-starter/0.1.0-SNAPSHOT/keycloak-spring-starter-0.1.0-SNAPSHOT.jar",
+      "sha256": "71192e426a6af46d1705ec77c1ba85906ee068fc687097e4a62e38ae2e613c7f",
+      "packages": [
+        {
+          "id": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT",
+          "confidence": "HIGH"
+        }
+      ],
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2014-3709",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.8,
+            "accessVector": "NETWORK",
+            "accessComplexity": "MEDIUM",
+            "authenticationr": "NONE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.6",
+            "impactScore": "6.4",
+            "userInteractionRequired": "true"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "NONE",
+            "userInteraction": "REQUIRED",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.0"
+          }
+        },
+        {
+          "source": "NVD",
+          "name": "CVE-2017-12161",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 4.3,
+            "accessVector": "NETWORK",
+            "accessComplexity": "MEDIUM",
+            "authenticationr": "NONE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "NONE",
+            "availabilityImpact": "NONE",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.6",
+            "impactScore": "2.9",
+            "userInteractionRequired": "true"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "NONE",
+            "userInteraction": "REQUIRED",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.0"
+          }
+        },
+        {
+          "source": "NVD",
+          "name": "CVE-2014-3651",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 5.0,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "NONE",
+            "confidentialityImpact": "NONE",
+            "integrityImpact": "NONE",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "10.0",
+            "impactScore": "2.9",
+            "acInsufInfo": "true"
+          },
+          "cvssv3": {
+            "baseScore": 7.5,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "NONE",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "NONE",
+            "integrityImpact": "NONE",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "3.9",
+            "impactScore": "3.6",
+            "version": "3.0"
+          }
+        }
+      ]
+    },
+    {
+      "fileName": "spring-security-config-7.1.2.jar",
+      "filePath": "/inputs/org/springframework/security/spring-security-config/7.1.2/spring-security-config-7.1.2.jar",
+      "sha256": "826af4e79495d54b761a5f0313774a07d36359e83dd5518d57d69bacd7bbf478",
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2018-1258",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.5,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "SINGLE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.0",
+            "impactScore": "6.4"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "LOW",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.1"
+          }
+        }
+      ]
+    },
+    {
+      "fileName": "spring-security-crypto-7.1.2.jar",
+      "filePath": "/inputs/org/springframework/security/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2.jar",
+      "sha256": "4aaa60bb612d5fece004c07f893b3a8d707c207bbd8585d10e0015b5301cd864",
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2018-1258",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.5,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "SINGLE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.0",
+            "impactScore": "6.4"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "LOW",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.1"
+          }
+        }
+      ]
+    },
+    {
+      "fileName": "spring-security-oauth2-core-7.1.2.jar",
+      "filePath": "/inputs/org/springframework/security/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2.jar",
+      "sha256": "aa50c141cb303bae1b87d761f9459930d75af280c43e80b7488d50e62dd1e216",
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2018-1258",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.5,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "SINGLE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.0",
+            "impactScore": "6.4"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "LOW",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.1"
+          }
+        }
+      ]
+    },
+    {
+      "fileName": "spring-security-oauth2-jose-7.1.2.jar",
+      "filePath": "/inputs/org/springframework/security/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2.jar",
+      "sha256": "e956dcaf0342699b967b5ca301d628d0808e97c7e6614b822fe832f6eba762dc",
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2018-1258",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.5,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "SINGLE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.0",
+            "impactScore": "6.4"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "LOW",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.1"
+          }
+        }
+      ]
+    },
+    {
+      "fileName": "spring-security-web-7.1.2.jar",
+      "filePath": "/inputs/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2.jar",
+      "sha256": "fc36d37695462dbe4fb32bd6820043afbf83ebcffce4974929bf79a29fcb5e73",
+      "vulnerabilities": [
+        {
+          "source": "NVD",
+          "name": "CVE-2018-1258",
+          "severity": "HIGH",
+          "cvssv2": {
+            "score": 6.5,
+            "accessVector": "NETWORK",
+            "accessComplexity": "LOW",
+            "authenticationr": "SINGLE",
+            "confidentialityImpact": "PARTIAL",
+            "integrityImpact": "PARTIAL",
+            "availabilityImpact": "PARTIAL",
+            "severity": "MEDIUM",
+            "version": "2.0",
+            "exploitabilityScore": "8.0",
+            "impactScore": "6.4"
+          },
+          "cvssv3": {
+            "baseScore": 8.8,
+            "attackVector": "NETWORK",
+            "attackComplexity": "LOW",
+            "privilegesRequired": "LOW",
+            "userInteraction": "NONE",
+            "scope": "UNCHANGED",
+            "confidentialityImpact": "HIGH",
+            "integrityImpact": "HIGH",
+            "availabilityImpact": "HIGH",
+            "baseSeverity": "HIGH",
+            "exploitabilityScore": "2.8",
+            "impactScore": "5.9",
+            "version": "3.1"
+          }
+        }
+      ]
+    }
+  ],
+  "embedded_javascript": [
+    {
+      "fileName": "spring-boot-devtools-4.1.2.jar: livereload.js",
+      "filePath": "/inputs/org/springframework/boot/spring-boot-devtools/4.1.2/spring-boot-devtools-4.1.2.jar/org/springframework/boot/devtools/livereload/livereload.js",
+      "sha256": "22f51f2ab40406e5b31468e3fea7dd413014f7ccbe780d9e2171d27904c6ccdf",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "spring-security-web-7.1.2.jar: spring-security-webauthn.js",
+      "filePath": "/inputs/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2.jar/org/springframework/security/spring-security-webauthn.js",
+      "sha256": "044a2b8d7e995bff815565678631a2d3a5cc0aa96ef8ac35cfacb579307f77a9",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: oauth2-redirect.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/oauth2-redirect.js",
+      "sha256": "a5c8a34e09e49737382cc5019446eec7c3db3461963fc5bfe448361d3c5549e9",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-initializer.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-initializer.js",
+      "sha256": "a895034f24f12d7cd81ec47c98da4f15721d9d9a8d2405f22f21704821f81d02",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-ui-bundle.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-ui-bundle.js",
+      "sha256": "36eeb4d5640b9c036b1d0f854499af1cceebbdb260b790a03a18be5e8488fbf5",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-ui-es-bundle-core.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-ui-es-bundle-core.js",
+      "sha256": "280e31ba334fdd40bf3eaaca3bdd863838c97d3411d98ae56c783b30092e05f9",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-ui-es-bundle.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-ui-es-bundle.js",
+      "sha256": "47d75bc5218c41b8b7e39536a6d3b254a1a75917c48ad1f6909561a301ed5cb1",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-ui-standalone-preset.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-ui-standalone-preset.js",
+      "sha256": "5243d492e14505e0cab87ac8b0195d0e615943e651743b2b698450a46eb470be",
+      "vulnerability_count": 0
+    },
+    {
+      "fileName": "swagger-ui-5.34.1.jar: swagger-ui.js",
+      "filePath": "/inputs/org/webjars/swagger-ui/5.34.1/swagger-ui-5.34.1.jar/META-INF/resources/webjars/swagger-ui/5.34.1/swagger-ui.js",
+      "sha256": "2cf0922d011554c091344a681be20f043a9f4e4802cd481931109001a77cb747",
+      "vulnerability_count": 0
+    }
+  ]
+}

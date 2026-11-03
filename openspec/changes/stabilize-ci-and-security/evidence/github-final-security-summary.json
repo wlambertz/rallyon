@@ -1,0 +1,29 @@
+{
+  "run_id": 41623095316,
+  "url": "https://github.com/wlambertz/rallyon/actions/runs/41623095316",
+  "head_revision": "93e491b1b08b708c4e00ddecbacbc09a19a164c8",
+  "github_merge_revision": "7d5db89fc8a98746e3df4afc47bb2f3deededb1a",
+  "execution": {
+    "revision": "7d5db89fc8a98746e3df4afc47bb2f3deededb1a",
+    "image": "owasp/dependency-check:13.0.0@sha256:0e8f69ad5b00d62000937f4e57189812343f6903d9c83ee712012d51542a020a",
+    "started_utc": "2026-11-03T10:55:10.617198+00:00",
+    "reports_available": true,
+    "exit_code": 0,
+    "nvd_mode": "nist-json2-feed",
+    "nvd_metadata": {
+      "url": "https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-modified.meta",
+      "sha256": "01eaab97a8bd8b9f9d6d26b9a67281e1ad2a22f8afdd3c27e75e9eea7b6399c2",
+      "last_modified_utc": "2026-11-03T06:00:12+00:00"
+    },
+    "finished_utc": "2026-11-03T11:05:11.681068+00:00"
+  },
+  "report_sha256": "b09a201f5440e59a232d350c809ffe9d427084f9a83387d43048601cbd2cbc90",
+  "dependency_entries": 162,
+  "active_vulnerability_instances": 0,
+  "suppressed_vulnerability_instances": 15,
+  "jobs": {
+    "prepare": "success",
+    "dependency-scan": "success",
+    "sbom": "success"
+  }
+}

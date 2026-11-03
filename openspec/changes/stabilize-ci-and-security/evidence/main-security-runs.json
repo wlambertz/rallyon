@@ -1,0 +1,61 @@
+{
+  "kind": "Parent read-only corroboration collected after the independent G3 challenge; not an implementation result",
+  "runs": [
+    {
+      "conclusion": "failure",
+      "databaseId": 41605550061,
+      "headSha": "a5834c703a86774cae04a04757890a516ae1ec74",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41605550061"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41605138834,
+      "headSha": "7405045b5d68d963acb1cadbc3a18b997761600f",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41605138834"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41595898856,
+      "headSha": "1a7018502c741649cdc1d3fde75994cdb9f80138",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41595898856"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41593177052,
+      "headSha": "c7820329f80b82c2ae1cc23f4a0889b0b7963900",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41593177052"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41459056574,
+      "headSha": "9ae76553e4bf204980eab1f900994279d2c5244b",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41459056574"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41442865567,
+      "headSha": "9ae76553e4bf204980eab1f900994279d2c5244b",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41442865567"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 41071410874,
+      "headSha": "3417f65e8c6d54bcc57aa4e61df6974f9cf7131c",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/41071410874"
+    },
+    {
+      "conclusion": "failure",
+      "databaseId": 40873948073,
+      "headSha": "68895a7bbf1520dce405e4cca30b71215d12f042",
+      "status": "completed",
+      "url": "https://github.com/wlambertz/rallyon/actions/runs/40873948073"
+    }
+  ]
+}

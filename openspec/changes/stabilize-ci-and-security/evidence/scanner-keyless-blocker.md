@@ -1,0 +1,17 @@
+# Dependency-Check 13.0.0 keyless blocker
+
+Observed 2026-11-03. This is a failed validation, not acceptance evidence.
+
+The official pinned image reports version 13.0.0. Against 145 upgraded runtime JARs, a cold run exited 13 in approximately four seconds, with no HTML/JSON findings report. NVD initialization failed with `Invalid API Key, length of 0 too short`; no NVD key was supplied. A retry using the incomplete data also failed; there is no successful warm-cache result. Logs, input hashes and execution metadata are adjacent. The `025a152` revision identifies the committed dependency inputs; scanner/workflow/exception implementation was uncommitted at execution time and must be reviewed at its later recorded commit.
+
+The upstream project confirms the regression in [issue 8715](https://github.com/dependency-check/DependencyCheck/issues/8715), fixed by [PR 8716](https://github.com/dependency-check/DependencyCheck/pull/8716), merge `4962ac74695415bf232196709a8a31319a9e1e2b`, targeted to 13.0.1. The official releases API still lists 13.0.0 as newest on this date; 13.0.1 is not published. A direct uncredentialed NVD API request from the host returned HTTP 200. This is therefore consistent with the scanner bug, rather than proof that NVD requires a new secret.
+
+## Proposed design correction, pending human G2 decision
+
+Keep the exact approved official 13.0.0 image and CVSS threshold. For runs without a trusted optional key, use NIST's direct public NVD JSON 2 feed via `--nvdDatafeed https://nvd.nist.gov/feeds/json/cve/2.0/nvdcve-2.0-{0}.json.gz`. Dependency-Check 13.0.0 explicitly documents this exact pattern in [NvdApiDataSource.java](https://github.com/dependency-check/DependencyCheck/blob/v13.0.0/core/src/main/java/org/owasp/dependencycheck/data/update/NvdApiDataSource.java); it uses yearly/modified `.meta` timestamps and the JSON 2 parser. Preserve normal NVD API mode for trusted runs with a key. Require the official modified metadata to be no more than 48 hours old, active updates and fail-closed network/parse/staleness behavior; add regression tests and repeat actual cold/warm scans. The live NIST metadata inspected November 3 reports last modification November 3 at 01:00:12-05:00. No third-party mirror is needed. This changes the data-delivery path, and is a proposal, not yet implemented or approved.
+
+The proposed design.md edit replaces only its normal-keyless-operation paragraph with the explicit keyless direct-feed / keyed API selection and 48-hour feed freshness contract. The SCA-005 specification adds testable scenarios for direct-feed selection and failure on stale/malformed/unreachable metadata. Tasks 3.4, 4.1 and 4.2 gain the corresponding checks. Refinement, user outcomes, value, dependency versions, scanner digest, trust restrictions, CVSS gate and issue title remain unchanged. After human confirmation, update these artifacts, independently recheck G3 and prepare the exact revised issue body/manifest for renewed G4; no second issue is proposed. Old approval/evidence history remains retained.
+
+Alternative: wait for a released fixed 13.x scanner and then approve a newly verified image digest. Making NVD_API_KEY mandatory would violate the approved requirements. No scanner errors, analyzers or findings will be suppressed to work around the defect.
+
+The current approved design explicitly requires a new design decision when keyless cold initialization cannot meet its contract. G5–G8 remain pending. Existing G1–G4 records have not been rewritten to imply approval of this proposed correction.
