@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-187-maker",
+  "makers": ["codex-issue-187-maker"],
+  "mode": "full",
+  "records": [],
+  "issues": {},
+  "attempts": {}
+}
