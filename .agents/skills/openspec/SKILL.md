@@ -38,9 +38,11 @@ RallyOn uses [OpenSpec](https://openspec.dev) (Fission-AI, pinned in `docs/adr/0
 - Do not create GitHub issues or commit as part of proposing. Use `issue-implementation-planner` and `commit-messages` when the user asks.
 - `application/organizer` has no frontend stack yet; changes that need UI are blocked on the decision described in `organizer-ui`.
 
-## Legacy openspec.tech specs
+## Legacy command compatibility
 
-`docs/wiki/specs/**/*.yaml`, `ro spec create|validate|view` and the openspec.tech schema are superseded but still present until the existing specs are migrated to `openspec/specs/`. Keep `ro spec` behaviour unchanged (CLI compatibility); do not add new YAML specs. See ADR 0002.
+The former YAML specifications have been migrated to `openspec/specs/`; see [the migration inventory](../../../docs/legacy-spec-migration.md). Do not create project specifications under `docs/wiki/specs/`.
+
+`ro spec create|validate|view` and their historical root forms `ro create|validate|view` remain available for legacy files only. They emit a deprecation notice pointing to OpenSpec 1.14.2 and this skill; they do not execute OpenSpec or validate Markdown specifications. Preserve their compatibility behavior. An explicitly configured `specs.schemaURL` remains supported, with no automatic schema URL. See ADR 0002.
 
 ## Local commands
 
