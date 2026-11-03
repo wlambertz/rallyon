@@ -8,11 +8,13 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// specValidateCmd represents the validate command for OpenSpec specs
-var specValidateCmd = &cobra.Command{
-	Use:   "validate [spec-file]",
-	Short: "Validate an OpenSpec specification against the schema",
-	Long: `Validate an OpenSpec specification file (YAML, JSON, or TOON format) against the OpenSpec v1.1 schema structure.
+func newSpecValidateCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "validate [spec-file]",
+		Short: "Validate basic legacy specification structure (deprecated)",
+		Long: `Validate the basic structure of a legacy YAML specification file.
+
+The YAML parser also accepts JSON-compatible input; there is no TOON-specific decoder.
 
 The validation checks that the spec has the required hierarchical structure:
 - specification root
@@ -21,38 +23,39 @@ The validation checks that the spec has the required hierarchical structure:
 - ticket with title, description, acceptanceCriteria, implementationSteps
 
 Example:
-  ro spec validate ./docs/wiki/specs/my-feature-auth.yaml
-  ro spec validate ./docs/wiki/specs/my-feature.yaml`,
-	Args: cobra.ExactArgs(1),
-	RunE: func(cmd *cobra.Command, args []string) error {
-		specFile := args[0]
+  ro spec validate /path/to/legacy.yaml`,
+		Args: cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			specFile := args[0]
 
-		// Read the spec file
-		specData, err := os.ReadFile(specFile)
-		if err != nil {
-			return fmt.Errorf("failed to read spec file: %w", err)
-		}
-
-		// Try to parse as YAML
-		var spec map[string]interface{}
-		if err := yaml.Unmarshal(specData, &spec); err != nil {
-			return fmt.Errorf("failed to parse spec YAML: %w", err)
-		}
-
-		// Perform basic structural validation
-		errors := validateSpecStructure(spec)
-
-		if len(errors) > 0 {
-			fmt.Printf("Spec validation FAILED for: %s\n", specFile)
-			for _, e := range errors {
-				fmt.Printf("  - %s\n", e)
+			// Read the spec file
+			specData, err := os.ReadFile(specFile)
+			if err != nil {
+				return fmt.Errorf("failed to read spec file: %w", err)
 			}
-			return fmt.Errorf("spec validation failed - see errors above")
-		}
 
-		fmt.Printf("Spec validation PASSED: %s\n", specFile)
-		return nil
-	},
+			// Try to parse as YAML
+			var spec map[string]interface{}
+			if err := yaml.Unmarshal(specData, &spec); err != nil {
+				return fmt.Errorf("failed to parse spec YAML: %w", err)
+			}
+
+			// Perform basic structural validation
+			errors := validateSpecStructure(spec)
+
+			if len(errors) > 0 {
+				fmt.Fprintf(cmd.OutOrStdout(), "Spec validation FAILED for: %s\n", specFile)
+				for _, e := range errors {
+					fmt.Fprintf(cmd.OutOrStdout(), "  - %s\n", e)
+				}
+				return fmt.Errorf("spec validation failed - see errors above")
+			}
+
+			fmt.Fprintf(cmd.OutOrStdout(), "Spec validation PASSED: %s\n", specFile)
+			return nil
+		},
+	}
+
 }
 
 // validateSpecStructure checks the basic OpenSpec hierarchical structure
@@ -117,8 +120,4 @@ func validateSpecStructure(spec map[string]interface{}) []string {
 	}
 
 	return errors
-}
-
-func init() {
-	rootCmd.AddCommand(specValidateCmd)
 }
