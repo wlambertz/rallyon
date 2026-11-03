@@ -8,6 +8,7 @@ RallyOn keeps agent guidance small, shared, and inspectable. The canonical proje
 | --- | --- | --- |
 | Codex | `AGENTS.md` and nested `AGENTS.md` | Repo skills live in `.agents/skills/`. Use skills for repeatable workflows. |
 | Claude Code | `CLAUDE.md` adapter plus `AGENTS.md` | Loads repo skills through the `.claude/skills` symlink to `.agents/skills/`. Keep Claude-specific notes minimal. |
+| Cline | `AGENTS.md` (detected automatically) | Discovers project skills under `.claude/skills/`, so it reads the same symlinked skills. Has no repo-specific Cline file. |
 | GitHub Copilot | `.github/copilot-instructions.md` pointer plus `AGENTS.md` | Do not duplicate repository guidance in the Copilot file. |
 
 ## Where Guidance Belongs
@@ -70,6 +71,15 @@ npx -y @fission-ai/openspec@1.14.2 status --change improve-draft-feedback --json
 
 The repository default stays `spec-driven`. Explicitly select `rallyon-feature` for full runs. Narrow bugs/docs use `spec-driven` plus helper `start --mode reduced` and `lifecycle.md`, recording scope, criteria, checks, review and reasons for omitted scoring/review ceremony. Existing proposal, design, value and specification artifacts remain bound to G2–G4 approvals even in reduced mode; adding, removing or editing them makes those approvals stale. Omitted artifacts remain optional. Use OpenSpec `skip_specs` only when requirements do not change. Reduced mode is unsuitable for new capabilities, broad refactors, ambiguous scope or security-sensitive work.
 
+Stories whose goal is knowledge rather than a feature use the [research track](feature-lifecycle-gates.md#research-path): `rallyon-research` plus `start --mode research`. Its sequence is G1 (approved `charter.md`), G5 (independent findings check), G8 (human acceptance in `uat.md`), optional G4 for follow-up issues when `issue-drafts.json` exists, then merge. The helper reports the other gates as not applicable and rejects records for them:
+
+```bash
+npx -y @fission-ai/openspec@1.14.2 new change reconcile-league-rules --schema rallyon-research
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change reconcile-league-rules start --repository wlambertz/rallyon --maker maker-session-id --mode research
+python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change reconcile-league-rules check G5 --checker checker-session-id --evidence openspec/changes/reconcile-league-rules/evidence/g5-findings.md --outcome pass
+npx -y @fission-ai/openspec@1.14.2 archive reconcile-league-rules --skip-specs
+```
+
 The helper writes versioned evidence to `openspec/changes/<name>/.lifecycle.json`. Its active-session pointer is the worktree-specific path returned by `git rev-parse --git-path rallyon-lifecycle.json`, outside tracked source. Starting a different change requires explicit `deactivate`; this preserves records and grants no approval. To resume, start the same change with the same repository/mode/maker identity, inspect status and read evidence. Continue from the earliest pending or stale gate. Register every delegated maker using repeatable `start --additional-maker <identity>` with the original repository/mode/maker arguments. Checks reject all registered makers; adding a checker as a maker invalidates their earlier checks.
 
 ### Record actual decisions and checks
@@ -80,7 +90,7 @@ Use `--help` on the helper or a subcommand for exact arguments. Only record appr
 python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback approve G1 --actor maintainer --quote 'actual approval text' --source conversation-reference
 ```
 
-Repeat at G2, G4, G8 and `merge` as those decisions occur. Helper status exposes reviewed G1/G2/G4 manifests and hashes for the approval preview. G4 must explicitly cover the exact proposed issues and continuing implementation. UAT requires the human to execute or witness the agreed scenarios. Merge approval is separate. A rejection must remain actionable evidence; neither silence nor an artifact's existence counts as acceptance.
+Repeat at G2, G4, G8 and `merge` as those decisions occur. `status` is compact. It shows gate states and the G1/G2/G4 hashes and file counts. Use `status --verbose` to get the full manifests for an approval preview, and `explain GATE [--lens LENS]` to list exactly which paths, preceding decisions or reports changed since a gate was recorded. G4 must explicitly cover the exact proposed issues and continuing implementation. UAT requires the human to execute or witness the agreed scenarios. Merge approval is separate. A rejection must remain actionable evidence; neither silence nor an artifact's existence counts as acceptance.
 
 For G3/G5/G6/G7, a fresh checker records an existing repository-relative evidence file and its actual outcome. Put reports under the change's `evidence/` directory, or use `verification.md`, `review.md` and `uat.md`. Use separate finalized reports for successive checks; changing a shared report invalidates earlier checks referencing it. In reduced mode, `lifecycle.md` holds the planning/omission record and reports remain separate:
 
@@ -134,6 +144,26 @@ Finish or switch the local session explicitly:
 ```bash
 python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback deactivate
 ```
+
+### Token budget
+
+The lifecycle runs many fresh agents, so most of its cost is context. The skill's [token budget](../.agents/skills/feature-lifecycle/SKILL.md#token-budget) rules apply to every agent:
+
+- Run deterministic checks before dispatching.
+- Give checkers bounded briefs.
+- Ask for findings-first reports of about 60 lines.
+- Recheck only the changed delta.
+- Use a smaller or lower-effort model for mechanical checks.
+
+Records stay small too. Source-snapshot gates (G5 and later) store only a fingerprint and file count. The full manifest goes into a deduplicated, worktree-local cache at `git rev-parse --git-path rallyon-lifecycle-snapshots`, which `explain` reads. Staleness never depends on this cache. Records written before this change keep their inline manifests and remain valid. `.gitattributes` marks `.lifecycle.json` as generated so that diffs don't print it. Agents should still use `status` and `explain` rather than reading these files.
+
+| Agent | Lower-cost checker | Continuing a checker for a delta recheck | Fresh independent context |
+| --- | --- | --- | --- |
+| Claude Code | Agent tool `effort: "lower"` or a smaller `model` | Message the same checker agent | New Agent call |
+| Codex | Subagent `model` / `model_reasoning_effort` in the spawn request or a `.codex/agents/*.toml` agent | Steer the same checker thread | New subagent |
+| Cline | Select a smaller model for the checker task | Continue the checker task | New task with only the bounded brief |
+
+Keep these per-agent settings in local configuration. The repository does not pin models.
 
 ### Enforcement and validation limits
 

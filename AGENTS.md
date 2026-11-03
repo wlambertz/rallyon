@@ -27,11 +27,11 @@
 
 ## Feature Lifecycle
 
-- Use `.agents/skills/feature-lifecycle/` for idea-to-UAT work. Full runs explicitly select `rallyon-feature`; `spec-driven` remains the default and supports the documented reduced bug/docs path.
-- Human decisions remain at scope (G1), specification/go-no-go (G2), exact issue creation and continued implementation (G4), UAT (G8), and merge. Prepare concrete reviewable artifacts before requesting each decision; record actual approval quotes and source references, never inferred approval.
-- During an active lifecycle session, create issues only with the lifecycle helper, including from Codex; do not bypass it through `gh` or connectors. Check current gate evidence before apply. See `docs/agent-workflows.md` for commands and recovery.
-- Makers cannot check their own work. Use fresh native agent contexts with bounded inputs; if an independent checker is unavailable, leave the gate pending. Changed inputs invalidate affected approvals and downstream evidence; resume at the earliest affected gate.
-- Escalate shared IAM changes, Flyway migrations, public REST/JWT/CLI breaks, new dependencies/modules, spec ambiguity during apply, reviewer disagreement after two rounds, or exceeding an agreed budget. See `docs/feature-lifecycle-gates.md` for the complete contract.
+- Use `.agents/skills/feature-lifecycle/` for idea-to-UAT work.
+  - Tracks: `full` (schema `rallyon-feature`) for capabilities, `reduced` (`spec-driven`) for narrow bugs and docs, and `research` (`rallyon-research`) for knowledge goals, which never change production code.
+  - The contract is in `docs/feature-lifecycle-gates.md`; commands and recovery are in `docs/agent-workflows.md`.
+- Human decisions (scope, spec go/no-go, exact issue creation plus continued implementation, UAT and merge) need explicit approval of the displayed artifacts, recorded with the actual quote. Never infer approval. Makers cannot check their own work; leave a gate pending if no independent checker is available.
+- During an active session, create issues only with the lifecycle helper, never through `gh` or connectors. Use the helper's `status` and `explain` instead of reading `.lifecycle.json`. Escalate the risks listed in the gate contract.
 
 ## Read This First
 

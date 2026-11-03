@@ -1,0 +1,40 @@
+name: rallyon-research
+version: 1
+description: RallyOn human-gated research track for stories whose goal is knowledge, not a feature
+artifacts:
+  - id: charter
+    generates: "charter.md"
+    description: Research question, decision informed, sources, timebox and track choice for G1
+    template: charter.md
+    instruction: |
+      Read docs/feature-lifecycle-gates.md (Choosing a track, Research path), the personas, context map and nearest agent guide. Record the research question, the decision or follow-up work it informs, the sources to consult, scope and exclusions, the deliverable, the agreed timebox/budget (or explicitly none agreed) and why the research track fits instead of full or reduced. State that no production code, tests, migrations, runtime configuration or dependencies change. Present this concrete artifact for explicit human G1 approval. Do not infer approval from silence or task authorization.
+    requires: []
+  - id: findings
+    generates: "findings.md"
+    description: Source-traced findings, recommendation and open questions checked at G5
+    template: findings.md
+    instruction: |
+      Require current human G1 approval in the lifecycle record. Answer the charter question with claims traced to concrete sources (code paths, specifications, primary documents), separating verified facts, hypotheses and unverified claims. Record the recommendation and open questions. Candidate requirements for future features belong here or in follow-up issue bodies, never in specs/, so archiving cannot turn them into accepted behavior. If the research shows that production changes are needed, stop and propose a follow-up feature change instead of implementing. A fresh-context independent checker then verifies the claim-to-source mapping, the change's file scope and documentation checks at G5. Write reports findings-first without restating inputs; rechecks cover only the changed delta.
+    requires: [charter]
+  - id: acceptance
+    generates: "uat.md"
+    description: Human review and acceptance of the verified findings for G8
+    template: uat.md
+    instruction: |
+      After current G5 verification, summarize the findings, recommendation and limitations the human reviews. Record the actual outcome only after the human reviews them. Require explicit human G8 acceptance; never infer it from a report file. Changed findings require G5 again. Merge requires separate explicit human approval.
+    requires: [findings]
+  - id: follow-ups
+    generates: "issue-drafts.json"
+    description: Optional exact follow-up issue payload, approved at G4 after acceptance
+    template: issue-drafts.json
+    instruction: |
+      Optional: create this file only when accepted findings justify follow-up issues; omit it otherwise (an empty payload is rejected). Use {repository: owner/name, issues: [{id, title, body, depends_on: [draft IDs], labels: [], assignees: [], milestone: optional string}]}. Each body cites the supporting findings, scope, acceptance criteria and that a feature follow-up runs its own lifecycle. Prepare it before G5 so the checker and G8 review include it. After G8, preview the exact payload for human G4 approval and create issues only with the lifecycle helper.
+    requires: [findings]
+apply:
+  requires: [findings]
+  instruction: |
+    The research track has no implementation apply. Do not change production code,
+    tests, migrations, runtime configuration or dependencies. Run
+    python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change NAME status
+    and follow the research gate sequence G1, G5, G8, optional G4, merge.
+    Archive with openspec archive NAME --skip-specs.

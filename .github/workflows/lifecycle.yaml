@@ -41,6 +41,8 @@ jobs:
         run: python3 -m unittest discover -s .claude/hooks/tests -v
       - name: Test schema readiness
         run: python3 -m unittest discover -s openspec/schemas/rallyon-feature/tests -v
+      - name: Test research schema readiness
+        run: python3 -m unittest discover -s openspec/schemas/rallyon-research/tests -v
       - name: Check formatting
         run: npm run format:check
       - name: Check whitespace

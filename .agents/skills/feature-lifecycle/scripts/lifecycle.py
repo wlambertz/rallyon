@@ -14,7 +14,11 @@ import tempfile
 
 GATES = ['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'merge']
 HUMAN = {'G1', 'G2', 'G4', 'G8', 'merge'}
+PLANNING = {'G1', 'G2', 'G3', 'G4'}
 LENSES = ['architecture', 'correctness', 'tests']
+# Research stories deliver findings, not code: follow-up issues are an output of
+# accepted findings, so their G4 approval comes after G8 instead of gating apply.
+SEQUENCES = {'full': GATES, 'reduced': GATES, 'research': ['G1', 'G5', 'G8', 'G4', 'merge']}
 
 
 class LifecycleError(Exception):
@@ -55,6 +59,8 @@ class Session:
         self.path = self.change / '.lifecycle.json'
         pointer = Path(git(self.root, 'rev-parse', '--git-path', 'rallyon-lifecycle.json').decode().strip())
         self.pointer = pointer if pointer.is_absolute() else self.root / pointer
+        cache = Path(git(self.root, 'rev-parse', '--git-path', 'rallyon-lifecycle-snapshots').decode().strip())
+        self.snapshots = cache if cache.is_absolute() else self.root / cache
         self.state = json.loads(self.path.read_text()) if self.path.exists() else None
         if self.state and self.state.get('version') != 1:
             raise LifecycleError('Unsupported lifecycle record version')
@@ -95,7 +101,20 @@ class Session:
             raise LifecycleError('Artifacts must be ordinary files inside this repository')
         return digest(path.read_bytes())
 
+    def sequence(self):
+        gates = SEQUENCES[self.state['mode']]
+        if self.state['mode'] == 'research' and not (self.change / 'issue-drafts.json').exists():
+            gates = [gate for gate in gates if gate != 'G4']
+        return gates
+
+    def require_applicable(self, gate):
+        if gate not in self.sequence():
+            raise LifecycleError(f'{gate} is not part of the {self.state["mode"]} track')
+
     def manifest(self, gate):
+        if self.state['mode'] == 'research' and gate in {'G1', 'G4'}:
+            names = ['charter.md'] + (['findings.md', 'issue-drafts.json'] if gate == 'G4' else [])
+            return {str((self.change / n).relative_to(self.root)): self.file_hash(self.change / n) for n in names}
         if gate in {'G1', 'G2', 'G3', 'G4'}:
             names = ['lifecycle.md'] if self.state['mode'] == 'reduced' else ['refinement.md']
             if gate != 'G1':
@@ -148,7 +167,8 @@ class Session:
 
     def dependencies(self, gate):
         result = {}
-        for previous in GATES[:GATES.index(gate)]:
+        gates = self.sequence()
+        for previous in gates[:gates.index(gate)]:
             lenses = LENSES if previous == 'G7' and self.state['mode'] == 'full' else [None]
             for lens in lenses:
                 record = self.latest(previous, lens)
@@ -156,9 +176,11 @@ class Session:
         return result
 
     def require(self, gate):
+        self.require_applicable(gate)
         if GATES.index(gate) >= GATES.index('G5'):
             self.require_resolved_attempts()
-        for previous in GATES[:GATES.index(gate) + 1]:
+        gates = self.sequence()
+        for previous in gates[:gates.index(gate) + 1]:
             lenses = LENSES if previous == 'G7' and self.state['mode'] == 'full' else [None]
             for lens in lenses:
                 r = self.latest(previous, lens)
@@ -175,9 +197,11 @@ class Session:
 
     def record(self, gate, actor, outcome='pass', quote=None, source=None, evidence=None, lens=None):
         self.active()
-        index = GATES.index(gate)
+        self.require_applicable(gate)
+        gates = self.sequence()
+        index = gates.index(gate)
         if index:
-            self.require(GATES[index - 1])
+            self.require(gates[index - 1])
         if gate in HUMAN:
             if not quote or not source or not actor.strip():
                 raise LifecycleError('Human approval needs an explicit quote, actor and source reference')
@@ -192,7 +216,7 @@ class Session:
             raise LifecycleError('Named review lenses apply only to full G7')
         if gate == 'G4':
             self.drafts()
-        if gate == 'G5':
+        if gate == 'G5' and self.state['mode'] != 'research':
             self.require_resolved_attempts()
             for item in self.drafts()['issues']:
                 if item['id'] not in self.state['issues'] or self.state['attempts'][item['id']]['payload'] != item:
@@ -205,8 +229,18 @@ class Session:
             if not allowed:
                 raise LifecycleError('Put checker reports in change/evidence/ or verification.md, review.md, uat.md')
             record.update(evidence=path.relative_to(self.root).as_posix(), evidence_hash=self.file_hash(path))
-        record['fingerprint'] = self.fingerprint(gate)
-        record['manifest'] = self.manifest(gate)
+        manifest = self.manifest(gate)
+        record['fingerprint'] = digest(json.dumps(manifest, sort_keys=True).encode())
+        if gate in PLANNING:
+            record['manifest'] = manifest
+        else:
+            # Staleness compares fingerprints only. Whole-tree manifests are
+            # diagnostic, so they live in a local deduplicated cache instead of
+            # bloating the tracked record that agents and reviewers read.
+            record['snapshot_size'] = len(manifest)
+            cached = self.snapshots / f"{record['fingerprint']}.json"
+            if not cached.exists():
+                atomic_json(cached, manifest)
         record['dependencies'] = self.dependencies(gate)
         self.state['records'].append(record)
         self.save()
@@ -295,18 +329,45 @@ class Session:
             timestamp=datetime.now(timezone.utc).isoformat()))
         self.save()
 
-    def status(self):
+    def explain(self, gate, lens=None):
+        self.require_applicable(gate)
+        record = self.latest(gate, lens)
+        if not record:
+            raise LifecycleError(f'{gate} has no record')
+        current = self.manifest(gate)
+        recorded = record.get('manifest')
+        cached = self.snapshots / f"{record['fingerprint']}.json"
+        if recorded is None and cached.exists():
+            recorded = json.loads(cached.read_text())
+        result = dict(gate=gate, lens=lens, outcome=record['outcome'],
+                      stale=record['fingerprint'] != digest(json.dumps(current, sort_keys=True).encode()),
+                      preceding_changed=record.get('dependencies') != self.dependencies(gate))
+        if record.get('evidence'):
+            result['report_changed'] = record['evidence_hash'] != self.file_hash(self.root / record['evidence'])
+        if recorded is None:
+            result['changed_paths'] = 'snapshot unavailable in this worktree; compare against the recorded fingerprint'
+        else:
+            result['changed_paths'] = sorted(k for k in set(recorded) | set(current) if recorded.get(k) != current.get(k))
+        return result
+
+    def status(self, verbose=False):
         result = {}
         for gate in GATES:
+            if gate not in self.sequence():
+                result[gate] = 'not applicable'
+                continue
             try:
                 self.require(gate)
                 result[gate] = 'passed'
             except (LifecycleError, OSError) as error:
                 result[gate] = str(error)
         snapshots = {}
-        for gate in ['G1', 'G2', 'G4']:
+        for gate in [g for g in ['G1', 'G2', 'G4'] if g in self.sequence()]:
             try:
-                snapshots[gate] = dict(hash=self.fingerprint(gate), manifest=self.manifest(gate))
+                manifest = self.manifest(gate)
+                snapshots[gate] = dict(hash=digest(json.dumps(manifest, sort_keys=True).encode()), files=len(manifest))
+                if verbose:
+                    snapshots[gate]['manifest'] = manifest
             except (LifecycleError, OSError) as error:
                 snapshots[gate] = dict(pending=str(error))
         return dict(mode=self.state['mode'], makers=self.state['makers'], gates=result,
@@ -321,8 +382,12 @@ def main():
     start.add_argument('--repository', required=True)
     start.add_argument('--maker', required=True)
     start.add_argument('--additional-maker', action='append', default=[])
-    start.add_argument('--mode', choices=['full', 'reduced'], default='full')
-    commands.add_parser('status')
+    start.add_argument('--mode', choices=list(SEQUENCES), default='full')
+    status = commands.add_parser('status')
+    status.add_argument('--verbose', action='store_true', help='include full G1/G2/G4 manifests for approval previews')
+    explain = commands.add_parser('explain', help='list paths and decisions that changed since a gate was recorded')
+    explain.add_argument('gate', choices=GATES)
+    explain.add_argument('--lens', choices=LENSES)
     commands.add_parser('deactivate')
     approve = commands.add_parser('approve')
     approve.add_argument('gate', choices=sorted(HUMAN))
@@ -362,7 +427,9 @@ def main():
         else:
             session.active()
             if args.command == 'status':
-                print(json.dumps(session.status(), indent=2))
+                print(json.dumps(session.status(args.verbose), indent=2))
+            elif args.command == 'explain':
+                print(json.dumps(session.explain(args.gate, args.lens), indent=2))
             elif args.command == 'deactivate':
                 session.pointer.unlink()
             elif args.command == 'approve':
