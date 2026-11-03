@@ -95,6 +95,22 @@ All scan runs SHALL retain active data-update behavior and may restore compatibl
 - **THEN** the scan may use the optional key and save updated compatible data
 - **AND** an absent key still selects supported keyless operation
 
+#### Scenario: Select supported keyless NIST feed mode
+
+- **WHEN** no NVD key is supplied by a trusted default-branch push/schedule run
+- **THEN** the pinned scanner uses the direct official NIST JSON 2 feed instead of its broken keyless API path
+- **AND** selection remains fixed even if metadata retrieval or scanning fails
+- **AND** BSI information remains supplementary manual context rather than another automated engine
+
+#### Scenario: Enforce official metadata freshness
+
+- **WHEN** any keyless scan starts with cold or warm compatible data
+- **THEN** official modified metadata is retrieved with at most three attempts of 20 seconds each
+- **AND** one timezone-aware lastModifiedDate no older than 48 hours and no more than five minutes in the future is required
+- **AND** exactly those boundaries remain valid
+- **AND** retrieval, missing/duplicate/invalid timestamps or stale/future metadata fail the scan without an offline fallback
+- **AND** evidence records source mode, metadata timestamp and SHA-256 of the retrieved metadata
+
 #### Scenario: Keep credentials out of retained data
 
 - **WHEN** a key is supplied or a scan fails

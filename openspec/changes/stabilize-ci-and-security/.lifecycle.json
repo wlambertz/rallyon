@@ -85,6 +85,73 @@
         "G2:None": "dfabbb5bb4c90229fb328eb7d46dd747da964be7f16b271194d66920df870d09",
         "G3:None": "d609cd5ceb2d2b95fa1b221f6de58a26a4070b8811a3a417b7428b789dcf5135"
       }
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "PLEASE IMPLEMENT THIS PLAN: # #187: NVD als Hauptquelle behalten",
+      "source": "Conversation user message 2026-11-03 explicitly requesting implementation of the fully displayed NVD-primary plan; exact data path and freshness decisions reproduced in evidence/nvd-revision-authorization.md; no UAT or merge approval.",
+      "lens": null,
+      "timestamp": "2026-11-03T10:31:43.536406+00:00",
+      "fingerprint": "d2057486fb97c232c3e3fd6fe7ec39f9e208ca4f1941cfcb3978e39a0ae754ba",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "f7055b9ed052225f17736ec125321f2a86141c0367e4222159d02d112d980ebd",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "581cdacfba471a4fd448242cc83020474b6cd8585212d81836b7fc09bbade4e9"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "/root/ci187_nvd_g3",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-03T10:34:11.126612+00:00",
+      "evidence": "openspec/changes/stabilize-ci-and-security/evidence/g3-nvd-revision.md",
+      "evidence_hash": "abeb053de126f5f8b037b1522c47e5e761e990fffcb077b46e5c0e290b030090",
+      "fingerprint": "d2057486fb97c232c3e3fd6fe7ec39f9e208ca4f1941cfcb3978e39a0ae754ba",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "f7055b9ed052225f17736ec125321f2a86141c0367e4222159d02d112d980ebd",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "581cdacfba471a4fd448242cc83020474b6cd8585212d81836b7fc09bbade4e9"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7",
+        "G2:None": "655d1d27413e9bbe86b9290bc7dc6acc69212f2d7c85d9b685d731addb4e941c"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "PLEASE IMPLEMENT THIS PLAN: # #187: NVD als Hauptquelle behalten",
+      "source": "Conversation user message 2026-11-03 explicitly orders implementation of the displayed concrete NVD revision after renewed gates; existing exact issue-drafts.json remains unchanged and original issue-creation approval remains applicable; successful issue #200 is retained without creating another issue. See evidence/nvd-revision-authorization.md.",
+      "lens": null,
+      "timestamp": "2026-11-03T10:34:11.224001+00:00",
+      "fingerprint": "b9999214210b69a0523d0bd5c717fb3aa48601e9db8d2309b23983960da21411",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1",
+        "openspec/changes/stabilize-ci-and-security/proposal.md": "7a8b1931035e7402734c95992a90df0444230fdfb63a36ccebef68dc98ee88ef",
+        "openspec/changes/stabilize-ci-and-security/design.md": "f7055b9ed052225f17736ec125321f2a86141c0367e4222159d02d112d980ebd",
+        "openspec/changes/stabilize-ci-and-security/value.md": "1e21efcf80801279c2b2912e0307ccd46400aa8bdbaac611decb8421c53296f5",
+        "openspec/changes/stabilize-ci-and-security/specs/repository-dependency-security/spec.md": "581cdacfba471a4fd448242cc83020474b6cd8585212d81836b7fc09bbade4e9",
+        "openspec/changes/stabilize-ci-and-security/tasks.md": "92309cbf28fcd049bf9256fc33d7b6ee83f309315dc0d61b5b7e52f222ff7bfe",
+        "openspec/changes/stabilize-ci-and-security/issue-drafts.json": "2897ddf35c74c706f0428eea79e6f047a95f384edfb039e8e9a8006946012e38"
+      },
+      "dependencies": {
+        "G1:None": "f99fb7a196945c5b47b9d8e70d6f875f23686825e187d6d144ce2212a85916b7",
+        "G2:None": "655d1d27413e9bbe86b9290bc7dc6acc69212f2d7c85d9b685d731addb4e941c",
+        "G3:None": "6fa7b7e705fbc42ddac44649d0216c45732af96c52d7d1ac159a27dac55d53a1"
+      }
     }
   ],
   "issues": {

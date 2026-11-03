@@ -8,8 +8,10 @@ from pathlib import Path
 import re
 import sys
 import tempfile
+import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
+from urllib.error import URLError
 
 SCRIPTS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS))
@@ -77,8 +79,60 @@ class Suppressions(unittest.TestCase):
             self.assertIsNone(re.fullmatch(selector, other))
 
 
+class NvdMetadata(unittest.TestCase):
+    def test_exact_freshness_boundaries_and_raw_hash(self):
+        for modified in (NOW - timedelta(hours=48), NOW + timedelta(minutes=5), NOW):
+            raw = f"lastModifiedDate:{modified.isoformat()}\nsize:123\n".encode()
+            fetch = Mock(return_value=raw)
+            evidence = scan.nvd_metadata(fetch=fetch, now=NOW)
+            self.assertEqual(evidence['last_modified_utc'], modified.isoformat())
+            self.assertEqual(evidence['sha256'], scan.hashlib.sha256(raw).hexdigest())
+            fetch.assert_called_once_with(scan.NVD_METADATA, timeout=20)
+
+    def test_reject_outside_boundaries_missing_duplicate_invalid_and_naive(self):
+        samples = [b'size:123\n', b'lastModifiedDate:no-date\n', b'lastModifiedDate:2026-11-03T00:00:00\n',
+                   b'lastModifiedDate:2026-11-03T00:00:00Z\nlastModifiedDate:2026-11-03T00:00:00Z\n', b'\xff',
+                   f"lastModifiedDate:{(NOW-timedelta(hours=48,microseconds=1)).isoformat()}\n".encode(),
+                   f"lastModifiedDate:{(NOW+timedelta(minutes=5,microseconds=1)).isoformat()}\n".encode()]
+        for raw in samples:
+            with self.subTest(raw=raw), self.assertRaises(ValueError):
+                scan.nvd_metadata(fetch=Mock(return_value=raw), now=NOW)
+
+    def test_retries_three_bounded_attempts_without_fallback(self):
+        for error in (TimeoutError('timeout'), URLError('unavailable'), OSError('network')):
+            fetch = Mock(side_effect=error)
+            with self.subTest(error=error), self.assertRaises(OSError):
+                scan.nvd_metadata(fetch=fetch, now=NOW)
+            self.assertEqual(fetch.call_count, 3)
+            for call in fetch.call_args_list:
+                self.assertEqual(call.args, (scan.NVD_METADATA,))
+                self.assertEqual(call.kwargs, {'timeout': 20})
+        raw = f"lastModifiedDate:{NOW.isoformat()}\n".encode()
+        fetch = Mock(side_effect=[TimeoutError(), OSError(), raw])
+        self.assertEqual(scan.nvd_metadata(fetch=fetch, now=NOW)['sha256'], scan.hashlib.sha256(raw).hexdigest())
+        self.assertEqual(fetch.call_count, 3)
+
+    def test_wall_clock_deadline_also_bounds_response_download(self):
+        class SlowResponse:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self):
+                time.sleep(0.5)
+                return b'late'
+        with patch.object(scan, 'urlopen', return_value=SlowResponse()):
+            started = time.monotonic()
+            with self.assertRaises(TimeoutError):
+                scan.retrieve_metadata(scan.NVD_METADATA, timeout=0.02)
+            self.assertLess(time.monotonic() - started, 0.4)
+
+
 class Runner(unittest.TestCase):
     def setUp(self):
+        metadata = f"lastModifiedDate:{datetime.now(timezone.utc).isoformat()}\n".encode()
+        self.fetch_metadata = patch.object(scan, 'retrieve_metadata', return_value=metadata).start()
+        self.addCleanup(patch.stopall)
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
@@ -131,6 +185,7 @@ sys.exit(int(os.environ['FAKE_EXIT']))
                 self.assertIn(scan.IMAGE, command)
                 self.assertEqual(command[command.index('--failOnCVSS') + 1], '7')
                 self.assertNotIn('--noupdate', command)
+                self.assertIn('--nvdDatafeed', command)
                 self.assertFalse(any(argument.startswith('--disable') for argument in command))
                 self.assertTrue(json.loads((self.args.reports / 'execution.json').read_text())['reports_available'])
 
@@ -177,6 +232,91 @@ sys.exit(int(os.environ['FAKE_EXIT']))
         path.write_bytes(b'a' * (1024 * 1024 - 3) + b'secret' + b'z' * 32)
         self.assertTrue(scan.contains_secret(path, b'secret'))
         self.assertFalse(scan.contains_secret(path, b'other-secret'))
+
+    def test_metadata_error_blocks_docker_even_with_warm_data(self):
+        self.args.data.mkdir()
+        (self.args.data / 'cached-data').write_bytes(b'previous snapshot')
+        for failure in (TimeoutError('network deadline'),):
+            self.fetch_metadata.side_effect = failure
+            with patch.object(scan.subprocess, 'run') as docker:
+                self.assertEqual(scan.run_scan(self.args), 1)
+                docker.assert_not_called()
+            self.assertEqual(self.fetch_metadata.call_count, 3)
+            self.fetch_metadata.reset_mock()
+        for raw in (b'lastModifiedDate:bad', b'lastModifiedDate:2000-01-01T00:00:00Z'):
+            self.fetch_metadata.side_effect = None
+            self.fetch_metadata.return_value = raw
+            with patch.object(scan.subprocess, 'run') as docker:
+                self.assertEqual(scan.run_scan(self.args), 1)
+                docker.assert_not_called()
+            evidence = json.loads((self.args.reports / 'execution.json').read_text())
+            self.assertEqual(evidence['nvd_mode'], 'nist-json2-feed')
+            self.assertIn('error', evidence)
+            self.assertEqual(evidence['nvd_metadata']['sha256'], scan.hashlib.sha256(raw).hexdigest())
+            if b'2000-' in raw:
+                self.assertEqual(evidence['nvd_metadata']['last_modified_utc'], '2000-01-01T00:00:00+00:00')
+
+    def test_trusted_optional_key_selects_api_without_metadata(self):
+        self.args.event, self.args.ref = 'push', 'refs/heads/main'
+        self.fetch_metadata.side_effect = AssertionError('API mode must not fetch feed metadata')
+        for code in (0, 14):
+            result, command = self.run_fake(code, 'fixture-secret-123')
+            self.assertEqual(result, code)
+            self.assertNotIn('--nvdDatafeed', command)
+            self.assertIn('--propertyfile', command)
+            evidence = json.loads((self.args.reports / 'execution.json').read_text())
+            self.assertEqual(evidence['nvd_mode'], 'api')
+            self.assertNotIn('nvd_metadata', evidence)
+        self.fetch_metadata.assert_not_called()
+
+    def test_keyless_feed_mode_evidence_on_scan_failure(self):
+        self.args.event, self.args.ref = 'push', 'refs/heads/main'
+        code, command = self.run_fake(14)
+        self.assertEqual(code, 14)
+        self.assertEqual(command[command.index('--nvdDatafeed') + 1], scan.NVD_DATAFEED)
+        evidence = json.loads((self.args.reports / 'execution.json').read_text())
+        self.assertEqual(evidence['nvd_mode'], 'nist-json2-feed')
+        self.assertEqual(evidence['nvd_metadata']['sha256'], scan.hashlib.sha256(self.fetch_metadata.return_value).hexdigest())
+        self.assertEqual(evidence['nvd_metadata']['url'], scan.NVD_METADATA)
+        self.fetch_metadata.assert_called_once()
+
+    def test_overlapping_writable_and_immutable_paths_fail_before_writes(self):
+        original = self.args
+        pairs = [('data', original.dependencies), ('reports', original.dependencies / 'nested'),
+                 ('data', original.dependencies.parent), ('reports', original.data),
+                 ('reports', original.suppressions.parent)]
+        for name, value in pairs:
+            with self.subTest(name=name, value=value):
+                args = argparse.Namespace(**vars(original))
+                setattr(args, name, value)
+                with patch.object(scan.subprocess, 'run') as docker, patch.object(scan, 'atomic_write') as write:
+                    self.assertEqual(scan.run_scan(args), 1)
+                    docker.assert_not_called()
+                    write.assert_not_called()
+        args = argparse.Namespace(**vars(original))
+        args.manifest = args.data / 'inventory.json'
+        self.assertEqual(scan.run_scan(args), 1)
+
+    def test_atomic_writes_replace_leaf_symlinks_without_following_them(self):
+        unrelated = self.root / 'unrelated.txt'
+        unrelated.write_text('preserve me')
+        for name in ('execution.json', 'input-inventory.json', 'scanner.log', 'inventory.json'):
+            path = self.root / name
+            path.symlink_to(unrelated)
+            scan.atomic_write(path, b'new artifact')
+            self.assertEqual(path.read_bytes(), b'new artifact')
+            self.assertEqual(unrelated.read_text(), 'preserve me')
+            self.assertFalse(path.is_symlink())
+        self.assertEqual(list(self.root.glob('.security-*')), [])
+
+    def test_execution_leaf_symlink_preserves_unrelated_target(self):
+        self.args.reports.mkdir()
+        unrelated = self.root / 'unrelated.txt'
+        unrelated.write_text('preserve me')
+        (self.args.reports / 'execution.json').symlink_to(unrelated)
+        self.run_fake(0)
+        self.assertEqual(unrelated.read_text(), 'preserve me')
+        self.assertFalse((self.args.reports / 'execution.json').is_symlink())
 
     def test_malformed_xml_is_diagnostic_failure(self):
         self.rules.write_text('<not-xml')
