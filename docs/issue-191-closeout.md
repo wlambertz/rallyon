@@ -6,7 +6,7 @@ Primary user: the RallyOn maintainer. This change migrates existing behavior doc
 
 The actual conversation decisions were “Beide Wege erhalten (Recommended)” (support both grouped and historical root commands) and “Standard entfernen (Recommended)” (remove automatic schema URL; preserve explicit configuration). The maintainer then supplied the complete concrete plan under “PLEASE IMPLEMENT THIS PLAN:” and requested implementation. That supplied plan is the scope/specification and continued-implementation authorization for this reduced record; no new approval is inferred from silence. A separate numerical G3 score is not applicable to this bounded compatibility/documentation closeout.
 
-G1/G2 scope and go/no-go: authorized by that explicit supplied implementation plan. G4: no issue creation; continuation authorized by the same plan. G5/G6/G7 independent checks: passed as recorded below. G8: pending actual human documentation/CLI walkthrough acceptance. Merge: pending separate human approval. Closing #191 and ticking its final GitHub checklists happen only after acceptance and merge.
+G1/G2 scope and go/no-go: authorized by that explicit supplied implementation plan. G4: no issue creation; continuation authorized by the same plan. G5/G6/G7 independent checks: passed as recorded below. G8: accepted by the maintainer with “G8 abnehmen”; see the actual decision below. Merge: pending separate human approval. Closing #191 and ticking its final GitHub checklists happen only after acceptance and merge.
 
 ## Acceptance criteria
 
@@ -42,4 +42,8 @@ The [recorded local walkthrough](issue-191-cli-walkthrough.json) ran against a C
 
 Review [the migration inventory](legacy-spec-migration.md), especially corrected creation/date assumptions, full draft replacement and unsupported blanket ADMIN authorization claims. Existing lifecycle and retrieval requirements remain unchanged.
 
-G8 remains pending the maintainer's explicit acceptance of this documentation and CLI walkthrough. Automated success and checker reports do not establish human acceptance. Separate merge approval remains pending; #191 is not closed by implementation alone.
+## Actual G8 decision
+
+The maintainer explicitly answered “G8 abnehmen” to the concrete PR #197 acceptance question covering the nine migrated specs / 25 conditions, both CLI routes, one stderr warning, explicit schema configuration, retained default directory, independent reviews and local walkthrough. Source: conversation reply to `request_user_input_async` call `call_8908023ae21941a4af743e8aaa9315c4`, question item 0. The accepted implementation revision was `1b8d3565ca1b9e1ebe511389b396eaae6bbdff71`; this follow-up changes only the acceptance evidence.
+
+G8 is accepted. Separate merge approval remains pending; the maintainer was explicitly told that G8 does not grant merge approval. At the accepted revision, backend/lifecycle/commit/analysis checks passed and the dependency scan failed on reported vulnerabilities with CVSS >= 7. This decision does not waive that failure or classify its findings. Issue #187 owns remediation. Final ADR/issue checklist completion and #191 closure remain pending the approved merge.

@@ -1,7 +1,7 @@
 {
   "binary": "built from this worktree",
   "operations": "Local temporary files only; no auth/deploy/Docker/GitHub calls",
-  "human_acceptance": "pending",
+  "human_acceptance": "G8 accepted: maintainer answered “G8 abnehmen” to PR #197 acceptance question; separate merge approval pending",
   "steps": [
     {
       "command": "ro create root",
@@ -60,5 +60,6 @@
   ],
   "help_checks": "All six leaf help routes show the deprecation pointer and no stderr warning on help.",
   "outcome": "passed",
-  "default_directory_smoke": "Root create with no specs.directory override succeeded against the retained repository directory; own generated smoke file removed immediately."
+  "default_directory_smoke": "Root create with no specs.directory override succeeded against the retained repository directory; own generated smoke file removed immediately.",
+  "acceptance_source": "Conversation reply to request_user_input_async call_8908023ae21941a4af743e8aaa9315c4, question item 0"
 }
