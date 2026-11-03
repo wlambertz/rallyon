@@ -4,7 +4,22 @@
   "maker": "codex-issue-187-maker",
   "makers": ["codex-issue-187-maker"],
   "mode": "full",
-  "records": [],
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "G1-Scope freigeben",
+      "source": "Conversation reply to request_user_input_async call_96d0931aaa584cce97ffe64ecfc368c5, question item 0: explicit approval of the published issue #187 scope artifact at 20afb7c.",
+      "lens": null,
+      "timestamp": "2026-11-03T09:25:41.380496+00:00",
+      "fingerprint": "1ab56691c10ccaa3289d5ea59813f106ca858c820cae7016f201dbcbb8c6892c",
+      "manifest": {
+        "openspec/changes/stabilize-ci-and-security/refinement.md": "850eee25db1039271413320980f3c71046026f2b1be5df96635d587bda9fe6a1"
+      },
+      "dependencies": {}
+    }
+  ],
   "issues": {},
   "attempts": {}
 }
