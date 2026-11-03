@@ -2,6 +2,8 @@ package dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal
 
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftService
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.GetTournamentService
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.GetTournamentUseCase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.TournamentStore
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftService
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase
@@ -21,4 +23,7 @@ class TournamentUseCaseConfiguration {
     @Bean
     fun updateDraftUseCase(store: TournamentStore, tournamentClock: Clock): UpdateDraftUseCase =
         UpdateDraftService(store, tournamentClock)
+
+    @Bean
+    fun getTournamentUseCase(store: TournamentStore): GetTournamentUseCase = GetTournamentService(store)
 }

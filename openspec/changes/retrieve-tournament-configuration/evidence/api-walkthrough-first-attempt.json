@@ -1,0 +1,19 @@
+{
+  "run_at": "2026-11-02T14:28:36.345720+00:00",
+  "api_base": "http://localhost:8080",
+  "source_index_fingerprint": "8cfadcd552127a571395c3b979192a3f686ac846457f61cd6b29a17887d938ac",
+  "authentication": "Real local Keycloak token obtained through ro auth token",
+  "steps": [
+    {
+      "name": "Create a partial PRIVATE draft",
+      "method": "POST",
+      "path": "/api/tournamentmgmt/config/drafts?organizerId=42",
+      "expected": 201,
+      "actual": 500,
+      "observations": {
+        "status": 500
+      }
+    }
+  ],
+  "human_g8_acceptance": "pending"
+}

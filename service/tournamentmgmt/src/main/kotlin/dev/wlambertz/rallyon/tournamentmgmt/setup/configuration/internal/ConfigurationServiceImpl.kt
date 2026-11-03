@@ -18,6 +18,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournam
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.InvalidDraftUpdateException as DomainInvalidDraftUpdateException
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.TournamentNotFoundException as DomainTournamentNotFoundException
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.CreateDraftUseCase
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.GetTournamentUseCase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.UpdateDraftUseCase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.phases.api.Phase
 import dev.wlambertz.rallyon.tournamentmgmt.setup.rules.api.CourtAllocationPolicy
@@ -34,7 +35,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ConfigurationServiceImpl(
     private val createDraftUseCase: CreateDraftUseCase,
-    private val updateDraftUseCase: UpdateDraftUseCase
+    private val updateDraftUseCase: UpdateDraftUseCase,
+    private val getTournamentUseCase: GetTournamentUseCase
 ) : ConfigurationService {
 
     @Transactional
@@ -211,8 +213,11 @@ class ConfigurationServiceImpl(
         throw UnsupportedOperationException("Not yet implemented")
     }
 
-    override fun get(tournamentId: Long): Tournament {
-        throw UnsupportedOperationException("Not yet implemented")
+    @Transactional(readOnly = true)
+    override fun get(tournamentId: Long): Tournament = try {
+        TournamentApiMapping.toApi(getTournamentUseCase.execute(tournamentId))
+    } catch (error: DomainTournamentNotFoundException) {
+        throw TournamentNotFoundException(tournamentId)
     }
 
     override fun listByOrganizer(
