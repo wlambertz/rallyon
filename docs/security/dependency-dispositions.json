@@ -1608,8 +1608,8 @@
     }
   ],
   "suppression_match_checks": {
-    "status": "maker artifact-selector checks passed; CPE2.2 conversion verified against upstream13 source; actual successful scanner and independent check pending",
-    "assertions": 48,
+    "status": "maker exact current10-rule counterexamples passed; independent review and actual revised scan pending",
+    "assertions": 74,
     "cases": [
       {
         "selector_kind": "packageUrl",
@@ -1618,34 +1618,15 @@
         "issue": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:",
         "positive_identity": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
         "negative_identities": [
-          "pkg:maven/org.keycloak/keycloak-core@0.1.0-SNAPSHOT",
+          "pkg:maven/com.nimbusds/nimbus-jose-jwt@10.9.1",
           "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.1-SNAPSHOT",
-          "pkg:maven/com.nimbusds/nimbus-jose-jwt@10.9.1"
+          "pkg:maven/org.keycloak/keycloak-core@0.1.0-SNAPSHOT"
         ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"],
         "cpe_boundary_checks": {
           "matching_cpe22_candidate": "cpe:/a:keycloak:keycloak:0.1.0:snapshot",
           "nonmatching_longer_version_or_update": "cpe:/a:keycloak:keycloak:0.1.0:snapshot0",
-          "status": "passed Python reproduction of upstream prefix+suffix semantics"
-        }
-      },
-      {
-        "selector_kind": "filePath",
-        "selector": "^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.0/micrometer\\-registry\\-prometheus\\-1\\.17\\.0\\.jar$",
-        "issue_kind": "cpe",
-        "issue": "cpe:/a:prometheus:prometheus:1.17.0:",
-        "positive_identity": "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
-        "negative_identities": [
-          "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
-          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0-extra.jar",
-          "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
-          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
-        ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
-        "cpe_boundary_checks": {
-          "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.0",
-          "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.00",
-          "status": "passed Python reproduction of upstream prefix+suffix semantics"
+          "status": "passed upstream prefix+suffix reproduction"
         }
       },
       {
@@ -1657,29 +1638,15 @@
         "negative_identities": [
           "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
           "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2-extra.jar",
-          "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
-          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
+          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar",
+          "/inputs/io/other/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar"
         ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"],
         "cpe_boundary_checks": {
           "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.2",
           "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.20",
-          "status": "passed Python reproduction of upstream prefix+suffix semantics"
+          "status": "passed upstream prefix+suffix reproduction"
         }
-      },
-      {
-        "selector_kind": "filePath",
-        "selector": "^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.0/spring\\-security\\-core\\-7\\.1\\.0\\.jar$",
-        "issue_kind": "cve",
-        "issue": "CVE-2018-1258",
-        "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
-        "negative_identities": [
-          "/elsewhere/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
-          "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0-extra.jar",
-          "/inputs/other/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
-          "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
-        ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
       },
       {
         "selector_kind": "filePath",
@@ -1689,25 +1656,11 @@
         "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
         "negative_identities": [
           "/elsewhere/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+          "/inputs/org/example/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
           "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2-extra.jar",
-          "/inputs/other/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
           "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
         ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
-      },
-      {
-        "selector_kind": "filePath",
-        "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.0/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.0\\.jar$",
-        "issue_kind": "cve",
-        "issue": "CVE-2018-1258",
-        "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
-        "negative_identities": [
-          "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
-          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0-extra.jar",
-          "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
-          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
-        ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
       },
       {
         "selector_kind": "filePath",
@@ -1717,11 +1670,99 @@
         "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
         "negative_identities": [
           "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+          "/inputs/org/example/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
           "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2-extra.jar",
-          "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
           "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
         ],
-        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
+      },
+      {
+        "selector_kind": "packageUrl",
+        "selector": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT",
+        "issue_kind": "cpe",
+        "issue": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:",
+        "positive_identity": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT",
+        "negative_identities": [
+          "pkg:maven/com.nimbusds/nimbus-jose-jwt@10.9.1",
+          "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.1-SNAPSHOT",
+          "pkg:maven/org.keycloak/keycloak-spring-starter@0.1.0-SNAPSHOT"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"],
+        "cpe_boundary_checks": {
+          "matching_cpe22_candidate": "cpe:/a:keycloak:keycloak:0.1.0:snapshot",
+          "nonmatching_longer_version_or_update": "cpe:/a:keycloak:keycloak:0.1.0:snapshot0",
+          "status": "passed upstream prefix+suffix reproduction"
+        }
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-config/7\\.1\\.2/spring\\-security\\-config\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-config/7.1.2/spring-security-config-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-config/7.1.2/spring-security-config-7.1.2.jar",
+          "/inputs/org/example/spring-security-config/7.1.2/spring-security-config-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-config/7.1.2/spring-security-config-7.1.2-extra.jar",
+          "/inputs/org/springframework/security/spring-security-config/7.1.3/spring-security-config-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-crypto/7\\.1\\.2/spring\\-security\\-crypto\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2.jar",
+          "/inputs/org/example/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2-extra.jar",
+          "/inputs/org/springframework/security/spring-security-crypto/7.1.3/spring-security-crypto-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-core/7\\.1\\.2/spring\\-security\\-oauth2\\-core\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2.jar",
+          "/inputs/org/example/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2-extra.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-core/7.1.3/spring-security-oauth2-core-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-jose/7\\.1\\.2/spring\\-security\\-oauth2\\-jose\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2.jar",
+          "/inputs/org/example/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2-extra.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-jose/7.1.3/spring-security-oauth2-jose-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-web/7\\.1\\.2/spring\\-security\\-web\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2.jar",
+          "/inputs/org/example/spring-security-web/7.1.2/spring-security-web-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2-extra.jar",
+          "/inputs/org/springframework/security/spring-security-web/7.1.3/spring-security-web-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:/a:other:other:1.0:"]
       }
     ],
     "cpe_conversion": {
@@ -1734,16 +1775,427 @@
           "effective_cpe22_rule": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:"
         },
         {
-          "original_cpe23": "cpe:2.3:a:prometheus:prometheus:1.17.0:*:*:*:*:*:*:*",
-          "effective_cpe22_rule": "cpe:/a:prometheus:prometheus:1.17.0:"
-        },
-        {
           "original_cpe23": "cpe:2.3:a:prometheus:prometheus:1.17.2:*:*:*:*:*:*:*",
           "effective_cpe22_rule": "cpe:/a:prometheus:prometheus:1.17.2:"
         }
       ],
       "scope": "unchanged exact artifact selector plus vendor/product/version; no expiry or waiver expansion"
+    }
+  },
+  "suppression_policy_history": [
+    {
+      "stage": "initial7-rule policy before observed cold findings",
+      "checks": {
+        "status": "maker artifact-selector checks passed; CPE2.2 conversion verified against upstream13 source; actual successful scanner and independent check pending",
+        "assertions": 48,
+        "cases": [
+          {
+            "selector_kind": "packageUrl",
+            "selector": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+            "issue_kind": "cpe",
+            "issue": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:",
+            "positive_identity": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+            "negative_identities": [
+              "pkg:maven/org.keycloak/keycloak-core@0.1.0-SNAPSHOT",
+              "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.1-SNAPSHOT",
+              "pkg:maven/com.nimbusds/nimbus-jose-jwt@10.9.1"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+            "cpe_boundary_checks": {
+              "matching_cpe22_candidate": "cpe:/a:keycloak:keycloak:0.1.0:snapshot",
+              "nonmatching_longer_version_or_update": "cpe:/a:keycloak:keycloak:0.1.0:snapshot0",
+              "status": "passed Python reproduction of upstream prefix+suffix semantics"
+            }
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.0/micrometer\\-registry\\-prometheus\\-1\\.17\\.0\\.jar$",
+            "issue_kind": "cpe",
+            "issue": "cpe:/a:prometheus:prometheus:1.17.0:",
+            "positive_identity": "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+            "negative_identities": [
+              "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+              "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0-extra.jar",
+              "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+              "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+            "cpe_boundary_checks": {
+              "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.0",
+              "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.00",
+              "status": "passed Python reproduction of upstream prefix+suffix semantics"
+            }
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.2/micrometer\\-registry\\-prometheus\\-1\\.17\\.2\\.jar$",
+            "issue_kind": "cpe",
+            "issue": "cpe:/a:prometheus:prometheus:1.17.2:",
+            "positive_identity": "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+            "negative_identities": [
+              "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+              "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2-extra.jar",
+              "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+              "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+            "cpe_boundary_checks": {
+              "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.2",
+              "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.20",
+              "status": "passed Python reproduction of upstream prefix+suffix semantics"
+            }
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.0/spring\\-security\\-core\\-7\\.1\\.0\\.jar$",
+            "issue_kind": "cve",
+            "issue": "CVE-2018-1258",
+            "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+            "negative_identities": [
+              "/elsewhere/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+              "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0-extra.jar",
+              "/inputs/other/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+              "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.2/spring\\-security\\-core\\-7\\.1\\.2\\.jar$",
+            "issue_kind": "cve",
+            "issue": "CVE-2018-1258",
+            "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+            "negative_identities": [
+              "/elsewhere/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+              "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2-extra.jar",
+              "/inputs/other/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+              "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.0/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.0\\.jar$",
+            "issue_kind": "cve",
+            "issue": "CVE-2018-1258",
+            "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+            "negative_identities": [
+              "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+              "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0-extra.jar",
+              "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+              "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+          },
+          {
+            "selector_kind": "filePath",
+            "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.2/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.2\\.jar$",
+            "issue_kind": "cve",
+            "issue": "CVE-2018-1258",
+            "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+            "negative_identities": [
+              "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+              "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2-extra.jar",
+              "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+              "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
+            ],
+            "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+          }
+        ],
+        "cpe_conversion": {
+          "source": "https://github.com/dependency-check/DependencyCheck/blob/v13.0.0/core/src/main/java/org/owasp/dependencycheck/xml/suppression/SuppressionRule.java",
+          "source_sha256": "75af7a6038b850c0f5a53c3670706a859208eb3b32e87ce243abc9a2e304ddde",
+          "method": "identifierMatches: converts candidate to CPE2.2 URI; literal rule prefix match; terminal colon requests whole-part boundary using cpePartMatchingSuffixFor",
+          "mappings": [
+            {
+              "original_cpe23": "cpe:2.3:a:keycloak:keycloak:0.1.0:snapshot:*:*:*:*:*:*",
+              "effective_cpe22_rule": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:"
+            },
+            {
+              "original_cpe23": "cpe:2.3:a:prometheus:prometheus:1.17.2:*:*:*:*:*:*:*",
+              "effective_cpe22_rule": "cpe:/a:prometheus:prometheus:1.17.2:"
+            }
+          ],
+          "scope": "unchanged exact artifact selector plus vendor/product/version; no expiry or waiver expansion"
+        },
+        "cpe_boundary_assertions": 6
+      },
+      "retired_unused_rules": [
+        "<suppress xmlns=\"https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd\" until=\"2027-01-31Z\">\n    <notes>Micrometer Prometheus registry uses the Prometheus Java client; it is not the Prometheus server. Manufacturer identity: https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html . The server CPE is erroneous for this exact Maven artifact; client/transitive dependencies and other CPEs remain in coverage.</notes>\n    <filePath regex=\"true\">^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.0/micrometer\\-registry\\-prometheus\\-1\\.17\\.0\\.jar$</filePath>\n    <cpe>cpe:/a:prometheus:prometheus:1.17.0:</cpe>\n  </suppress>\n  ",
+        "<suppress xmlns=\"https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd\" until=\"2027-01-31Z\">\n    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>\n    <filePath regex=\"true\">^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.0/spring\\-security\\-core\\-7\\.1\\.0\\.jar$</filePath>\n    <cve>CVE-2018-1258</cve>\n  </suppress>\n  ",
+        "<suppress xmlns=\"https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd\" until=\"2027-01-31Z\">\n    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>\n    <filePath regex=\"true\">^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.0/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.0\\.jar$</filePath>\n    <cve>CVE-2018-1258</cve>\n  </suppress>\n  "
+      ],
+      "reason": "Real upgraded cold report showed three baseline-version rules unused; active policy now covers only current exact versions."
+    }
+  ],
+  "post_upgrade_observations": {
+    "run": "nist-reviewed cold with pre-revision7-rule policy",
+    "source_report": "/private/tmp/rallyon-187-nist-reviewed-cold-reports/dependency-check-report.json",
+    "source_report_sha256": "d92a35119ee00aa2ba1f3d34acffcc45b0ed31d77936d4e92dcfa3b8befc5d35",
+    "exit_code": 15,
+    "duration_seconds": 440,
+    "observed_state": "blocked:8 reported instances across6 entries; revised10-rule policy has not yet been successfully scanned",
+    "baseline_real_component_observation": "No original genuine-component finding remains reported in this cold report; does not establish acceptance of revised policy.",
+    "counts": {
+      "entries": 6,
+      "instances": 8,
+      "distinct_ids": 4
     },
-    "cpe_boundary_assertions": 6
+    "entries": [
+      {
+        "file": "keycloak-spring-starter-0.1.0-SNAPSHOT.jar",
+        "file_path": "/inputs/dev/wlambertz/rallyon/iam/keycloak-spring-starter/0.1.0-SNAPSHOT/keycloak-spring-starter-0.1.0-SNAPSHOT.jar",
+        "sha1": "0cfb2f498b9b6575e5b90dcb4c82d0093cd10a9e",
+        "sha256": "71192e426a6af46d1705ec77c1ba85906ee068fc687097e4a62e38ae2e613c7f",
+        "scanner_packages": [
+          {
+            "id": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT",
+            "confidence": "HIGH"
+          }
+        ],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:keycloak:keycloak:0.1.0:snapshot:*:*:*:*:*:*",
+            "confidence": "HIGH",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Akeycloak%3Akeycloak%3A0.1.0%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT",
+        "instances": [
+          {
+            "id": "CVE-2014-3709",
+            "manufacturer_affected_range": "<1.0.3.Final",
+            "manufacturer_fixed_version": "1.0.3.Final",
+            "primary_sources": [
+              "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3709.json",
+              "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+            ],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Own RallyOn starter wraps Spring Security and own IAM helper; no Keycloak server implementation. Manufacturer CNA records describe a different product.",
+            "local_manufacturer_identity_evidence": [
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/pom.xml",
+                "sha256": "b774e442ecb9b3fb030f51b3eb33339c55c57e750f9568357214d40e919f9af9"
+              },
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/src/main/java/dev/wlambertz/rallyon/iam/keycloak/spring/KeycloakSecurityAutoConfiguration.java",
+                "sha256": "82459a3ff6f970a696d58146945643ff8652a9d26c18f8ea0d009ec01e2623de"
+              }
+            ]
+          },
+          {
+            "id": "CVE-2017-12161",
+            "manufacturer_affected_range": "<3.4.2.Final",
+            "manufacturer_fixed_version": "3.4.2.Final",
+            "primary_sources": [
+              "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2017/12xxx/CVE-2017-12161.json",
+              "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+            ],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Own RallyOn starter wraps Spring Security and own IAM helper; no Keycloak server implementation. Manufacturer CNA records describe a different product.",
+            "local_manufacturer_identity_evidence": [
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/pom.xml",
+                "sha256": "b774e442ecb9b3fb030f51b3eb33339c55c57e750f9568357214d40e919f9af9"
+              },
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/src/main/java/dev/wlambertz/rallyon/iam/keycloak/spring/KeycloakSecurityAutoConfiguration.java",
+                "sha256": "82459a3ff6f970a696d58146945643ff8652a9d26c18f8ea0d009ec01e2623de"
+              }
+            ]
+          },
+          {
+            "id": "CVE-2014-3651",
+            "manufacturer_affected_range": "<1.0.3.Final",
+            "manufacturer_fixed_version": "1.0.3.Final",
+            "primary_sources": [
+              "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3651.json",
+              "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+            ],
+            "baseline_severity": "HIGH",
+            "cvss": 7.5,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Own RallyOn starter wraps Spring Security and own IAM helper; no Keycloak server implementation. Manufacturer CNA records describe a different product.",
+            "local_manufacturer_identity_evidence": [
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/pom.xml",
+                "sha256": "b774e442ecb9b3fb030f51b3eb33339c55c57e750f9568357214d40e919f9af9"
+              },
+              {
+                "path": "3rd_party/iam/keycloak-spring-starter/src/main/java/dev/wlambertz/rallyon/iam/keycloak/spring/KeycloakSecurityAutoConfiguration.java",
+                "sha256": "82459a3ff6f970a696d58146945643ff8652a9d26c18f8ea0d009ec01e2623de"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "file": "spring-security-config-7.1.2.jar",
+        "file_path": "/inputs/org/springframework/security/spring-security-config/7.1.2/spring-security-config-7.1.2.jar",
+        "sha1": "de8b7492536be961db7449e66641a8bec61951c9",
+        "sha256": "826af4e79495d54b761a5f0313774a07d36359e83dd5518d57d69bacd7bbf478",
+        "scanner_packages": [],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-config@7.1.2",
+        "instances": [
+          {
+            "id": "CVE-2018-1258",
+            "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+            "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+            "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Manufacturer advisory requires Framework5.0.5 only; actual resolved Framework7.0.10 falls outside affected range. This CVE alone is corrected."
+          }
+        ]
+      },
+      {
+        "file": "spring-security-crypto-7.1.2.jar",
+        "file_path": "/inputs/org/springframework/security/spring-security-crypto/7.1.2/spring-security-crypto-7.1.2.jar",
+        "sha1": "1a803854736530804e7b56c578508a5eb5c34dd7",
+        "sha256": "4aaa60bb612d5fece004c07f893b3a8d707c207bbd8585d10e0015b5301cd864",
+        "scanner_packages": [],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-crypto@7.1.2",
+        "instances": [
+          {
+            "id": "CVE-2018-1258",
+            "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+            "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+            "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Manufacturer advisory requires Framework5.0.5 only; actual resolved Framework7.0.10 falls outside affected range. This CVE alone is corrected."
+          }
+        ]
+      },
+      {
+        "file": "spring-security-oauth2-core-7.1.2.jar",
+        "file_path": "/inputs/org/springframework/security/spring-security-oauth2-core/7.1.2/spring-security-oauth2-core-7.1.2.jar",
+        "sha1": "57433e48769e4fc428cc435c1dd783185ffa06d5",
+        "sha256": "aa50c141cb303bae1b87d761f9459930d75af280c43e80b7488d50e62dd1e216",
+        "scanner_packages": [],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:pivotal:spring_security_oauth:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal%3Aspring_security_oauth%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          },
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          },
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security_oauth:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security_oauth%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-oauth2-core@7.1.2",
+        "instances": [
+          {
+            "id": "CVE-2018-1258",
+            "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+            "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+            "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Manufacturer advisory requires Framework5.0.5 only; actual resolved Framework7.0.10 falls outside affected range. This CVE alone is corrected."
+          }
+        ]
+      },
+      {
+        "file": "spring-security-oauth2-jose-7.1.2.jar",
+        "file_path": "/inputs/org/springframework/security/spring-security-oauth2-jose/7.1.2/spring-security-oauth2-jose-7.1.2.jar",
+        "sha1": "032c1f272ee23adb67f71bc679ede76130ed0fd5",
+        "sha256": "e956dcaf0342699b967b5ca301d628d0808e97c7e6614b822fe832f6eba762dc",
+        "scanner_packages": [],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:pivotal:spring_security_oauth:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal%3Aspring_security_oauth%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          },
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          },
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security_oauth:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security_oauth%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-oauth2-jose@7.1.2",
+        "instances": [
+          {
+            "id": "CVE-2018-1258",
+            "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+            "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+            "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Manufacturer advisory requires Framework5.0.5 only; actual resolved Framework7.0.10 falls outside affected range. This CVE alone is corrected."
+          }
+        ]
+      },
+      {
+        "file": "spring-security-web-7.1.2.jar",
+        "file_path": "/inputs/org/springframework/security/spring-security-web/7.1.2/spring-security-web-7.1.2.jar",
+        "sha1": "6e660188c895e9844c4f1f812c8b322db7966a9f",
+        "sha256": "fc36d37695462dbe4fb32bd6820043afbf83ebcffce4974929bf79a29fcb5e73",
+        "scanner_packages": [],
+        "original_cpes": [
+          {
+            "id": "cpe:2.3:a:pivotal_software:spring_security:7.1.2:*:*:*:*:*:*:*",
+            "confidence": "HIGHEST",
+            "url": "https://nvd.nist.gov/vuln/search#/nvd/home?sortOrder=3&sortDirection=2&cpeFilterMode=applicability&resultType=records&cpeName=cpe%3A2.3%3Aa%3Apivotal_software%3Aspring_security%3A7.1.2%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A%3A%2A"
+          }
+        ],
+        "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-web@7.1.2",
+        "instances": [
+          {
+            "id": "CVE-2018-1258",
+            "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+            "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+            "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+            "baseline_severity": "HIGH",
+            "cvss": 8.8,
+            "action": "provenwrongmatch",
+            "rule_status": "proposed exact policy; latest actual rescan pending",
+            "rationale": "Manufacturer advisory requires Framework5.0.5 only; actual resolved Framework7.0.10 falls outside affected range. This CVE alone is corrected."
+          }
+        ]
+      }
+    ]
   }
 }

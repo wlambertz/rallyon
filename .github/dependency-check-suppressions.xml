@@ -7,18 +7,8 @@
   </suppress>
   <suppress until="2027-01-31Z">
     <notes>Micrometer Prometheus registry uses the Prometheus Java client; it is not the Prometheus server. Manufacturer identity: https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html . The server CPE is erroneous for this exact Maven artifact; client/transitive dependencies and other CPEs remain in coverage.</notes>
-    <filePath regex="true">^/inputs/io/micrometer/micrometer\-registry\-prometheus/1\.17\.0/micrometer\-registry\-prometheus\-1\.17\.0\.jar$</filePath>
-    <cpe>cpe:/a:prometheus:prometheus:1.17.0:</cpe>
-  </suppress>
-  <suppress until="2027-01-31Z">
-    <notes>Micrometer Prometheus registry uses the Prometheus Java client; it is not the Prometheus server. Manufacturer identity: https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html . The server CPE is erroneous for this exact Maven artifact; client/transitive dependencies and other CPEs remain in coverage.</notes>
     <filePath regex="true">^/inputs/io/micrometer/micrometer\-registry\-prometheus/1\.17\.2/micrometer\-registry\-prometheus\-1\.17\.2\.jar$</filePath>
     <cpe>cpe:/a:prometheus:prometheus:1.17.2:</cpe>
-  </suppress>
-  <suppress until="2027-01-31Z">
-    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
-    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-core/7\.1\.0/spring\-security\-core\-7\.1\.0\.jar$</filePath>
-    <cve>CVE-2018-1258</cve>
   </suppress>
   <suppress until="2027-01-31Z">
     <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
@@ -27,12 +17,37 @@
   </suppress>
   <suppress until="2027-01-31Z">
     <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
-    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-oauth2\-resource\-server/7\.1\.0/spring\-security\-oauth2\-resource\-server\-7\.1\.0\.jar$</filePath>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-oauth2\-resource\-server/7\.1\.2/spring\-security\-oauth2\-resource\-server\-7\.1\.2\.jar$</filePath>
+    <cve>CVE-2018-1258</cve>
+  </suppress>
+  <suppress until="2027-01-31Z">
+    <notes>RallyOn Spring Security auto-configuration starter, not the Keycloak server product. Manufacturer source: https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-spring-starter/pom.xml . Its dev.wlambertz classes configure Spring JWT decoding; no Keycloak server resource implementations are packaged. Exact PURL removes only the erroneous Keycloak CPE; all genuine dependencies remain analyzed. See docs/security/dependency-triage.md.</notes>
+    <packageUrl>pkg:maven/dev.wlambertz.rallyon.iam/keycloak-spring-starter@0.1.0-SNAPSHOT</packageUrl>
+    <cpe>cpe:/a:keycloak:keycloak:0.1.0:snapshot:</cpe>
+  </suppress>
+  <suppress until="2027-01-31Z">
+    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-config/7\.1\.2/spring\-security\-config\-7\.1\.2\.jar$</filePath>
     <cve>CVE-2018-1258</cve>
   </suppress>
   <suppress until="2027-01-31Z">
     <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
-    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-oauth2\-resource\-server/7\.1\.2/spring\-security\-oauth2\-resource\-server\-7\.1\.2\.jar$</filePath>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-crypto/7\.1\.2/spring\-security\-crypto\-7\.1\.2\.jar$</filePath>
+    <cve>CVE-2018-1258</cve>
+  </suppress>
+  <suppress until="2027-01-31Z">
+    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-oauth2\-core/7\.1\.2/spring\-security\-oauth2\-core\-7\.1\.2\.jar$</filePath>
+    <cve>CVE-2018-1258</cve>
+  </suppress>
+  <suppress until="2027-01-31Z">
+    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-oauth2\-jose/7\.1\.2/spring\-security\-oauth2\-jose\-7\.1\.2\.jar$</filePath>
+    <cve>CVE-2018-1258</cve>
+  </suppress>
+  <suppress until="2027-01-31Z">
+    <notes>Manufacturer confirms CVE-2018-1258 affects only Spring Framework 5.0.5.RELEASE, fixed in 5.0.6.RELEASE: https://spring.io/security/cve-2018-1258/ . Baseline Framework 7.0.8 and resolved Framework 7.0.10 are outside that range. This exact Spring Security artifact is not affected by the historical version match; unrelated CVEs remain analyzed.</notes>
+    <filePath regex="true">^/inputs/org/springframework/security/spring\-security\-web/7\.1\.2/spring\-security\-web\-7\.1\.2\.jar$</filePath>
     <cve>CVE-2018-1258</cve>
   </suppress>
 </suppressions>
