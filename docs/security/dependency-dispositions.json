@@ -1,0 +1,1749 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-03",
+  "status": "implementation triage; post-upgrade scanner acceptance pending",
+  "baseline": {
+    "source_run": "https://github.com/wlambertz/rallyon/actions/runs/41605550061",
+    "source_revision": "a5834c703a86774cae04a04757890a516ae1ec74",
+    "report_sha256": "9d56bcc7fa314e2fbeb5ac5725f004626ccad30d7b903cbc39458a7599cf8a30",
+    "engine_version": "13.0.0",
+    "dependency_count": 141
+  },
+  "baseline_file_sha256": "08bdfc0019f208cccd72b36ee5c6fcbfaf30ffbea2bf552436faf8f8d67e3563",
+  "counts": {
+    "entries": 13,
+    "instances": 82,
+    "distinct_ids": 64
+  },
+  "resolved_graph_evidence": {
+    "kind": "maker observed resolved graph; independently review before acceptance",
+    "swagger_jar_sha256": "b57f6379a9498c94160d5fd413984757b04d1683ac757d7ba0b6d9b4ba0daee2",
+    "swagger_bundle_sha256": "36eeb4d5640b9c036b1d0f854499af1cceebbdb260b790a03a18be5e8488fbf5",
+    "dompurify": ["3.4.17"],
+    "coordinates": [
+      "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.7",
+      "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+      "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.4.21",
+      "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.5",
+      "pkg:maven/io.micrometer/micrometer-registry-prometheus@1.17.2",
+      "pkg:maven/org.postgresql/postgresql@42.7.14",
+      "pkg:maven/org.springframework/spring-core@7.0.10",
+      "pkg:maven/org.springframework.data/spring-data-jpa@4.1.2",
+      "pkg:maven/org.springframework.security/spring-security-core@7.1.2",
+      "pkg:maven/org.springframework.security/spring-security-oauth2-resource-server@7.1.2",
+      "pkg:maven/org.webjars/swagger-ui@5.34.1",
+      "pkg:maven/org.webjars/swagger-ui@5.34.1",
+      "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.27"
+    ]
+  },
+  "sources": {
+    "https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5jmj-h7xm-6q6v": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "6e03f8f9e943a65861e11d8cea19860364596f464d98119359aea4ead96c7126"
+    },
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3709.json": {
+      "kind": "original Red Hat CNA record, official CVE Program archive",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS; canonical JSON hash (sort_keys=True)",
+      "sha256": "1a92d325db9506332157d8eb78ff7481fbf6881ee9560723c3563d34af07ae8f"
+    },
+    "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "local baseline source inspection, same source revision",
+      "sha256": "a714fb9323007bf6a2e628bd1a757f2f7d3de5ac7b5147e7a966ea00432a9574"
+    },
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2017/12xxx/CVE-2017-12161.json": {
+      "kind": "original Red Hat CNA record, official CVE Program archive",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS; canonical JSON hash (sort_keys=True)",
+      "sha256": "005d1b0b499d1a1935596d2f27e66b92784f770905b12d690380ff8b1f85d3a0"
+    },
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3651.json": {
+      "kind": "original Red Hat CNA record, official CVE Program archive",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS; canonical JSON hash (sort_keys=True)",
+      "sha256": "2fa75c9eeb1d1f15980398764ffe0fdbd9b5ca8cb5c0d33e73d1dfccb82d4e5f"
+    },
+    "https://resources.jetbrains.com/storage/issues-fixed/data.json": {
+      "kind": "manufacturer fixed-issues JSON",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "469bba1d649cf45ea67eddc3735b3800afdee6ad5f95432c3d7589f14945f9c8"
+    },
+    "https://logging.apache.org/security.html#CVE-2026-49844": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "0bf2d905a835c2307cbb1f15a60e18b93687b10171f346100a6db03eaea04c6b"
+    },
+    "https://github.com/prometheus/prometheus/security/advisories/GHSA-8rm2-7qqf-34qm": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "49d476f48e9f3059c471713c251eeb36da39eb9cdd3e185d784b71cee00e737b"
+    },
+    "https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "e9379413c866edb266fa21503e3f4c47474127294abd36f3148e24057478383a"
+    },
+    "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2019/3xxx/CVE-2019-3826.json": {
+      "kind": "original Red Hat CNA record, official CVE Program archive",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS; canonical JSON hash (sort_keys=True)",
+      "sha256": "8a2804e62d1fdbbc8842a4ab5273d54b0bec568147cd6087a31b69fe1d2a5a2e"
+    },
+    "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-j92g-9f8w-j867": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "5994d5edd3d27b53de56ba112e20e2f70bc2df79b3bcd2513b975fe9918249c9"
+    },
+    "https://spring.io/security/cve-2026-47884": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "e6a75e5f1ef1ac39973a0e638d2375a95740d271abbf0a2f2ebef5f5afe8bde8"
+    },
+    "https://spring.io/security/cve-2026-47890": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "778138d0aeb551affb65a70ebadf8323f35689963eb80b30371aa62be5d598c1"
+    },
+    "https://spring.io/security/cve-2026-47891": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "a6b8f6f54f4a013696b05e159594077eadbdbaec902a06385360a976db302071"
+    },
+    "https://spring.io/security/cve-2026-47892": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "4bd706d46b3948d9fbe786ae178dcb7fcd6caf668d08568f51f1674908b1ba76"
+    },
+    "https://spring.io/security/cve-2026-59313": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "ee987c3f06e74a777773eaff3d49396890bfcde403bbbecbb9a214ec124cef0f"
+    },
+    "https://spring.io/security/cve-2026-59283": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "3579ecb2d2ec4184eb3a7191a6053bf603745979ff5a4678fa0e3b7cd7675290"
+    },
+    "https://spring.io/security/cve-2026-47885": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "1a607c73aab4493281f2496dac4150ff70992d9f363f786247ce081bde6235d6"
+    },
+    "https://spring.io/security/cve-2026-47886": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "c566d3b0f7c1de93aed94922f3f4322323008fe547916898cb90604fb2e79cba"
+    },
+    "https://spring.io/security/cve-2026-47888": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "ca8a3b592b199de70b1f6d1c598441cf643d2126a865f828d27b63036a6effe7"
+    },
+    "https://spring.io/security/cve-2026-47889": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "1331fa55b2cd1223dbad3f700e5cbd1616a689b8bcc2cd0c3325992cb72b2e36"
+    },
+    "https://spring.io/security/cve-2026-47893": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "b4bba199e8ad5e22332abe5e1b88de19fc927b5045d12716c5a56cb89afc2283"
+    },
+    "https://spring.io/security/cve-2026-59282": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "a036e05ca4a6d8df55c2e9fc7bf1a7a8e34f3bb2907ef79625f8d446347e12ff"
+    },
+    "https://spring.io/security/cve-2026-47883": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "c7b234f5f40a0d63fea9da20900f6ecc11970d4a44a889fa27764059ead332ea"
+    },
+    "https://spring.io/security/cve-2026-47887": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "45ad9cad3755dd0198142b5d831a6557a0c92becd5a4290fcb93abd5a1e3fac7"
+    },
+    "https://spring.io/security/cve-2026-59281": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "b8e9a602e8757d6ed893bbec2c33ed277a89430c59ccc9a3325f8e64ff22337f"
+    },
+    "https://spring.io/security/cve-2026-59280": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "a0bda90558e4103128ef29a49a2d5decd6b92dc820de8b325978d919e32cd871"
+    },
+    "https://spring.io/security/cve-2026-59314": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "4f33de54fcc0e582b2398e178765ed2505093be858f4dd70d3f0bf4797a540ae"
+    },
+    "https://spring.io/security/cve-2026-47834": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "33e53be175fa876c17857d28e319f751c1319eea8de99386678128feba6ef52d"
+    },
+    "https://spring.io/security/cve-2018-1258": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "f6aa9447d47ed880f0f11b37de98116f8728d6b8e4df8836ae4e7369366ad2c9"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "3c49027c02de49382790cd3a6921e00920e5275f9421e9da1a1e9eceae75d683"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-rp9w-3fw7-7cwq": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "224c9056f7f5d4d07a8efac27301a97034ed82c6f9641583d6622e688485da00"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-hpcv-96wg-7vj8": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "e785c0718c2f10b9bef4b358d7ffc8660b3f4256ccc068a8445c2b8b5b05b7a2"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-r47g-fvhr-h676": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "a131f591dcc4521f5a4d1349ce96649cb732523900524f78873dc016df2b34aa"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-h7mw-gpvr-xq4m": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "b6dfb92e8f26295527b95813541cb7a766d48fa064c1783efc0c7bcdfb88e663"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-76mc-f452-cxcm": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "044420dc3a0b6665071bceb5636df99824b4469a4339ecdd072a1388df9036f9"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "c837e1f2ef2cc78d3f5217c8f2d5322a3915169158fbaf9c8426efb1ed82a3ba"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "d5b36ac50c8d5c0f63b94b806ff128b83bc8c1e01c484c871d3e8aa8a194f80c"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-gvmj-g25r-r7wr": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "dd6f305e591c0b36611a8006b724fdccb6ccd00aafb680e408564efa0a3f9fab"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-x4vx-rjvf-j5p4": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "1830c49a75e1d4a9ea862e47c26171b104cad13645f2b0f9fb61c8642e531aa1"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-39q2-94rc-95cp": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "bc2895add93534fbd7304f9a1d1344bb41532cee637166e3286c7ceb98fb8e0a"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "757b55310604a368608a2231135a7e04055864aaa82e9125ec13192ba6283b9a"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "5fc3248623416eec335e8eee65c08f183b37ae931b503aaab2e8cea7515562c8"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-crv5-9vww-q3g8": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "0776be1742beb845e6fd3186642db6cdeba51eaab7e1be0584d656853c8e50a6"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-55q2-fjhq-7xh7": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "04d94c5931d193db0d16f2db5efe7db17f64b27b73322bfe17d1306fa6952957"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "d9e99b488ed1d99a841a7b1e1598db9c55b07ec5163f448599494365ccf52b4e"
+    },
+    "https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "ab217bd8fc02a3badec20c0b2b9307b30015624ee486d8949ec36d3ad60df22e"
+    },
+    "https://tomcat.apache.org/security-11.html": {
+      "kind": "manufacturer advisory",
+      "verified_on": "2026-11-03",
+      "retrieval": "HTTPS with system TLS verification",
+      "sha256": "f5f03b4e37cb90b23a8870d08ed0d4c4c0bf4fa0e8fbe70d4d63dd8438e26b5c"
+    }
+  },
+  "entries": [
+    {
+      "entry": 1,
+      "file": "jackson-databind-2.21.4.jar",
+      "sha1": "09e495680be707d466527d734368ebf36e464da2",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.4",
+          "confidence": "HIGH"
+        }
+      ],
+      "baseline_cpes": [
+        "cpe:2.3:a:fasterxml:jackson-core:2.21.4:*:*:*:*:*:*:*",
+        "cpe:2.3:a:fasterxml:jackson-databind:2.21.4:*:*:*:*:*:*:*",
+        "cpe:2.3:a:fasterxml:jackson-modules-java8:2.21.4:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.4",
+      "target_maven_purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.21.7",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-54515",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 5.3,
+          "action": "updated",
+          "manufacturer_affected_range": ">= 2.8.0, < 2.18.9 >= 2.19.0, < 2.21.5 >= 2.22.0, < 2.22.1",
+          "manufacturer_fixed_version": "2.18.9 2.21.5 2.22.1 maven tools.jackson.core:jackson-databind ( Maven ) >= 3.1.0, < 3.1.4 3.1.4",
+          "primary_sources": ["https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-5jmj-h7xm-6q6v"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 2,
+      "file": "keycloak-core-0.1.0-SNAPSHOT.jar",
+      "sha1": "484e37aeec102dcaef930fe867df0bb1bfa1e46f",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+          "confidence": "HIGH"
+        }
+      ],
+      "baseline_cpes": ["cpe:2.3:a:keycloak:keycloak:0.1.0:snapshot:*:*:*:*:*:*"],
+      "actual_maven_purl": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+      "target_maven_purl": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2014-3709",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.8,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "<1.0.3.Final",
+          "manufacturer_fixed_version": "1.0.3.Final",
+          "primary_sources": [
+            "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3709.json",
+            "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+          ],
+          "rationale": "RallyOn helper contains dev.wlambertz classes and Nimbus dependency; no Keycloak server resources, social callback, password-reset or QR-code implementation. Product identity mismatch.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        },
+        {
+          "id": "CVE-2017-12161",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.8,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "<3.4.2.Final",
+          "manufacturer_fixed_version": "3.4.2.Final",
+          "primary_sources": [
+            "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2017/12xxx/CVE-2017-12161.json",
+            "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+          ],
+          "rationale": "RallyOn helper contains dev.wlambertz classes and Nimbus dependency; no Keycloak server resources, social callback, password-reset or QR-code implementation. Product identity mismatch.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        },
+        {
+          "id": "CVE-2014-3651",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "<1.0.3.Final",
+          "manufacturer_fixed_version": "1.0.3.Final",
+          "primary_sources": [
+            "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2014/3xxx/CVE-2014-3651.json",
+            "https://github.com/wlambertz/rallyon/blob/a5834c703a86774cae04a04757890a516ae1ec74/3rd_party/iam/keycloak-core/pom.xml"
+          ],
+          "rationale": "RallyOn helper contains dev.wlambertz classes and Nimbus dependency; no Keycloak server resources, social callback, password-reset or QR-code implementation. Product identity mismatch.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        }
+      ]
+    },
+    {
+      "entry": 3,
+      "file": "kotlin-stdlib-2.3.21.jar",
+      "sha1": "a2ee2c4e220fee522f0451b723bab2a43f3481a7",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": ["cpe:2.3:a:jetbrains:kotlin:2.3.21:*:*:*:*:*:*:*"],
+      "actual_maven_purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.3.21",
+      "target_maven_purl": "pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.4.21",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-53914",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Kotlin before2.4.20; build cache metadata deserialization",
+          "manufacturer_fixed_version": "2.4.20",
+          "primary_sources": ["https://resources.jetbrains.com/storage/issues-fixed/data.json"],
+          "rationale": "Align runtime and compiler/tooling to2.4.21; vendor identifies build-cache component, not proven runtime stdlib exploitability. Conservative upgrade; no suppression or score rewrite.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 4,
+      "file": "log4j-api-2.25.4.jar",
+      "sha1": "89ff2217b193fb187b134aa6ebcbfa8a28b018a9",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+          "confidence": "HIGH"
+        }
+      ],
+      "baseline_cpes": ["cpe:2.3:a:apache:log4j:2.25.4:*:*:*:*:*:*:*"],
+      "actual_maven_purl": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.4",
+      "target_maven_purl": "pkg:maven/org.apache.logging.log4j/log4j-api@2.25.5",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-49844",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.3,
+          "action": "updated",
+          "manufacturer_affected_range": "2.13.1\u20132.25.4;2.26.0",
+          "manufacturer_fixed_version": "2.25.5 or2.26.1",
+          "primary_sources": ["https://logging.apache.org/security.html#CVE-2026-49844"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 5,
+      "file": "micrometer-registry-prometheus-1.17.0.jar",
+      "sha1": "13f882d6ff49ea5088b1b3746775f072d8524ecf",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": ["cpe:2.3:a:prometheus:prometheus:1.17.0:*:*:*:*:*:*:*"],
+      "actual_maven_purl": "pkg:maven/io.micrometer/micrometer-registry-prometheus@1.17.0",
+      "target_maven_purl": "pkg:maven/io.micrometer/micrometer-registry-prometheus@1.17.2",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-42154",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "< 3.5.3 ; >= 3.6.0 and <3.11.3",
+          "manufacturer_fixed_version": "3.5.3 and 3.11.3",
+          "primary_sources": [
+            "https://github.com/prometheus/prometheus/security/advisories/GHSA-8rm2-7qqf-34qm",
+            "https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html"
+          ],
+          "rationale": "Micrometer JVM metrics registry wraps Prometheus Java client; Prometheus Go server remote-read/UI implementation is a different product.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        },
+        {
+          "id": "CVE-2019-3826",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "Prometheus server <2.7.1",
+          "manufacturer_fixed_version": "2.7.1",
+          "primary_sources": [
+            "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2019/3xxx/CVE-2019-3826.json",
+            "https://docs.micrometer.io/micrometer/reference/implementations/prometheus.html"
+          ],
+          "rationale": "Micrometer JVM metrics registry wraps Prometheus Java client; Prometheus Go server remote-read/UI implementation is a different product.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        }
+      ]
+    },
+    {
+      "entry": 6,
+      "file": "postgresql-42.7.11.jar",
+      "sha1": "4c21cdd1b3938f400703716d37c4e8ca4d332808",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": [
+        "cpe:2.3:a:postgresql:postgresql:42.7.11:*:*:*:*:*:*:*",
+        "cpe:2.3:a:postgresql:postgresql_jdbc_driver:42.7.11:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/org.postgresql/postgresql@42.7.11",
+      "target_maven_purl": "pkg:maven/org.postgresql/postgresql@42.7.14",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-54291",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.2,
+          "action": "updated",
+          "manufacturer_affected_range": ">= 42.7.4, < 42.7.12",
+          "manufacturer_fixed_version": "42.7.12",
+          "primary_sources": ["https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-j92g-9f8w-j867"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 7,
+      "file": "spring-core-7.0.8.jar",
+      "sha1": "025f5ebd179f92d7d12779e3761c96da4b0109ad",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": [
+        "cpe:2.3:a:pivotal_software:spring_framework:7.0.8:*:*:*:*:*:*:*",
+        "cpe:2.3:a:springsource:spring_framework:7.0.8:*:*:*:*:*:*:*",
+        "cpe:2.3:a:vmware:spring_framework:7.0.8:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/org.springframework/spring-core@7.0.8",
+      "target_maven_purl": "pkg:maven/org.springframework/spring-core@7.0.10",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-47884",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47884"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47890",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47890"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47891",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47891"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47892",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47892"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59313",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59313"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59283",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59283"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47885",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47885"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47886",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47886"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47888",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47888"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47889",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47889"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47893",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47893"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59282",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59282"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47883",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47883"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-47887",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-47887"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59281",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59281"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59280",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 4.3,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59280"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59314",
+          "baseline_severity": "LOW",
+          "baseline_cvss": 3.7,
+          "action": "updated",
+          "manufacturer_affected_range": "Framework 7.0.0\u20137.0.8 (relevant7.x line)",
+          "manufacturer_fixed_version": "7.0.9",
+          "primary_sources": ["https://spring.io/security/cve-2026-59314"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 8,
+      "file": "spring-data-jpa-4.1.0.jar",
+      "sha1": "6387c88a4a9637f129e0ebcad50ada478ad01c3f",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:maven/org.springframework.data/spring-data-jpa@4.1.0",
+          "confidence": "HIGH"
+        }
+      ],
+      "baseline_cpes": [
+        "cpe:2.3:a:pivotal_software:spring_data_jpa:4.1.0:*:*:*:*:*:*:*",
+        "cpe:2.3:a:vmware:spring_data_jpa:4.1.0:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/org.springframework.data/spring-data-jpa@4.1.0",
+      "target_maven_purl": "pkg:maven/org.springframework.data/spring-data-jpa@4.1.2",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-47834",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.5,
+          "action": "updated",
+          "manufacturer_affected_range": "4.1.0 (relevant4.1.x line)",
+          "manufacturer_fixed_version": "4.1.1",
+          "primary_sources": ["https://spring.io/security/cve-2026-47834"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    },
+    {
+      "entry": 9,
+      "file": "spring-security-core-7.1.0.jar",
+      "sha1": "50064b46aed22d05aa181b2c95d47989c7c99160",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": ["cpe:2.3:a:pivotal_software:spring_security:7.1.0:*:*:*:*:*:*:*"],
+      "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-core@7.1.0",
+      "target_maven_purl": "pkg:maven/org.springframework.security/spring-security-core@7.1.2",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2018-1258",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.8,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+          "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+          "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+          "rationale": "Vendor affected-version requirement is Framework5.0.5; baseline Framework7.0.8 and resolved7.0.10 do not meet it. Suppress this CVE only.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        }
+      ]
+    },
+    {
+      "entry": 10,
+      "file": "spring-security-oauth2-resource-server-7.1.0.jar",
+      "sha1": "2eeb077b77198fb55f31dd77aea6c35822fd83d0",
+      "baseline_scanner_packages": [],
+      "baseline_cpes": [
+        "cpe:2.3:a:pivotal:spring_security_oauth:7.1.0:*:*:*:*:*:*:*",
+        "cpe:2.3:a:pivotal_software:spring_security:7.1.0:*:*:*:*:*:*:*",
+        "cpe:2.3:a:pivotal_software:spring_security_oauth:7.1.0:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/org.springframework.security/spring-security-oauth2-resource-server@7.1.0",
+      "target_maven_purl": "pkg:maven/org.springframework.security/spring-security-oauth2-resource-server@7.1.2",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2018-1258",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.8,
+          "action": "provenwrongmatch",
+          "manufacturer_affected_range": "Framework 5.0.5.RELEASE only",
+          "manufacturer_fixed_version": "Framework 5.0.6.RELEASE",
+          "primary_sources": ["https://spring.io/security/cve-2018-1258"],
+          "rationale": "Vendor affected-version requirement is Framework5.0.5; baseline Framework7.0.8 and resolved7.0.10 do not meet it. Suppress this CVE only.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": true
+        }
+      ]
+    },
+    {
+      "entry": 11,
+      "file": "swagger-ui-5.32.2.jar: swagger-ui-bundle.js",
+      "sha1": "c3cc8f32864044fd6346dffdb0df4748dc8d9a39",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:javascript/DOMPurify@3.3.2",
+          "confidence": "HIGHEST"
+        }
+      ],
+      "baseline_cpes": [],
+      "actual_maven_purl": "pkg:maven/org.webjars/swagger-ui@5.32.2",
+      "target_maven_purl": "pkg:maven/org.webjars/swagger-ui@5.34.1",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-116803",
+          "baseline_severity": "high",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.16",
+          "manufacturer_fixed_version": "3.4.17",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49978",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.3,
+          "action": "updated",
+          "manufacturer_affected_range": "<3.4.6",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-rp9w-3fw7-7cwq"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49458",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.6",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-hpcv-96wg-7vj8"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49459",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.6",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-r47g-fvhr-h676"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41240",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.2.6",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-h7mw-gpvr-xq4m"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65902",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-76mc-f452-cxcm"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65898",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 7.2,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.10",
+          "manufacturer_fixed_version": "3.4.11",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65899",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "3.0.0",
+          "manufacturer_fixed_version": "3.4.9",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65900",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "=3.0.0 <3.4.7",
+          "manufacturer_fixed_version": "3.4.8",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-gvmj-g25r-r7wr"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65901",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.6",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-x4vx-rjvf-j5p4"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65903",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.3.3",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-39q2-94rc-95cp"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-66010",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.11",
+          "manufacturer_fixed_version": "3.4.12",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41238",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "3.0.1 through 3.3.3",
+          "manufacturer_fixed_version": "3.0.0 and all 2.x versions, 3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41239",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "< 3.3.3",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-crv5-9vww-q3g8"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-75838",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.12",
+          "manufacturer_fixed_version": "3.4.13",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-55q2-fjhq-7xh7"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-109345",
+          "baseline_severity": "low",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.15",
+          "manufacturer_fixed_version": "3.4.16",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-116802",
+          "baseline_severity": "low",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.16",
+          "manufacturer_fixed_version": "3.4.17",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        }
+      ]
+    },
+    {
+      "entry": 12,
+      "file": "swagger-ui-5.32.2.jar: swagger-ui-es-bundle.js",
+      "sha1": "40e9b2d054eb77491c5a55e78b515b244055ef7f",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:javascript/DOMPurify@3.3.2",
+          "confidence": "HIGHEST"
+        }
+      ],
+      "baseline_cpes": [],
+      "actual_maven_purl": "pkg:maven/org.webjars/swagger-ui@5.32.2",
+      "target_maven_purl": "pkg:maven/org.webjars/swagger-ui@5.34.1",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-116803",
+          "baseline_severity": "high",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.16",
+          "manufacturer_fixed_version": "3.4.17",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-mrv2-3pqr-j5jr"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49978",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.3,
+          "action": "updated",
+          "manufacturer_affected_range": "<3.4.6",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-rp9w-3fw7-7cwq"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49458",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.6",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-hpcv-96wg-7vj8"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-49459",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.6",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-r47g-fvhr-h676"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41240",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.2.6",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-h7mw-gpvr-xq4m"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65902",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.5",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-76mc-f452-cxcm"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65898",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 7.2,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.10",
+          "manufacturer_fixed_version": "3.4.11",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-cmwh-pvxp-8882"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65899",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "3.0.0",
+          "manufacturer_fixed_version": "3.4.9",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-vxr8-fq34-vvx9"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65900",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "=3.0.0 <3.4.7",
+          "manufacturer_fixed_version": "3.4.8",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-gvmj-g25r-r7wr"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver. Manufacturer structured affected-version metadata is narrower or malformed versus baseline/description; exact baseline applicability remains uncertain. Retain finding, do not suppress; target is beyond manufacturer patched version.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65901",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.6",
+          "manufacturer_fixed_version": "3.4.7",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-x4vx-rjvf-j5p4"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-65903",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.3.3",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-39q2-94rc-95cp"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-66010",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.11",
+          "manufacturer_fixed_version": "3.4.12",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-c2j3-45gr-mqc4"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41238",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "3.0.1 through 3.3.3",
+          "manufacturer_fixed_version": "3.0.0 and all 2.x versions, 3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-v9jr-rg53-9pgp"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-41239",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "< 3.3.3",
+          "manufacturer_fixed_version": "3.4.0",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-crv5-9vww-q3g8"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-75838",
+          "baseline_severity": "medium",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.12",
+          "manufacturer_fixed_version": "3.4.13",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-55q2-fjhq-7xh7"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-109345",
+          "baseline_severity": "low",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.15",
+          "manufacturer_fixed_version": "3.4.16",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-6688-9rhm-gjv2"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        },
+        {
+          "id": "CVE-2026-116802",
+          "baseline_severity": "low",
+          "baseline_cvss": 0,
+          "action": "updated",
+          "manufacturer_affected_range": "<= 3.4.16",
+          "manufacturer_fixed_version": "3.4.17",
+          "primary_sources": ["https://github.com/cure53/DOMPurify/security/advisories/GHSA-c6gr-qvv4-5v3f"],
+          "rationale": "Embedded DOMPurify3.3.2 replaced by verified3.4.17 in SwaggerUI5.34.1; retain embedded-JavaScript analysis. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false,
+          "actual_embedded_purl": "pkg:javascript/DOMPurify@3.3.2",
+          "target_embedded_purl": "pkg:javascript/DOMPurify@3.4.17"
+        }
+      ]
+    },
+    {
+      "entry": 13,
+      "file": "tomcat-embed-core-11.0.22.jar",
+      "sha1": "cc7307efaa60c0d31784bf053ec4aa48a404f44b",
+      "baseline_scanner_packages": [
+        {
+          "id": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.22",
+          "confidence": "HIGH"
+        }
+      ],
+      "baseline_cpes": [
+        "cpe:2.3:a:apache:tomcat:11.0.22:*:*:*:*:*:*:*",
+        "cpe:2.3:a:apache_tomcat:apache_tomcat:11.0.22:*:*:*:*:*:*:*"
+      ],
+      "actual_maven_purl": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.22",
+      "target_maven_purl": "pkg:maven/org.apache.tomcat.embed/tomcat-embed-core@11.0.27",
+      "identity_basis": "Maven coordinates; resolved dependency graph and packaged resource verification",
+      "instances": [
+        {
+          "id": "CVE-2026-65637",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.20\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-65905",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.8,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-53434",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-55276",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59083",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.23",
+          "manufacturer_fixed_version": "11.0.24",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-59084",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.23",
+          "manufacturer_fixed_version": "11.0.24",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-65182",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-68525",
+          "baseline_severity": "CRITICAL",
+          "baseline_cvss": 9.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-65183",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-66422",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-68569",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 8.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-65927",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-68763",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.5,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-53404",
+          "baseline_severity": "HIGH",
+          "baseline_cvss": 7.3,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-73180",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.8,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-55955",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.5,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-55956",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.5,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-50229",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 6.1,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M1\u201311.0.22",
+          "manufacturer_fixed_version": "11.0.23",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        },
+        {
+          "id": "CVE-2026-66299",
+          "baseline_severity": "MEDIUM",
+          "baseline_cvss": 5.3,
+          "action": "updated",
+          "manufacturer_affected_range": "11.0.0-M20\u201311.0.24",
+          "manufacturer_fixed_version": "11.0.25",
+          "primary_sources": ["https://tomcat.apache.org/security-11.html"],
+          "rationale": "Genuine component; upgrade beyond manufacturer fixed version. No feature-use waiver.",
+          "post_upgrade_scan": "pending actual scanner report",
+          "suppression": false
+        }
+      ]
+    }
+  ],
+  "suppression_match_checks": {
+    "status": "maker artifact-selector checks passed; CPE2.2 conversion verified against upstream13 source; actual successful scanner and independent check pending",
+    "assertions": 48,
+    "cases": [
+      {
+        "selector_kind": "packageUrl",
+        "selector": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+        "issue_kind": "cpe",
+        "issue": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:",
+        "positive_identity": "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.0-SNAPSHOT",
+        "negative_identities": [
+          "pkg:maven/org.keycloak/keycloak-core@0.1.0-SNAPSHOT",
+          "pkg:maven/dev.wlambertz.rallyon.iam/keycloak-core@0.1.1-SNAPSHOT",
+          "pkg:maven/com.nimbusds/nimbus-jose-jwt@10.9.1"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+        "cpe_boundary_checks": {
+          "matching_cpe22_candidate": "cpe:/a:keycloak:keycloak:0.1.0:snapshot",
+          "nonmatching_longer_version_or_update": "cpe:/a:keycloak:keycloak:0.1.0:snapshot0",
+          "status": "passed Python reproduction of upstream prefix+suffix semantics"
+        }
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.0/micrometer\\-registry\\-prometheus\\-1\\.17\\.0\\.jar$",
+        "issue_kind": "cpe",
+        "issue": "cpe:/a:prometheus:prometheus:1.17.0:",
+        "positive_identity": "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+        "negative_identities": [
+          "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0-extra.jar",
+          "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.0/micrometer-registry-prometheus-1.17.0.jar",
+          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+        "cpe_boundary_checks": {
+          "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.0",
+          "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.00",
+          "status": "passed Python reproduction of upstream prefix+suffix semantics"
+        }
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/io/micrometer/micrometer\\-registry\\-prometheus/1\\.17\\.2/micrometer\\-registry\\-prometheus\\-1\\.17\\.2\\.jar$",
+        "issue_kind": "cpe",
+        "issue": "cpe:/a:prometheus:prometheus:1.17.2:",
+        "positive_identity": "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+        "negative_identities": [
+          "/elsewhere/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2-extra.jar",
+          "/inputs/other/io/micrometer/micrometer-registry-prometheus/1.17.2/micrometer-registry-prometheus-1.17.2.jar",
+          "/inputs/io/micrometer/micrometer-registry-prometheus/1.17.3/micrometer-registry-prometheus-1.17.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"],
+        "cpe_boundary_checks": {
+          "matching_cpe22_candidate": "cpe:/a:prometheus:prometheus:1.17.2",
+          "nonmatching_longer_version_or_update": "cpe:/a:prometheus:prometheus:1.17.20",
+          "status": "passed Python reproduction of upstream prefix+suffix semantics"
+        }
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.0/spring\\-security\\-core\\-7\\.1\\.0\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+          "/inputs/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0-extra.jar",
+          "/inputs/other/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar",
+          "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-core/7\\.1\\.2/spring\\-security\\-core\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2-extra.jar",
+          "/inputs/other/org/springframework/security/spring-security-core/7.1.2/spring-security-core-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-core/7.1.3/spring-security-core-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.0/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.0\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0-extra.jar",
+          "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.0/spring-security-oauth2-resource-server-7.1.0.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+      },
+      {
+        "selector_kind": "filePath",
+        "selector": "^/inputs/org/springframework/security/spring\\-security\\-oauth2\\-resource\\-server/7\\.1\\.2/spring\\-security\\-oauth2\\-resource\\-server\\-7\\.1\\.2\\.jar$",
+        "issue_kind": "cve",
+        "issue": "CVE-2018-1258",
+        "positive_identity": "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+        "negative_identities": [
+          "/elsewhere/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2-extra.jar",
+          "/inputs/other/org/springframework/security/spring-security-oauth2-resource-server/7.1.2/spring-security-oauth2-resource-server-7.1.2.jar",
+          "/inputs/org/springframework/security/spring-security-oauth2-resource-server/7.1.3/spring-security-oauth2-resource-server-7.1.3.jar"
+        ],
+        "unrelated_findings_retained": ["CVE-2099-99999", "cpe:2.3:a:other:other:1.0:*:*:*:*:*:*:*"]
+      }
+    ],
+    "cpe_conversion": {
+      "source": "https://github.com/dependency-check/DependencyCheck/blob/v13.0.0/core/src/main/java/org/owasp/dependencycheck/xml/suppression/SuppressionRule.java",
+      "source_sha256": "75af7a6038b850c0f5a53c3670706a859208eb3b32e87ce243abc9a2e304ddde",
+      "method": "identifierMatches: converts candidate to CPE2.2 URI; literal rule prefix match; terminal colon requests whole-part boundary using cpePartMatchingSuffixFor",
+      "mappings": [
+        {
+          "original_cpe23": "cpe:2.3:a:keycloak:keycloak:0.1.0:snapshot:*:*:*:*:*:*",
+          "effective_cpe22_rule": "cpe:/a:keycloak:keycloak:0.1.0:snapshot:"
+        },
+        {
+          "original_cpe23": "cpe:2.3:a:prometheus:prometheus:1.17.0:*:*:*:*:*:*:*",
+          "effective_cpe22_rule": "cpe:/a:prometheus:prometheus:1.17.0:"
+        },
+        {
+          "original_cpe23": "cpe:2.3:a:prometheus:prometheus:1.17.2:*:*:*:*:*:*:*",
+          "effective_cpe22_rule": "cpe:/a:prometheus:prometheus:1.17.2:"
+        }
+      ],
+      "scope": "unchanged exact artifact selector plus vendor/product/version; no expiry or waiver expansion"
+    },
+    "cpe_boundary_assertions": 6
+  }
+}

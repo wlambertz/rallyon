@@ -1,0 +1,8 @@
+{
+  "revision": "025a152",
+  "image": "owasp/dependency-check:13.0.0@sha256:0e8f69ad5b00d62000937f4e57189812343f6903d9c83ee712012d51542a020a",
+  "started_utc": "2026-11-03T10:05:10.796960+00:00",
+  "reports_available": false,
+  "exit_code": 13,
+  "finished_utc": "2026-11-03T10:05:14.856967+00:00"
+}
