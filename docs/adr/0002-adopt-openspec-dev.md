@@ -36,11 +36,11 @@ Negative:
 
 ## Adoption follow-ups
 
-These are part of this decision. The implementation below completes them; issue #191 remains open until human acceptance and merge of the closeout.
+These follow-ups were completed by PR #197, explicitly accepted at G8 and merged after separate human approval as `7405045`. Issue #191 is closed.
 
-- [ ] Migrate the 9 reverse-engineered YAML specs in `docs/wiki/specs/{tournamentmgmt,ro-cli}/` to `openspec/specs/<capability>/spec.md` (Requirement/Scenario format), verify with `openspec validate --all`, then remove the originals in a separate commit.
-- [ ] Deprecate `ro spec create|validate|view` with a pointer message (keep the commands working; `ro` compatibility rule), regenerate `docs/cli-reference.md`.
-- [ ] Remove the remaining openspec.tech references (`specs.schemaURL` default, wiki pages) once the migration is done.
+- [x] Migrate the 9 reverse-engineered YAML specs in `docs/wiki/specs/{tournamentmgmt,ro-cli}/` to `openspec/specs/<capability>/spec.md` (Requirement/Scenario format), verify with `openspec validate --all`, then remove the originals in a separate commit.
+- [x] Deprecate `ro spec create|validate|view` with a pointer message (keep the commands working; `ro` compatibility rule), regenerate `docs/cli-reference.md`.
+- [x] Remove the remaining openspec.tech references (`specs.schemaURL` default, wiki pages) once the migration is done.
 
 ## Related
 
