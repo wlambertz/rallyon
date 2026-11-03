@@ -1,6 +1,6 @@
-# Issue 183: national requirements reconciliation (work in progress)
+# Issue 183: national requirements reconciliation
 
-This is an analysis, not an accepted implementation specification. The source is the unverified reference in [issue 183](https://github.com/wlambertz/rallyon/issues/183); its six sections are mapped in the two `trace-sections-*` files, with unresolved assertions explicitly skipped and justified. A fresh independent review must confirm completeness and classifications before task 1.4 is complete. Current project specifications are in `openspec/specs/`, not the historical `docs/wiki/specs/tournamentmgmt/` directory. `ro spec create` produces legacy YAML and is not the project specification workflow; see `docs/wiki/specs/README.md` and `docs/legacy-spec-migration.md`.
+This analysis compares the unverified reference in [issue 183](https://github.com/wlambertz/rallyon/issues/183) with existing specifications, code and national sources. Its six sections are mapped in the two `trace-sections-*` files; unresolved assertions are explicitly skipped with reasons. Current project specifications are in `openspec/specs/`, not the historical `docs/wiki/specs/tournamentmgmt/` directory. `ro spec create` produces legacy YAML and is not the project specification workflow; see `docs/wiki/specs/README.md` and `docs/legacy-spec-migration.md`.
 
 ## Initial evidence
 
@@ -33,6 +33,6 @@ Test paths in the table are under `service/tournamentmgmt/src/test/kotlin/dev/wl
 
 The DBV [rules and regulations index](https://www.badminton.de/der-dbv/satzung-ordnungen-und-spielregeln/) says its regulations are updated annually; select the correct edition and competition before relying on a clause. The DBV [announcement on 3 × 15 scoring](https://www.badminton.de/news/badminton/neue-zaehlweise-dbv-praesidium-beschliesst-einfuehrung-von-3-x-15/) states that DBV-level individual U19 and O19 competitions change on 4 January 2027. It does not establish a universal date for every regional or club event. The primary-source search and clause-by-clause checks are not complete.
 
-## Next analysis steps
+## Follow-up
 
-Finish the §1–§6 feature and international deferral inventory; inspect relevant tests and mappings; verify candidate rules against applicable primary national or regional sources; assess personas, effort and context; reconcile overlap with #184–#186; and prepare reviewable candidate specifications and follow-up issue drafts. The group-standings candidate has been approved for further analysis and follow-up #203 exists; no final implementation requirement has been accepted.
+The group-standings candidate is recorded in `specs/group-standings/spec.md` for further analysis in [#203](https://github.com/wlambertz/rallyon/issues/203). The remaining unverified claims and decisions are listed in `open-questions-and-unverified-rules.md`. No final implementation requirement has been accepted.

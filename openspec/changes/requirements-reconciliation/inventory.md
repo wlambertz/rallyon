@@ -195,7 +195,7 @@ This checklist is for a fresh independent completeness review; topic-level mappi
 | §4 hall, coaching, equipment, injury and officials | N4-05–09, N4-13, N4-18–30 |
 | §5 withdrawals, cards, reports and finance | N1-12, N5-01–06; I28–I29, I35–I39, I44–I45 |
 | §6 group ranking, withdrawal and result reporting | N6-01, N6-03–14; I30, I53–I54 |
-| Cross-cutting claims | Q-01–02; scoring-format transition is separate context in `scoring-transition.md`, not a source claim |
+| Cross-cutting claims | Q-01–02; the scoring-format transition in `open-questions-and-unverified-rules.md` is separate context, not a source claim |
 
 ## Initial ordering and open decisions
 
