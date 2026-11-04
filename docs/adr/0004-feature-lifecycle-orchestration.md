@@ -30,6 +30,10 @@ Existing REST, JWT, database and `ro` CLI contracts remain unchanged. This decis
 
 Stories whose goal is knowledge, such as issue #183's requirements reconciliation, ran the full track. That produced a numeric value score for an analysis, a candidate spec that archiving would have merged as accepted behavior, and three review lenses that repeated the source audits which actually found errors. A third helper mode, `research`, with the `rallyon-research` schema, follows the spike/exploration-enabler practice: G1 charter with timebox, a single independent G5 findings check, G8 human acceptance, optional G4 follow-up issues after acceptance, and merge. Track choice is part of the approved G1 artifact and cannot change on resume. The tradeoff is fewer independent checks, so the G5 checker brief must cover source mapping, file scope and documentation checks thoroughly. Research never authorizes production changes or accepted specs.
 
+## Amendment — Codex hooks
+
+Codex 0.166 supports project hooks in `.codex/hooks.json` with the same `PreToolUse` shape as Claude, so the decision above no longer needs to leave Codex to instructions alone. Codex now runs the same commit and issue guard scripts. Its hook command passes the Git top level as `CLAUDE_PROJECT_DIR` so both agents select the same worktree session, and a parity test fails when the two configurations diverge. The scripts stay under `.claude/hooks/` because existing lifecycle evidence references those paths. Codex loads project hooks only after the user trusts the project's `.codex/` layer and reviews the hooks, so an untrusted checkout still relies on instructions. The other limits are unchanged: connectors, arbitrary shell obfuscation and other runtimes are not intercepted.
+
 ## Related
 
 - [Issue #191](https://github.com/wlambertz/rallyon/issues/191)
