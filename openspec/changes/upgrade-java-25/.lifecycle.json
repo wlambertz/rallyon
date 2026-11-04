@@ -530,6 +530,152 @@
         "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
         "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:55:12.899618+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-evidence-commit.md",
+      "evidence_hash": "8b14cb1c04572eda0786315934f21b4c09d0ab13fcce53f66d6bf6d3ff9fc4cf",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "g6-qa-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:56:06.899254+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g6-evidence-commit.md",
+      "evidence_hash": "1dba3becc7fe49b2c13fe8de53e85e49e959cb0c7af5f37658fa415fd01fe6d9",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-architecture-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-04T19:57:07.915914+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-architecture-delta.md",
+      "evidence_hash": "49482c289d37a7733f6020f808e4ea4e34c2e349fb84b15011a40d40f3d5d03c",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-correctness-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-04T19:57:18.582943+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-correctness-delta.md",
+      "evidence_hash": "b8b3b6b9008c290dedd9e120199abbd8bff502c71841695ad3aa50538ba0cd66",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-tests-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-04T19:57:28.716438+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-tests-delta.md",
+      "evidence_hash": "6fab068fbcc7b578db8a8a1d950ae702d8552ccfaa5e2e115313add7d5ebd3d2",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response to witnessed UAT scenarios and G8 acceptance request",
+      "lens": null,
+      "timestamp": "2026-11-04T20:12:53.726346+00:00",
+      "fingerprint": "c21319192185a82562e9ad562281fc6f14793feaf20f2e2a70e32b72411dc465",
+      "snapshot_size": 1169,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1",
+        "G7:architecture": "1945c487f7fbf637d7168de9b41689cf05d3c9fe033cb6d45092b0f73f874d46",
+        "G7:correctness": "85dd3f35a30658a02640d3c686cf792299f357bb4167c6f9ab2676ec949c132b",
+        "G7:tests": "fa79360d073efefdf1b102d1e38925dcc88d8ed6dbd055e1442e1eaf9638a603"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response to witnessed UAT scenarios and G8 acceptance request; decision transcribed into uat.md",
+      "lens": null,
+      "timestamp": "2026-11-04T20:13:55.711888+00:00",
+      "fingerprint": "1d70a274c19c5eac0527bcf98ce33f30d3ba81016fe9e40bfd66cceeca9fcbdb",
+      "snapshot_size": 1169,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1",
+        "G7:architecture": "1945c487f7fbf637d7168de9b41689cf05d3c9fe033cb6d45092b0f73f874d46",
+        "G7:correctness": "85dd3f35a30658a02640d3c686cf792299f357bb4167c6f9ab2676ec949c132b",
+        "G7:tests": "fa79360d073efefdf1b102d1e38925dcc88d8ed6dbd055e1442e1eaf9638a603"
+      }
     }
   ],
   "issues": {

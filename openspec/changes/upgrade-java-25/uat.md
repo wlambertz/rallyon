@@ -39,11 +39,11 @@ The major-version protection scenario requires separate disposable PostgreSQL 17
 
 ## Limitations and failures
 
-The actual results above were observed by the implementing agent; human execution or witnessing and acceptance are still required. Existing real databases and interactive editor behavior were not tested. The full root format check fails on an unrelated file already failing on `origin/main`; changed-file formatting and PR CI pass.
+The actual results above were observed by the implementing agent and presented for human witnessing and acceptance. Existing real databases and interactive editor behavior were not tested. The full root format check fails on an unrelated file already failing on `origin/main`; changed-file formatting and PR CI pass.
 
 ## G8 human decision
 
-Pending explicit acceptance of executed or witnessed results.
+The maintainer accepted the presented witnessed results in chat with the quote `go`.
 
 ## Separate merge decision
 
