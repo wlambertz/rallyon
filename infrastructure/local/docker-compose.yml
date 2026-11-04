@@ -19,6 +19,7 @@ services:
     ports:
       - "5432:5432"
     environment:
+      PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: ${TOURNAMENTMGMT_DB_NAME:-rallyon}
       POSTGRES_USER: ${TOURNAMENTMGMT_DB_USER:-rallyon_app}
       POSTGRES_PASSWORD: ${TOURNAMENTMGMT_DB_PASSWORD:-rallyon_secret}

@@ -40,6 +40,8 @@ badtourn/
 
 Für eine konsistente lokale Umgebung gibt es eine Dev-Container-Konfiguration in `.devcontainer/`. Der Container enthält Java 25, Node.js 20, Go 1.25, Docker CLI mit Host-Docker-Zugriff, GitHub CLI (`gh`), Google Chrome für `ChromeHeadless`/Playwright, den PostgreSQL-Client sowie `@openai/codex` als globales npm-Paket.
 
+Die Java- und Kotlin-Buildziele sowie die gemeinsamen IAM-Module verwenden Java 25. Das reduziert Abweichungen zwischen Entwicklung, CI und der bestehenden Java-25-Service-Laufzeit; Verbraucher der IAM-Artefakte benötigen dadurch mindestens Java 25.
+
 - Voraussetzung auf dem Host: Docker bzw. Docker Desktop mit verfügbarem `/var/run/docker.sock`.
 - Beim ersten Erstellen des Containers werden Root-NPM-Abhängigkeiten installiert, die lokalen IAM- Maven-Module gebaut und die Go-CLI `ro` nach `bin/ro` kompiliert.
 - Infrastruktur bleibt explizit manuell startbar, damit der Container schnell und reproduzierbar hochfährt.
@@ -51,6 +53,12 @@ ro doctor
 ro run service tournamentmgmt --env local --port 8080
 docker compose -f infrastructure/local/docker-compose.yml up -d keycloak tournamentmgmt-db
 ```
+
+Die lokale PostgreSQL-18-Konfiguration behält das bestehende Daten-Volume bei. Daten aus einer älteren PostgreSQL-Hauptversion müssen vor dem Start ausdrücklich migriert werden; ein Image-Update allein führt kein Datenbank-Upgrade durch.
+
+Der Turnierverwaltungsservice führt beim Start seine vorhandenen Flyway-Migrationen aus. Für eine bereits befüllte Datenbank ohne passende Flyway-Historie muss der Schema- und Migrationsstand vor dem Upgrade geprüft werden; Flyway bricht den Start bei Konflikten ab. Vor Änderungen an bestehenden Datenbanken ein Backup erstellen und keine automatische Baseline ohne Prüfung setzen.
+
+Der PostgreSQL-Regressionstest läuft in der Java-CI gegen eine eigene leere Datenbank. Lokal wird er ausgeführt, wenn `RALLYON_FLYWAY_TEST_URL`, `RALLYON_FLYWAY_TEST_USER`, `RALLYON_FLYWAY_TEST_PASSWORD` und `RALLYON_FLYWAY_TEST_ALLOW_MUTATION=yes` gesetzt sind. Dafür ausschließlich eine dedizierte leere Testdatenbank verwenden; der Test legt dort Schemas und Tabellen an.
 
 ## API-Dokumentation
 

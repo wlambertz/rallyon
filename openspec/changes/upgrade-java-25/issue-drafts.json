@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "java25-validation",
+      "title": "Validate Java 25 toolchain and runtime for the backend baseline",
+      "body": "## Context\n\nValidation work for #199 and the `upgrade-java-25` change. This issue tracks the compatibility evidence needed for the parent upgrade.\n\n## Requirements and acceptance criteria\n\n- **Validated Java 25 build baseline:** capture Java, Maven and effective compiler, Kotlin, Surefire, annotation processor and test instrumentation versions; verify IAM install and service clean verify under JDK 25, including kapt/MapStruct and existing persistence, security, serialization and Modulith tests. Confirm representative Java and Kotlin class files target major version 69.\n- **Consistent development and delivery environments:** build and start the dev container, verify JDK 25, and capture relevant backend CI and security/SBOM outcomes while preserving the scanner's independent Java runtime. Distinguish pre-existing failures using #187 history.\n- **Runtime and consumer compatibility:** build the service image, run against isolated PostgreSQL with shipped migrations, verify health and a representative authenticated API request, and inventory IAM consumers and their Java 25 minimum.\n- If a required check is blocked or fails, record exact failure, affected version, smallest remedy and deferral criteria; retain Java 21 compilation until resolved.\n\n## Validation commands\n\n```sh\njava -version\n./service/tournamentmgmt/mvnw -version\n./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install\n./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify\nnpm run format:check\ndocker build -t rallyon-tournamentmgmt:java25 service/tournamentmgmt\n```\n\nAlso inspect effective Maven models and representative class-file versions; record dev-container, isolated database/API smoke-test and CI evidence.",
+      "depends_on": [],
+      "labels": [],
+      "assignees": []
+    }
+  ]
+}

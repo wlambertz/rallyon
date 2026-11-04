@@ -1,0 +1,9 @@
+# Local bootstrap validation
+
+The local PostgreSQL 18 configuration keeps the existing `/var/lib/postgresql/data` volume mount and explicitly sets `PGDATA` to that path. In isolated Docker volumes, a fresh PostgreSQL 18.4 instance started and a marker remained after restart. PostgreSQL 18.4 refused a PostgreSQL 17 data directory with an incompatible-version error and did not initialize it; restarting PostgreSQL 17 showed the marker still present. This does not migrate existing databases and does not prove compatibility with every volume layout.
+
+In a separate Compose copy with unique container names, alternate ports and disposable volumes, the same `PGDATA` setting and Keycloak profile stdin transfer were tested with Keycloak 26.6.4 and PostgreSQL 18.4. The provisioning script completed twice. After the second run, the documented password-grant flow returned a token (HTTP 200), and the authenticated draft request returned HTTP 201 with `DRAFT` status. The copy adjusted names and ports solely to avoid existing services; no existing volumes or identities were modified.
+
+An independent review found that a fixed container path could still be blocked by an old root-owned mode-600 file. The script now creates a unique mode-600 file as the container user. In a fresh isolated stack with that root-owned stale file deliberately present, provisioning succeeded twice, the stale file remained unchanged, and no new profile file remained after either run. The token and authenticated draft checks again returned HTTP 200 and 201, respectively.
+
+`bash -n admin/keycloak/provision_keycloak.sh`, `docker compose -f infrastructure/local/docker-compose.yml config --quiet`, and `git diff --check` passed. Root `npm run format:check` remains blocked by the unrelated pre-existing `openspec/changes/issue-203/.lifecycle.json`; the current change's files were checked separately. The new source revision has not yet run hosted CI.

@@ -1,0 +1,11 @@
+# G3 bootstrap scope challenge
+
+**Verdict: FAIL — refresh the material evidence and return to G2.** Checker: Codex `/root/bootstrap_g3`, independent of the maker. This is a delta review against [the prior G3 check](g3-corrected.md).
+
+| Severity | Finding | Required action |
+| --- | --- | --- |
+| Material | `value.md` says the Flyway remedy, complete dev-container lifecycle and CI/security/SBOM outcomes are unverified. The recorded [Flyway evidence](flyway-repair.md) and [G5 follow-up](g5-validation-followup.md) instead report a successful fresh-database Flyway repair, successful dev-container lifecycle and green hosted checks for PR head `bb3690b`. These are material facts for an informed G2 decision. Current POMs also select Java 25, unlike the present-tense baseline statements in `value.md`. | Correct the current evidence and distinguish it from historical preflight observations. State that the hosted results apply to `bb3690b` before the planned bootstrap changes, and require revalidation for a revised head. Do not claim live editor verification or established-database migration. |
+| Low | Bootstrap scope adds persistent-volume compatibility and Keycloak provisioning, but effort 5 remains plausible given the bounded proposed edits and the existing cross-area estimate. The two observed bootstrap failures support risk reduction 3; safety of the proposed final implementation and existing real volumes remains unverified. | Retain 5 and 3 as estimates, revisit if compatibility testing or deployment requires a broader migration. Document the additional bootstrap observations and their limitations. |
+| Informational | User value 2, learning value 4 and confidence 0.75 remain defensible with uncertainty about real-world impact and future revision results. Arithmetic reproduces: `(0.5 × 2 + 0.3 × 4 + 0.2 × 3) × 0.75 / 5 = 0.42`. | No numerical score change is recommended; the score remains advisory. |
+
+Commands: read the scoring contract, current planning artifacts and prior reviews with `cat`; inspected the service POM and current bootstrap configuration with `rg`. This review relies on the recorded test and hosted-CI evidence and did not independently rerun those tests or inspect a real user volume.
