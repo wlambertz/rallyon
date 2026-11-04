@@ -60,7 +60,8 @@ ensure_user_profile_attribute() {
   local profile_json updated_json container_profile_json
   profile_json=$(mktemp)
   updated_json=$(mktemp)
-  container_profile_json="/tmp/rallyon-user-profile.json"
+  container_profile_json=$(MSYS_NO_PATHCONV=1 docker compose -f "$COMPOSE_FILE" exec -T keycloak \
+    sh -c 'umask 077; mktemp /tmp/rallyon-user-profile.XXXXXXXX')
 
   kcadm get "realms/$REALM/users/profile" > "$profile_json"
 
@@ -84,7 +85,8 @@ ensure_user_profile_attribute() {
     end
   ' "$profile_json" > "$updated_json"
 
-  MSYS_NO_PATHCONV=1 docker cp "$updated_json" "keycloak:$container_profile_json" >/dev/null
+  MSYS_NO_PATHCONV=1 docker compose -f "$COMPOSE_FILE" exec -T keycloak \
+    sh -c 'umask 077; cat > "$1"' sh "$container_profile_json" < "$updated_json"
   kcadm update "realms/$REALM/users/profile" -f "$container_profile_json"
   MSYS_NO_PATHCONV=1 docker compose -f "$COMPOSE_FILE" exec -T keycloak rm -f "$container_profile_json" >/dev/null 2>&1 || true
 

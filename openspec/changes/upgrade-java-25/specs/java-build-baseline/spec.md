@@ -64,3 +64,26 @@ The Tournament Management service SHALL execute the shipped Flyway migrations on
 
 - **WHEN** a required migration fails
 - **THEN** service startup fails rather than reporting readiness against an unmigrated schema
+
+### Requirement: Safe local database startup
+
+The local PostgreSQL configuration SHALL use the existing named volume as its data directory and MUST NOT silently initialize a replacement database when incompatible existing data is present. PostgreSQL major-version upgrades SHALL require an explicit migration.
+
+#### Scenario: Existing PostgreSQL 18 data
+
+- **WHEN** the local database restarts with an existing PostgreSQL 18 volume
+- **THEN** its previously stored data remains available
+
+#### Scenario: Incompatible existing major version
+
+- **WHEN** PostgreSQL 18 starts against a volume containing PostgreSQL 17 data
+- **THEN** startup fails without reinitializing or replacing the existing database
+
+### Requirement: Local identity provisioning
+
+The local Keycloak provisioning workflow SHALL transfer the user profile in a way readable by the container user without exposing the temporary file to other users.
+
+#### Scenario: Provision and authenticate
+
+- **WHEN** a maintainer provisions an isolated fresh local stack and obtains a token using the documented flow
+- **THEN** provisioning succeeds and a representative authenticated draft request succeeds

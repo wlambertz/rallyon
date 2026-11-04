@@ -6,7 +6,7 @@ The maintainer and contributors currently build the Tournament Management servic
 
 ## What Changes
 
-Repair missing Flyway startup integration and cover migration execution on a clean PostgreSQL database. Validate the actual pinned build and test toolchain on JDK 25, then align the service, shared IAM, relevant workflows, dev container and current setup instructions if the acceptance checks pass. Explicitly document the raised IAM consumer runtime minimum. If validation is blocked, retain Java 21 compilation and document a reproducible deferral. Coordinate CI evidence with #187, which is now closed.
+Repair the local PostgreSQL and Keycloak bootstrap failures required for end-to-end validation. Repair missing Flyway startup integration and cover migration execution on a clean PostgreSQL database. Validate the actual pinned build and test toolchain on JDK 25, then align the service, shared IAM, relevant workflows, dev container and current setup instructions if the acceptance checks pass. Explicitly document the raised IAM consumer runtime minimum. If validation is blocked, retain Java 21 compilation and document a reproducible deferral. Coordinate CI evidence with #187, which is now closed.
 
 Out of scope: application features, frontend, migration changes, preview features, broad dependency upgrades, Gradle migration and behavioral changes to REST, JWT or CLI contracts.
 

@@ -54,6 +54,8 @@ ro run service tournamentmgmt --env local --port 8080
 docker compose -f infrastructure/local/docker-compose.yml up -d keycloak tournamentmgmt-db
 ```
 
+Die lokale PostgreSQL-18-Konfiguration behält das bestehende Daten-Volume bei. Daten aus einer älteren PostgreSQL-Hauptversion müssen vor dem Start ausdrücklich migriert werden; ein Image-Update allein führt kein Datenbank-Upgrade durch.
+
 Der Turnierverwaltungsservice führt beim Start seine vorhandenen Flyway-Migrationen aus. Für eine bereits befüllte Datenbank ohne passende Flyway-Historie muss der Schema- und Migrationsstand vor dem Upgrade geprüft werden; Flyway bricht den Start bei Konflikten ab. Vor Änderungen an bestehenden Datenbanken ein Backup erstellen und keine automatische Baseline ohne Prüfung setzen.
 
 Der PostgreSQL-Regressionstest läuft in der Java-CI gegen eine eigene leere Datenbank. Lokal wird er ausgeführt, wenn `RALLYON_FLYWAY_TEST_URL`, `RALLYON_FLYWAY_TEST_USER`, `RALLYON_FLYWAY_TEST_PASSWORD` und `RALLYON_FLYWAY_TEST_ALLOW_MUTATION=yes` gesetzt sind. Dafür ausschließlich eine dedizierte leere Testdatenbank verwenden; der Test legt dort Schemas und Tabellen an.

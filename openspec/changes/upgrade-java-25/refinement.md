@@ -2,7 +2,7 @@
 
 ## Problem and evidence
 
-Issue #199 identifies a split Java baseline: the service and shared IAM compile for Java 21, while the service image runs Java 25. The dev container and backend workflows also select Java 21. The service Kotlin target follows its `java.version` property. These settings were confirmed in the repository; compatibility of the complete toolchain with JDK 25 remains unverified.
+Issue #199 identified a split Java baseline: the service and shared IAM compiled for Java 21, while the service image ran Java 25; the dev container and backend workflows also selected Java 21. The service Kotlin target follows its `java.version` property. PR #209 now contains a Java 25 candidate; its successful local and hosted checks and remaining bootstrap limitations are recorded in the change evidence.
 
 ## Primary persona and owning app/context
 
@@ -10,6 +10,7 @@ The maintainer and contributors need a consistent, reproducible development and 
 
 ## Scope and exclusions
 
+- Repair local PostgreSQL 18 startup while retaining the existing named volume path; make Keycloak provisioning transfer its profile file as the container user. Validate fresh and existing-volume safety and the real token flow.
 - Repair the observed Flyway startup failure by evaluating and, if effective, adding the Spring Boot Flyway integration and a PostgreSQL regression test; keep shipped migrations unchanged.
 - Assess the effective Maven, Kotlin, compiler, test, instrumentation and annotation-processing toolchain on JDK 25 before changing the baseline.
 - If validation passes, align service Java and Kotlin targets, both IAM modules, relevant CI workflows, dev container and current setup documentation with Java 25. Document the minimum Java 25 runtime for consumers of shared IAM artifacts and the baseline tradeoffs.
