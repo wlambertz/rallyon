@@ -26,7 +26,7 @@ Generic messages such as `chore: commit current CLI and spec changes` make the l
 
 ## Rules for agents
 
-- Never pass `--no-verify`, `-n`, or override `core.hooksPath`; the Claude Code hook in `.claude/hooks/check-commit.sh` blocks it and CI re-checks every PR commit.
+- Never pass `--no-verify`, `-n`, or override `core.hooksPath`; the Claude Code and Codex hook in `.claude/hooks/check-commit.sh` blocks it and CI re-checks every PR commit.
 - If a commit is rejected, fix the message and commit again; do not weaken the rules to get a commit through. To change a rule, edit `ro.yaml` or `git_lint.go` in a dedicated, reviewed change.
 - Check a draft first with `printf '%s' "<message>" | bin/ro git lint-message --stdin`.
 - Do not rewrite or force-push shared history just to fix a message without the maintainer's explicit approval.

@@ -1,6 +1,6 @@
 # Feature lifecycle gates
 
-Phase A of [issue #191](https://github.com/wlambertz/rallyon/issues/191) defines the review contract for idea → UAT. Phase B supplies the `rallyon-feature` schema, shared lifecycle skill, evidence helper and session-scoped Claude issue hook. The [operation guide](agent-workflows.md#feature-lifecycle) explains their use and limits. Human decisions and independent checking remain explicit; file existence is not gate approval.
+Phase A of [issue #191](https://github.com/wlambertz/rallyon/issues/191) defines the review contract for idea → UAT. Phase B supplies the `rallyon-feature` schema, shared lifecycle skill, evidence helper and session-scoped Claude and Codex issue hook. The [operation guide](agent-workflows.md#feature-lifecycle) explains their use and limits. Human decisions and independent checking remain explicit; file existence is not gate approval.
 
 Read the [personas](wiki/Personas.md), [context map](architecture/context-map.md), [tactical design](architecture/tactical-design.md), [layering rules](architecture/layering-and-archunit.md) and [value model](value-scoring.md). OpenSpec artifacts live in `openspec/`, following ADR 0002. Existing behavior, commands and constraints come from code and the nearest `AGENTS.md`.
 

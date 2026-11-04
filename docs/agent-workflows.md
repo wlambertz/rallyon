@@ -6,7 +6,7 @@ RallyOn keeps agent guidance small, shared, and inspectable. The canonical proje
 
 | Tool | Primary file | Notes |
 | --- | --- | --- |
-| Codex | `AGENTS.md` and nested `AGENTS.md` | Repo skills live in `.agents/skills/`. Use skills for repeatable workflows. |
+| Codex | `AGENTS.md` and nested `AGENTS.md` | Repo skills live in `.agents/skills/`. Use skills for repeatable workflows. `.codex/hooks.json` runs the same Bash guards as Claude. |
 | Claude Code | `CLAUDE.md` adapter plus `AGENTS.md` | Loads repo skills through the `.claude/skills` symlink to `.agents/skills/`. Keep Claude-specific notes minimal. |
 | Cline | `AGENTS.md` (detected automatically) | Discovers project skills under `.claude/skills/`, so it reads the same symlinked skills. Has no repo-specific Cline file. |
 | GitHub Copilot | `.github/copilot-instructions.md` pointer plus `AGENTS.md` | Do not duplicate repository guidance in the Copilot file. |
@@ -167,7 +167,11 @@ Keep these per-agent settings in local configuration. The repository does not pi
 
 ### Enforcement and validation limits
 
-Claude's Bash `PreToolUse` guard blocks direct issue creation (`gh issue create` and `gh issue new`) for the lifecycle repository while its session is active, preserving the existing commit-hook guard. It prefers the worktree session identified by `CLAUDE_PROJECT_DIR` and falls back to tool cwd when there is no project session, so changing cwd outside the repository does not drop the active project guard. It does not discover sessions in sibling worktrees. Command substitutions are inspected before documentation-command exemptions, including nested substitutions, backticks and executable line continuations. Quoted heredoc bodies are literal documentation; unquoted heredoc bodies are inspected for executable expansions. Unrelated work without an active session is unaffected. Codex follows the same helper-only rule through shared instructions. The Claude guard does not technically intercept connectors, arbitrary shell obfuscation or every runtime; bypassing it remains contrary to the shared workflow. Approval records are auditable assertions, not authenticated signatures or a security boundary.
+The Bash `PreToolUse` guard blocks direct issue creation (`gh issue create` and `gh issue new`) for the lifecycle repository while its session is active, preserving the existing commit-hook guard. It prefers the worktree session identified by `CLAUDE_PROJECT_DIR` and falls back to tool cwd when there is no project session, so changing cwd outside the repository does not drop the active project guard. It does not discover sessions in sibling worktrees. Command substitutions are inspected before documentation-command exemptions, including nested substitutions, backticks and executable line continuations. Quoted heredoc bodies are literal documentation; unquoted heredoc bodies are inspected for executable expansions. Unrelated work without an active session is unaffected.
+
+Claude registers the guards in `.claude/settings.json`; Codex registers the same scripts in `.codex/hooks.json`. Codex has no `CLAUDE_PROJECT_DIR`, so its hook command resolves the Git top level from the session cwd and passes it as `CLAUDE_PROJECT_DIR`; both agents then select the same worktree session. Codex loads project hooks only after you trust the project's `.codex/` layer and review the exact hook definitions with `/hooks`; until then Codex relies on the shared instructions alone. A parity test in `.claude/hooks/tests/` fails when the two configurations reference different guard scripts. Keeping the scripts under `.claude/hooks/` avoids moving paths that existing lifecycle evidence references; the cost is a Claude-named directory shared by both agents.
+
+The guards do not technically intercept connectors, arbitrary shell obfuscation or every runtime; bypassing it remains contrary to the shared workflow. Approval records are auditable assertions, not authenticated signatures or a security boundary.
 
 Do not create live test issues or implement a product feature to test this workflow. Exercise full/reduced flows in temporary repositories with a fake GitHub executable. Validate the custom schema, helper/hooks and formatting using the focused CI workflow. Existing dependency-scan failures remain visible and are tracked separately.
 
