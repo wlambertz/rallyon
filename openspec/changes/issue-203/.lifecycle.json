@@ -67,6 +67,53 @@
         "G1:None": "c7332f8a86c320f032c5b00a0dbe2bf58b327c226b52ad9d3cd0bd00f1f553d0",
         "G5:None": "f5c42b2e3e0ad8ff659774e728fb73d66cd38ce27eda00972381a4785b1dad95"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T10:56:11.354559+00:00",
+      "evidence": "openspec/changes/issue-203/evidence/g5-committed-check.md",
+      "evidence_hash": "3f03083889670ad9adce97205c101511037170c40427213d01aa66d1b48c86b8",
+      "fingerprint": "6fcbc74c48f4614554e13464543c6424140d48c77b78152f465e1295b26d3568",
+      "snapshot_size": 1140,
+      "dependencies": {
+        "G1:None": "c7332f8a86c320f032c5b00a0dbe2bf58b327c226b52ad9d3cd0bd00f1f553d0"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "akzeptier",
+      "source": "Conversation: user accepted the unchanged issue 203 findings; independent committed-content recheck confirms identical content",
+      "lens": null,
+      "timestamp": "2026-11-04T10:56:25.771849+00:00",
+      "fingerprint": "7c7d532d02681f4c31fc99aac207b7c3ecb99ac4cc8b7a9f6bce29d4f37eab93",
+      "snapshot_size": 1141,
+      "dependencies": {
+        "G1:None": "c7332f8a86c320f032c5b00a0dbe2bf58b327c226b52ad9d3cd0bd00f1f553d0",
+        "G5:None": "16ff5471ee27c37bd0978d220321d37515fa15f1791f7cf1042a7ac333bf22c6"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "merge",
+      "source": "Conversation: user requested merge of reviewed issue 203 research",
+      "lens": null,
+      "timestamp": "2026-11-04T10:56:33.909088+00:00",
+      "fingerprint": "7c7d532d02681f4c31fc99aac207b7c3ecb99ac4cc8b7a9f6bce29d4f37eab93",
+      "snapshot_size": 1141,
+      "dependencies": {
+        "G1:None": "c7332f8a86c320f032c5b00a0dbe2bf58b327c226b52ad9d3cd0bd00f1f553d0",
+        "G5:None": "16ff5471ee27c37bd0978d220321d37515fa15f1791f7cf1042a7ac333bf22c6",
+        "G8:None": "dc018947a753fd966c3acb07b7f9fbb6c91c4f3325d598fc90de165ad104b1ba"
+      }
     }
   ],
   "issues": {},
