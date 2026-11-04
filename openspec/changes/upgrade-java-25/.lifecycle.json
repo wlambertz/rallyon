@@ -428,6 +428,108 @@
         "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
         "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:45:13.828567+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-final.md",
+      "evidence_hash": "9c6ef49969132a95b9d8b46831d49c723d8b155051be614be3efb4be193946f0",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "g6-qa-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:49:20.064231+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g6-qa.md",
+      "evidence_hash": "cbedf04bcc041cfdf200685377d22fc331f271693a2604704d4c8daf1468866b",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-architecture-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-04T19:50:44.206361+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-architecture.md",
+      "evidence_hash": "907a530b80e4a213c422d512800bdebdc87541edf731bd0bceaa0e84beaa3024",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-correctness-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-04T19:50:53.117947+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-correctness.md",
+      "evidence_hash": "dff3283bbf71fe781803f12b5a751ecd703a27cfe5e6dafdbe12421dba6e8885",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-tests-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-04T19:51:01.925236+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-tests.md",
+      "evidence_hash": "00a692a8bc3af2fdd54422ed9186505484b7296af77c15ce57020f3e4a60d60e",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
     }
   ],
   "issues": {
