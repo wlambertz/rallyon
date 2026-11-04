@@ -26,11 +26,11 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
-      - name: Set up JDK 21
+      - name: Set up JDK 25
         uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "25"
       - name: Validate suppression policy and security regression tests
         run: |
           python3 tools/scripts/validate_dependency_suppressions.py .github/dependency-check-suppressions.xml
@@ -114,11 +114,11 @@ jobs:
         with:
           name: security-input-${{ github.run_id }}-${{ github.sha }}
           path: security-input
-      - name: Set up JDK 21
+      - name: Set up JDK 25
         uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "25"
       - name: Install shared IAM modules
         run: ./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install
       - name: Generate CycloneDX SBOM

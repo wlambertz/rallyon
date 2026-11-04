@@ -1,0 +1,13 @@
+# G3 Flyway scope delta challenge
+
+**Verdict: FAIL — return to G2.** Checker: Codex `/root/g3_delta`, independent of the planning maker. The prior [G3 report](g3-value-check.md) covered the Java baseline only; the expanded change and new evidence materially change its risk assessment.
+
+| Severity | Finding | Action |
+| --- | --- | --- |
+| Material | `value.md` still characterizes risk reduction as environment drift without an established incident. The preflight records a reproducible empty-PostgreSQL startup that reports healthy but fails an authenticated draft because migrations were not applied; it reproduces with both bytecode targets. Fixing this is at least a material reliability risk under the scoring anchors, subject to the proposed fix being verified. | Reassess risk reduction from 2 to a provisional 3 and present the revised assessment for G2; the calculation becomes `(1 + 1.2 + 0.6) × 0.75 / 5 = 0.42`. This is not an automatic priority decision. |
+| Material | `value.md` says no JDK 25 build result is available and treats availability of JDK 25 and container infrastructure as unverified. The preflight records successful isolated JDK 25 IAM install/service verification and a JDK 25 dev-container image build. The full configured baseline, CI, actual editor setup and database success remain unverified. | Correct the evidence and uncertainty before renewed G2; distinguish the successful command-line target overrides from a validated repository baseline. |
+| Low | Effort 5 remains a plausible provisional estimate, but the new migration-startup behavior, existing-database compatibility, clean-PostgreSQL regression and failure-path testing add work. A successful dependency-only fix is not established. | Keep 5 only as an estimate; revisit if dependency selection, test infrastructure or existing database compatibility requires decomposition. |
+
+User value 2 and learning value 4 remain defensible conservative estimates; user impact for established installations is unmeasured. Confidence 0.75 is reasonable for the combined change because impact, remediation and rollout remain partly unverified despite a reproduced failure. Scores are advisory, and the maintainer owns the renewed go/no-go.
+
+Commands: inspected the current artifacts, prior report and preflight with `cat`; checked Flyway dependencies and settings and the shipped schema with `rg` against the service POM, application properties and V1 migration. The isolated service logs and database from the original preflight were no longer available for an independent rerun; the failure is attributed to the recorded preflight rather than independently reproduced here.
