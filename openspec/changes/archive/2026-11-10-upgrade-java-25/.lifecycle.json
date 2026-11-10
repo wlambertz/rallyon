@@ -1,0 +1,865 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex",
+  "makers": [
+    "codex"
+  ],
+  "mode": "full",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response to G1 scope presentation",
+      "lens": null,
+      "timestamp": "2026-11-04T12:28:36.488303+00:00",
+      "fingerprint": "47ab12b751c0cd18f39ad51f779e831a56bedebb9979302ef1ad147127387bba",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "3fc53526785a081715d572168ad4dcc56aff8f23cf4289bfd34bed7f5cb18e5c"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "g2",
+      "source": "user chat response to G2 specification and value presentation",
+      "lens": null,
+      "timestamp": "2026-11-04T12:30:16.832005+00:00",
+      "fingerprint": "2e35e327d3fbe1911e1b2ee6110788a9d7e77359023c75fe539a2fa66faf5950",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "3fc53526785a081715d572168ad4dcc56aff8f23cf4289bfd34bed7f5cb18e5c",
+        "openspec/changes/upgrade-java-25/proposal.md": "ca7c4db426ca23539beb1e245177e9fe0c5bf3e503436579e6112fe1c05219b7",
+        "openspec/changes/upgrade-java-25/design.md": "f4830f3901b6c0615ce7ae733cf01674402cd0a8acce4e7b9fa6929f999a0829",
+        "openspec/changes/upgrade-java-25/value.md": "c7a27c665d38763fd9ab406b1700d5710c3fdd0f1bf7e76defcfb577bed6a70e",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "3e2570e764d098e1e300616b4d5f141af6d8f4a87a100b2bc976ffe0f5cd0fd9"
+      },
+      "dependencies": {
+        "G1:None": "008409046339f0feb7b28bc61db7e8e11aef93d035fbb5f8603bbc7090239168"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "value-check-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T12:31:04.920171+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-value-check.md",
+      "evidence_hash": "e9d0cdbf517653d3fe821563687e5b2e45d11c142ab343b78214f20420204137",
+      "fingerprint": "2e35e327d3fbe1911e1b2ee6110788a9d7e77359023c75fe539a2fa66faf5950",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "3fc53526785a081715d572168ad4dcc56aff8f23cf4289bfd34bed7f5cb18e5c",
+        "openspec/changes/upgrade-java-25/proposal.md": "ca7c4db426ca23539beb1e245177e9fe0c5bf3e503436579e6112fe1c05219b7",
+        "openspec/changes/upgrade-java-25/design.md": "f4830f3901b6c0615ce7ae733cf01674402cd0a8acce4e7b9fa6929f999a0829",
+        "openspec/changes/upgrade-java-25/value.md": "c7a27c665d38763fd9ab406b1700d5710c3fdd0f1bf7e76defcfb577bed6a70e",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "3e2570e764d098e1e300616b4d5f141af6d8f4a87a100b2bc976ffe0f5cd0fd9"
+      },
+      "dependencies": {
+        "G1:None": "008409046339f0feb7b28bc61db7e8e11aef93d035fbb5f8603bbc7090239168",
+        "G2:None": "8523206b40eacd88a995a169c756317ddf95ff9ae15a7c0c6c0d51f487571631"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response approving exact G4 issue payload and continued implementation",
+      "lens": null,
+      "timestamp": "2026-11-04T12:33:32.871952+00:00",
+      "fingerprint": "6603e8cba8af967cb33e6d5c0abe765e4583723c7ca19d9b3a451a45d81845c3",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "3fc53526785a081715d572168ad4dcc56aff8f23cf4289bfd34bed7f5cb18e5c",
+        "openspec/changes/upgrade-java-25/proposal.md": "ca7c4db426ca23539beb1e245177e9fe0c5bf3e503436579e6112fe1c05219b7",
+        "openspec/changes/upgrade-java-25/design.md": "f4830f3901b6c0615ce7ae733cf01674402cd0a8acce4e7b9fa6929f999a0829",
+        "openspec/changes/upgrade-java-25/value.md": "c7a27c665d38763fd9ab406b1700d5710c3fdd0f1bf7e76defcfb577bed6a70e",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "3e2570e764d098e1e300616b4d5f141af6d8f4a87a100b2bc976ffe0f5cd0fd9",
+        "openspec/changes/upgrade-java-25/tasks.md": "4a438fef56e05d52ed3ad355456c8ad837fd4fef412100af409e8cce55fcc201",
+        "openspec/changes/upgrade-java-25/issue-drafts.json": "b5cbb4190ed79a82cd20fdee7b5fcb3a9015a7bed5454d6cb5bb38ad2714c52d"
+      },
+      "dependencies": {
+        "G1:None": "008409046339f0feb7b28bc61db7e8e11aef93d035fbb5f8603bbc7090239168",
+        "G2:None": "8523206b40eacd88a995a169c756317ddf95ff9ae15a7c0c6c0d51f487571631",
+        "G3:None": "d15120664c861edd63cc04cf617924232144750e30113dc390e2ea135c2d1508"
+      }
+    },
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat confirmation of revised scope artifact following explicit yes to Flyway repair",
+      "lens": null,
+      "timestamp": "2026-11-04T13:06:23.490164+00:00",
+      "fingerprint": "a93e03a30c3a4e77cb7b87ad58e0498f947c5f0f9a4a4df5965bb3aa452939a2",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat response approving revised G2 specification design and value assessment",
+      "lens": null,
+      "timestamp": "2026-11-04T13:13:30.397615+00:00",
+      "fingerprint": "1c77361b2ead901d8644f928fa239f94568cb5cabe27e5aa366c7a73b1743109",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09",
+        "openspec/changes/upgrade-java-25/proposal.md": "a0714d9df3ff60c8a3a2d9a8633b3feb99621b8b790aab06ae04476b5d506924",
+        "openspec/changes/upgrade-java-25/design.md": "0c5409208f19f0e06517e680e0f79ff9748c82ecad2941bad85688e63dcfe2e2",
+        "openspec/changes/upgrade-java-25/value.md": "905c93eb0730f71a6fec8cde75162e987613b1f9cb17b5c7755663db61e66386",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "9917523745bcd4594b62c5edd807a54697bc55bc051711b38baf7d966817e904"
+      },
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "g3-delta-agent",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T13:14:26.359163+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-flyway-delta.md",
+      "evidence_hash": "34c05ce480e7e765b922e68b667051b55e711ea6ce1a068217447811a0d5877d",
+      "fingerprint": "1c77361b2ead901d8644f928fa239f94568cb5cabe27e5aa366c7a73b1743109",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09",
+        "openspec/changes/upgrade-java-25/proposal.md": "a0714d9df3ff60c8a3a2d9a8633b3feb99621b8b790aab06ae04476b5d506924",
+        "openspec/changes/upgrade-java-25/design.md": "0c5409208f19f0e06517e680e0f79ff9748c82ecad2941bad85688e63dcfe2e2",
+        "openspec/changes/upgrade-java-25/value.md": "905c93eb0730f71a6fec8cde75162e987613b1f9cb17b5c7755663db61e66386",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "9917523745bcd4594b62c5edd807a54697bc55bc051711b38baf7d966817e904"
+      },
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d",
+        "G2:None": "f21e8f04dc49b57289b2c66f53593e4b4d800d68e709e1da0e301b2d3c4051d0"
+      }
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of corrected value assessment and renewed G2 specification and design",
+      "lens": null,
+      "timestamp": "2026-11-04T13:19:33.518815+00:00",
+      "fingerprint": "1b75303d1f974d548ae69f46e87387021b9882ddb4d2d2b971642b0fdd20b0ee",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09",
+        "openspec/changes/upgrade-java-25/proposal.md": "a0714d9df3ff60c8a3a2d9a8633b3feb99621b8b790aab06ae04476b5d506924",
+        "openspec/changes/upgrade-java-25/design.md": "0c5409208f19f0e06517e680e0f79ff9748c82ecad2941bad85688e63dcfe2e2",
+        "openspec/changes/upgrade-java-25/value.md": "95bc7ef6fad01984ca4d8174a7771b0e63c7000267be79b3f0931000d59b6c33",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "9917523745bcd4594b62c5edd807a54697bc55bc051711b38baf7d966817e904"
+      },
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "g3-corrected-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T13:20:05.790854+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-corrected.md",
+      "evidence_hash": "f8a9d8dedc14884402bb972e175f29615dee7aec3a31f7b5a9dfcce813fba8ad",
+      "fingerprint": "1b75303d1f974d548ae69f46e87387021b9882ddb4d2d2b971642b0fdd20b0ee",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09",
+        "openspec/changes/upgrade-java-25/proposal.md": "a0714d9df3ff60c8a3a2d9a8633b3feb99621b8b790aab06ae04476b5d506924",
+        "openspec/changes/upgrade-java-25/design.md": "0c5409208f19f0e06517e680e0f79ff9748c82ecad2941bad85688e63dcfe2e2",
+        "openspec/changes/upgrade-java-25/value.md": "95bc7ef6fad01984ca4d8174a7771b0e63c7000267be79b3f0931000d59b6c33",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "9917523745bcd4594b62c5edd807a54697bc55bc051711b38baf7d966817e904"
+      },
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d",
+        "G2:None": "e6eaf0828de6ba7de755f8ca46a5472877336456ea66f58336a050fbd2f78f52"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat approval of unchanged existing issue payload and continued expanded implementation",
+      "lens": null,
+      "timestamp": "2026-11-04T13:23:39.240091+00:00",
+      "fingerprint": "f4524fab6b22e2a9f8631a400158e2eee1e3ecd943a145d6a2a646fb7732b942",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "95ce68532068824cb69f55fe348a4df6ab148de99f8b775df0ea9c9202aa5c09",
+        "openspec/changes/upgrade-java-25/proposal.md": "a0714d9df3ff60c8a3a2d9a8633b3feb99621b8b790aab06ae04476b5d506924",
+        "openspec/changes/upgrade-java-25/design.md": "0c5409208f19f0e06517e680e0f79ff9748c82ecad2941bad85688e63dcfe2e2",
+        "openspec/changes/upgrade-java-25/value.md": "95bc7ef6fad01984ca4d8174a7771b0e63c7000267be79b3f0931000d59b6c33",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "9917523745bcd4594b62c5edd807a54697bc55bc051711b38baf7d966817e904",
+        "openspec/changes/upgrade-java-25/tasks.md": "aa444457a9a9442cc2aae43810aa4b86f7d13809b39be3b055104aaad2c6c241",
+        "openspec/changes/upgrade-java-25/issue-drafts.json": "b5cbb4190ed79a82cd20fdee7b5fcb3a9015a7bed5454d6cb5bb38ad2714c52d"
+      },
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d",
+        "G2:None": "e6eaf0828de6ba7de755f8ca46a5472877336456ea66f58336a050fbd2f78f52",
+        "G3:None": "4752df25f6c1bdc307654ae4c49273e90a69ee7f3b387116af6ff9597af4abe9"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T14:37:53.347210+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-audit.md",
+      "evidence_hash": "737e137aad786dcdf7b648bb79b498f39f6e776485270c7ccdf022e0bbced3ab",
+      "fingerprint": "1786405ddbe67092fea3a529b087d0f006836c8f539316dc4da75b648394ef8a",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d",
+        "G2:None": "e6eaf0828de6ba7de755f8ca46a5472877336456ea66f58336a050fbd2f78f52",
+        "G3:None": "4752df25f6c1bdc307654ae4c49273e90a69ee7f3b387116af6ff9597af4abe9",
+        "G4:None": "558625a6a704e7a06b68afa2b6d828ce118066feac7abcf55807b2707ddb4571"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T14:45:49.285224+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-audit-followup.md",
+      "evidence_hash": "21b3e35a446eefa41a5d78ef9012c58eb21656d6a19f2ca1257c4e334b2d520d",
+      "fingerprint": "1786405ddbe67092fea3a529b087d0f006836c8f539316dc4da75b648394ef8a",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "9f0a03496b4c23c502a6c67ce31a0e62db2d0b89ac361a7fef0b573fad9d7a3d",
+        "G2:None": "e6eaf0828de6ba7de755f8ca46a5472877336456ea66f58336a050fbd2f78f52",
+        "G3:None": "4752df25f6c1bdc307654ae4c49273e90a69ee7f3b387116af6ff9597af4abe9",
+        "G4:None": "558625a6a704e7a06b68afa2b6d828ce118066feac7abcf55807b2707ddb4571"
+      }
+    },
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of the displayed PostgreSQL and Keycloak bootstrap scope",
+      "lens": null,
+      "timestamp": "2026-11-04T14:54:39.407572+00:00",
+      "fingerprint": "ff479a99a3877311a65b9fe0d772b559ba7348abe36c2ee9d6119a8ef8322df7",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "45a00a3e27179944d26684d95eb6f322bdf8311a83c2db11db98cd7ec976b576"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of PostgreSQL and Keycloak bootstrap revised G2 specification design and value",
+      "lens": null,
+      "timestamp": "2026-11-04T14:56:00.784757+00:00",
+      "fingerprint": "756e81138af461d346f38aeafc8f06d219dcc3416927195b8201958054f79c72",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "45a00a3e27179944d26684d95eb6f322bdf8311a83c2db11db98cd7ec976b576",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "5cc7dbd8323c092931c1e5f78a2081fc5e4de35f4b0941bcb8cbcde364ccb057",
+        "openspec/changes/upgrade-java-25/value.md": "c63c4c3457932b3d5acca9d97dd38806474bfc0dae08ee10e1b000a35cf9eec7",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "73ffdb1ba93ad5501c82f67e9bec990471b01a685db8418795bf7eea48cd2560"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "bootstrap-g3-agent",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T14:57:01.612071+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-bootstrap.md",
+      "evidence_hash": "da5d56134a42dc415d6a20b915f9976ef921f03a7df89087839077518afe5035",
+      "fingerprint": "756e81138af461d346f38aeafc8f06d219dcc3416927195b8201958054f79c72",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "45a00a3e27179944d26684d95eb6f322bdf8311a83c2db11db98cd7ec976b576",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "5cc7dbd8323c092931c1e5f78a2081fc5e4de35f4b0941bcb8cbcde364ccb057",
+        "openspec/changes/upgrade-java-25/value.md": "c63c4c3457932b3d5acca9d97dd38806474bfc0dae08ee10e1b000a35cf9eec7",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "73ffdb1ba93ad5501c82f67e9bec990471b01a685db8418795bf7eea48cd2560",
+        "G2:None": "a973f94c9d3b739a557bda4df092385365f9d81d323bb2e5bea06f3582ae1ce9"
+      }
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of corrected bootstrap value evidence and revised G2 specification and design",
+      "lens": null,
+      "timestamp": "2026-11-04T18:33:27.746725+00:00",
+      "fingerprint": "5e16c56233540705b4146879617c19db2da335529f51b9ff64f161c478879296",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "45a00a3e27179944d26684d95eb6f322bdf8311a83c2db11db98cd7ec976b576",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "5cc7dbd8323c092931c1e5f78a2081fc5e4de35f4b0941bcb8cbcde364ccb057",
+        "openspec/changes/upgrade-java-25/value.md": "1e0c68f73f09b3eea3b49f458af4bf7a00deef6a4f3f1ad13fa9a12c0467f650",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "73ffdb1ba93ad5501c82f67e9bec990471b01a685db8418795bf7eea48cd2560"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "bootstrap-g3-delta-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T18:34:27.398019+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-bootstrap-recheck.md",
+      "evidence_hash": "b12ab2ab298eff276c9b17ebee23a0ca41d0384ccc5923ecfa9c2d53083cb76b",
+      "fingerprint": "5e16c56233540705b4146879617c19db2da335529f51b9ff64f161c478879296",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "45a00a3e27179944d26684d95eb6f322bdf8311a83c2db11db98cd7ec976b576",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "5cc7dbd8323c092931c1e5f78a2081fc5e4de35f4b0941bcb8cbcde364ccb057",
+        "openspec/changes/upgrade-java-25/value.md": "1e0c68f73f09b3eea3b49f458af4bf7a00deef6a4f3f1ad13fa9a12c0467f650",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "73ffdb1ba93ad5501c82f67e9bec990471b01a685db8418795bf7eea48cd2560",
+        "G2:None": "15da2d4757996a9e7b4cc6f73e8ae6ee3350d336fd89f0e6cc4ffd39e720ca1f"
+      }
+    },
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of clarified scope and G1",
+      "lens": null,
+      "timestamp": "2026-11-04T18:37:44.983597+00:00",
+      "fingerprint": "624e37bf2e185249d917b4f456e0400eee00961bc6230b0d71ae3de32a437db4",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "70fb9bbce2297ab286a14ae71f6da4bba5ae5ee37aaf149f698283cc6c69d5c9"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of clarified specification design value and G2",
+      "lens": null,
+      "timestamp": "2026-11-04T18:37:53.621253+00:00",
+      "fingerprint": "69d1385f0e76277d15be3476820015c59236bbdd535f5752b7d9f7b2a699dd3c",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "70fb9bbce2297ab286a14ae71f6da4bba5ae5ee37aaf149f698283cc6c69d5c9",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "ebc56459d3277c2529fe5e921d452d23869e10314375f3251ad578f2254af5a4",
+        "openspec/changes/upgrade-java-25/value.md": "1e0c68f73f09b3eea3b49f458af4bf7a00deef6a4f3f1ad13fa9a12c0467f650",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "final-g3-delta-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T18:38:42.306480+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g3-clarification-recheck.md",
+      "evidence_hash": "021e89a950abb95aeee92bf7cdfa9cad6ef72e312e47016a2cc69a6e464f610f",
+      "fingerprint": "69d1385f0e76277d15be3476820015c59236bbdd535f5752b7d9f7b2a699dd3c",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "70fb9bbce2297ab286a14ae71f6da4bba5ae5ee37aaf149f698283cc6c69d5c9",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "ebc56459d3277c2529fe5e921d452d23869e10314375f3251ad578f2254af5a4",
+        "openspec/changes/upgrade-java-25/value.md": "1e0c68f73f09b3eea3b49f458af4bf7a00deef6a4f3f1ad13fa9a12c0467f650",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc"
+      },
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user chat approval of unchanged existing issue payload and continued bootstrap implementation",
+      "lens": null,
+      "timestamp": "2026-11-04T19:33:58.258616+00:00",
+      "fingerprint": "b39f282acb66a4acad34ba28c93560fb241b176f406f23a9db8c4a4f236737b6",
+      "manifest": {
+        "openspec/changes/upgrade-java-25/refinement.md": "70fb9bbce2297ab286a14ae71f6da4bba5ae5ee37aaf149f698283cc6c69d5c9",
+        "openspec/changes/upgrade-java-25/proposal.md": "646ee7dc4987511db1a369e738e62e75b6cfebc3aec33e744514e2d2f48d297b",
+        "openspec/changes/upgrade-java-25/design.md": "ebc56459d3277c2529fe5e921d452d23869e10314375f3251ad578f2254af5a4",
+        "openspec/changes/upgrade-java-25/value.md": "1e0c68f73f09b3eea3b49f458af4bf7a00deef6a4f3f1ad13fa9a12c0467f650",
+        "openspec/changes/upgrade-java-25/specs/java-build-baseline/spec.md": "ee19364d956911ff073c78f31a6a973a7064fd794094af185e4d75d998264ccc",
+        "openspec/changes/upgrade-java-25/tasks.md": "ef42624ac2a011fc5d6bbc3e9e326c4aa78f62f306329ef69320cc6be26277bf",
+        "openspec/changes/upgrade-java-25/issue-drafts.json": "b5cbb4190ed79a82cd20fdee7b5fcb3a9015a7bed5454d6cb5bb38ad2714c52d"
+      },
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:45:13.828567+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-final.md",
+      "evidence_hash": "9c6ef49969132a95b9d8b46831d49c723d8b155051be614be3efb4be193946f0",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "g6-qa-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:49:20.064231+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g6-qa.md",
+      "evidence_hash": "cbedf04bcc041cfdf200685377d22fc331f271693a2604704d4c8daf1468866b",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-architecture-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-04T19:50:44.206361+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-architecture.md",
+      "evidence_hash": "907a530b80e4a213c422d512800bdebdc87541edf731bd0bceaa0e84beaa3024",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-correctness-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-04T19:50:53.117947+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-correctness.md",
+      "evidence_hash": "dff3283bbf71fe781803f12b5a751ecd703a27cfe5e6dafdbe12421dba6e8885",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-tests-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-04T19:51:01.925236+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-tests.md",
+      "evidence_hash": "00a692a8bc3af2fdd54422ed9186505484b7296af77c15ce57020f3e4a60d60e",
+      "fingerprint": "aa93378ac6c13ec3d0c893199f18cb3e24689284ad72b651d60cb9374b42c957",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "9b50ff53cd1bd343c55fdf3365e0c248bf7be9fc01a44fd0d0db2fe105388b2c",
+        "G6:None": "3747062f4d270245966cf638180e53a91180049b7ea8c45e275f4b403a94d8c3"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-checker-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:55:12.899618+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-evidence-commit.md",
+      "evidence_hash": "8b14cb1c04572eda0786315934f21b4c09d0ab13fcce53f66d6bf6d3ff9fc4cf",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "g6-qa-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-04T19:56:06.899254+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g6-evidence-commit.md",
+      "evidence_hash": "1dba3becc7fe49b2c13fe8de53e85e49e959cb0c7af5f37658fa415fd01fe6d9",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-architecture-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-04T19:57:07.915914+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-architecture-delta.md",
+      "evidence_hash": "49482c289d37a7733f6020f808e4ea4e34c2e349fb84b15011a40d40f3d5d03c",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-correctness-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-04T19:57:18.582943+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-correctness-delta.md",
+      "evidence_hash": "b8b3b6b9008c290dedd9e120199abbd8bff502c71841695ad3aa50538ba0cd66",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "g7-tests-agent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-04T19:57:28.716438+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-tests-delta.md",
+      "evidence_hash": "6fab068fbcc7b578db8a8a1d950ae702d8552ccfaa5e2e115313add7d5ebd3d2",
+      "fingerprint": "bbb7d341d3d8392ade05250ce6f8f669cddb95fd5f68cee6ea2c961ec512e9b7",
+      "snapshot_size": 1168,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response to witnessed UAT scenarios and G8 acceptance request",
+      "lens": null,
+      "timestamp": "2026-11-04T20:12:53.726346+00:00",
+      "fingerprint": "c21319192185a82562e9ad562281fc6f14793feaf20f2e2a70e32b72411dc465",
+      "snapshot_size": 1169,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1",
+        "G7:architecture": "1945c487f7fbf637d7168de9b41689cf05d3c9fe033cb6d45092b0f73f874d46",
+        "G7:correctness": "85dd3f35a30658a02640d3c686cf792299f357bb4167c6f9ab2676ec949c132b",
+        "G7:tests": "fa79360d073efefdf1b102d1e38925dcc88d8ed6dbd055e1442e1eaf9638a603"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "user chat response to witnessed UAT scenarios and G8 acceptance request; decision transcribed into uat.md",
+      "lens": null,
+      "timestamp": "2026-11-04T20:13:55.711888+00:00",
+      "fingerprint": "1d70a274c19c5eac0527bcf98ce33f30d3ba81016fe9e40bfd66cceeca9fcbdb",
+      "snapshot_size": 1169,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "4673de9f814b417090c4a5eb03d96889558e4fef505705125a10be957580e12c",
+        "G6:None": "2536b93212e3587e0515d87056d87854af0bb209fe3bba7d1d959918cdb7d4c1",
+        "G7:architecture": "1945c487f7fbf637d7168de9b41689cf05d3c9fe033cb6d45092b0f73f874d46",
+        "G7:correctness": "85dd3f35a30658a02640d3c686cf792299f357bb4167c6f9ab2676ec949c132b",
+        "G7:tests": "fa79360d073efefdf1b102d1e38925dcc88d8ed6dbd055e1442e1eaf9638a603"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "/root/g5_recheck",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-10T10:34:39.316071+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-closeout-recheck.md",
+      "evidence_hash": "20eaa9c0a645774708967499d94004d5fd3cf818a7eb252cc898a4b4267370c9",
+      "fingerprint": "5cc5cd410df567c8390209732a4a462df42f0077f6452325c9a2cc91bc357c09",
+      "snapshot_size": 1172,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "/root/g5_recheck",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-10T10:35:58.062595+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g5-spec-sync-recheck.md",
+      "evidence_hash": "b97314c1afe6420ce016197638d52d4b41bf2ce5e72a9d5a8ae29ec4df42cd03",
+      "fingerprint": "0c1a4f6e5cb4507020c27b2fb200138794d88e40baf7e75e4306bbc22106d6e0",
+      "snapshot_size": 1173,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "/root/g6_recheck",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-10T10:36:05.958479+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g6-spec-sync-recheck.md",
+      "evidence_hash": "53e1cc9f4658db8e385fdb9c68b44a68e67d767ec78487a1d46afa2e44030047",
+      "fingerprint": "0c1a4f6e5cb4507020c27b2fb200138794d88e40baf7e75e4306bbc22106d6e0",
+      "snapshot_size": 1173,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_arch",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-10T10:37:07.623794+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-architecture-closeout.md",
+      "evidence_hash": "2ebe9de6e31c11db44275dbdb738cac55eded19334597674d9c59d3298ad9e7b",
+      "fingerprint": "0c1a4f6e5cb4507020c27b2fb200138794d88e40baf7e75e4306bbc22106d6e0",
+      "snapshot_size": 1173,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346",
+        "G6:None": "6bc072a00c3c8be48e7d135bb1397c67080a29a44ec246e841d849f6e565e1c2"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_correct",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-10T10:37:11.910032+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-correctness-closeout.md",
+      "evidence_hash": "8e85dd394f9d6d72a8277926efd2824ea38c647148f8a849b202911ce8f3384c",
+      "fingerprint": "0c1a4f6e5cb4507020c27b2fb200138794d88e40baf7e75e4306bbc22106d6e0",
+      "snapshot_size": 1173,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346",
+        "G6:None": "6bc072a00c3c8be48e7d135bb1397c67080a29a44ec246e841d849f6e565e1c2"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-10T10:37:15.757927+00:00",
+      "evidence": "openspec/changes/upgrade-java-25/evidence/g7-tests-closeout.md",
+      "evidence_hash": "3de9adb4aa62bd62ab2b2e32f5ac70e546da9c17565130faf9afc13d836d0189",
+      "fingerprint": "0c1a4f6e5cb4507020c27b2fb200138794d88e40baf7e75e4306bbc22106d6e0",
+      "snapshot_size": 1173,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346",
+        "G6:None": "6bc072a00c3c8be48e7d135bb1397c67080a29a44ec246e841d849f6e565e1c2"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "accept",
+      "source": "Conversation: user accepted the presented UAT results and limitations for the current closeout",
+      "lens": null,
+      "timestamp": "2026-11-10T10:42:38.567308+00:00",
+      "fingerprint": "c412d645e72019f8b3d78f1e88a06da9c4830e0c3f94aaa530aa4d41469730a8",
+      "snapshot_size": 1174,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346",
+        "G6:None": "6bc072a00c3c8be48e7d135bb1397c67080a29a44ec246e841d849f6e565e1c2",
+        "G7:architecture": "8233e9a8f7da027fe1858b2b80da2e07e30251126ba658ff3e28c887525ae933",
+        "G7:correctness": "374fccb756fbaa66428b31651afafd90448d58ebf6c875f6dd546ed5aefc74a4",
+        "G7:tests": "9abc41f964ae749e5981882c3d6f02d84df08d9412efeab1ec32cbeede836f39"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "Freigabe",
+      "source": "Conversation: user approved the presented closeout after UAT acceptance",
+      "lens": null,
+      "timestamp": "2026-11-10T10:45:25.571000+00:00",
+      "fingerprint": "c412d645e72019f8b3d78f1e88a06da9c4830e0c3f94aaa530aa4d41469730a8",
+      "snapshot_size": 1174,
+      "dependencies": {
+        "G1:None": "ef036f7ae6d013d6958e4d7db1095a24a2e3341bcd2e0cebc419b129b52cb396",
+        "G2:None": "80ddb5a50109073d9dec1856c9c9480e9047c6ca988bea498da2568497d5df9b",
+        "G3:None": "8828f9b39150abf9a9db7d48d95991a4e9babc04c57c999cef7271f0bc13aa28",
+        "G4:None": "85b74a72f972c324aa647fe02e0ba4a6f8ae265f447717ae5457be1996695360",
+        "G5:None": "0dda687b8ee86232cc07640dda9c2d57e2c8ba74ae42d96a473fafca4be38346",
+        "G6:None": "6bc072a00c3c8be48e7d135bb1397c67080a29a44ec246e841d849f6e565e1c2",
+        "G7:architecture": "8233e9a8f7da027fe1858b2b80da2e07e30251126ba658ff3e28c887525ae933",
+        "G7:correctness": "374fccb756fbaa66428b31651afafd90448d58ebf6c875f6dd546ed5aefc74a4",
+        "G7:tests": "9abc41f964ae749e5981882c3d6f02d84df08d9412efeab1ec32cbeede836f39",
+        "G8:None": "79f4f85466a627cf4508a13110d8b5710e9fb6b75bb8e2e66b5c576ef2ac3600"
+      }
+    }
+  ],
+  "issues": {
+    "java25-validation": "https://github.com/wlambertz/rallyon/issues/207"
+  },
+  "attempts": {
+    "java25-validation": {
+      "payload": {
+        "id": "java25-validation",
+        "title": "Validate Java 25 toolchain and runtime for the backend baseline",
+        "body": "## Context\n\nValidation work for #199 and the `upgrade-java-25` change. This issue tracks the compatibility evidence needed for the parent upgrade.\n\n## Requirements and acceptance criteria\n\n- **Validated Java 25 build baseline:** capture Java, Maven and effective compiler, Kotlin, Surefire, annotation processor and test instrumentation versions; verify IAM install and service clean verify under JDK 25, including kapt/MapStruct and existing persistence, security, serialization and Modulith tests. Confirm representative Java and Kotlin class files target major version 69.\n- **Consistent development and delivery environments:** build and start the dev container, verify JDK 25, and capture relevant backend CI and security/SBOM outcomes while preserving the scanner's independent Java runtime. Distinguish pre-existing failures using #187 history.\n- **Runtime and consumer compatibility:** build the service image, run against isolated PostgreSQL with shipped migrations, verify health and a representative authenticated API request, and inventory IAM consumers and their Java 25 minimum.\n- If a required check is blocked or fails, record exact failure, affected version, smallest remedy and deferral criteria; retain Java 21 compilation until resolved.\n\n## Validation commands\n\n```sh\njava -version\n./service/tournamentmgmt/mvnw -version\n./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install\n./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify\nnpm run format:check\ndocker build -t rallyon-tournamentmgmt:java25 service/tournamentmgmt\n```\n\nAlso inspect effective Maven models and representative class-file versions; record dev-container, isolated database/API smoke-test and CI evidence.",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-04T12:33:41.471644+00:00"
+    }
+  }
+}
