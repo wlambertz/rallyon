@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "publication-feature",
+      "title": "Refine a bounded tournament announcement publication and correction feature",
+      "body": "## Problem\n\nResearch in `openspec/changes/issue-212-publication-research/findings.md` identifies a concrete organizer announcement scenario and an unimplemented configuration `publish` operation. Existing authenticated configuration retrieval is not a public announcement contract. The Bommern case is a research example, not an approved product target.\n\n## Scope and acceptance criteria\n\n- Run a separate full feature lifecycle and obtain explicit scope and specification decisions before implementation. Validate the target organizer and chosen audience.\n- Decide announcement content, audience and channel, publication and correction semantics, permissions and handling of stale edits. Separate externally verified event-specific obligations from product decisions and unverified claims.\n- Assess existing API compatibility, data minimization, context ownership, persistence and any migration or integration before choosing a design. Preserve existing contracts unless a break is explicitly approved.\n- Specify observable successful and rejected publication and correction scenarios and a validation approach. Coordinate with #186 and #213; do not assume external federation integration or choose an organizer frontend stack.\n\n## Validation\n\nThe approved feature's lifecycle must define and run applicable service, security and contract checks, including the repository's Maven verify flow for backend changes. This issue does not itself approve a design, production implementation, API break or new dependency.",
+      "depends_on": [],
+      "labels": ["enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    }
+  ]
+}
