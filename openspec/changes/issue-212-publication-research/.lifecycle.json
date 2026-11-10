@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-212",
+  "makers": [
+    "codex-issue-212"
+  ],
+  "mode": "research",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "user message in conversation following charter presentation",
+      "lens": null,
+      "timestamp": "2026-11-10T15:44:40.234356+00:00",
+      "fingerprint": "462f4d61cecc990e3034849c1bf80937030a8675e8821a58ecc83a63861b42a1",
+      "manifest": {
+        "openspec/changes/issue-212-publication-research/charter.md": "f481f61b3d4ebbaa64c1495b823e612392d7994444a02ae0cf435096071730d2"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-10T15:48:31.471072+00:00",
+      "evidence": "openspec/changes/issue-212-publication-research/evidence/g5-check-delta.md",
+      "evidence_hash": "c60765cf22b09ad1c4c33fe4b04d573d60ca0752239333885fdb8d44652f81ca",
+      "fingerprint": "12555c07358539dd460ec9debd66e25df90c9c70821cf95c3bacc55f843b6a7a",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "c3ae2fce5a1f24c0e228a2ce8a31e13180f5e6e2d2b4c9ab7aba31c77345c7be"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user response to G8 acceptance review in conversation",
+      "lens": null,
+      "timestamp": "2026-11-10T19:25:58.830094+00:00",
+      "fingerprint": "47ecd328bb35c639ab4789559aa5aa94f28cfe1d911832c29fa7ca3054625cad",
+      "snapshot_size": 1269,
+      "dependencies": {
+        "G1:None": "c3ae2fce5a1f24c0e228a2ce8a31e13180f5e6e2d2b4c9ab7aba31c77345c7be",
+        "G5:None": "fa2ba58d93c8cbb9c32a29a44b6de44a3a52c595f2cde63149ad7a1a92731e8a"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user response to G8 acceptance review in conversation; uat updated solely to record that decision",
+      "lens": null,
+      "timestamp": "2026-11-10T19:26:21.625312+00:00",
+      "fingerprint": "795ac0d1ed3b5104987b41d325b0f7f0fa6ea41b8d0906747c2df7c11a824632",
+      "snapshot_size": 1269,
+      "dependencies": {
+        "G1:None": "c3ae2fce5a1f24c0e228a2ce8a31e13180f5e6e2d2b4c9ab7aba31c77345c7be",
+        "G5:None": "fa2ba58d93c8cbb9c32a29a44b6de44a3a52c595f2cde63149ad7a1a92731e8a"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user response to exact follow-up issue payload in conversation",
+      "lens": null,
+      "timestamp": "2026-11-10T19:27:17.140586+00:00",
+      "fingerprint": "0e432a3840ab5fc55984f4b2d088949172b9cfc1bc2664664edbf26d6c371ef8",
+      "manifest": {
+        "openspec/changes/issue-212-publication-research/charter.md": "f481f61b3d4ebbaa64c1495b823e612392d7994444a02ae0cf435096071730d2",
+        "openspec/changes/issue-212-publication-research/findings.md": "802c0988a552b2cbdcf710f45e9becb940e614cfa97d888e194ff9c197b8bcd6",
+        "openspec/changes/issue-212-publication-research/issue-drafts.json": "86724bbc237cc84f8d4e8c78f1fcde206f1d3e21ee2a5f075951d4a5d5d7bdff"
+      },
+      "dependencies": {
+        "G1:None": "c3ae2fce5a1f24c0e228a2ce8a31e13180f5e6e2d2b4c9ab7aba31c77345c7be",
+        "G5:None": "fa2ba58d93c8cbb9c32a29a44b6de44a3a52c595f2cde63149ad7a1a92731e8a",
+        "G8:None": "e1f3ac8fabfdf45350d736f21369606beefea8365c098c9b64dd5441db61d184"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "commit push merge",
+      "source": "user message authorizing commit push merge of the accepted research",
+      "lens": null,
+      "timestamp": "2026-11-10T19:29:27.388907+00:00",
+      "fingerprint": "795ac0d1ed3b5104987b41d325b0f7f0fa6ea41b8d0906747c2df7c11a824632",
+      "snapshot_size": 1269,
+      "dependencies": {
+        "G1:None": "c3ae2fce5a1f24c0e228a2ce8a31e13180f5e6e2d2b4c9ab7aba31c77345c7be",
+        "G5:None": "fa2ba58d93c8cbb9c32a29a44b6de44a3a52c595f2cde63149ad7a1a92731e8a",
+        "G8:None": "e1f3ac8fabfdf45350d736f21369606beefea8365c098c9b64dd5441db61d184",
+        "G4:None": "c0140abc3a92c9216c30a45c0eabef1daa5181d30b79249dce54eefb3392787b"
+      }
+    }
+  ],
+  "issues": {
+    "publication-feature": "https://github.com/wlambertz/rallyon/issues/215"
+  },
+  "attempts": {
+    "publication-feature": {
+      "payload": {
+        "id": "publication-feature",
+        "title": "Refine a bounded tournament announcement publication and correction feature",
+        "body": "## Problem\n\nResearch in `openspec/changes/issue-212-publication-research/findings.md` identifies a concrete organizer announcement scenario and an unimplemented configuration `publish` operation. Existing authenticated configuration retrieval is not a public announcement contract. The Bommern case is a research example, not an approved product target.\n\n## Scope and acceptance criteria\n\n- Run a separate full feature lifecycle and obtain explicit scope and specification decisions before implementation. Validate the target organizer and chosen audience.\n- Decide announcement content, audience and channel, publication and correction semantics, permissions and handling of stale edits. Separate externally verified event-specific obligations from product decisions and unverified claims.\n- Assess existing API compatibility, data minimization, context ownership, persistence and any migration or integration before choosing a design. Preserve existing contracts unless a break is explicitly approved.\n- Specify observable successful and rejected publication and correction scenarios and a validation approach. Coordinate with #186 and #213; do not assume external federation integration or choose an organizer frontend stack.\n\n## Validation\n\nThe approved feature's lifecycle must define and run applicable service, security and contract checks, including the repository's Maven verify flow for backend changes. This issue does not itself approve a design, production implementation, API break or new dependency.",
+        "depends_on": [],
+        "labels": [
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-10T19:27:26.919441+00:00"
+    }
+  }
+}
