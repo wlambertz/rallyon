@@ -11,7 +11,7 @@ Review the current [findings](findings.md), [charter](charter.md) and independen
 3. Review the unsupported edition, incomplete result, unresolved tie, lot, withdrawal and correction examples. Expected: unsupported or insufficient inputs do not produce an invented authoritative result; proposals are marked separately from verified rule text.
 4. Review ownership, prerequisites, compatibility and the STANDINGS-001/002 trace. Expected: future decisions and impacts are visible without presenting placeholder contexts or candidate requirements as implemented behavior.
 
-No data setup or cleanup is required. Human observations: pending.
+No data setup or cleanup is required. The findings and their limitations were presented in the conversation before the maintainer's acceptance.
 
 ## Limitations
 
@@ -19,7 +19,7 @@ The event announcement, pool format, overrides, future amendments and several ex
 
 ## G8 human decision
 
-Pending explicit acceptance of the reviewed findings.
+The maintainer accepted the presented findings with the exact response “Akzeptiert” in the conversation on 2026-11-10. Lifecycle recording remains subject to a current G5 check.
 
 ## Separate merge decision
 
