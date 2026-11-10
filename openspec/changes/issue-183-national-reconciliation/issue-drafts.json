@@ -1,0 +1,21 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "publication-scenario",
+      "title": "Research an organizer tournament publication scenario",
+      "body": "## Problem\n\nIssue #183's reconciliation identifies that the existing configuration service's `publish` operation is unimplemented. Existing venue and registration-window fields do not establish a complete publication or prospectus workflow. See `openspec/changes/issue-183-national-reconciliation/findings.md`, N1-03 and N1-07–14, and reuse #186's related compliance research.\n\n## Scope and acceptance criteria\n\n- Select a concrete club tournament and describe the organizer's publication and correction needs, actor permissions and observable outcomes.\n- Identify existing configuration inputs and the bounded gap; verify any mandatory fields against applicable primary national or regional sources and record unresolved rules.\n- Assess compatibility, ownership, dependencies and whether a separately approved feature is justified. Do not implement production behavior.\n\n## Validation\n\nRun `npm run format:check`, check new untracked Markdown with Prettier, and validate any OpenSpec change using the repository-pinned OpenSpec CLI. Independently review source claims and file scope. A feature follow-up requires its own lifecycle.",
+      "depends_on": [],
+      "labels": ["documentation", "enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    },
+    {
+      "id": "registration-scenario",
+      "title": "Research tournament registration and invitation workflows",
+      "body": "## Problem\n\nIssue #183's reconciliation identifies unimplemented configuration service operations for opening and closing registration and locking configuration. Roster IDs and the `INVITE_ONLY` enum do not establish participant registration or invitation workflows. See `openspec/changes/issue-183-national-reconciliation/findings.md`, N1-02, N1-15 and N2-04, N2-07, N2-11; reuse #186 where applicable.\n\n## Scope and acceptance criteria\n\n- Select a concrete club tournament and identify actors, participant identity ownership, entry and correction needs, invitation behavior and observable registration states.\n- Map existing configuration capabilities and unimplemented operations; separate verified national rules from unresolved policy and authority questions.\n- Assess context boundaries, permissions, compatibility, dependencies and whether a separately approved feature is justified. Do not implement production behavior.\n\n## Validation\n\nRun `npm run format:check`, check new untracked Markdown with Prettier, and validate any OpenSpec change using the repository-pinned OpenSpec CLI. Independently review source claims and file scope. A feature follow-up requires its own lifecycle.",
+      "depends_on": [],
+      "labels": ["documentation", "enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    }
+  ]
+}

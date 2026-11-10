@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex",
+  "makers": [
+    "codex"
+  ],
+  "mode": "research",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "go",
+      "source": "Conversation: user approved displayed issue 183 research charter with go",
+      "lens": null,
+      "timestamp": "2026-11-10T15:23:32.367241+00:00",
+      "fingerprint": "547f6d84c5e8a1d3bdf5c4a60167cd681fca6c5f09c9df3943c455866c796f02",
+      "manifest": {
+        "openspec/changes/issue-183-national-reconciliation/charter.md": "63d9bd3cf7b206cb12cc619411bc63cd93176246080835d227b7dd8327a266dc"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-10T15:28:49.038375+00:00",
+      "evidence": "openspec/changes/issue-183-national-reconciliation/evidence/g5-check-delta.md",
+      "evidence_hash": "e2a5ea415c521c17a37308de2652a83b1478a0f1e64aa89c999b7b9c5443f9d7",
+      "fingerprint": "bed998634da2ae539fc76ceb9b7911be89ef518a0d213bae73a556827cba70e3",
+      "snapshot_size": 1251,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "akzeptiert",
+      "source": "Conversation: user accepted displayed issue 183 findings and limitations",
+      "lens": null,
+      "timestamp": "2026-11-10T15:30:35.094091+00:00",
+      "fingerprint": "d1d4ec96b6d10627e8081ddcf56cd936e32f39b24c26e4cdfd483cde88a38a45",
+      "snapshot_size": 1252,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "436877d522b5adc22f456d46f8d7fdfb8b35e1ada5f546937db1b5ee544c2f49"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "Conversation: user approved displayed exact issue 183 follow-up payload",
+      "lens": null,
+      "timestamp": "2026-11-10T15:32:15.817004+00:00",
+      "fingerprint": "58f83b4d9b1738bb2095541a03c76e78fb5324fc05c4487d202febf105fbc9e5",
+      "manifest": {
+        "openspec/changes/issue-183-national-reconciliation/charter.md": "63d9bd3cf7b206cb12cc619411bc63cd93176246080835d227b7dd8327a266dc",
+        "openspec/changes/issue-183-national-reconciliation/findings.md": "05552aea56ccca3343d28347a78e12f4411e256ee35427c57c661114ac7778ca",
+        "openspec/changes/issue-183-national-reconciliation/issue-drafts.json": "9ae58a8a206c9da42005444a9f1e3904b62f16f39afab4003240c1627f6be058"
+      },
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "436877d522b5adc22f456d46f8d7fdfb8b35e1ada5f546937db1b5ee544c2f49",
+        "G8:None": "b80fef067e92a035f4d135e5d38afe94b3339fff2b43757d5c4d866f7934bb64"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "commit, push, merge",
+      "source": "Conversation: user approved commit, push and merge of accepted issue 183 research",
+      "lens": null,
+      "timestamp": "2026-11-10T15:34:17.421605+00:00",
+      "fingerprint": "d1d4ec96b6d10627e8081ddcf56cd936e32f39b24c26e4cdfd483cde88a38a45",
+      "snapshot_size": 1252,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "436877d522b5adc22f456d46f8d7fdfb8b35e1ada5f546937db1b5ee544c2f49",
+        "G8:None": "b80fef067e92a035f4d135e5d38afe94b3339fff2b43757d5c4d866f7934bb64",
+        "G4:None": "0057591cd8727f0301c25e4bd2f809ffc680015a8208bbf298cf3fdf32ae9c9b"
+      }
+    }
+  ],
+  "issues": {
+    "publication-scenario": "https://github.com/wlambertz/rallyon/issues/212",
+    "registration-scenario": "https://github.com/wlambertz/rallyon/issues/213"
+  },
+  "attempts": {
+    "publication-scenario": {
+      "payload": {
+        "id": "publication-scenario",
+        "title": "Research an organizer tournament publication scenario",
+        "body": "## Problem\n\nIssue #183's reconciliation identifies that the existing configuration service's `publish` operation is unimplemented. Existing venue and registration-window fields do not establish a complete publication or prospectus workflow. See `openspec/changes/issue-183-national-reconciliation/findings.md`, N1-03 and N1-07\u201314, and reuse #186's related compliance research.\n\n## Scope and acceptance criteria\n\n- Select a concrete club tournament and describe the organizer's publication and correction needs, actor permissions and observable outcomes.\n- Identify existing configuration inputs and the bounded gap; verify any mandatory fields against applicable primary national or regional sources and record unresolved rules.\n- Assess compatibility, ownership, dependencies and whether a separately approved feature is justified. Do not implement production behavior.\n\n## Validation\n\nRun `npm run format:check`, check new untracked Markdown with Prettier, and validate any OpenSpec change using the repository-pinned OpenSpec CLI. Independently review source claims and file scope. A feature follow-up requires its own lifecycle.",
+        "depends_on": [],
+        "labels": [
+          "documentation",
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-10T15:32:23.461871+00:00"
+    },
+    "registration-scenario": {
+      "payload": {
+        "id": "registration-scenario",
+        "title": "Research tournament registration and invitation workflows",
+        "body": "## Problem\n\nIssue #183's reconciliation identifies unimplemented configuration service operations for opening and closing registration and locking configuration. Roster IDs and the `INVITE_ONLY` enum do not establish participant registration or invitation workflows. See `openspec/changes/issue-183-national-reconciliation/findings.md`, N1-02, N1-15 and N2-04, N2-07, N2-11; reuse #186 where applicable.\n\n## Scope and acceptance criteria\n\n- Select a concrete club tournament and identify actors, participant identity ownership, entry and correction needs, invitation behavior and observable registration states.\n- Map existing configuration capabilities and unimplemented operations; separate verified national rules from unresolved policy and authority questions.\n- Assess context boundaries, permissions, compatibility, dependencies and whether a separately approved feature is justified. Do not implement production behavior.\n\n## Validation\n\nRun `npm run format:check`, check new untracked Markdown with Prettier, and validate any OpenSpec change using the repository-pinned OpenSpec CLI. Independently review source claims and file scope. A feature follow-up requires its own lifecycle.",
+        "depends_on": [],
+        "labels": [
+          "documentation",
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-10T15:32:24.881986+00:00"
+    }
+  }
+}
