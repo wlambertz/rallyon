@@ -88,11 +88,63 @@
         "G8:None": "b80fef067e92a035f4d135e5d38afe94b3339fff2b43757d5c4d866f7934bb64",
         "G4:None": "0057591cd8727f0301c25e4bd2f809ffc680015a8208bbf298cf3fdf32ae9c9b"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-delta-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T14:22:24.253089+00:00",
+      "evidence": "openspec/changes/issue-183-national-reconciliation/evidence/g5-rest-delta.md",
+      "evidence_hash": "75bee23569cacd3bf3ca2680b5476b9876ed7f6fb46f3ea518c2ee939a643172",
+      "fingerprint": "133529df04ef1ae452740094b0e6b32e650c633aa3e5a755b9329fc3b9dd0a4e",
+      "snapshot_size": 1551,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user accepted updated findings and documented limits",
+      "lens": null,
+      "timestamp": "2026-11-11T14:23:03.615130+00:00",
+      "fingerprint": "c194da5d56a8663d1341849d9cc44d2ab098b3ade4781a05a50093917b693439",
+      "snapshot_size": 1552,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "ff45a069b69bcf1333c38a1700bcb4d2a43127979239da3e8aa6f0388c56bc5a"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved the displayed exact rest and scheduling research issue payload",
+      "lens": null,
+      "timestamp": "2026-11-11T14:23:04.097562+00:00",
+      "fingerprint": "230b25619ea37a5664c817e752c14cc751da5076e5192ca4b06ed5ac7d964178",
+      "manifest": {
+        "openspec/changes/issue-183-national-reconciliation/charter.md": "63d9bd3cf7b206cb12cc619411bc63cd93176246080835d227b7dd8327a266dc",
+        "openspec/changes/issue-183-national-reconciliation/findings.md": "e531751f65d316395bd67aa0fd038e8e2572123e1354c9873643203be5e027f2",
+        "openspec/changes/issue-183-national-reconciliation/issue-drafts.json": "de2750a439bf01734c139d6477a5351d6e274ecc94b601b510d61c838d9410dd"
+      },
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "ff45a069b69bcf1333c38a1700bcb4d2a43127979239da3e8aa6f0388c56bc5a",
+        "G8:None": "94ab1396526152a4975505ada03ff799c05a48ef580b56bf6f10855d6d7510f1"
+      }
     }
   ],
   "issues": {
     "publication-scenario": "https://github.com/wlambertz/rallyon/issues/212",
-    "registration-scenario": "https://github.com/wlambertz/rallyon/issues/213"
+    "registration-scenario": "https://github.com/wlambertz/rallyon/issues/213",
+    "rest-and-player-conflicts": "https://github.com/wlambertz/rallyon/issues/228"
   },
   "attempts": {
     "publication-scenario": {
@@ -124,6 +176,17 @@
         "assignees": []
       },
       "timestamp": "2026-11-10T15:32:24.881986+00:00"
+    },
+    "rest-and-player-conflicts": {
+      "payload": {
+        "id": "rest-and-player-conflicts",
+        "title": "Research player rest and scheduling conflicts across disciplines",
+        "body": "## Context\n\nFor a future open invitational tournament with multiple parallel disciplines, the maintainer wants the system to prevent a player from being scheduled in overlapping matches and to allow recovery between matches. A break of approximately **15 minutes is an unverified working guess**, not an established rule or approved default. See #183 and its national-reconciliation inventory, the draw research in #185, and the overlapping rules research in #184.\n\n## Scope\n\n- Select and document a concrete representative event and applicable national or regional authority, competition rules, edition and date. Verify rest requirements against applicable primary sources; distinguish a player's entitlement, mandatory constraints and permitted exceptions. If applicability cannot be established, record it as unresolved.\n- Analyze when rest begins and ends (actual match end, call and next match start), doubles participation, delays, estimated versus actual times, corrections, and any authorized exceptions.\n- Examine how to recognize the same player across entries and disciplines without treating unverified local keys as authoritative identity. Identify how uncertain identity and incomplete match times affect safe conflict prevention.\n- Compare the existing scheduling and participant-field contracts with the desired workflow. Identify feasible options, tradeoffs, dependencies, open questions and a bounded candidate follow-up; reuse existing research and do not prescribe a particular algorithm.\n\n## Acceptance criteria\n\n- Applicable primary sources and their limits are cited, or the relevant rule is explicitly unresolved; the 15-minute guess is not presented as a verified obligation.\n- Examples cover overlapping matches, an insufficient break, a delayed match and a doubles player also entered in another discipline, including uncertainty in identity or times.\n- Findings distinguish current behavior from proposed behavior, identify the decisions needed for rest duration and exceptions, and link relevant existing research and issues.\n- Research changes no production code, tests, migrations, runtime configuration or dependencies. Any implementation requires a separate approved feature lifecycle.\n\n## Validation\n\nUse the research lifecycle, independent claim-to-source and scope review, `npm run format:check`, explicit Prettier checking for new Markdown, and the repository-pinned strict OpenSpec validation where OpenSpec artifacts are changed.",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T14:23:18.689340+00:00"
     }
   }
 }

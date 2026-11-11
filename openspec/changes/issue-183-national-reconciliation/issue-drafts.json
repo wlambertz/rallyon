@@ -16,6 +16,14 @@
       "depends_on": [],
       "labels": ["documentation", "enhancement", "area:tournamentmgmt"],
       "assignees": []
+    },
+    {
+      "id": "rest-and-player-conflicts",
+      "title": "Research player rest and scheduling conflicts across disciplines",
+      "body": "## Context\n\nFor a future open invitational tournament with multiple parallel disciplines, the maintainer wants the system to prevent a player from being scheduled in overlapping matches and to allow recovery between matches. A break of approximately **15 minutes is an unverified working guess**, not an established rule or approved default. See #183 and its national-reconciliation inventory, the draw research in #185, and the overlapping rules research in #184.\n\n## Scope\n\n- Select and document a concrete representative event and applicable national or regional authority, competition rules, edition and date. Verify rest requirements against applicable primary sources; distinguish a player's entitlement, mandatory constraints and permitted exceptions. If applicability cannot be established, record it as unresolved.\n- Analyze when rest begins and ends (actual match end, call and next match start), doubles participation, delays, estimated versus actual times, corrections, and any authorized exceptions.\n- Examine how to recognize the same player across entries and disciplines without treating unverified local keys as authoritative identity. Identify how uncertain identity and incomplete match times affect safe conflict prevention.\n- Compare the existing scheduling and participant-field contracts with the desired workflow. Identify feasible options, tradeoffs, dependencies, open questions and a bounded candidate follow-up; reuse existing research and do not prescribe a particular algorithm.\n\n## Acceptance criteria\n\n- Applicable primary sources and their limits are cited, or the relevant rule is explicitly unresolved; the 15-minute guess is not presented as a verified obligation.\n- Examples cover overlapping matches, an insufficient break, a delayed match and a doubles player also entered in another discipline, including uncertainty in identity or times.\n- Findings distinguish current behavior from proposed behavior, identify the decisions needed for rest duration and exceptions, and link relevant existing research and issues.\n- Research changes no production code, tests, migrations, runtime configuration or dependencies. Any implementation requires a separate approved feature lifecycle.\n\n## Validation\n\nUse the research lifecycle, independent claim-to-source and scope review, `npm run format:check`, explicit Prettier checking for new Markdown, and the repository-pinned strict OpenSpec validation where OpenSpec artifacts are changed.",
+      "depends_on": [],
+      "labels": [],
+      "assignees": []
     }
   ]
 }
