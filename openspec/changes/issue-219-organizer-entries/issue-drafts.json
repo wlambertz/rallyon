@@ -1,0 +1,21 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "entry-book-core",
+      "title": "Implement organizer entry-book domain and persistence",
+      "body": "## Scope\n\nImplement tasks 1.1–1.3 and ENT-001–007 from `openspec/changes/issue-219-organizer-entries/`. Obtain ADR acceptance before implementation. Add creator authority, explicit local player/selection snapshots, entry disposition, intake, active-membership uniqueness, book versions and private audit. Add append-only migration and JPA persistence with a documented transaction strategy. Preserve existing draft, roster, announcement and JWT contracts.\n\n## Acceptance criteria\n\n- Local keys are not presented as verified player/account identities. Singles/doubles membership and every state transition are validated.\n- Intake starts closed; concurrent intake, duplicate membership and competing writes cannot violate the approved invariants. Rejected operations preserve complete data/version.\n- Selection snapshots survive unrelated draft changes; new/corrected selections are consistent. Capacity stays manual; no roster synchronization.\n- PostgreSQL upgrade/concurrency tests and pure rule tests cover ENT-001–007. No new dependency, module or shared IAM change without escalation.\n\n## Validation\n\nRun focused entry tests and record dedicated PostgreSQL migration/concurrency commands. Run the repository backend Maven verify flow and `npm run format:check`. Refs #219.",
+      "depends_on": [],
+      "labels": ["enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    },
+    {
+      "id": "entry-book-api",
+      "title": "Expose creator-only tournament entry management API",
+      "body": "## Scope\n\nAfter entry-book-core, implement tasks 2.1–2.5 and ENT-001–007 from `openspec/changes/issue-219-organizer-entries/`. Expose authenticated entry-book reads, intake control, record creation/correction, disposition and withdrawal. Document unverified local identity, manual capacity, independent snapshots/audit and no automatic draw-roster updates.\n\n## Acceptance criteria\n\n- Only the recorded tournament creator can read or mutate entries; anonymous/foreign actors and foreign entry IDs cannot expose or alter data. Existing JWT and announcement/draft contracts remain intact.\n- Numeric If-Match book versions, error responses, no-store and atomic state behavior match the approved design. No frontend, self-registration, delegation, invitations or external integration.\n- Complete scenario trace, independent G5/G6 and three G7 lenses, local organizer UAT, explicit human acceptance and separate merge approval.\n\n## Validation\n\nRun security/API regressions, dedicated PostgreSQL checks and the repository backend Maven clean verify flow (install IAM if needed), `npm run format:check` and strict OpenSpec validation. Record actual local Keycloak/PostgreSQL UAT observations. Refs #219.",
+      "depends_on": ["entry-book-core"],
+      "labels": ["enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    }
+  ]
+}

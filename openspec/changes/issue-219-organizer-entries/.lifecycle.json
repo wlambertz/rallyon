@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-219",
+  "makers": [
+    "codex-issue-219",
+    "entry-core",
+    "entry-web"
+  ],
+  "mode": "full",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Erlaubt",
+      "source": "user approved presented issue 219 scope",
+      "lens": null,
+      "timestamp": "2026-11-11T10:40:32.726955+00:00",
+      "fingerprint": "f7e6b23bfdc88dc4b7ddd13e6d6ea72e4ab1bf9cefdc301aab68426782e8de88",
+      "manifest": {
+        "openspec/changes/issue-219-organizer-entries/refinement.md": "f9b1a47221732efea07aaa229fd67123dad66c690d5b60667379196f01cedf85"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Ich gebe den Vorschlag frei",
+      "source": "user approved presented issue 219 proposal, specifications, limitations, migration and architecture planning",
+      "lens": null,
+      "timestamp": "2026-11-11T10:43:48.313551+00:00",
+      "fingerprint": "6f907367723ea8321f308dc9837bf5038784c77795cb1e10143ec93a69016a8b",
+      "manifest": {
+        "openspec/changes/issue-219-organizer-entries/refinement.md": "f9b1a47221732efea07aaa229fd67123dad66c690d5b60667379196f01cedf85",
+        "openspec/changes/issue-219-organizer-entries/proposal.md": "5e132231bf4d1b38ca4ed6d4457df636886d9db26f280b98b17bb10e6c8a4055",
+        "openspec/changes/issue-219-organizer-entries/design.md": "9fac09d9d937a0337e7d0646f62237786b9d26f86a34326355856e0c95833786",
+        "openspec/changes/issue-219-organizer-entries/value.md": "7039a631396fa7cfc0b64bb088a37a35f7d1700a0d2cac14b5297d4ebccdd353",
+        "openspec/changes/issue-219-organizer-entries/specs/organizer-tournament-entries/spec.md": "16cb5e1b46ed02c427a88ad700cca373bdff1fb272f5828829a471f7c44b05cb"
+      },
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "entry-value-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T10:45:31.173557+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g3-value.md",
+      "evidence_hash": "28904a1f2e82375f3901436d9490969ed56dcd55e732aa521c6342d66604dad0",
+      "fingerprint": "6f907367723ea8321f308dc9837bf5038784c77795cb1e10143ec93a69016a8b",
+      "manifest": {
+        "openspec/changes/issue-219-organizer-entries/refinement.md": "f9b1a47221732efea07aaa229fd67123dad66c690d5b60667379196f01cedf85",
+        "openspec/changes/issue-219-organizer-entries/proposal.md": "5e132231bf4d1b38ca4ed6d4457df636886d9db26f280b98b17bb10e6c8a4055",
+        "openspec/changes/issue-219-organizer-entries/design.md": "9fac09d9d937a0337e7d0646f62237786b9d26f86a34326355856e0c95833786",
+        "openspec/changes/issue-219-organizer-entries/value.md": "7039a631396fa7cfc0b64bb088a37a35f7d1700a0d2cac14b5297d4ebccdd353",
+        "openspec/changes/issue-219-organizer-entries/specs/organizer-tournament-entries/spec.md": "16cb5e1b46ed02c427a88ad700cca373bdff1fb272f5828829a471f7c44b05cb"
+      },
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Ja",
+      "source": "user approved exact two-issue payload and continued implementation for issue 219",
+      "lens": null,
+      "timestamp": "2026-11-11T10:50:54.129088+00:00",
+      "fingerprint": "081ced3b6b7735881dc8ad8b32b9a82d6faf018a51a438af2896a3e2b2a1d782",
+      "manifest": {
+        "openspec/changes/issue-219-organizer-entries/refinement.md": "f9b1a47221732efea07aaa229fd67123dad66c690d5b60667379196f01cedf85",
+        "openspec/changes/issue-219-organizer-entries/proposal.md": "5e132231bf4d1b38ca4ed6d4457df636886d9db26f280b98b17bb10e6c8a4055",
+        "openspec/changes/issue-219-organizer-entries/design.md": "9fac09d9d937a0337e7d0646f62237786b9d26f86a34326355856e0c95833786",
+        "openspec/changes/issue-219-organizer-entries/value.md": "7039a631396fa7cfc0b64bb088a37a35f7d1700a0d2cac14b5297d4ebccdd353",
+        "openspec/changes/issue-219-organizer-entries/specs/organizer-tournament-entries/spec.md": "16cb5e1b46ed02c427a88ad700cca373bdff1fb272f5828829a471f7c44b05cb",
+        "openspec/changes/issue-219-organizer-entries/tasks.md": "b0a4ba087a1f44e06ee7605132a9089c94306a898e1b8978f6f3973110d0495b",
+        "openspec/changes/issue-219-organizer-entries/issue-drafts.json": "47f192673132565495d3397177580357c60c6c5b20a9aca25abab06d6db2fd64"
+      },
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "entry-implementation-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T11:08:55.694106+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g5-implementation.md",
+      "evidence_hash": "8fb2a21cdca0ace9d85e63c81c17b4398bd38bd86457f5e5b82a7369a722e31c",
+      "fingerprint": "6d941ca2196e3fed0c9e438ec9f20d615ce36952f424a2bd82cbfeb10bbfb613",
+      "snapshot_size": 1436,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "entry-qa",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T11:14:22.258783+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g6-qa.md",
+      "evidence_hash": "064ef18186826c0b642404407db11af1a189a80f512ec1825e29ff28d3b472d8",
+      "fingerprint": "6d941ca2196e3fed0c9e438ec9f20d615ce36952f424a2bd82cbfeb10bbfb613",
+      "snapshot_size": 1436,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274",
+        "G5:None": "b1887008fc1aebf37b4f0c3921d04ea914546a0c940b24967e2e5b39cc046dd5"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "entry-review-arch",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T11:16:27.682077+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g7-architecture.md",
+      "evidence_hash": "99b500dff765d69e1346e10f40b0003c5c5aff93d036e9952efc40e14ccdbdd4",
+      "fingerprint": "6d941ca2196e3fed0c9e438ec9f20d615ce36952f424a2bd82cbfeb10bbfb613",
+      "snapshot_size": 1436,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274",
+        "G5:None": "b1887008fc1aebf37b4f0c3921d04ea914546a0c940b24967e2e5b39cc046dd5",
+        "G6:None": "b6145594e2185e19e1a0bd0a989b1bdd97133db79497ec0d0033e0f66eb78d51"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "entry-review-correct",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T11:16:30.507084+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g7-correctness.md",
+      "evidence_hash": "2d3af4879634b82c0e1e844d104a3149c24fdcc221a4411fd10c24c8fbc69168",
+      "fingerprint": "6d941ca2196e3fed0c9e438ec9f20d615ce36952f424a2bd82cbfeb10bbfb613",
+      "snapshot_size": 1436,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274",
+        "G5:None": "b1887008fc1aebf37b4f0c3921d04ea914546a0c940b24967e2e5b39cc046dd5",
+        "G6:None": "b6145594e2185e19e1a0bd0a989b1bdd97133db79497ec0d0033e0f66eb78d51"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "entry-review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T11:16:33.348936+00:00",
+      "evidence": "openspec/changes/issue-219-organizer-entries/evidence/g7-tests.md",
+      "evidence_hash": "a8c6f9f7c3a1435973446dcd6bf96a0781c9b9fce1ef66dbf1b67ea1511eb02d",
+      "fingerprint": "6d941ca2196e3fed0c9e438ec9f20d615ce36952f424a2bd82cbfeb10bbfb613",
+      "snapshot_size": 1436,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274",
+        "G5:None": "b1887008fc1aebf37b4f0c3921d04ea914546a0c940b24967e2e5b39cc046dd5",
+        "G6:None": "b6145594e2185e19e1a0bd0a989b1bdd97133db79497ec0d0033e0f66eb78d51"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja to the explicit acceptance question linking issue-219-organizer-entries/uat.md",
+      "lens": null,
+      "timestamp": "2026-11-11T11:45:44.119613+00:00",
+      "fingerprint": "99ea1b70f59acdf0a4a8423bccea7a9a09c97770bd09d2e5947ff30663053a6b",
+      "snapshot_size": 1437,
+      "dependencies": {
+        "G1:None": "dce09900356c4dedca137b9b9875392c15d9462554d45d9b618b4f3b15f0c75c",
+        "G2:None": "bf385236f314cd357b95aaa3cb6f5082897f7d28ef186c35b8ea5622752aa0f3",
+        "G3:None": "3b34ca0f02af5aaf13da58184699605b7ffa8e73b91cc6a5c40e962c53e99193",
+        "G4:None": "5a2c293f7da9d9c12c2733022abaa40aa97ed4d2758309189ef4ec4061c6f274",
+        "G5:None": "b1887008fc1aebf37b4f0c3921d04ea914546a0c940b24967e2e5b39cc046dd5",
+        "G6:None": "b6145594e2185e19e1a0bd0a989b1bdd97133db79497ec0d0033e0f66eb78d51",
+        "G7:architecture": "a730905ca882755b5069e5bf2565334c5803afee95639ecf67a70cc77282f24d",
+        "G7:correctness": "c25b3c32636559efa6617b2b8db5b3edf3145381b2a2a325a225c53c428094f7",
+        "G7:tests": "fdfcdf550f8296c780a5a7e37590a457f54b426606e20b305d699081554353cd"
+      }
+    }
+  ],
+  "issues": {
+    "entry-book-core": "https://github.com/wlambertz/rallyon/issues/221",
+    "entry-book-api": "https://github.com/wlambertz/rallyon/issues/222"
+  },
+  "attempts": {
+    "entry-book-core": {
+      "payload": {
+        "id": "entry-book-core",
+        "title": "Implement organizer entry-book domain and persistence",
+        "body": "## Scope\n\nImplement tasks 1.1\u20131.3 and ENT-001\u2013007 from `openspec/changes/issue-219-organizer-entries/`. Obtain ADR acceptance before implementation. Add creator authority, explicit local player/selection snapshots, entry disposition, intake, active-membership uniqueness, book versions and private audit. Add append-only migration and JPA persistence with a documented transaction strategy. Preserve existing draft, roster, announcement and JWT contracts.\n\n## Acceptance criteria\n\n- Local keys are not presented as verified player/account identities. Singles/doubles membership and every state transition are validated.\n- Intake starts closed; concurrent intake, duplicate membership and competing writes cannot violate the approved invariants. Rejected operations preserve complete data/version.\n- Selection snapshots survive unrelated draft changes; new/corrected selections are consistent. Capacity stays manual; no roster synchronization.\n- PostgreSQL upgrade/concurrency tests and pure rule tests cover ENT-001\u2013007. No new dependency, module or shared IAM change without escalation.\n\n## Validation\n\nRun focused entry tests and record dedicated PostgreSQL migration/concurrency commands. Run the repository backend Maven verify flow and `npm run format:check`. Refs #219.",
+        "depends_on": [],
+        "labels": [
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T10:50:57.313938+00:00"
+    },
+    "entry-book-api": {
+      "payload": {
+        "id": "entry-book-api",
+        "title": "Expose creator-only tournament entry management API",
+        "body": "## Scope\n\nAfter entry-book-core, implement tasks 2.1\u20132.5 and ENT-001\u2013007 from `openspec/changes/issue-219-organizer-entries/`. Expose authenticated entry-book reads, intake control, record creation/correction, disposition and withdrawal. Document unverified local identity, manual capacity, independent snapshots/audit and no automatic draw-roster updates.\n\n## Acceptance criteria\n\n- Only the recorded tournament creator can read or mutate entries; anonymous/foreign actors and foreign entry IDs cannot expose or alter data. Existing JWT and announcement/draft contracts remain intact.\n- Numeric If-Match book versions, error responses, no-store and atomic state behavior match the approved design. No frontend, self-registration, delegation, invitations or external integration.\n- Complete scenario trace, independent G5/G6 and three G7 lenses, local organizer UAT, explicit human acceptance and separate merge approval.\n\n## Validation\n\nRun security/API regressions, dedicated PostgreSQL checks and the repository backend Maven clean verify flow (install IAM if needed), `npm run format:check` and strict OpenSpec validation. Record actual local Keycloak/PostgreSQL UAT observations. Refs #219.",
+        "depends_on": [
+          "entry-book-core"
+        ],
+        "labels": [
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T10:50:59.085861+00:00"
+    }
+  }
+}
