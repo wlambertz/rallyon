@@ -501,6 +501,153 @@
         "G7:correctness": "a9d1967ac21497160d9b9b11718d71968efc44429ef053c73ce6967e33035b4b",
         "G7:tests": "85a2afed3cbbceebdc9f1413ca7b677f37eaceedc92bf37a2eda65bd3140cf57"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T10:07:36.452877+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-committed-delta.md",
+      "evidence_hash": "2861f57a19e882dbddd35a4fbcc65061eea04f25867c4fcd38cadd941118f43c",
+      "fingerprint": "223e482875e97269cbd57690213acbccd2fe61640a4d3025da7673cbd75417d3",
+      "snapshot_size": 1322,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "qa-g6",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T10:08:32.772516+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g6-committed-delta.md",
+      "evidence_hash": "bc25aeb771ca1c1ec3b79882532989638203862f2806e07184b64d2a3e83d0e3",
+      "fingerprint": "223e482875e97269cbd57690213acbccd2fe61640a4d3025da7673cbd75417d3",
+      "snapshot_size": 1322,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-architecture",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T10:09:54.998090+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-architecture-committed.md",
+      "evidence_hash": "978ffd1d0bb9f8d024b2af46c313b38232fd357fd6fb19602798aa4a556323d6",
+      "fingerprint": "223e482875e97269cbd57690213acbccd2fe61640a4d3025da7673cbd75417d3",
+      "snapshot_size": 1322,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610",
+        "G6:None": "a610bc7c5362fe5529fc2ae4211254409923ed0eec7d90e7e347bfd0b94b4f24"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-security",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T10:09:58.099624+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-security-committed.md",
+      "evidence_hash": "001f147560f17dc670db51e4b5f765c9dd4c642dafbf2d478dfa82a1f518250a",
+      "fingerprint": "223e482875e97269cbd57690213acbccd2fe61640a4d3025da7673cbd75417d3",
+      "snapshot_size": 1322,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610",
+        "G6:None": "a610bc7c5362fe5529fc2ae4211254409923ed0eec7d90e7e347bfd0b94b4f24"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T10:10:00.888438+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-tests-committed.md",
+      "evidence_hash": "03a9bf5da0c61b55a748334ce502fa0d5833af8d5f6ba31171bcc3817a7a75e1",
+      "fingerprint": "223e482875e97269cbd57690213acbccd2fe61640a4d3025da7673cbd75417d3",
+      "snapshot_size": 1322,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610",
+        "G6:None": "a610bc7c5362fe5529fc2ae4211254409923ed0eec7d90e7e347bfd0b94b4f24"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "prior explicit UAT acceptance; unchanged production and UAT content confirmed after index-only refresh",
+      "lens": null,
+      "timestamp": "2026-11-11T10:10:05.236288+00:00",
+      "fingerprint": "6aae3fe0fae0b428d49fcef8a12332b5b5a86b312b6a1e2fdd8abe40e40cbf82",
+      "snapshot_size": 1323,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610",
+        "G6:None": "a610bc7c5362fe5529fc2ae4211254409923ed0eec7d90e7e347bfd0b94b4f24",
+        "G7:architecture": "d42d7fce2c5fce5a4a71d7c5adc87167101ce02668141cc7b664b5ee7f63994a",
+        "G7:correctness": "7f22c8c4d8b59e99ef3e2a6ac181f7775d49e625c6af595a6535f0f7758ea329",
+        "G7:tests": "e59ebba613723f820ce85978eb7edf98c4c7db5a3e3cb194c0ab5ff0acafe3af"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "push und pr erlaubnis. monitor dann den fortschritt. bei erfolgreichem ergebnis mergen",
+      "source": "user conditional merge authorization; all PR 218 checks completed successfully",
+      "lens": null,
+      "timestamp": "2026-11-11T10:10:09.421967+00:00",
+      "fingerprint": "6aae3fe0fae0b428d49fcef8a12332b5b5a86b312b6a1e2fdd8abe40e40cbf82",
+      "snapshot_size": 1323,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "101aa0b5804ff5283a7fc9889aa9fe3859657b91670baffbb04182a98bf86610",
+        "G6:None": "a610bc7c5362fe5529fc2ae4211254409923ed0eec7d90e7e347bfd0b94b4f24",
+        "G7:architecture": "d42d7fce2c5fce5a4a71d7c5adc87167101ce02668141cc7b664b5ee7f63994a",
+        "G7:correctness": "7f22c8c4d8b59e99ef3e2a6ac181f7775d49e625c6af595a6535f0f7758ea329",
+        "G7:tests": "e59ebba613723f820ce85978eb7edf98c4c7db5a3e3cb194c0ab5ff0acafe3af",
+        "G8:None": "ab026009049d5d76c77148d0b30788a1ae4c670b2b45fc2c88d8136c8ecfe37c"
+      }
     }
   ],
   "issues": {
