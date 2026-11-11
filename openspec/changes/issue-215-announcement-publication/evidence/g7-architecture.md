@@ -1,0 +1,12 @@
+# G7 architecture and domain review
+
+Verdict: **changes requested**. Checker: `review_architecture`, 2026-11-11. Review baseline: HEAD `0e30558b1ef86d79b89d135216a412c59f03eb93` plus the uncommitted announcement change. The sorted SHA-256 inventory of production `*Announcement*.kt` files hashed to `1675fd06636ac34f00145aba4d3032f792eaa5da0f2e497a97ee6bc32c0189fa`; lifecycle evidence must bind the complete current snapshot.
+
+| Severity | Location | Finding and remedy |
+| --- | --- | --- |
+| Medium | `design.md`, Bounded contexts; `internal/tournament/persistence/JdbcAnnouncementStore.kt` | The approved design explicitly specifies web and **JPA** adapters, but the implementation uses `JdbcTemplate` and SQL. The accepted ADR describes adapters generically and does not record this material implementation tradeoff or the transaction-manager interaction. Reconcile implementation with the approved design, or revise the design/ADR and obtain the required renewed decision before treating this architectural choice as accepted. |
+| Low | `docs/adr/draft-announcement-publication.md`, heading and status | The ADR is marked accepted but still named and titled `draft`; `docs/adr/README.md` specifies numbered chronological names. Record it as a numbered accepted ADR and update references, or explicitly document the intended exception. |
+
+Domain and use-case code remain framework-free; the API does not import internal types. Creator authorization reads the recorded creator, not the mutable organizer ID, and announcement state is independent of the draft. The PostgreSQL key and compare-and-set update support one snapshot and single-version mutation; the independent G5 evidence covers real migration and concurrent service calls. The service transaction wraps authorization and mutation. The public controller projects only announcement content and the security matcher identifies a specific GET route. No public API, JWT or shipped migration was modified; the new migration is append-only.
+
+Reviewed the approved specification and design, ADR, `Announcement*` API/controller/security/domain/use-case/service files, `JdbcAnnouncementStore.kt`, V6 migration, existing security auto-configuration, architecture rules and current G5/G6 delta evidence. This review is architectural and does not replace the separate correctness/security or test lenses. No tests were rerun for this review; rely on the recorded independent G5/G6 runs for their stated scopes and limits.
