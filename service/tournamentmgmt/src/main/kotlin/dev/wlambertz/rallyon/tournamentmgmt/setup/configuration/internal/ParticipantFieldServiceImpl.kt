@@ -18,6 +18,7 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournam
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.FieldMissing
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.FieldObservation
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.domain.FieldVersionConflict
+import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.FieldPreparation
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.ParticipantFieldStore
 import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournament.usecase.ParticipantFieldUseCase
 import java.sql.SQLException
@@ -55,8 +56,10 @@ class ParticipantFieldServiceImpl(
         id: Long, input: ParticipantFieldRequest, version: Long, actor: Long
     ): ParticipantFieldView = execute(write) {
         useCase.prepare(
-            id, input.disciplineId, input.bracketId, input.entryIds,
-            input.sourceTournamentVersion, input.sourceEntryBookVersion, version, actor
+            id, FieldPreparation(
+                input.disciplineId, input.bracketId, input.entryIds,
+                input.sourceTournamentVersion, input.sourceEntryBookVersion
+            ), version, actor
         )
     }
 

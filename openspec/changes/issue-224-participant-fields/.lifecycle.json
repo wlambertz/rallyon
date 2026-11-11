@@ -232,6 +232,108 @@
         "G7:correctness": "0e176f2ee248bd4d43020c95c05aaa36b8ed33c0d1910e85a20e460833435178",
         "G7:tests": "4671ca3fbde2f0b67e20d945530ff4104d3241add2a4ef2847ae2efa4f52828f"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "field-implementation-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:36:20.497940+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g5-sonar-delta.md",
+      "evidence_hash": "ca641f3d51c10c59e2fabfcb1b717ade729a98e65278720cc85a83d98b57b5bb",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "sonar-qa",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:37:53.395106+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g6-sonar-delta.md",
+      "evidence_hash": "664d6b01856069a9c20f99200197d40ee0c4c24ed20d4b4fbc9f9c7e9a8a7bcf",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "sonar-arch",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T13:39:11.167493+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-architecture.md",
+      "evidence_hash": "e8436a1063e7382d3cf70133bd211c2093cb9b0bba6e2757de43dba52446af31",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-correct",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T13:39:14.004481+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-correctness.md",
+      "evidence_hash": "4705cbb0fb2343232ea05733fc3dddc32ad82820b1e00793094d2ad967aeedd1",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T13:39:17.259044+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-tests.md",
+      "evidence_hash": "f8a98e6012ebe6b36b646077b7b1486d970afd1e7e37ebaf6509d0d45b6029dc",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
     }
   ],
   "issues": {

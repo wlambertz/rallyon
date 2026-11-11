@@ -12,6 +12,14 @@ import dev.wlambertz.rallyon.tournamentmgmt.setup.configuration.internal.tournam
 import java.time.Clock
 import java.time.temporal.ChronoUnit
 
+data class FieldPreparation(
+    val disciplineId: Long?,
+    val bracketId: String?,
+    val entryIds: List<Long?>?,
+    val sourceTournamentVersion: Long?,
+    val sourceEntryBookVersion: Long?
+)
+
 interface ParticipantFieldStore {
     fun tournament(id: Long): FieldTournament?
     fun book(id: Long): EntryBook
@@ -32,14 +40,11 @@ class ParticipantFieldUseCase(private val store: ParticipantFieldStore, private 
 
     fun prepare(
         id: Long,
-        disciplineId: Long?,
-        bracketId: String?,
-        entryIds: List<Long?>?,
-        sourceTournamentVersion: Long?,
-        sourceEntryBookVersion: Long?,
+        input: FieldPreparation,
         expectedFieldVersion: Long,
         actor: Long
     ): FieldObservation {
+        val (disciplineId, bracketId, entryIds, sourceTournamentVersion, sourceEntryBookVersion) = input
         val tournament = authorize(id, actor)
         val key = key(id, disciplineId, bracketId)
         require(

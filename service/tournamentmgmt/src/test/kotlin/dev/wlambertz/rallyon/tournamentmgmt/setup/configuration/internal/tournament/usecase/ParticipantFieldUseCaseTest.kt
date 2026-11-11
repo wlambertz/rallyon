@@ -221,7 +221,7 @@ class ParticipantFieldUseCaseTest {
         ids: List<Long?>?, disciplineId: Long? = 1, bracketId: String? = "A",
         version: Long = store.fields[FieldKey(1, disciplineId ?: 0, bracketId ?: "")]?.version ?: 0,
         draft: Long? = store.tournamentVersion, book: Long? = store.book.version, actor: Long = 7
-    ) = service.prepare(1, disciplineId, bracketId, ids, draft, book, version, actor)
+    ) = service.prepare(1, FieldPreparation(disciplineId, bracketId, ids, draft, book), version, actor)
 
     private fun entry(
         id: Long, player: EntryMember, selection: EntryChoice = choice(), state: EntryDisposition = EntryDisposition.ACCEPTED

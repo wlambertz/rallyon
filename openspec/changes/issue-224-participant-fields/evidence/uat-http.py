@@ -6,8 +6,10 @@ import subprocess
 import urllib.error
 import urllib.parse
 import urllib.request
+from pathlib import Path
 
 BASE = "http://127.0.0.1:18080"
+RO_BINARY = Path(__file__).resolve().parents[4] / "bin" / "ro"
 
 
 def token(user):
@@ -15,7 +17,7 @@ def token(user):
                RALLYON_CLIENT_ID="rallyon-api", RALLYON_REALM="rallyon",
                RALLYON_CLIENT_SECRET="rallyon-uat-only", RALLYON_DEV_USERNAME=user,
                RALLYON_DEV_PASSWORD="rallyon-uat-password")
-    result = subprocess.run(["/private/tmp/rallyon-224-ro", "auth", "token", "--format", "raw"],
+    result = subprocess.run([str(RO_BINARY), "auth", "token", "--format", "raw"],
                             env=env, capture_output=True, text=True, check=True)
     return result.stdout.strip()
 
@@ -50,6 +52,8 @@ tid = draft["id"]
 config = f"/api/tournamentmgmt/config/{tid}"
 entry_path = f"/api/tournamentmgmt/entries/{tid}"
 field_path = f"/api/tournamentmgmt/participant-fields/{tid}"
+draft_path = config + "/draft"
+intake_path = entry_path + "/intake"
 bracket_a = {"id": {"value": "A"}, "displayName": "Initial A", "format": "ROUND_ROBIN",
              "capacity": {"amount": 1, "unit": "PARTICIPANTS"}}
 draft["disciplines"] = [
@@ -58,7 +62,7 @@ draft["disciplines"] = [
     {"id": 2, "category": "DOUBLES", "displayName": "Doubles", "teamSize": "DOUBLES",
      "brackets": [{"id": {"value": "B"}, "displayName": "Doubles B", "format": "ROUND_ROBIN", "capacity": None}]},
 ]
-call("PUT", config + "/draft", 200, creator, draft, draft["version"])
+call("PUT", draft_path, 200, creator, draft, draft["version"])
 
 
 def book():
@@ -89,7 +93,7 @@ def single(name="Alpha"):
     return {"disciplineId": 1, "bracketId": "A", "players": [{"key": "p1", "displayName": name}]}
 
 
-call("PUT", entry_path + "/intake", 200, creator, {"open": True}, 0)
+call("PUT", intake_path, 200, creator, {"open": True}, 0)
 inputs = [single(), {"disciplineId": 1, "bracketId": "A", "players": [{"key": "p2", "displayName": "Beta"}]},
           {"disciplineId": 2, "bracketId": "B", "players": [{"key": "p1", "displayName": "Alpha"},
                                                              {"key": "p3", "displayName": "Gamma"}]}]
@@ -99,7 +103,7 @@ for item in inputs:
     eid = created["records"][-1]["id"]
     ids.append(eid)
     call("PUT", entry_path + f"/records/{eid}/decision", 200, creator, {"state": "ACCEPTED"}, book()["version"])
-call("PUT", entry_path + "/intake", 200, creator, {"open": False}, book()["version"])
+call("PUT", intake_path, 200, creator, {"open": False}, book()["version"])
 
 empty = field()
 assert not empty["prepared"] and empty["version"] == 0 and empty["freshness"] == "UNPREPARED"
@@ -130,7 +134,7 @@ prepare([999999], 1, 400)
 assert field() == prepared
 print("2. Einzel- und Doppelfeld explizit vorbereitet; geschlossene Aufnahme und Kapazität 1 bleiben manuell; stale/ungültige Auswahl ohne Änderung.")
 
-call("PUT", entry_path + "/intake", 200, creator, {"open": True}, book()["version"])
+call("PUT", intake_path, 200, creator, {"open": True}, book()["version"])
 corrected = call("PUT", entry_path + f"/records/{ids[0]}", 200, creator, single("Alpha corrected"), book()["version"])
 assert corrected["records"][0]["state"] == "RECEIVED"
 outdated = field()
@@ -139,7 +143,7 @@ prepare(ids[:2], 1, 409)
 assert saved(field()) == saved(prepared)
 call("PUT", entry_path + f"/records/{ids[0]}/decision", 200, creator, {"state": "ACCEPTED"}, book()["version"])
 assert saved(field()) == saved(prepared)
-call("PUT", entry_path + "/intake", 200, creator, {"open": False}, book()["version"])
+call("PUT", intake_path, 200, creator, {"open": False}, book()["version"])
 reconciled = prepare(ids[:2], 1)
 assert reconciled["version"] == 2 and reconciled["freshness"] == "CURRENT"
 assert reconciled["units"][0]["players"][0]["displayName"] == "Alpha corrected"
@@ -149,7 +153,7 @@ print("3. Meldung korrigiert/erneut angenommen: Feld bleibt erhalten und OUTDATE
 
 current = call("GET", config, 200, creator)
 current["disciplines"][0]["brackets"][0]["displayName"] = "Renamed A"
-call("PUT", config + "/draft", 200, creator, current, current["version"])
+call("PUT", draft_path, 200, creator, current, current["version"])
 renamed = prepare([ids[0]], 2)
 assert renamed["selection"]["bracketName"] == "Renamed A"
 assert renamed["units"][0]["selection"]["bracketName"] == "Initial A"
@@ -157,7 +161,7 @@ current = call("GET", config, 200, creator)
 current["disciplines"][0]["brackets"] = []
 if current.get("bracketRosters"):
     current["bracketRosters"].pop("A", None)
-call("PUT", config + "/draft", 200, creator, current, current["version"])
+call("PUT", draft_path, 200, creator, current, current["version"])
 assert saved(field()) == saved(renamed) and field()["freshness"] == "OUTDATED"
 prepare([], 3, 400)
 assert saved(field()) == saved(renamed)
@@ -165,7 +169,7 @@ current = call("GET", config, 200, creator)
 restored = copy.deepcopy(bracket_a)
 restored["displayName"] = "Restored A"
 current["disciplines"][0]["brackets"] = [restored]
-call("PUT", config + "/draft", 200, creator, current, current["version"])
+call("PUT", draft_path, 200, creator, current, current["version"])
 cleared = prepare([], 3)
 assert cleared["version"] == 4 and not cleared["units"] and cleared["freshness"] == "CURRENT"
 identical = prepare([], 4)

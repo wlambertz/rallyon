@@ -10,7 +10,7 @@ The existing repository `ro auth token --format raw` workflow supplied actual si
 
 ## Exact actions and observations
 
-The runnable [HTTP walkthrough](evidence/uat-http.py) contains exact requests, assertions and local-only test values. Run `python3 openspec/changes/issue-224-participant-fields/evidence/uat-http.py` with those isolated components and the temporary CLI available. Each run creates a fresh private tournament; it must not be redirected at a production environment.
+The runnable [HTTP walkthrough](evidence/uat-http.py) contains exact requests, assertions and local-only test values. Run `python3 openspec/changes/issue-224-participant-fields/evidence/uat-http.py` with those isolated components and the repository CLI available (build the unchanged CLI with `cd tools/cli/ro && go build -o ../../../bin/ro .`). Each run creates a fresh private tournament; it must not be redirected at a production environment.
 
 | Organizer action | Expected observable result | Actual observation |
 | --- | --- | --- |
@@ -31,4 +31,12 @@ Cleanup: stop the task-owned local service and both task-owned containers after 
 
 ## Human decisions
 
-**G8 acceptance: accepted.** The user replied **“ja”** in this chat to the explicit acceptance question linking these documented results. The actual quote and source are recorded through the lifecycle helper. Merge requires a separate explicit approval of the final reviewed revision. No commit, push, PR or merge is claimed by this UAT record.
+**Original revision G8 acceptance: accepted.** The user replied **“ja”** in this chat to the explicit acceptance question linking these documented results. The actual quote and source are recorded through the lifecycle helper. Merge requires a separate explicit approval of the final reviewed revision. No commit, push, PR or merge is claimed by this UAT record.
+
+## PR 227 Sonar correction walkthrough
+
+Rerun on 2026-11-11 after fresh G5, G6 and all three G7 delta checks, using the four-file reviewed delta SHA-256 `ae2d96e77f6c9a619756032ed75897e21ae7d1110b4539bddd3b8a6938aa5635` against `f837f47`. The corrected script executed the unchanged CLI from repository `bin/ro`, with signed tokens captured privately. All four scenario groups above **passed again**, including malformed input/privacy, manual capacity, correction/reacceptance, explicit reconciliation, removal/restoration, clearing and unchanged other-field contents. Actual result: tournament **1**, singles field version **5**, doubles version **1**.
+
+Environment: Java 25 verified service JAR on localhost:18080, the existing local Keycloak on localhost:18081, and fresh synthetic database `rallyon_field227_sonar_uat` in PostgreSQL on localhost:54739. The script final output retains the original database label `rallyon_field224_uat`; the service JDBC configuration, not that report text, selects the actual fresh database named here. No production environment or shared IAM change was involved. Cleanup stops only the task-owned service and containers and preserves isolated data.
+
+**Corrected revision G8 acceptance: pending.** The earlier quote “ja” accepted the original revision and is not reused for changed source. This successful agent-run walkthrough supplies evidence for a renewed human decision; merge remains a separate explicit decision.

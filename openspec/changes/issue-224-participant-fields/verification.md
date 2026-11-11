@@ -29,8 +29,12 @@ The first compile exposed a Kotlin `field` backing-field-name collision in the f
 
 The distinct source-overlap phases **do force** commit ordering: a test-only dynamic proxy delegates a real `ParticipantFieldStore.book` read, then pauses via latches after the transaction snapshot exists. Another thread commits a real entry withdrawal and draft change before preparation resumes. The response retains the earlier consistent selection/versions; the next read is OUTDATED with identical saved content. A separate read pauses after source observation while another transaction changes sources and replaces the field; the paused read equals the complete earlier view, while a later read sees the new field version. No production test hook was added.
 
-MockMvc uses a mocked service/JWT decoder; service-level PostgreSQL tests do not prove actual authenticated HTTP. Real Keycloak UAT remains pending after independent G5/G6/G7. No load/throughput claim, historical full-revision reconstruction, verified identity or automatic admission guarantee is made.
+MockMvc uses a mocked service/JWT decoder; service-level PostgreSQL tests do not prove actual authenticated HTTP. The separately documented Keycloak walkthrough supplies authenticated HTTP evidence. No load/throughput claim, historical full-revision reconstruction, verified identity or automatic admission guarantee is made.
 
 ## Independent gates
 
-Pending fresh independent implementation and QA checks, three review lenses and human UAT acceptance. Maker results do not certify gates. Accepted #185 research artifacts are preserved in this worktree alongside their separate lifecycle; they introduce no runtime behavior.
+Original implementation, QA and three review lenses passed; original human UAT acceptance is documented separately. Maker results do not certify gates. The PR 227 Sonar correction has fresh independent [implementation](evidence/g5-sonar-delta.md) and [QA](evidence/g6-sonar-delta.md) evidence; current review and UAT decisions are recorded separately. Accepted #185 research artifacts are preserved in this worktree alongside their separate lifecycle; they introduce no runtime behavior.
+
+## PR 227 Sonar correction validation
+
+Full `clean verify` after the four-file correction passed **149 tests, zero failures/errors, three existing unrelated optional skips** on Java 25. Both real PostgreSQL suites executed against fresh `rallyon_field227_sonar` and `rallyon_entry227_sonar` databases on localhost:54739, using the same isolated test credentials and mutation opt-ins described above. Log: `/private/tmp/rallyon-227-sonar-verify.log`. Independent delta QA reran **27 pure/controller tests with zero failures/errors/skips**. Root formatting, strict OpenSpec validation, Python AST parsing and patch-whitespace checks passed. The unchanged ignored CLI was built at repository `bin/ro` for the corrected walkthrough. See [remediation evidence](evidence/sonar-remediation.md).
