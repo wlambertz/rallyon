@@ -145,6 +145,43 @@ Finish or switch the local session explicitly:
 python3 .agents/skills/feature-lifecycle/scripts/lifecycle.py --change improve-draft-feedback deactivate
 ```
 
+## Workflow token efficiency
+
+The repository review found lifecycle-specific controls in the [feature-lifecycle skill](../.agents/skills/feature-lifecycle/SKILL.md#token-budget), compact helper status/snapshot storage, and shared instruction adapters. Keep these. The gap was guidance for the rest of development: discovery, implementation, validation and resuming work. Root `AGENTS.md` now supplies that guidance to every agent. The opportunities below are inferred from workflow instructions; no session usage dataset was supplied, so they are not measured cost rankings or savings claims.
+
+| Stage | Source of avoidable consumption | Working practice |
+| --- | --- | --- |
+| Intake and discovery | Loading every skill, wiki page or architecture document | Select the owning area first; search paths and headings, then read the applicable guidance and sections. Follow dependencies when needed for correctness. |
+| Refinement and specification | Repeating the same scope, requirements and rationale across chat and artifacts | Keep each decision in its canonical artifact; link it elsewhere. Display complete artifacts where human approval requires them. |
+| Implementation | Repeated repository-wide searches and full-file dumps | Search the owning subtree first; read the relevant functions, callers and tests. Expand scope when evidence crosses a boundary. |
+| Validation | Feeding successful build logs into context or repeating unchanged checks | Save verbose output to a temporary log; inspect the exit status and summary. On failure, inspect diagnostics and the relevant report. Repeat after relevant inputs change. |
+| Independent checks | Every checker rediscovering the repo or inheriting the full conversation | Provide a bounded brief with raw evidence and paths; use the lifecycle's independent review lenses and delta rechecks. |
+| UAT and delivery | Rewriting specifications and test evidence in each handoff | Give scenarios, observable outcomes, findings and evidence links. Preserve explicit UAT and merge decisions. |
+| Resume and maintenance | Reading old transcripts, lifecycle JSON or all previous reports | Use helper `status`, OpenSpec status and `explain` for stale gates. Read only the pending gate's evidence and changed inputs. |
+
+These practices reduce material entering and leaving model context. They do not authorize skipping required validation, restricting a reviewer from investigating a finding, changing lifecycle tracks solely to save tokens, or summarizing away approval payloads. Temporary logs should remain outside tracked source and must not contain secrets.
+
+### Measuring the result
+
+Compare completed tasks of similar scope and the same lifecycle track before and after adoption. Record one row per task in a local experiment log or existing task evidence; avoid adding a mandatory reporting artifact to every change:
+
+| Task / track | Agent and model | Input / cached input / output tokens | Delegated usage included? | Check runs / review rounds | Outcome / rework |
+| --- | --- | --- | --- | --- | --- |
+| Task reference | Actual configuration | Reported counters, or unavailable | Yes / no / unavailable | Counts and reasons for repeats | Accepted, pending or failed; later fixes |
+
+Use agent-reported counters when available and record their definitions. Cached input may be a subset of total input; do not add it twice. Include all maker/checker sessions without counting delegated totals twice. Keep unavailable counters explicit; file size, line count and tool-call count are context-volume proxies, not token measurements. Compare input and output separately, and keep model/cache differences visible. A smaller model may reduce price without reducing tokens. Do not claim a percentage saving until comparable observations exist; track rework and gate outcomes so a shorter failed run does not look like an improvement.
+
+For a resume or an authorized checker dispatch, use this compact brief and let the recipient open the named sources:
+
+```text
+Objective / gate:
+Approved scope and decision references:
+Changed paths and revision (include uncommitted changes):
+Required source artifacts / applicable rules:
+Checks already run, results and relevant input changes:
+Open findings / next action / report path:
+```
+
 ### Token budget
 
 The lifecycle runs many fresh agents, so most of its cost is context. The skill's [token budget](../.agents/skills/feature-lifecycle/SKILL.md#token-budget) rules apply to every agent:

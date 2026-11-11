@@ -48,6 +48,15 @@
 - Do not clean up unrelated files, generated docs, or placeholders unless the task explicitly asks for it.
 - Preserve existing public APIs, CLI behavior, DB schema compatibility, and Keycloak contract unless the change explicitly authorizes a break.
 
+## Agent Context Efficiency
+
+- Load guidance once per session: root instructions, the owning-area skill and nearest `AGENTS.md`, then only relevant reference sections. Re-read when the source changes or context is lost.
+- Locate files with scoped `rg --files` / `rg -n` before reading bodies. Expand to callers, contracts and tests as needed; avoid dumping whole directories, generated artifacts or historical evidence.
+- Keep verbose build/test output in a temporary log; report the command, exit status and summary, then inspect failure details. Preserve exit status when redirecting output.
+- Reuse passing checks while their relevant source, configuration, dependencies and environment remain unchanged. Run every check required by the Validation Contract before handoff.
+- For authorized delegation, send exact paths, acceptance criteria and required evidence; avoid copying the conversation. Preserve independent checks and all human gates.
+- Resume with a compact handoff: objective, decisions, changed paths, checks and next action. See [workflow analysis and measurement](docs/agent-workflows.md#workflow-token-efficiency).
+
 ## Canonical Commands
 
 - Install root formatting deps: `npm ci`
