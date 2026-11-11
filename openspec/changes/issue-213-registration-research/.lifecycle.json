@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-213",
+  "makers": [
+    "codex-issue-213"
+  ],
+  "mode": "research",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user response approving issue 213 research charter",
+      "lens": null,
+      "timestamp": "2026-11-11T10:20:02.361265+00:00",
+      "fingerprint": "a0974b4d4a960afbef7c363ffbdfe5889c2c252fc6764f2867429b178c975c1b",
+      "manifest": {
+        "openspec/changes/issue-213-registration-research/charter.md": "7994f83f25799d311de741264240b3042b0006681b5a52e37303ef4ec3db40b2"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G5",
+      "actor": "research-213-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T10:24:36.756060+00:00",
+      "evidence": "openspec/changes/issue-213-registration-research/evidence/g5-check-delta.md",
+      "evidence_hash": "b9e5068f82289f4d1d25e1e5bfe78f24e234d890be8079130ac1cdb281402f54",
+      "fingerprint": "6542b9ee3ff21a516d8afa87a284596d59e11db2be09043a81cfb549717e790d",
+      "snapshot_size": 1380,
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Ja",
+      "source": "user response accepting issue 213 findings, recommendation and limitations",
+      "lens": null,
+      "timestamp": "2026-11-11T10:25:39.373157+00:00",
+      "fingerprint": "d67bedbb41760f739b0f68d09f4dd47a49db634577e0d740f5eda19b81906d44",
+      "snapshot_size": 1381,
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9",
+        "G5:None": "dabbb603933c577515765a89b2571391beb3baf575dabbad9fb745c836a89e0c"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Erstellen",
+      "source": "user approved creation of exact organizer-entry-refinement issue payload",
+      "lens": null,
+      "timestamp": "2026-11-11T10:28:12.028483+00:00",
+      "fingerprint": "285a54293dd77058ff882bdcfa7322372eaaf55b4741f99e73ade38630d00f48",
+      "manifest": {
+        "openspec/changes/issue-213-registration-research/charter.md": "7994f83f25799d311de741264240b3042b0006681b5a52e37303ef4ec3db40b2",
+        "openspec/changes/issue-213-registration-research/findings.md": "61b03c68a60f62d92c8b7e6b4b3f06323bf075e8eec98e6209945384818bc173",
+        "openspec/changes/issue-213-registration-research/issue-drafts.json": "f567538be67885680985b556ef9884922e286a3af2aa188fd205a79b623c2d4c"
+      },
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9",
+        "G5:None": "dabbb603933c577515765a89b2571391beb3baf575dabbad9fb745c836a89e0c",
+        "G8:None": "1ed8a2e8f17d7c3c63506dcd3d9c04169f96e72c3cca2f79f635d39d97cb51cf"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "research-213-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T10:31:30.539031+00:00",
+      "evidence": "openspec/changes/issue-213-registration-research/evidence/g5-staged-delta.md",
+      "evidence_hash": "e39efd9f574bb01a4749bdf3f7d457591c2810beabbfeb3b72fb40743885fa49",
+      "fingerprint": "d216d89e4ead34f21970f3ff85db824cd45cf71c695bf1644cec43e4416af6cb",
+      "snapshot_size": 1384,
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Ja",
+      "source": "prior explicit acceptance of unchanged issue 213 findings; staging-only recheck passed",
+      "lens": null,
+      "timestamp": "2026-11-11T10:31:33.560579+00:00",
+      "fingerprint": "3b2f06244857a203ead399ff470ac761685561ef55e3e50001b03c6d2114cfc9",
+      "snapshot_size": 1385,
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9",
+        "G5:None": "3b22f8a5465bf06148b5b6f05b4b484eb4db467ee26bcff0317e6fa69962e476"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Erstellen",
+      "source": "prior explicit approval of unchanged payload; issue 219 already created, no new issue",
+      "lens": null,
+      "timestamp": "2026-11-11T10:31:52.783328+00:00",
+      "fingerprint": "285a54293dd77058ff882bdcfa7322372eaaf55b4741f99e73ade38630d00f48",
+      "manifest": {
+        "openspec/changes/issue-213-registration-research/charter.md": "7994f83f25799d311de741264240b3042b0006681b5a52e37303ef4ec3db40b2",
+        "openspec/changes/issue-213-registration-research/findings.md": "61b03c68a60f62d92c8b7e6b4b3f06323bf075e8eec98e6209945384818bc173",
+        "openspec/changes/issue-213-registration-research/issue-drafts.json": "f567538be67885680985b556ef9884922e286a3af2aa188fd205a79b623c2d4c"
+      },
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9",
+        "G5:None": "3b22f8a5465bf06148b5b6f05b4b484eb4db467ee26bcff0317e6fa69962e476",
+        "G8:None": "cb0841e447b6363f16f129f04d0cba8e7ef025251ff25f8f7064ae330b68711b"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "Schlie\u00dfe 213 ab",
+      "source": "user requested commit PR and completion of accepted issue 213; merge after successful checks",
+      "lens": null,
+      "timestamp": "2026-11-11T10:31:56.566920+00:00",
+      "fingerprint": "3b2f06244857a203ead399ff470ac761685561ef55e3e50001b03c6d2114cfc9",
+      "snapshot_size": 1385,
+      "dependencies": {
+        "G1:None": "34855475e615aa76f42c6d2f4b47f1f3fdda05a3958120e1daf26c3c26435ac9",
+        "G5:None": "3b22f8a5465bf06148b5b6f05b4b484eb4db467ee26bcff0317e6fa69962e476",
+        "G8:None": "cb0841e447b6363f16f129f04d0cba8e7ef025251ff25f8f7064ae330b68711b",
+        "G4:None": "246428390ebd6b16bc3f9436dde13f0f98b7e2730c368e939fcb2c14faf90194"
+      }
+    }
+  ],
+  "issues": {
+    "organizer-entry-refinement": "https://github.com/wlambertz/rallyon/issues/219"
+  },
+  "attempts": {
+    "organizer-entry-refinement": {
+      "payload": {
+        "id": "organizer-entry-refinement",
+        "title": "Refine organizer-managed tournament entries and withdrawals",
+        "body": "## Problem\n\nResearch for #213 in `openspec/changes/issue-213-registration-research/findings.md` distinguishes entry requests, accepted rosters, doubles membership and authenticated identities. Existing configuration IDs and policy enums do not provide a confirmed registration workflow.\n\n## Scope and acceptance criteria\n\n- Run a separate full feature lifecycle. Validate a concrete organizer scenario before implementation.\n- Decide the authorized actor, identity namespace/provenance, singles/doubles membership, minimal entry states, correction and withdrawal behavior, and intake closure. Separate verified rules from product choices.\n- Specify successful and rejected operations, duplicate/capacity handling, concurrent edits and privacy/audit behavior; distinguish an entry from a draw roster and public announcement.\n- Assess current REST/JWT compatibility, context ownership and any migration before selecting a design. Do not assume a Player Management service, external integration, frontend stack, public self-registration, delegation or invitation-token workflow.\n\n## Validation\n\nDefine applicable tests and persona UAT in the approved feature. Backend changes require the repository Maven verify flow; documentation requires `npm run format:check`. Any shared IAM, migration, dependency, module or public-contract change requires explicit lifecycle assessment.\n\nRefs #213.",
+        "depends_on": [],
+        "labels": [
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T10:28:15.455620+00:00"
+    }
+  }
+}
