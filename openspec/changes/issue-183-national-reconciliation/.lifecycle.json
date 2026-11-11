@@ -139,6 +139,22 @@
         "G5:None": "ff45a069b69bcf1333c38a1700bcb4d2a43127979239da3e8aa6f0388c56bc5a",
         "G8:None": "94ab1396526152a4975505ada03ff799c05a48ef580b56bf6f10855d6d7510f1"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-delta-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T14:26:48.215472+00:00",
+      "evidence": "openspec/changes/issue-183-national-reconciliation/evidence/g5-commit-index.md",
+      "evidence_hash": "c41a69ef06c92637fc2ed65304fdb4439fb92b656c92d36399c2981d2e5f27b8",
+      "fingerprint": "fb1ba85cf9bf75d4f5cc53032eb957673b9c483452433d14c62558cc7c2465f3",
+      "snapshot_size": 1551,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5"
+      }
     }
   ],
   "issues": {
