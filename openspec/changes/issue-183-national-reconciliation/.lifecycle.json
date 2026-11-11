@@ -155,6 +155,41 @@
       "dependencies": {
         "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5"
       }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user confirmed acceptance after independent recheck of identical committed content",
+      "lens": null,
+      "timestamp": "2026-11-11T14:30:49.775162+00:00",
+      "fingerprint": "c950868eecb7243d45ba420921a276e656f12725db6da6b1b65b4ed1da7c2e80",
+      "snapshot_size": 1552,
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "521d1032eaa87f975e69a2cdb37905c22832f9d35649ebaa36fae0037a2ebd7f"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved exact rest and scheduling research issue payload, unchanged after index recheck",
+      "lens": null,
+      "timestamp": "2026-11-11T14:30:50.256119+00:00",
+      "fingerprint": "230b25619ea37a5664c817e752c14cc751da5076e5192ca4b06ed5ac7d964178",
+      "manifest": {
+        "openspec/changes/issue-183-national-reconciliation/charter.md": "63d9bd3cf7b206cb12cc619411bc63cd93176246080835d227b7dd8327a266dc",
+        "openspec/changes/issue-183-national-reconciliation/findings.md": "e531751f65d316395bd67aa0fd038e8e2572123e1354c9873643203be5e027f2",
+        "openspec/changes/issue-183-national-reconciliation/issue-drafts.json": "de2750a439bf01734c139d6477a5351d6e274ecc94b601b510d61c838d9410dd"
+      },
+      "dependencies": {
+        "G1:None": "a1abde7cdf7b6fabb11a1ec8d1d0a41374574a3773f015979c0c3df19c4aa3d5",
+        "G5:None": "521d1032eaa87f975e69a2cdb37905c22832f9d35649ebaa36fae0037a2ebd7f",
+        "G8:None": "f3ec615d0918debfb48b4f5ae497767174b1b33b997f7e26bc020296dc086da1"
+      }
     }
   ],
   "issues": {
