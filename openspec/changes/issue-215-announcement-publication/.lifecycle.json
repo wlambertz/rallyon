@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-215",
+  "makers": [
+    "announcement-persistence",
+    "announcement-web",
+    "codex-issue-215"
+  ],
+  "mode": "full",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "user response to G1 scope presentation in conversation",
+      "lens": null,
+      "timestamp": "2026-11-11T07:14:18.270266+00:00",
+      "fingerprint": "79fef4f511720d198f5b1d0e2fe0427fdf11665c50811d391e1d9b0f9e47c166",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ich gebe es frei",
+      "source": "user response to G2 proposal including public read and Flyway migration",
+      "lens": null,
+      "timestamp": "2026-11-11T07:29:17.454298+00:00",
+      "fingerprint": "74a518a589a7da413863d19671b5ca1a7aade84753b3ec4fec49d21ac93accd7",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "ea1914ffdf7c73344720c11e63854dc92a2dbe2a29e3d01eb3442eb3d3784256",
+        "openspec/changes/issue-215-announcement-publication/design.md": "08fd63acacf1a04e8051e66f516d1c7624483cc75f36a889fa7f31a2096b3646",
+        "openspec/changes/issue-215-announcement-publication/value.md": "cdbc97866046054ab8c97cc33a83a885bdc5cda53507ef0a6b61524b3dae04af",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "3d480d2254bd1d430f790dd61b891b2caeca4ea504bf545e63a1967f3715d3e5"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "g3-value",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T07:32:13.396819+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g3-value.md",
+      "evidence_hash": "accce15bacbdd4a2ecb115642ee8716e12871fd366d86b0071f549458050e190",
+      "fingerprint": "74a518a589a7da413863d19671b5ca1a7aade84753b3ec4fec49d21ac93accd7",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "ea1914ffdf7c73344720c11e63854dc92a2dbe2a29e3d01eb3442eb3d3784256",
+        "openspec/changes/issue-215-announcement-publication/design.md": "08fd63acacf1a04e8051e66f516d1c7624483cc75f36a889fa7f31a2096b3646",
+        "openspec/changes/issue-215-announcement-publication/value.md": "cdbc97866046054ab8c97cc33a83a885bdc5cda53507ef0a6b61524b3dae04af",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "3d480d2254bd1d430f790dd61b891b2caeca4ea504bf545e63a1967f3715d3e5"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "9cbce24cbfc674b674a08b29e5d05cd28f7671dc60abc43d204bedd5b019c6c7"
+      }
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "user response to revised G2 specification with independent publication visibility",
+      "lens": null,
+      "timestamp": "2026-11-11T07:41:49.471694+00:00",
+      "fingerprint": "ff1c7c991e2f536d88f4ed0e5288e3a9a485dd5580a84a555ad6ca73dda60d43",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "bcced951b9931689755ac5d3c1b92378c98273037ecdfea5fdf52239daba4ec2",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "bd7f7e1595040abaf5e2f99900a4981a94ac049f25d97350746ad1fd603934ec"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T07:43:35.934428+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g3-value-delta.md",
+      "evidence_hash": "be256a51db76dccdc893a860f796be22dc2be4a5d27d0d884c9338f6947331f0",
+      "fingerprint": "ff1c7c991e2f536d88f4ed0e5288e3a9a485dd5580a84a555ad6ca73dda60d43",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "bcced951b9931689755ac5d3c1b92378c98273037ecdfea5fdf52239daba4ec2",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "bd7f7e1595040abaf5e2f99900a4981a94ac049f25d97350746ad1fd603934ec"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "okay",
+      "source": "user response approving exact issue payload and continued implementation",
+      "lens": null,
+      "timestamp": "2026-11-11T07:47:32.539195+00:00",
+      "fingerprint": "80c3a69c35e6d654b371a505bb07b985bf7abca3113cb31e1660588aa2ec1663",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "bcced951b9931689755ac5d3c1b92378c98273037ecdfea5fdf52239daba4ec2",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "bd7f7e1595040abaf5e2f99900a4981a94ac049f25d97350746ad1fd603934ec",
+        "openspec/changes/issue-215-announcement-publication/tasks.md": "09e940639318c93d38ea49a5696b239e06fb4eea0201cfd907e024ad2792dbd6",
+        "openspec/changes/issue-215-announcement-publication/issue-drafts.json": "ad5df28003b755da1c37780a1b4ec75f4eb6de9191df098ef221e06ba7493cbf"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:10:20.569172+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-implementation.md",
+      "evidence_hash": "5a4a0b3999cfa75b4e0e3fec883920e5613d43a0185f431e50b14e795b4cf72f",
+      "fingerprint": "166f3afe6e43c1ee9458090e2978b36f56662e0f29c74570bd72936e400de033",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:14:24.287622+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-implementation-delta.md",
+      "evidence_hash": "e291c85f82ff147f3b436c9140ddeb2cc98ff32302446082e85cb89a68be84f9",
+      "fingerprint": "10d2b3649ecd7a32952960960766e9648835653d030b00e0ea9fbb6b31e23ce4",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:17:33.104775+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-qa-tests-delta.md",
+      "evidence_hash": "b21339eae2186b2a1c71845449c5855448418a4fb5ccf9b2de32eee310f5a0b7",
+      "fingerprint": "8f783756e02dcd1d367d27f2bfda99be1c2bfa44dd15962415a55b4bbe97390d",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "qa-g6",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:17:40.566302+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g6-qa.md",
+      "evidence_hash": "2a259d4d64d3995050ad2071a9f370c5fdee24d1c1de05a89a5d80488397efb9",
+      "fingerprint": "8f783756e02dcd1d367d27f2bfda99be1c2bfa44dd15962415a55b4bbe97390d",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943",
+        "G5:None": "0313ec50bbf8d045c90a2f8c223657d7838ed10fbf2d795d1cc41a262d9cdb8a"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "qa-g6",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:18:45.845789+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g6-qa-delta.md",
+      "evidence_hash": "a304e9b516424dbbe7bb6bafa651085a6db674f9aa62bb23a73b74eb62ac3dea",
+      "fingerprint": "8f783756e02dcd1d367d27f2bfda99be1c2bfa44dd15962415a55b4bbe97390d",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943",
+        "G5:None": "0313ec50bbf8d045c90a2f8c223657d7838ed10fbf2d795d1cc41a262d9cdb8a"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-architecture",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T08:21:09.175406+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-architecture.md",
+      "evidence_hash": "97c7a5a9b744c0dec7ae85fb3643011e979dcbe8d4651752604e2092fc82ab23",
+      "fingerprint": "8f783756e02dcd1d367d27f2bfda99be1c2bfa44dd15962415a55b4bbe97390d",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943",
+        "G5:None": "0313ec50bbf8d045c90a2f8c223657d7838ed10fbf2d795d1cc41a262d9cdb8a",
+        "G6:None": "d9bdf39ffb8e4877734aed67407b504917dc5fc3baf3e3b6ad10887fe62e155d"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-security",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T08:21:14.112373+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-security.md",
+      "evidence_hash": "ed541e1fd06f5e846c64c0b4b7254872de4cb27a28fa7fce1a3592467ed704ec",
+      "fingerprint": "8f783756e02dcd1d367d27f2bfda99be1c2bfa44dd15962415a55b4bbe97390d",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943",
+        "G5:None": "0313ec50bbf8d045c90a2f8c223657d7838ed10fbf2d795d1cc41a262d9cdb8a",
+        "G6:None": "d9bdf39ffb8e4877734aed67407b504917dc5fc3baf3e3b6ad10887fe62e155d"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:28:11.221317+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-g7-fixes-delta.md",
+      "evidence_hash": "1a0cbde39c11c817995186423ccc44d6e7ac4fa9c1d18bd4998424d2a5b2fe92",
+      "fingerprint": "78ce5e8b4c937cdcc953cea8ee323cd7eaf2b42dbf96333b2d264e8baaf821c3",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "qa-g6",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T08:30:22.862067+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g6-g7-fixes-delta.md",
+      "evidence_hash": "149b7a617ecae7976d183060a45683b56a3303465e9f010116f54c76d1c7a52e",
+      "fingerprint": "78ce5e8b4c937cdcc953cea8ee323cd7eaf2b42dbf96333b2d264e8baaf821c3",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "4107db113bf1506cdd497061609311b771f726c2215668ad4746d81a9b7e56d0",
+        "G3:None": "c19ced9e70dd30b3b9773ca9ffaf5f2300d7569f4d34b660d1bbba329db8adbc",
+        "G4:None": "560655ebc57640eb7ae413fe1993cb6fda28e5e28ba0a331d73857ce7dd7e943",
+        "G5:None": "c2c543dadf274880f3f8a01abb4f0d126d05655e53036646b9eddb4a3f18878e"
+      }
+    },
+    {
+      "gate": "G2",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "stimme zu",
+      "source": "user response approving exact NUL and timestamp bounds in spec and design and renewed G2",
+      "lens": null,
+      "timestamp": "2026-11-11T09:06:34.195211+00:00",
+      "fingerprint": "dc1793b65fe130ddb5a76f86e318abb085ee0050f7bf4a604b38b238e5b912fe",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "9a1b81e67a6c279d38ebcef03daa393a4c568a2cf263a1abd70cc0c63295e0ed",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "c4a60469ac7f827cff278bec37c726a51a53dd96ec19af627e325afcda4dbda1"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T09:07:08.074322+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g3-input-bounds-delta.md",
+      "evidence_hash": "54dac6c6d8eda4c5c64306238f7c720872fbc890d614d38992555b3713ca99db",
+      "fingerprint": "dc1793b65fe130ddb5a76f86e318abb085ee0050f7bf4a604b38b238e5b912fe",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "9a1b81e67a6c279d38ebcef03daa393a4c568a2cf263a1abd70cc0c63295e0ed",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "c4a60469ac7f827cff278bec37c726a51a53dd96ec19af627e325afcda4dbda1"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "user approved continued implementation on existing issue 217 under revised input bounds; no new issue",
+      "lens": null,
+      "timestamp": "2026-11-11T09:26:05.654219+00:00",
+      "fingerprint": "a2870af5d41a6ec335679f1fd4ba43bee830acebbdd7d8117ff019ef93cf8d7a",
+      "manifest": {
+        "openspec/changes/issue-215-announcement-publication/refinement.md": "6216cfb9592b1a84b018d59d3b841851eaf272e31fe827bf342404c7743207a5",
+        "openspec/changes/issue-215-announcement-publication/proposal.md": "5ec2449e56d0f96418551529c10a0402c02bd2819bdc51cf9507c8fb0c89165f",
+        "openspec/changes/issue-215-announcement-publication/design.md": "9a1b81e67a6c279d38ebcef03daa393a4c568a2cf263a1abd70cc0c63295e0ed",
+        "openspec/changes/issue-215-announcement-publication/value.md": "5cd61af808691e1ffc1bf177ae235151e8ebabe6fb569f90ba731f5f961c1313",
+        "openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md": "c4a60469ac7f827cff278bec37c726a51a53dd96ec19af627e325afcda4dbda1",
+        "openspec/changes/issue-215-announcement-publication/tasks.md": "09e940639318c93d38ea49a5696b239e06fb4eea0201cfd907e024ad2792dbd6",
+        "openspec/changes/issue-215-announcement-publication/issue-drafts.json": "ad5df28003b755da1c37780a1b4ec75f4eb6de9191df098ef221e06ba7493cbf"
+      },
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g3-value",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T09:28:42.267550+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g5-approved-bounds-delta.md",
+      "evidence_hash": "0ae4112432c78c2fd1ce78d27ff59d2bdba471309e3050641d8d1e3f7dfd5197",
+      "fingerprint": "1f9057717d0c3443c75fa7f5801dc5744766651e878df750d4b3830cb455baad",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "qa-g6",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T09:33:11.559253+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g6-approved-bounds-delta.md",
+      "evidence_hash": "0cf200e7ccb670d7a14d0fc6f67c5ab6bf8e63999657480ea09648bf0dcb0ab2",
+      "fingerprint": "1f9057717d0c3443c75fa7f5801dc5744766651e878df750d4b3830cb455baad",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "efa7868c48c999e6cd0e682d76bc27202535edd68cb413a35462afaa29a8ace9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-architecture",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T09:35:15.655542+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-architecture-delta.md",
+      "evidence_hash": "5e6ec9b2d18e23f37e59f18b8cb7cf1ce797939d111caa4a4460c5a0eba14d42",
+      "fingerprint": "1f9057717d0c3443c75fa7f5801dc5744766651e878df750d4b3830cb455baad",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "efa7868c48c999e6cd0e682d76bc27202535edd68cb413a35462afaa29a8ace9",
+        "G6:None": "a805b2d07783e87b6a658a254cbb631c2a384ea04e533904155ad76d41148e71"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-security",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T09:35:18.719389+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-security-delta.md",
+      "evidence_hash": "d1d75b3fed276e142035bd5ae3ae931308f50c3320afad1a6de2dd937c475128",
+      "fingerprint": "1f9057717d0c3443c75fa7f5801dc5744766651e878df750d4b3830cb455baad",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "efa7868c48c999e6cd0e682d76bc27202535edd68cb413a35462afaa29a8ace9",
+        "G6:None": "a805b2d07783e87b6a658a254cbb631c2a384ea04e533904155ad76d41148e71"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T09:35:22.009898+00:00",
+      "evidence": "openspec/changes/issue-215-announcement-publication/evidence/g7-tests-delta.md",
+      "evidence_hash": "f1eea88470b410747237fc2a976c6e3df11c18845eebbe2ea384eb77d7dd4761",
+      "fingerprint": "1f9057717d0c3443c75fa7f5801dc5744766651e878df750d4b3830cb455baad",
+      "snapshot_size": 1301,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "efa7868c48c999e6cd0e682d76bc27202535edd68cb413a35462afaa29a8ace9",
+        "G6:None": "a805b2d07783e87b6a658a254cbb631c2a384ea04e533904155ad76d41148e71"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "maintainer",
+      "outcome": "pass",
+      "quote": "freigabe",
+      "source": "user response to four executed local UAT scenarios and G8 acceptance question",
+      "lens": null,
+      "timestamp": "2026-11-11T09:59:37.783350+00:00",
+      "fingerprint": "a305b42492d970fc225f2a4214f1cba5d05d69fad8163aeef01f04119df8b61a",
+      "snapshot_size": 1302,
+      "dependencies": {
+        "G1:None": "3fdd1476f38ca02ec8353273f115743703f01d547edf55a334032df65a017450",
+        "G2:None": "d72502e0b8dbbd8fc563caeb487709def22a26b946ee8503f4d2198ec11cba77",
+        "G3:None": "0eeaacbeec37a48e5487928be59f279bfd81bf9abc475b2c5a41fd82c48e0e84",
+        "G4:None": "7d0676a9349e4b67e4dd9f3a48c6883970e5cb1ad17562c77c5f16686d03a6a4",
+        "G5:None": "efa7868c48c999e6cd0e682d76bc27202535edd68cb413a35462afaa29a8ace9",
+        "G6:None": "a805b2d07783e87b6a658a254cbb631c2a384ea04e533904155ad76d41148e71",
+        "G7:architecture": "46c0f67c5a49b07be927b049313bf1df2c38860c8b48b285b537311fd8b05931",
+        "G7:correctness": "a9d1967ac21497160d9b9b11718d71968efc44429ef053c73ce6967e33035b4b",
+        "G7:tests": "85a2afed3cbbceebdc9f1413ca7b677f37eaceedc92bf37a2eda65bd3140cf57"
+      }
+    }
+  ],
+  "issues": {
+    "announcement-implementation": "https://github.com/wlambertz/rallyon/issues/217"
+  },
+  "attempts": {
+    "announcement-implementation": {
+      "payload": {
+        "id": "announcement-implementation",
+        "title": "Implement creator-controlled tournament announcement publication",
+        "body": "## Problem\n\nIssue #215 refined a bounded announcement workflow. Organizers need to publish and correct explicitly authored tournament information while preventing unauthorized publication, stale writes and disclosure of unrelated configuration.\n\n## Scope and acceptance criteria\n\n- Implement ANN-001\u2013006 in `openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md` and follow its `design.md` and `tasks.md`.\n- Only the authenticated tournament creator can publish, correct, withdraw, explicitly republish or inspect the managed announcement. Validate explicit content, optimistic versions and concurrent writes.\n- Expose only the current published announcement as readable UTF-8 plain text via a narrowly scoped public GET; exclude rosters, unrelated configuration and withdrawn content. A tournament's draft visibility does not change the independent publication state; document that making the tournament private does not withdraw the announcement.\n- Obtain acceptance of an ADR before implementation. Add an append-only Flyway migration, preserve existing REST/JWT contracts, and do not change shared IAM, add a frontend, registration, external integration, module or dependency without separate escalation.\n- Cover success, invalid input, authorization, path/method restrictions, stale and concurrent operations, visibility independence, PostgreSQL migration and public-data minimization with tests and independent review.\n\n## Validation\n\n- `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` when required.\n- `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`.\n- `npm run format:check`.\n- Record actual PostgreSQL migration/concurrency commands and environment; complete lifecycle G5\u2013G8 and obtain separate merge approval.\n\nRefs #215.",
+        "depends_on": [],
+        "labels": [
+          "enhancement",
+          "area:tournamentmgmt"
+        ],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T07:47:58.516652+00:00"
+    }
+  }
+}

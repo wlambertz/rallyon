@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "announcement-implementation",
+      "title": "Implement creator-controlled tournament announcement publication",
+      "body": "## Problem\n\nIssue #215 refined a bounded announcement workflow. Organizers need to publish and correct explicitly authored tournament information while preventing unauthorized publication, stale writes and disclosure of unrelated configuration.\n\n## Scope and acceptance criteria\n\n- Implement ANN-001–006 in `openspec/changes/issue-215-announcement-publication/specs/tournament-announcement-publication/spec.md` and follow its `design.md` and `tasks.md`.\n- Only the authenticated tournament creator can publish, correct, withdraw, explicitly republish or inspect the managed announcement. Validate explicit content, optimistic versions and concurrent writes.\n- Expose only the current published announcement as readable UTF-8 plain text via a narrowly scoped public GET; exclude rosters, unrelated configuration and withdrawn content. A tournament's draft visibility does not change the independent publication state; document that making the tournament private does not withdraw the announcement.\n- Obtain acceptance of an ADR before implementation. Add an append-only Flyway migration, preserve existing REST/JWT contracts, and do not change shared IAM, add a frontend, registration, external integration, module or dependency without separate escalation.\n- Cover success, invalid input, authorization, path/method restrictions, stale and concurrent operations, visibility independence, PostgreSQL migration and public-data minimization with tests and independent review.\n\n## Validation\n\n- `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` when required.\n- `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`.\n- `npm run format:check`.\n- Record actual PostgreSQL migration/concurrency commands and environment; complete lifecycle G5–G8 and obtain separate merge approval.\n\nRefs #215.",
+      "depends_on": [],
+      "labels": ["enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    }
+  ]
+}
