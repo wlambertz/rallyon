@@ -1,5 +1,13 @@
 # Findings: national requirements reconciliation
 
+## Current-state addendum — 2026-11-11
+
+The findings below describe the research baseline and retain its historical conclusions. Since then, publication and registration research issues [#212](https://github.com/wlambertz/rallyon/issues/212) and [#213](https://github.com/wlambertz/rallyon/issues/213) have closed, followed by publication/correction [#215](https://github.com/wlambertz/rallyon/issues/215) and organizer-managed entries and withdrawals [#219](https://github.com/wlambertz/rallyon/issues/219). The named legacy configuration methods remain distinct from these newer workflows; their limitations do not establish that publication or entry workflows are absent.
+
+Draw research [#185](https://github.com/wlambertz/rallyon/issues/185) led to creator-managed participant-field preparation in [#224](https://github.com/wlambertz/rallyon/issues/224), merged with #225 and #226 in [PR #227](https://github.com/wlambertz/rallyon/pull/227). The [participant-field documentation](../../../service/tournamentmgmt/docs/participant-fields.md) describes the private, versioned selection of accepted entries. It does not establish a draw or resolve cross-discipline player identity.
+
+The maintainer has selected an open invitational tournament with parallel disciplines, group play followed by knockout, and prevention of overlapping matches as a future product direction. A roughly 15-minute break is an **unverified guess**, not a rule or approved default. The additional issue draft proposes bounded research into rest and scheduling conflicts, including applicable primary sources and identity uncertainty. It does not authorize implementation or replace the open questions in #184 and #186.
+
 ## Answer and recommendation
 
 RallyOn has useful configuration inputs, but the reference describes much more than the behavior demonstrated by those inputs. Prioritize a bounded organizer publication scenario and an entry/registration scenario for further refinement; use the completed standings research before deciding on a separate feature. Choose a real competition and applicable rule edition before adopting any numerical rule. Persona value and effort below are hypotheses, not a committed roadmap.
@@ -37,7 +45,7 @@ The [separate register](../requirements-reconciliation/open-questions-and-unveri
 
 ## Proposed follow-ups
 
-The accompanying exact draft payload proposes two bounded analysis issues for the confirmed publication and registration operation gaps. These are recommendations for review, not accepted feature work. #203 is completed; #184–#186 already cover overlapping rule-source research and must be reused. No separate issue is proposed for other provisional clusters until their product scope is established. A later implementation requires its own feature lifecycle, including any API, migration or module decision.
+The original draft payload proposed two bounded analysis issues for the publication and registration operation gaps; these became #212 and #213. The current payload also contains the separately approved rest and scheduling research draft described in the dated addendum. #203 is completed; #184 and #186 cover overlapping rule-source research and must be reused. A later implementation requires its own feature lifecycle, including any API, migration or module decision.
 
 ## G5 independent verification
 

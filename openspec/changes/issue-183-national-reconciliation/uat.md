@@ -20,7 +20,11 @@ Many source claims are explicitly skipped because a target event, primary source
 
 ## G8 human decision
 
-The maintainer accepted the presented findings and limitations with the exact response “akzeptiert” in the conversation on 2026-11-10. The lifecycle record binds this decision to the current reviewed snapshot.
+The maintainer accepted the then-presented findings and limitations with the exact response “akzeptiert” in the conversation on 2026-11-10. The lifecycle record binds this decision to the snapshot reviewed at that time.
+
+## Subsequent delta requiring review
+
+The 2026-11-11 addendum to findings records the closed publication, entry and participant-field follow-ups and the selected future product direction. The issue payload adds a research draft for player rest and scheduling conflicts. Review the addendum against the linked issues and participant-field documentation, and check that the roughly 15-minute interval is an unverified guess, not a rule. The previous acceptance above does not cover this delta. A new independent G5 delta check and explicit human acceptance of the revised findings are required.
 
 ## Separate merge decision
 
