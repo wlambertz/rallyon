@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "organizer-entry-refinement",
+      "title": "Refine organizer-managed tournament entries and withdrawals",
+      "body": "## Problem\n\nResearch for #213 in `openspec/changes/issue-213-registration-research/findings.md` distinguishes entry requests, accepted rosters, doubles membership and authenticated identities. Existing configuration IDs and policy enums do not provide a confirmed registration workflow.\n\n## Scope and acceptance criteria\n\n- Run a separate full feature lifecycle. Validate a concrete organizer scenario before implementation.\n- Decide the authorized actor, identity namespace/provenance, singles/doubles membership, minimal entry states, correction and withdrawal behavior, and intake closure. Separate verified rules from product choices.\n- Specify successful and rejected operations, duplicate/capacity handling, concurrent edits and privacy/audit behavior; distinguish an entry from a draw roster and public announcement.\n- Assess current REST/JWT compatibility, context ownership and any migration before selecting a design. Do not assume a Player Management service, external integration, frontend stack, public self-registration, delegation or invitation-token workflow.\n\n## Validation\n\nDefine applicable tests and persona UAT in the approved feature. Backend changes require the repository Maven verify flow; documentation requires `npm run format:check`. Any shared IAM, migration, dependency, module or public-contract change requires explicit lifecycle assessment.\n\nRefs #213.",
+      "depends_on": [],
+      "labels": ["enhancement", "area:tournamentmgmt"],
+      "assignees": []
+    }
+  ]
+}
