@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-185",
+  "makers": [
+    "codex-issue-185",
+    "draw-code",
+    "draw-inventory"
+  ],
+  "mode": "research",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja to explicit approval of issue-185-draw-structures/charter.md",
+      "lens": null,
+      "timestamp": "2026-11-11T12:17:18.875254+00:00",
+      "fingerprint": "14d3bf272220e39fc3e47644d51820a8fcf8a9f08d163baf7e8bbfd2dbc21bde",
+      "manifest": {
+        "openspec/changes/issue-185-draw-structures/charter.md": "0b69b7e0302d371d64d1110cc9fa5ff3a412bad4bcc19820d554157476d03a11"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G5",
+      "actor": "draw-research-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T12:25:13.800448+00:00",
+      "evidence": "openspec/changes/issue-185-draw-structures/evidence/g5-research.md",
+      "evidence_hash": "021e73c5c5f27406e8926672434b4eba67f817f621bc92c1e91ba99d3a755f7f",
+      "fingerprint": "8291ed79fcd40d3c580204bd532c39cb080d3402ab3838a41273075c2efb4ce1",
+      "snapshot_size": 1474,
+      "dependencies": {
+        "G1:None": "f99125db6cb6965f0cac846835e79c7e247fd43321ee5326c6352ad8595aa110"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja to the explicit acceptance question linking issue-185-draw-structures/uat.md and its reviewed findings and limitations",
+      "lens": null,
+      "timestamp": "2026-11-11T12:26:39.211934+00:00",
+      "fingerprint": "5c25af1090e96bc6112d95cfb25a1b1dbdf7a800fd06a6c674be96b3f4bc8aac",
+      "snapshot_size": 1475,
+      "dependencies": {
+        "G1:None": "f99125db6cb6965f0cac846835e79c7e247fd43321ee5326c6352ad8595aa110",
+        "G5:None": "bd2b7e7339e6a61ac19de0775fd7a142368fbe5eb60d7a0e6a9420b08ca30698"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja approving the displayed exact issue-drafts.json for participant-field creation and beginning its own feature lifecycle",
+      "lens": null,
+      "timestamp": "2026-11-11T12:29:08.130412+00:00",
+      "fingerprint": "ed96532366c8d323b7cae24c74439d5de8cc033f170a49fba9ac6171bb038e08",
+      "manifest": {
+        "openspec/changes/issue-185-draw-structures/charter.md": "0b69b7e0302d371d64d1110cc9fa5ff3a412bad4bcc19820d554157476d03a11",
+        "openspec/changes/issue-185-draw-structures/findings.md": "4774839304628b1b842d333c97b9852ac0ea9ec1f692577c746a2986677fec07",
+        "openspec/changes/issue-185-draw-structures/issue-drafts.json": "f16fc991d23fc0ab07b1cb448383886c986ea1b9d6dd7a335b7358b2ac38cc8a"
+      },
+      "dependencies": {
+        "G1:None": "f99125db6cb6965f0cac846835e79c7e247fd43321ee5326c6352ad8595aa110",
+        "G5:None": "bd2b7e7339e6a61ac19de0775fd7a142368fbe5eb60d7a0e6a9420b08ca30698",
+        "G8:None": "478ab88ba7bdd39dffd3294d8abeb13d64ac4bbbf2c6c72ff7e6fba19a164847"
+      }
+    }
+  ],
+  "issues": {
+    "participant-field": "https://github.com/wlambertz/rallyon/issues/224"
+  },
+  "attempts": {
+    "participant-field": {
+      "payload": {
+        "id": "participant-field",
+        "title": "Refine creator-managed participant fields from accepted entries",
+        "body": "## Context\n\nResearch #185 recommends an explicit private participant-field boundary before drawing. See openspec/changes/issue-185-draw-structures/findings.md and code-reconciliation.md. The merged #219 entry book retains local string player keys and explicit pairs; legacy rosters use numeric references, so acceptance must not silently become roster membership.\n\n## Scope\n\nRun a full feature lifecycle to refine and, only after its explicit approvals, implement creator-managed participant-field preparation for one bracket from deliberately selected ACCEPTED entry snapshots. Choose local playing-unit identity, source/field revisions, configuration compatibility, duplicate and manual capacity policy, authority/privacy and correction/withdrawal reconciliation. Preserve member snapshots and provenance without fabricating global player/team IDs or changing existing entry/draft behavior. Obtain an ADR for ownership and persistence/transaction decisions; assess any additive migration.\n\n## Acceptance criteria\n\n- Approved requirements distinguish an entry, a prepared participant field and a future draw, with explicit singles/doubles membership and local unverified identity.\n- The creator deliberately prepares a private field from current accepted entries for a compatible bracket; invalid/stale/foreign requests preserve the prior state and do not disclose private data.\n- Source revisions, saved member/selection snapshots and field revisions have an explicit consistency contract, including correction, withdrawal and draft-edit reconciliation.\n- Existing entry acceptance does not gain automatic synchronization side effects; no string keys are cast/hashed into legacy numeric roster IDs.\n- Architecture, migration, privacy/retention and backward-compatibility decisions are reviewed before implementation; checks trace all scenarios and include local authenticated UAT.\n\n## Exclusions\n\nNo draw generator, seeding/ranking automation, result/standings engine, automatic capacity admission, federation integration, verified player directory, frontend stack or public participant publication. Selecting a later format and its rule edition remains separate work.\n\nDepends on completed #219. The research recommendation is not implementation approval; this follow-up must pass its own full lifecycle.",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T12:29:13.190694+00:00"
+    }
+  }
+}

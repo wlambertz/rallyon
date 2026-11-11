@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "participant-field",
+      "title": "Refine creator-managed participant fields from accepted entries",
+      "body": "## Context\n\nResearch #185 recommends an explicit private participant-field boundary before drawing. See openspec/changes/issue-185-draw-structures/findings.md and code-reconciliation.md. The merged #219 entry book retains local string player keys and explicit pairs; legacy rosters use numeric references, so acceptance must not silently become roster membership.\n\n## Scope\n\nRun a full feature lifecycle to refine and, only after its explicit approvals, implement creator-managed participant-field preparation for one bracket from deliberately selected ACCEPTED entry snapshots. Choose local playing-unit identity, source/field revisions, configuration compatibility, duplicate and manual capacity policy, authority/privacy and correction/withdrawal reconciliation. Preserve member snapshots and provenance without fabricating global player/team IDs or changing existing entry/draft behavior. Obtain an ADR for ownership and persistence/transaction decisions; assess any additive migration.\n\n## Acceptance criteria\n\n- Approved requirements distinguish an entry, a prepared participant field and a future draw, with explicit singles/doubles membership and local unverified identity.\n- The creator deliberately prepares a private field from current accepted entries for a compatible bracket; invalid/stale/foreign requests preserve the prior state and do not disclose private data.\n- Source revisions, saved member/selection snapshots and field revisions have an explicit consistency contract, including correction, withdrawal and draft-edit reconciliation.\n- Existing entry acceptance does not gain automatic synchronization side effects; no string keys are cast/hashed into legacy numeric roster IDs.\n- Architecture, migration, privacy/retention and backward-compatibility decisions are reviewed before implementation; checks trace all scenarios and include local authenticated UAT.\n\n## Exclusions\n\nNo draw generator, seeding/ranking automation, result/standings engine, automatic capacity admission, federation integration, verified player directory, frontend stack or public participant publication. Selecting a later format and its rule edition remains separate work.\n\nDepends on completed #219. The research recommendation is not implementation approval; this follow-up must pass its own full lifecycle.",
+      "depends_on": [],
+      "labels": [],
+      "assignees": []
+    }
+  ]
+}
