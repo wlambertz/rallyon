@@ -1,0 +1,459 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-224",
+  "makers": [
+    "codex-issue-224",
+    "field-core",
+    "field-web"
+  ],
+  "mode": "full",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja approving the displayed issue-224-participant-fields/refinement.md scope",
+      "lens": null,
+      "timestamp": "2026-11-11T12:31:35.535701+00:00",
+      "fingerprint": "672a921d392fbaf83d19139d2c670da7485a2ef6fea3619747ebd88654130469",
+      "manifest": {
+        "openspec/changes/issue-224-participant-fields/refinement.md": "1f77e746594d22aa4719fa18a34abda3ec623c6473fbfef37845a732c265642e"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "Go",
+      "source": "Current chat: Go approving the displayed requirements, design/validation approach and value package for issue224",
+      "lens": null,
+      "timestamp": "2026-11-11T12:38:56.316600+00:00",
+      "fingerprint": "257322a41e7124ef9ecb87b04cf09b962f797cc5f63c0a862f1bc962492d2e9b",
+      "manifest": {
+        "openspec/changes/issue-224-participant-fields/refinement.md": "1f77e746594d22aa4719fa18a34abda3ec623c6473fbfef37845a732c265642e",
+        "openspec/changes/issue-224-participant-fields/proposal.md": "f4ad6cb73358802e8011bd352d58eef233ccd3c3be9854fde58e0fbfc4591b39",
+        "openspec/changes/issue-224-participant-fields/design.md": "1504edeec2821ea8a44441dcf733175361c40e81f39a8fa3156823ae3447bc96",
+        "openspec/changes/issue-224-participant-fields/value.md": "fcc3dd01405602266cf7d81b05285eadeb1e9a4818556edf53f6e541ae4167ed",
+        "openspec/changes/issue-224-participant-fields/specs/organizer-participant-fields/spec.md": "e1cb8f9462abf7623fb5af948f39da904b422bf3d04a8e1c4d27444e2aad5dc6"
+      },
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "field-value-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T12:40:23.666436+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g3-value.md",
+      "evidence_hash": "a8baa3ecf8c45e628581bf89215d21a63c97cc16cc4463cce7443ae5a462614e",
+      "fingerprint": "257322a41e7124ef9ecb87b04cf09b962f797cc5f63c0a862f1bc962492d2e9b",
+      "manifest": {
+        "openspec/changes/issue-224-participant-fields/refinement.md": "1f77e746594d22aa4719fa18a34abda3ec623c6473fbfef37845a732c265642e",
+        "openspec/changes/issue-224-participant-fields/proposal.md": "f4ad6cb73358802e8011bd352d58eef233ccd3c3be9854fde58e0fbfc4591b39",
+        "openspec/changes/issue-224-participant-fields/design.md": "1504edeec2821ea8a44441dcf733175361c40e81f39a8fa3156823ae3447bc96",
+        "openspec/changes/issue-224-participant-fields/value.md": "fcc3dd01405602266cf7d81b05285eadeb1e9a4818556edf53f6e541ae4167ed",
+        "openspec/changes/issue-224-participant-fields/specs/organizer-participant-fields/spec.md": "e1cb8f9462abf7623fb5af948f39da904b422bf3d04a8e1c4d27444e2aad5dc6"
+      },
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "Ja",
+      "source": "Current chat: Ja approving both exact issue drafts (file SHA256 0c7f17faac63a06ae03fe06f6276fb15a900782a54685361252c911073ed4a15) and continuing implementation",
+      "lens": null,
+      "timestamp": "2026-11-11T12:42:17.983183+00:00",
+      "fingerprint": "88d4edaf27d7e84889e41085fbf6d7fc58fc2851e4b92f4b4715ce3ef2daca68",
+      "manifest": {
+        "openspec/changes/issue-224-participant-fields/refinement.md": "1f77e746594d22aa4719fa18a34abda3ec623c6473fbfef37845a732c265642e",
+        "openspec/changes/issue-224-participant-fields/proposal.md": "f4ad6cb73358802e8011bd352d58eef233ccd3c3be9854fde58e0fbfc4591b39",
+        "openspec/changes/issue-224-participant-fields/design.md": "1504edeec2821ea8a44441dcf733175361c40e81f39a8fa3156823ae3447bc96",
+        "openspec/changes/issue-224-participant-fields/value.md": "fcc3dd01405602266cf7d81b05285eadeb1e9a4818556edf53f6e541ae4167ed",
+        "openspec/changes/issue-224-participant-fields/specs/organizer-participant-fields/spec.md": "e1cb8f9462abf7623fb5af948f39da904b422bf3d04a8e1c4d27444e2aad5dc6",
+        "openspec/changes/issue-224-participant-fields/tasks.md": "9d2148a7b17674723081f019b342a59d366190a8bc4e1bab5c82923fbf971c2d",
+        "openspec/changes/issue-224-participant-fields/issue-drafts.json": "0c7f17faac63a06ae03fe06f6276fb15a900782a54685361252c911073ed4a15"
+      },
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "field-implementation-check",
+      "outcome": "fail",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T12:56:55.945726+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g5-implementation.md",
+      "evidence_hash": "b96ac30c058d110ded4b81550524de9ccce0bf1b899232077874fcd029e94c61",
+      "fingerprint": "5322458a0ef8a410eba1d850d6ddaaba8d88583924440d8229a4460d7d75d104",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "field-implementation-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:02:40.421824+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g5-implementation-delta.md",
+      "evidence_hash": "2a7fe1ee4f04eba8120f94ec054dfa83b9f9e1dff3c5d6ca9da173420d0a7e2e",
+      "fingerprint": "31fffe5df5b49206cc318ff428507fe7113456ebec844ad46ba7239c207ab763",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "field-qa",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:05:49.719760+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g6-qa.md",
+      "evidence_hash": "a30120585399fca9e57f361d850c4f8876b9738fd2a643760b0e19918aca90ea",
+      "fingerprint": "31fffe5df5b49206cc318ff428507fe7113456ebec844ad46ba7239c207ab763",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "18325c9a80a4dd8d8bf0524b01b6238810e299f078ee18e405dd86d627fc70ef"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-arch",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T13:08:12.501809+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-architecture.md",
+      "evidence_hash": "86885669048183a6a0bab9f2543991cfa0c359728d692300b503abeb67a8ba26",
+      "fingerprint": "31fffe5df5b49206cc318ff428507fe7113456ebec844ad46ba7239c207ab763",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "18325c9a80a4dd8d8bf0524b01b6238810e299f078ee18e405dd86d627fc70ef",
+        "G6:None": "f8b78e7e873ac3851bfc058270e58f2c7e983339f5982ebc2b26d50d81aba89a"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-correct",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T13:08:15.754998+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-correctness.md",
+      "evidence_hash": "ef53e62c997c630e523a810996e1631ac572fae6041372e732fc675d98239ec3",
+      "fingerprint": "31fffe5df5b49206cc318ff428507fe7113456ebec844ad46ba7239c207ab763",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "18325c9a80a4dd8d8bf0524b01b6238810e299f078ee18e405dd86d627fc70ef",
+        "G6:None": "f8b78e7e873ac3851bfc058270e58f2c7e983339f5982ebc2b26d50d81aba89a"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T13:08:19.614680+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-tests.md",
+      "evidence_hash": "17ba06dd5ee915a7b69e8e3ef1b7d21559c38746acc79d5be7420e983a5e50fd",
+      "fingerprint": "31fffe5df5b49206cc318ff428507fe7113456ebec844ad46ba7239c207ab763",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "18325c9a80a4dd8d8bf0524b01b6238810e299f078ee18e405dd86d627fc70ef",
+        "G6:None": "f8b78e7e873ac3851bfc058270e58f2c7e983339f5982ebc2b26d50d81aba89a"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Current chat: user reply ja to the explicit UAT acceptance question linking issue-224-participant-fields/uat.md",
+      "lens": null,
+      "timestamp": "2026-11-11T13:15:47.761161+00:00",
+      "fingerprint": "9914917c94fc4985e178ecde0b9e978395b751fddc2215ea8a59e1c443183735",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "18325c9a80a4dd8d8bf0524b01b6238810e299f078ee18e405dd86d627fc70ef",
+        "G6:None": "f8b78e7e873ac3851bfc058270e58f2c7e983339f5982ebc2b26d50d81aba89a",
+        "G7:architecture": "2b484b77e8b268cfd6d95723c9b275356bf071be09ba9d8632a70a017195d629",
+        "G7:correctness": "0e176f2ee248bd4d43020c95c05aaa36b8ed33c0d1910e85a20e460833435178",
+        "G7:tests": "4671ca3fbde2f0b67e20d945530ff4104d3241add2a4ef2847ae2efa4f52828f"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "field-implementation-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:36:20.497940+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g5-sonar-delta.md",
+      "evidence_hash": "ca641f3d51c10c59e2fabfcb1b717ade729a98e65278720cc85a83d98b57b5bb",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "sonar-qa",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T13:37:53.395106+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g6-sonar-delta.md",
+      "evidence_hash": "664d6b01856069a9c20f99200197d40ee0c4c24ed20d4b4fbc9f9c7e9a8a7bcf",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "sonar-arch",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-11T13:39:11.167493+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-architecture.md",
+      "evidence_hash": "e8436a1063e7382d3cf70133bd211c2093cb9b0bba6e2757de43dba52446af31",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-correct",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-11T13:39:14.004481+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-correctness.md",
+      "evidence_hash": "4705cbb0fb2343232ea05733fc3dddc32ad82820b1e00793094d2ad967aeedd1",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "field-review-tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-11T13:39:17.259044+00:00",
+      "evidence": "openspec/changes/issue-224-participant-fields/evidence/g7-sonar-tests.md",
+      "evidence_hash": "f8a98e6012ebe6b36b646077b7b1486d970afd1e7e37ebaf6509d0d45b6029dc",
+      "fingerprint": "f043369970d010d2e017da598d629e2e6bfdb761ea9ab7df3cd10906883ddae4",
+      "snapshot_size": 1522,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "akzeptiere",
+      "source": "Chat: acceptance of repeated HTTP walkthrough for reviewed PR 227 revision 073bd8c",
+      "lens": null,
+      "timestamp": "2026-11-11T13:45:26.801753+00:00",
+      "fingerprint": "65b7973b0ee235409cc306b04aa19363e7663af0c275217aa758901ad5e6e266",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "merge",
+      "source": "Chat: explicit PR 227 merge instruction, followed by required current UAT acceptance",
+      "lens": null,
+      "timestamp": "2026-11-11T13:45:27.816869+00:00",
+      "fingerprint": "65b7973b0ee235409cc306b04aa19363e7663af0c275217aa758901ad5e6e266",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981",
+        "G8:None": "8e18020e2b7bc6b801f7efb7e89f4e6e28e41fd34ed8a8556414374b24861cb5"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "akzeptiere",
+      "source": "Chat: acceptance of repeated HTTP walkthrough for reviewed PR 227 revision 073bd8c, recorded in uat.md",
+      "lens": null,
+      "timestamp": "2026-11-11T13:46:07.997387+00:00",
+      "fingerprint": "330984aca30b610525b0cbf56b6d812bec464865694a6d97269ef6066c193041",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "merge",
+      "source": "Chat: explicit PR 227 merge instruction; current UAT explicitly accepted subsequently",
+      "lens": null,
+      "timestamp": "2026-11-11T13:46:08.993527+00:00",
+      "fingerprint": "330984aca30b610525b0cbf56b6d812bec464865694a6d97269ef6066c193041",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981",
+        "G8:None": "9169ef29da5c2431443b532e13251ab4eb607c5df211e781cc8efd500ee2fcab"
+      }
+    }
+  ],
+  "issues": {
+    "participant-field-core": "https://github.com/wlambertz/rallyon/issues/225",
+    "participant-field-api": "https://github.com/wlambertz/rallyon/issues/226"
+  },
+  "attempts": {
+    "participant-field-core": {
+      "payload": {
+        "id": "participant-field-core",
+        "title": "Implement versioned participant-field snapshots and persistence",
+        "body": "## Context\n\nParent #224; accepted #185 research identifies the deliberate field-preparation gap after merged #219. Implement the approved openspec/changes/issue-224-participant-fields/ requirements PF-001\u2013006 and core tasks 1.1\u20131.4 only after G4 authorization.\n\n## Scope and acceptance criteria\n\n- Record the approved ADR for ownership in setup.configuration, tournament-local identity, source/field revisions, latest-content/minimal-audit retention and independent snapshot transactions before coding.\n- Prepare/replace one bracket field from explicit ACCEPTED entries; support empty and one-unit fields, retain single/pair members, original entry and current selection provenance, canonical entry-ID ordering, and no global roster-ID fabrication.\n- Require creator authority plus expected field/draft/book versions. Virtual-zero reads and rejected first writes create no storage. Preserve full prior/winning state and audit on invalid/stale/concurrent operations.\n- Expose conservative CURRENT/OUTDATED state from source-version equality without automatic source/field synchronization; preserve saved content after source withdrawal or bracket removal. Document that sources are current at the transaction snapshot and may change before commit.\n- Add the next append-only migration (currently V8), field ownership/uniqueness constraints and atomic latest-content/audit/version writes; no existing migration, source table behavior or roster contract changes.\n\n## Validation\n\nRun ./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml '-Dtest=*ParticipantField*Test' test with nonzero test counts. Use a fresh explicitly opted-in PostgreSQL database for V7 upgrade, first-write/replacement races, full winner comparisons, independent fields and forced source commits between observation and completion. Record actual synchronization/interleavings, complete rollback evidence and no source/legacy side effects. Apply full backend verification in the dependent delivery package.\n\n## Exclusions\n\nNo draw generator, global identity, automatic capacity admission, public output, frontend or source synchronization. Existing entry/draft/announcement/JWT/CLI behavior remains compatible.",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T12:42:21.056348+00:00"
+    },
+    "participant-field-api": {
+      "payload": {
+        "id": "participant-field-api",
+        "title": "Expose creator-only participant-field management and validate workflow",
+        "body": "## Context\n\nParent #224; depends on the participant-field-core draft. Implement PF-001\u2013007 and tasks 2.1\u20132.5 from openspec/changes/issue-224-participant-fields/ after the core and required approvals.\n\n## Scope and acceptance criteria\n\n- Add authenticated creator-only GET/PUT management with existing principal/JWT validation, field If-Match, explicit source versions and query/body bracket selectors. Return private snapshots/provenance, observed sources, freshness, minimal audit and manual-capacity review.\n- Cover UNPREPARED/version0 without writes, saved reads after bracket removal, current-source explicit reconciliation, empty clearing, closed intake and manual capacity. No private data in the broadly readable legacy Tournament DTO.\n- Distinguish documented 400/401/403/404/409 outcomes, sanitize errors and request no caching. Regression-check existing config, entry and announcement behavior.\n- Document unverified local keys, original/current labels, snapshot-time/coarse freshness, latest-only contents and no draw/automatic synchronization.\n- Obtain independent G5/G6, architecture/correctness/tests G7 lenses, real local Keycloak/PostgreSQL UAT, explicit human acceptance and separate merge approval. Stop task-owned test processes/containers afterward.\n\n## Validation\n\nRun focused ParticipantField tests plus existing entry/configuration/announcement security tests; then install IAM if needed and run ./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify. Run npm run format:check and npx -y @fission-ai/openspec@1.14.2 validate issue-224-participant-fields --strict. Record counts, actual PostgreSQL coverage and skips. UAT includes foreign/stale access, source-change OUTDATED reads, explicit replacement, clearing and retained removed-bracket snapshots.\n\n## Exclusions\n\nNo generator/seeding/results, verified registry, waitlist, public participant list, frontend, federation integration or changes to existing REST/JWT/CLI contracts.",
+        "depends_on": [
+          "participant-field-core"
+        ],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T12:42:22.363487+00:00"
+    }
+  }
+}
