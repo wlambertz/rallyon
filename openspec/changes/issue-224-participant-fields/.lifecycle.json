@@ -334,6 +334,96 @@
         "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
         "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9"
       }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "akzeptiere",
+      "source": "Chat: acceptance of repeated HTTP walkthrough for reviewed PR 227 revision 073bd8c",
+      "lens": null,
+      "timestamp": "2026-11-11T13:45:26.801753+00:00",
+      "fingerprint": "65b7973b0ee235409cc306b04aa19363e7663af0c275217aa758901ad5e6e266",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "merge",
+      "source": "Chat: explicit PR 227 merge instruction, followed by required current UAT acceptance",
+      "lens": null,
+      "timestamp": "2026-11-11T13:45:27.816869+00:00",
+      "fingerprint": "65b7973b0ee235409cc306b04aa19363e7663af0c275217aa758901ad5e6e266",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981",
+        "G8:None": "8e18020e2b7bc6b801f7efb7e89f4e6e28e41fd34ed8a8556414374b24861cb5"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "akzeptiere",
+      "source": "Chat: acceptance of repeated HTTP walkthrough for reviewed PR 227 revision 073bd8c, recorded in uat.md",
+      "lens": null,
+      "timestamp": "2026-11-11T13:46:07.997387+00:00",
+      "fingerprint": "330984aca30b610525b0cbf56b6d812bec464865694a6d97269ef6066c193041",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "user",
+      "outcome": "pass",
+      "quote": "merge",
+      "source": "Chat: explicit PR 227 merge instruction; current UAT explicitly accepted subsequently",
+      "lens": null,
+      "timestamp": "2026-11-11T13:46:08.993527+00:00",
+      "fingerprint": "330984aca30b610525b0cbf56b6d812bec464865694a6d97269ef6066c193041",
+      "snapshot_size": 1523,
+      "dependencies": {
+        "G1:None": "23f035fb83ef0499edde5e6746ecc4dcdcbcf8510362af6cfb4f3514966db082",
+        "G2:None": "5e0584afcd8dc50f2883e91d7eb349877bd14d56176aab4b765bdc7e8d58a882",
+        "G3:None": "3b614eda01a182aa15a845ded67a90986cbe6330c0d930506f6b7b89975175b5",
+        "G4:None": "95b64437ad87fb1b1caba10ec4c1a98a9d8d072348658deb1b2e82781b44eb23",
+        "G5:None": "7ce820b7d7c1b874f60e6aba3dddbe9145063947282442fda865176839e0146d",
+        "G6:None": "db94572bb52f21d4aca6cf7d090c86de3acac6c19d7c52630b0e5ce44a4926d9",
+        "G7:architecture": "291dfed01fad576bc5d29127b470e07533ab06a1bf113ad9ffb552f6cbf93fcb",
+        "G7:correctness": "69f8186b779ac910852accd5243b51ffaa05ac951f8301bf3fc8005a97a9e899",
+        "G7:tests": "55acbc8cd16182da995b181a794b974886831d96110eed5a7e820e0da181d981",
+        "G8:None": "9169ef29da5c2431443b532e13251ab4eb607c5df211e781cc8efd500ee2fcab"
+      }
     }
   ],
   "issues": {
