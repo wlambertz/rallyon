@@ -1,0 +1,13 @@
+{
+  "repository": "wlambertz/rallyon",
+  "issues": [
+    {
+      "id": "advisory-domain-assessment",
+      "title": "Implement stateless player scheduling advisory assessment",
+      "body": "## Context\n\nPart of #230. Implement the approved internal Tournament Management assessment described in `openspec/changes/player-scheduling-advisory/` for supplied match, player, timing and rule facts. This domain increment has no caller or organizer interface; integration is future work.\n\n## Requirements and acceptance criteria\n\n- **Assess player overlap from supplied facts:** identify confirmed players in overlapping matches, including confirmed doubles membership; label overlaps based on estimates or proposals as potential and handle adjacent intervals correctly.\n- **Assess recovery using a selected rule:** compare actual match end to actual or proposed next start using a caller-supplied duration and authority, edition and applicability reference. Do not infer applicability, waivers, defaults or call-as-start.\n- **Represent uncertainty without declaring safety:** report uncertain or missing identity, team membership, times or applicable rule; reject or report invalid or contradictory inputs, never silently normalize them.\n- **Reassess changed facts without enforcing scheduling:** assess the supplied snapshot without persistent state or schedule mutation, and reflect delays and corrections on a new request. All findings are advisory.\n- Cover the scenarios in the approved OpenSpec delta with meaningful domain tests. Preserve existing REST, JWT, CLI and schema contracts; no frontend, new dependencies or new module. Escalate if these boundaries cannot be maintained.\n\n## Validation\n\nRun `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` if shared artifacts are needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`, `npm run format:check`, explicit Prettier checking of new Markdown, and `npx -y @fission-ai/openspec@1.14.2 validate player-scheduling-advisory --strict`. Record independent checks and follow the lifecycle through UAT and separate merge approval.",
+      "depends_on": [],
+      "labels": [],
+      "assignees": []
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex",
+  "makers": [
+    "codex"
+  ],
+  "mode": "full",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved displayed issue 230 feature refinement",
+      "lens": null,
+      "timestamp": "2026-11-11T16:06:34.843664+00:00",
+      "fingerprint": "77780c8f1eb20ffa75ed29cb09466c808f637ea3e776f1b73aab92f2c5fe5bde",
+      "manifest": {
+        "openspec/changes/player-scheduling-advisory/refinement.md": "8d83b145c2728e0f4c79e0a9a0e7f57bd6eea7760ea37d3b79b23067d56da629"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G2",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved displayed advisory specification design and value evidence",
+      "lens": null,
+      "timestamp": "2026-11-11T16:09:58.789145+00:00",
+      "fingerprint": "c90718a941bda3c35364a3414857e01b513659b969a0c6ac2d31764bb0a0c02a",
+      "manifest": {
+        "openspec/changes/player-scheduling-advisory/refinement.md": "8d83b145c2728e0f4c79e0a9a0e7f57bd6eea7760ea37d3b79b23067d56da629",
+        "openspec/changes/player-scheduling-advisory/proposal.md": "044fbb505ddefc9874975bb32707a7b41540a2ecd4a8b2afe1bee071b071d5ba",
+        "openspec/changes/player-scheduling-advisory/design.md": "f44ad7607c1819f6cab8f87393ab284d61dc1b4ba417b5a831c56fd9633c5d20",
+        "openspec/changes/player-scheduling-advisory/value.md": "219b91168f00013a4fef55515776de2da1814c4547f9e4144f4866b1a4c1c923",
+        "openspec/changes/player-scheduling-advisory/specs/player-scheduling-advisory/spec.md": "801e4136bef7e4ccd9f5c004f31cb5ef5d486968da85921645e3b8f0a1e144e6"
+      },
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa"
+      }
+    },
+    {
+      "gate": "G2",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved revised domain-only scope and lower value assessment after G3 challenge",
+      "lens": null,
+      "timestamp": "2026-11-11T16:11:44.611942+00:00",
+      "fingerprint": "6f7aeefbd4b15b37300b2b77ca3dd6e235a33275767f73e9eea349a30d10f005",
+      "manifest": {
+        "openspec/changes/player-scheduling-advisory/refinement.md": "8d83b145c2728e0f4c79e0a9a0e7f57bd6eea7760ea37d3b79b23067d56da629",
+        "openspec/changes/player-scheduling-advisory/proposal.md": "044fbb505ddefc9874975bb32707a7b41540a2ecd4a8b2afe1bee071b071d5ba",
+        "openspec/changes/player-scheduling-advisory/design.md": "f0a8bd7b9b7eaae49b402e1e4033bfaebc9049da945da2a6d7bcbced70c295e7",
+        "openspec/changes/player-scheduling-advisory/value.md": "9579502b781a27d3b6623fa241c4fd66a9e6442496f2c2b68431973269c39857",
+        "openspec/changes/player-scheduling-advisory/specs/player-scheduling-advisory/spec.md": "f10e44f9cc19fe5711763755668bc2b86573f241229a3ad805fe2d60d2355cda"
+      },
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa"
+      }
+    },
+    {
+      "gate": "G3",
+      "actor": "value-check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-11T16:12:09.913673+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/g3-delta.md",
+      "evidence_hash": "fe9581bb1c352422958171006d31c470a64c4e846e8962ef0ed2bed8ed0d1e0c",
+      "fingerprint": "6f7aeefbd4b15b37300b2b77ca3dd6e235a33275767f73e9eea349a30d10f005",
+      "manifest": {
+        "openspec/changes/player-scheduling-advisory/refinement.md": "8d83b145c2728e0f4c79e0a9a0e7f57bd6eea7760ea37d3b79b23067d56da629",
+        "openspec/changes/player-scheduling-advisory/proposal.md": "044fbb505ddefc9874975bb32707a7b41540a2ecd4a8b2afe1bee071b071d5ba",
+        "openspec/changes/player-scheduling-advisory/design.md": "f0a8bd7b9b7eaae49b402e1e4033bfaebc9049da945da2a6d7bcbced70c295e7",
+        "openspec/changes/player-scheduling-advisory/value.md": "9579502b781a27d3b6623fa241c4fd66a9e6442496f2c2b68431973269c39857",
+        "openspec/changes/player-scheduling-advisory/specs/player-scheduling-advisory/spec.md": "f10e44f9cc19fe5711763755668bc2b86573f241229a3ad805fe2d60d2355cda"
+      },
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff"
+      }
+    },
+    {
+      "gate": "G4",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved exact child issue payload and continued implementation",
+      "lens": null,
+      "timestamp": "2026-11-11T16:13:08.580523+00:00",
+      "fingerprint": "06506681da7c0addc0874321818c378268de216f6df604dc8a49ca1a5f26f495",
+      "manifest": {
+        "openspec/changes/player-scheduling-advisory/refinement.md": "8d83b145c2728e0f4c79e0a9a0e7f57bd6eea7760ea37d3b79b23067d56da629",
+        "openspec/changes/player-scheduling-advisory/proposal.md": "044fbb505ddefc9874975bb32707a7b41540a2ecd4a8b2afe1bee071b071d5ba",
+        "openspec/changes/player-scheduling-advisory/design.md": "f0a8bd7b9b7eaae49b402e1e4033bfaebc9049da945da2a6d7bcbced70c295e7",
+        "openspec/changes/player-scheduling-advisory/value.md": "9579502b781a27d3b6623fa241c4fd66a9e6442496f2c2b68431973269c39857",
+        "openspec/changes/player-scheduling-advisory/specs/player-scheduling-advisory/spec.md": "f10e44f9cc19fe5711763755668bc2b86573f241229a3ad805fe2d60d2355cda",
+        "openspec/changes/player-scheduling-advisory/tasks.md": "24f87b1ab7c12405a4eaf112e5ae3b717abccb2637209e949a90026165924ecb",
+        "openspec/changes/player-scheduling-advisory/issue-drafts.json": "261a302ce5cb6d0a522888fdd084cfbd89a687a6d66595867ff3c496ece49a87"
+      },
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "/root/advisory_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T11:24:13.099895+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/implementation-recheck.md",
+      "evidence_hash": "be026471a8b1e4223a4662feba743b3c33a81755fd7155119a754bad7cdd0432",
+      "fingerprint": "932788d4bf8b1addffe183f12b45a639e82762a8d6955cde83b130eef2534ba5",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "/root/advisory_qa",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T11:27:44.521694+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/verification.md",
+      "evidence_hash": "4f299b5200f8163d943c9e501558b972623902470163a932b58266da365d7fd3",
+      "fingerprint": "932788d4bf8b1addffe183f12b45a639e82762a8d6955cde83b130eef2534ba5",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "54a3279e98c36ed4c5a7d007f95df2f5027cab36f66849272fb7a6be6ea5271c"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/review_architecture",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-13T11:29:01.196810+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-architecture.md",
+      "evidence_hash": "824f17db8cbec3cd50ee05bbe306c70eca484888eb9c09423caf8157197b94bb",
+      "fingerprint": "932788d4bf8b1addffe183f12b45a639e82762a8d6955cde83b130eef2534ba5",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "54a3279e98c36ed4c5a7d007f95df2f5027cab36f66849272fb7a6be6ea5271c",
+        "G6:None": "6c8de19529df432fcc6e0112867c318b8541010580ea1431a5f67d62e8597f44"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/review_correctness",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-13T11:29:04.328382+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-correctness.md",
+      "evidence_hash": "acdddf0a76fc10a2ec2f7c84a9dfe5bc5dab75da0c272e77e12113a7e7ccfa62",
+      "fingerprint": "932788d4bf8b1addffe183f12b45a639e82762a8d6955cde83b130eef2534ba5",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "54a3279e98c36ed4c5a7d007f95df2f5027cab36f66849272fb7a6be6ea5271c",
+        "G6:None": "6c8de19529df432fcc6e0112867c318b8541010580ea1431a5f67d62e8597f44"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/review_tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-13T11:29:05.982196+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-tests.md",
+      "evidence_hash": "cae349e2f8b746f8fe923f7b80eb7bbdcd520a2a62566dcfc215617bcdf8ba4b",
+      "fingerprint": "932788d4bf8b1addffe183f12b45a639e82762a8d6955cde83b130eef2534ba5",
+      "snapshot_size": 1268,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "54a3279e98c36ed4c5a7d007f95df2f5027cab36f66849272fb7a6be6ea5271c",
+        "G6:None": "6c8de19529df432fcc6e0112867c318b8541010580ea1431a5f67d62e8597f44"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "accepted",
+      "source": "Conversation: user replied accepted to the G8 UAT walkthrough and evidence handoff",
+      "lens": null,
+      "timestamp": "2026-11-13T11:32:18.292249+00:00",
+      "fingerprint": "c14c758c04f6bf87d626838be963c848cb374c08335ed70cbafaf04c4f327789",
+      "snapshot_size": 1269,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "54a3279e98c36ed4c5a7d007f95df2f5027cab36f66849272fb7a6be6ea5271c",
+        "G6:None": "6c8de19529df432fcc6e0112867c318b8541010580ea1431a5f67d62e8597f44",
+        "G7:architecture": "97b044de0b78e9e1da107f974f52bd4f873448de7582a6d5e5d7c2b827dcf22c",
+        "G7:correctness": "1ce24f3325f92b720de8835d9d09a16a8a41f89ce68d2cf253c1d5e84371aaf2",
+        "G7:tests": "03137f031a1ec67da740464d11c613dda88484a2639e9437786fe6e216a39a3c"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "/root/g5_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:54:54.640388+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/implementation-current.md",
+      "evidence_hash": "dea5643e25218b69911e309e080c1097669149a1140c0beef26b550741c3d224",
+      "fingerprint": "219485a5cc884c25bb41a6f2e2e9e64af9e16e85d7f21deb989d7cc7d6cd9d00",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "/root/g6_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:55:21.590670+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/verification-current.md",
+      "evidence_hash": "25bcc7d29edb30bfd0a422f9c4452f9b98589f9681644d3807775b284b538a2c",
+      "fingerprint": "219485a5cc884c25bb41a6f2e2e9e64af9e16e85d7f21deb989d7cc7d6cd9d00",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "6bc757ec628968c56598b89b0a082fa1de8f9f7ae9aa2a48effab7df0bd4da57"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-13T13:55:42.563059+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-architecture-current.md",
+      "evidence_hash": "d7e8aa63ab2d685f2027a08124fef4c4d155eced224ebfcf1be04494bfa9051b",
+      "fingerprint": "219485a5cc884c25bb41a6f2e2e9e64af9e16e85d7f21deb989d7cc7d6cd9d00",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "6bc757ec628968c56598b89b0a082fa1de8f9f7ae9aa2a48effab7df0bd4da57",
+        "G6:None": "fd3669008fd5b3cba6373b27e386d379b23d370b8448c03acb3db190e7a903f9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_correctness",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-13T13:56:05.320509+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-correctness-current.md",
+      "evidence_hash": "a2a1bfed3dd9cc37d8ee461aa2e82b0eb375b0b4d1911f8fa30af04c2a680018",
+      "fingerprint": "219485a5cc884c25bb41a6f2e2e9e64af9e16e85d7f21deb989d7cc7d6cd9d00",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "6bc757ec628968c56598b89b0a082fa1de8f9f7ae9aa2a48effab7df0bd4da57",
+        "G6:None": "fd3669008fd5b3cba6373b27e386d379b23d370b8448c03acb3db190e7a903f9"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-13T13:56:16.906317+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-tests-current.md",
+      "evidence_hash": "01e302ddeebab3493ab4ef8aec205d356a476907879520648ebe9f19f92897a5",
+      "fingerprint": "219485a5cc884c25bb41a6f2e2e9e64af9e16e85d7f21deb989d7cc7d6cd9d00",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "6bc757ec628968c56598b89b0a082fa1de8f9f7ae9aa2a48effab7df0bd4da57",
+        "G6:None": "fd3669008fd5b3cba6373b27e386d379b23d370b8448c03acb3db190e7a903f9"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "accept",
+      "source": "conversation reply to current G8 UAT handoff",
+      "lens": null,
+      "timestamp": "2026-11-13T13:59:54.913945+00:00",
+      "fingerprint": "b76d4cce6e0df59745257c4b1fb9a347e2ba4d2b02edd6e53d7c75dd32a1ccfe",
+      "snapshot_size": 1607,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "6bc757ec628968c56598b89b0a082fa1de8f9f7ae9aa2a48effab7df0bd4da57",
+        "G6:None": "fd3669008fd5b3cba6373b27e386d379b23d370b8448c03acb3db190e7a903f9",
+        "G7:architecture": "ffa39172cf226cc30084dec3a1c29c3652f0cca1cd28cfae7b30bcdf566e4452",
+        "G7:correctness": "1065647ca4b23130c8ea4f64e47968b74a752f4b62c7988d042a1cfec9c295ec",
+        "G7:tests": "5982bac7dbf8629a72efcd55db86ef8f6a596cec26f8e87898dc9bb830188a5f"
+      }
+    }
+  ],
+  "issues": {
+    "advisory-domain-assessment": "https://github.com/wlambertz/rallyon/issues/231"
+  },
+  "attempts": {
+    "advisory-domain-assessment": {
+      "payload": {
+        "id": "advisory-domain-assessment",
+        "title": "Implement stateless player scheduling advisory assessment",
+        "body": "## Context\n\nPart of #230. Implement the approved internal Tournament Management assessment described in `openspec/changes/player-scheduling-advisory/` for supplied match, player, timing and rule facts. This domain increment has no caller or organizer interface; integration is future work.\n\n## Requirements and acceptance criteria\n\n- **Assess player overlap from supplied facts:** identify confirmed players in overlapping matches, including confirmed doubles membership; label overlaps based on estimates or proposals as potential and handle adjacent intervals correctly.\n- **Assess recovery using a selected rule:** compare actual match end to actual or proposed next start using a caller-supplied duration and authority, edition and applicability reference. Do not infer applicability, waivers, defaults or call-as-start.\n- **Represent uncertainty without declaring safety:** report uncertain or missing identity, team membership, times or applicable rule; reject or report invalid or contradictory inputs, never silently normalize them.\n- **Reassess changed facts without enforcing scheduling:** assess the supplied snapshot without persistent state or schedule mutation, and reflect delays and corrections on a new request. All findings are advisory.\n- Cover the scenarios in the approved OpenSpec delta with meaningful domain tests. Preserve existing REST, JWT, CLI and schema contracts; no frontend, new dependencies or new module. Escalate if these boundaries cannot be maintained.\n\n## Validation\n\nRun `./service/tournamentmgmt/mvnw -B -f 3rd_party/iam/pom.xml install` if shared artifacts are needed, then `./service/tournamentmgmt/mvnw -B -f service/tournamentmgmt/pom.xml clean verify`, `npm run format:check`, explicit Prettier checking of new Markdown, and `npx -y @fission-ai/openspec@1.14.2 validate player-scheduling-advisory --strict`. Record independent checks and follow the lifecycle through UAT and separate merge approval.",
+        "depends_on": [],
+        "labels": [],
+        "assignees": []
+      },
+      "timestamp": "2026-11-11T16:13:14.415403+00:00"
+    }
+  }
+}
