@@ -355,6 +355,108 @@
         "G7:correctness": "1065647ca4b23130c8ea4f64e47968b74a752f4b62c7988d042a1cfec9c295ec",
         "G7:tests": "5982bac7dbf8629a72efcd55db86ef8f6a596cec26f8e87898dc9bb830188a5f"
       }
+    },
+    {
+      "gate": "G5",
+      "actor": "/root/g5_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T14:12:21.824638+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/implementation-committed.md",
+      "evidence_hash": "419c8865429ab2668da101d2491c56bc62d15f4d9a7501d73599c587e02b93f7",
+      "fingerprint": "ea3354bcc69ef5458f71d4e3857b7eb279653a4fa95993310f6e6cbc9d329a8f",
+      "snapshot_size": 1616,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6"
+      }
+    },
+    {
+      "gate": "G6",
+      "actor": "/root/g6_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T14:12:29.698792+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/verification-committed.md",
+      "evidence_hash": "3bdcb7e8a2df2f253776bad5f470b562bb28e92d88c21df6a0b0f4b7813b3638",
+      "fingerprint": "ea3354bcc69ef5458f71d4e3857b7eb279653a4fa95993310f6e6cbc9d329a8f",
+      "snapshot_size": 1616,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "517acaee9bf1e8d9f83dfd29715a06a781c6e3165d183b0c72b906c407241307"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_check",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "architecture",
+      "timestamp": "2026-11-13T14:12:41.159615+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-architecture-committed.md",
+      "evidence_hash": "5fea148be2226a9bab3c914357fb0acb1f0e83668cb63f0ace4a0fcb05c91293",
+      "fingerprint": "ea3354bcc69ef5458f71d4e3857b7eb279653a4fa95993310f6e6cbc9d329a8f",
+      "snapshot_size": 1616,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "517acaee9bf1e8d9f83dfd29715a06a781c6e3165d183b0c72b906c407241307",
+        "G6:None": "c8b24b779028a039d7563979c59238e0a50344b136bef4d3a656396232f400c5"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_correctness",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "correctness",
+      "timestamp": "2026-11-13T14:12:59.658129+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-correctness-committed.md",
+      "evidence_hash": "6dc564b3d616678ca4762ae19a02e73556c151f0c77d790cc28858c8b174d8fe",
+      "fingerprint": "ea3354bcc69ef5458f71d4e3857b7eb279653a4fa95993310f6e6cbc9d329a8f",
+      "snapshot_size": 1616,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "517acaee9bf1e8d9f83dfd29715a06a781c6e3165d183b0c72b906c407241307",
+        "G6:None": "c8b24b779028a039d7563979c59238e0a50344b136bef4d3a656396232f400c5"
+      }
+    },
+    {
+      "gate": "G7",
+      "actor": "/root/g7_tests",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": "tests",
+      "timestamp": "2026-11-13T14:13:04.230948+00:00",
+      "evidence": "openspec/changes/player-scheduling-advisory/evidence/review-tests-committed.md",
+      "evidence_hash": "b6426f570727719afa312bad8b6761e6e1505bafa03e075f4700e978fb02164a",
+      "fingerprint": "ea3354bcc69ef5458f71d4e3857b7eb279653a4fa95993310f6e6cbc9d329a8f",
+      "snapshot_size": 1616,
+      "dependencies": {
+        "G1:None": "9323c64ce055cb0159852a9749a92f73a8e9048beb5330a2d05db0735ca188fa",
+        "G2:None": "3c1da2b76103047e3c1ca77ed294e01730b5ee642580e25373f0568180df0fff",
+        "G3:None": "a4e73df6babd863f9ef234e19afc4b7d1f1400c2f53c6c7c18d6158f0d67c6d7",
+        "G4:None": "f710b3977f9d53aafbd6fe41efe4f9e5949d8569b945a8bcba37403d43dfd5d6",
+        "G5:None": "517acaee9bf1e8d9f83dfd29715a06a781c6e3165d183b0c72b906c407241307",
+        "G6:None": "c8b24b779028a039d7563979c59238e0a50344b136bef4d3a656396232f400c5"
+      }
     }
   ],
   "issues": {
