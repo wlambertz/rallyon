@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "repository": "wlambertz/rallyon",
+  "maker": "codex-issue-184",
+  "makers": [
+    "codex-issue-184"
+  ],
+  "mode": "research",
+  "records": [
+    {
+      "gate": "G1",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "approve",
+      "source": "Conversation: user approved the issue 184 research charter",
+      "lens": null,
+      "timestamp": "2026-11-13T13:07:31.727601+00:00",
+      "fingerprint": "e9a95e6c64205e8bbd30595dd4e81b60bc484092902db041bf9f886a9ec77a2b",
+      "manifest": {
+        "openspec/changes/analyze-match-day-rules/charter.md": "a275962494f3ef3a3208fee4d416fd6db29febf36aefedf1e4c4a039144c0430"
+      },
+      "dependencies": {}
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:22:39.391464+00:00",
+      "evidence": "openspec/changes/analyze-match-day-rules/evidence/g5-independent.md",
+      "evidence_hash": "72294c070537b08b8d9068f38e9e4eb97aa582d8a5e4458c9b7a8fd89f746d2b",
+      "fingerprint": "719a65ccfae5e1c3b1987c1b2f50344709bdd5a3edc7c210cd2437e90f51d284",
+      "snapshot_size": 1285,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:23:22.807097+00:00",
+      "evidence": "openspec/changes/analyze-match-day-rules/evidence/g5-independent-delta.md",
+      "evidence_hash": "7745b14f09d32330de1b7510cbc8a555a9b0a6cd819cf53e7a41273421eb962a",
+      "fingerprint": "7ac1ea87ed4d4694ee77b4745c25749ea8241c0d4fb156c0c6851c5acef8f016",
+      "snapshot_size": 1285,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user accepted the displayed issue 184 research findings and G8 review",
+      "lens": null,
+      "timestamp": "2026-11-13T13:36:34.705610+00:00",
+      "fingerprint": "96908f24fcd7be70cd14909ef7c96a4dacfbe453004fad82950db72becaa4aa9",
+      "snapshot_size": 1286,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305",
+        "G5:None": "2839039065d1f4850619b95c5855b779028f3c826895e5721bdc6cded68868e2"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:41:24.490381+00:00",
+      "evidence": "openspec/changes/analyze-match-day-rules/evidence/g5-merge-delta.md",
+      "evidence_hash": "e739872b8e95add890576678e7d65bfb31eae2a841458f37c067aeae9e80621b",
+      "fingerprint": "8878d1b4392dba5d62eda451585f2245c8213c10bbf3b641081abaa75fbd383d",
+      "snapshot_size": 1601,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user accepted updated findings revision and approved merge",
+      "lens": null,
+      "timestamp": "2026-11-13T13:44:15.404060+00:00",
+      "fingerprint": "df844d9b44a25338036928e0e38c334646935e0f6b6107ef6de9f5c86d4e64d0",
+      "snapshot_size": 1602,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305",
+        "G5:None": "86486c48e0a652c4f95e8edff9d4d4edfa9245a76289e99aa26bdea8b7790b46"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user accepted updated findings revision and explicitly approved merge",
+      "lens": null,
+      "timestamp": "2026-11-13T13:44:27.006840+00:00",
+      "fingerprint": "df844d9b44a25338036928e0e38c334646935e0f6b6107ef6de9f5c86d4e64d0",
+      "snapshot_size": 1602,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305",
+        "G5:None": "86486c48e0a652c4f95e8edff9d4d4edfa9245a76289e99aa26bdea8b7790b46",
+        "G8:None": "58ebdba813222bccd7b47675b53ff843cfcefa74023a3d4e7d136fb56d41db50"
+      }
+    },
+    {
+      "gate": "G5",
+      "actor": "g5-independent",
+      "outcome": "pass",
+      "quote": null,
+      "source": null,
+      "lens": null,
+      "timestamp": "2026-11-13T13:46:42.954818+00:00",
+      "evidence": "openspec/changes/analyze-match-day-rules/evidence/g5-staged-delta.md",
+      "evidence_hash": "d2938852c293ca57e344f5e05106038786ea9b52eb23670ba8ebb2353fcb0df8",
+      "fingerprint": "011d1c49787a7a3ce6658d8b9cdc23c905f5e7a97fc5694b268e149f2347913d",
+      "snapshot_size": 1606,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305"
+      }
+    },
+    {
+      "gate": "G8",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user accepted rechecked findings; staged snapshot preserves content apart from terminal newline",
+      "lens": null,
+      "timestamp": "2026-11-13T13:46:47.447393+00:00",
+      "fingerprint": "819c869f18d3bab98ee2df67d92edd3f89fe31dda312fae1612c0a2e45222ceb",
+      "snapshot_size": 1607,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305",
+        "G5:None": "e8fa7b5ab2ecc67fe65fc5544351ae3bb448760062f60226d1149168c04bb5e9"
+      }
+    },
+    {
+      "gate": "merge",
+      "actor": "wlambertz",
+      "outcome": "pass",
+      "quote": "ja",
+      "source": "Conversation: user approved merge of rechecked findings; staged snapshot preserves content apart from terminal newline",
+      "lens": null,
+      "timestamp": "2026-11-13T13:46:53.133548+00:00",
+      "fingerprint": "819c869f18d3bab98ee2df67d92edd3f89fe31dda312fae1612c0a2e45222ceb",
+      "snapshot_size": 1607,
+      "dependencies": {
+        "G1:None": "a0fb52e559706fab5b8ef14497b34155ff4b17f754b9510443e81dd226549305",
+        "G5:None": "e8fa7b5ab2ecc67fe65fc5544351ae3bb448760062f60226d1149168c04bb5e9",
+        "G8:None": "f072e81ef2adc94d4adaf2c70ab9f47071bf5890b4919e19f3fd4949ac05e10f"
+      }
+    }
+  ],
+  "issues": {},
+  "attempts": {}
+}
