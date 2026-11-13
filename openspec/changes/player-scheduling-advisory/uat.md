@@ -30,6 +30,6 @@ The seven tests must pass. Review the assertions for each scenario below while e
 
 ## Acceptance record
 
-Current snapshot: wlambertz, 2026-11-13. Actual acceptance quote: `accept`. Source: conversation reply to the current G8 UAT handoff. No separate scenario-level observations were supplied; the table retains those unreported observations as pending. The walkthrough covers the bounded domain increment; it does not establish official rule applicability, trusted identities or operational UI readiness.
+Committed snapshot: wlambertz, 2026-11-13. Actual acceptance quote: `Accept`. Source: conversation reply to the PR #233 G8 handoff. No separate scenario-level observations were supplied; the table retains those unreported observations as pending. The walkthrough covers the bounded domain increment; it does not establish official rule applicability, trusted identities or operational UI readiness.
 
 Prior snapshot: wlambertz, 2026-11-13. Actual acceptance quote: `accepted`. Source: conversation reply to the earlier G8 UAT handoff.

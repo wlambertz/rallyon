@@ -2,9 +2,9 @@
 
 Verdict: **pass**. Reviewer: `/root/g7_check`, independent of maker `codex`. No implementation edits or gate recorded.
 
-| Severity | Location | Finding |
-| --- | --- | --- |
-| None | Commit `8102311` | No new blocking architecture finding. |
+| Severity | Location         | Finding                               |
+| -------- | ---------------- | ------------------------------------- |
+| None     | Commit `8102311` | No new blocking architecture finding. |
 
 Commit `8102311` records the advisory files and evidence reviewed in [the prior delta review](review-architecture-current.md). The working-tree copies of the implementation, test, specification and design match the commit, and the implementation and test SHA-256 values still match that review. The commit changes neither existing interfaces nor module or persistence boundaries; the two untracked research changes are outside its scope.
 
